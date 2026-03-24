@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-scarlet: #470020;
+  --color-scarlet-hover: #5c0029;
+  --color-scarlet-dark: #2d0015;
+  --color-taupe: #C7B3AC;
+  --color-warm-white: #f9f6f4;
+  --color-warm-gray: #f2edea;
+  --color-border: #e0d5d0;
+  --color-text: #1a0810;
+  --color-text-muted: #6b4a56;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a0810;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #ffffff;
+  color: #1a0810;
+  font-family: var(--font-montserrat), 'Montserrat', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ticker animation */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker 32s linear infinite;
+  will-change: transform;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Aurora blob animations ───────────────────────────────── */
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.aurora-blob-1 {
+  width: 68%;
+  height: 78%;
+  top: -22%;
+  left: -12%;
+  background: radial-gradient(circle at 42% 50%, rgba(139,16,64,0.88) 0%, rgba(90,0,38,0.55) 42%, transparent 72%);
+  filter: blur(52px);
+  animation: aurora1 15s ease-in-out infinite;
+}
+.aurora-blob-2 {
+  width: 72%;
+  height: 68%;
+  bottom: -28%;
+  right: -18%;
+  background: radial-gradient(circle at 58% 50%, rgba(40,0,18,0.95) 0%, rgba(22,0,10,0.7) 50%, transparent 75%);
+  filter: blur(62px);
+  animation: aurora2 20s ease-in-out infinite;
+}
+.aurora-blob-3 {
+  width: 52%;
+  height: 58%;
+  top: 22%;
+  left: 28%;
+  background: radial-gradient(circle at center, rgba(168,28,72,0.22) 0%, transparent 70%);
+  filter: blur(68px);
+  animation: aurora3 25s ease-in-out infinite;
+}
+@keyframes aurora1 {
+  0%,  100% { transform: translate(0,    0)    scale(1);    }
+  28%        { transform: translate(44px, -32px) scale(1.06); }
+  58%        { transform: translate(16px,  48px) scale(0.94); }
+}
+@keyframes aurora2 {
+  0%,  100% { transform: translate(0,     0)    scale(1);    }
+  38%        { transform: translate(-52px, 28px) scale(1.09); }
+  68%        { transform: translate(28px, -38px) scale(0.93); }
+}
+@keyframes aurora3 {
+  0%,  100% { transform: translate(0,     0)    scale(1);    }
+  50%        { transform: translate(-38px, -28px) scale(1.12); }
+}
+
+/* ── Floating chip bob ────────────────────────────────────── */
+@keyframes chipBob {
+  0%,  100% { transform: translateY(0);    }
+  50%        { transform: translateY(-10px); }
+}
+
+/* ── Hero entrance sequence ───────────────────────────────── */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.hero-enter-1 { animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.12s both; }
+.hero-enter-2 { animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.28s both; }
+.hero-enter-3 { animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.50s both; }
+.hero-enter-4 { animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.72s both; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f2edea; }
+::-webkit-scrollbar-thumb { background: #470020; border-radius: 2px; }
+
+::selection { background: rgba(71,0,32,0.15); color: #1a0810; }
