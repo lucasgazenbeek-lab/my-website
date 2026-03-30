@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>GridState — Pipeline & Financieel Model</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -838,26 +839,8 @@ const TB={'Full EPC':'b-epc','Supply Only':'b-sup','Eigen Ontwikkeling':'b-spv'}
 const CC=['#470020','#7a3e40','#8a1040','#b8860b','#1a6bb0','#0f9e73','#c2570a'];
 const PT={pipeline:'Pipeline',cashflow:'Cashflow Prognose',pl:'P&L & Kosten',advies:'Advies & Risico',begroting:'Projectbegroting',cashflow_project:'Projectcashflow'};
 
-let deals=[
-  {id:1,name:'Schenkeveld BESS',type:'Full EPC',stage:'Voorstel',kwh:30000,vp:158,prob:50,q:'2026-Q2',contact:'Schenkeveld',notes:'15MW/30MWh — conceptofferte',ink:null,epc:null},
-  {id:2,name:'Zonnepark Flevoland',type:'Full EPC',stage:'Onderhandeling',kwh:4000,vp:145,prob:75,q:'2026-Q2',contact:'Eneco RE',notes:'',ink:null,epc:null},
-  {id:3,name:'BESS Maasvlakte',type:'Eigen Ontwikkeling',stage:'Voorstel',kwh:12000,vp:160,prob:45,q:'2026-Q3',contact:'Port of Rotterdam',notes:'',ink:null,epc:null},
-  {id:4,name:'Rooftop Utrecht CS',type:'Supply Only',stage:'Voorstel',kwh:1500,vp:118,prob:55,q:'2026-Q1',contact:'Certitudo Capital',notes:'',ink:null,epc:null},
-  {id:5,name:'Agri-solar Groningen',type:'Full EPC',stage:'Prospect',kwh:3200,vp:140,prob:25,q:'2026-Q3',contact:'BoerSolar BV',notes:'',ink:null,epc:null},
-  {id:6,name:'Carport Schiphol',type:'Full EPC',stage:'Lead',kwh:2200,vp:138,prob:10,q:'2026-Q4',contact:'Schiphol Real Estate',notes:'',ink:null,epc:null},
-  {id:7,name:'Industrie Dordrecht',type:'Supply Only',stage:'Gewonnen',kwh:800,vp:115,prob:100,q:'2026-Q1',contact:'Havenbedrijf Dordrecht',notes:'',ink:null,epc:null},
-];
-let fc=[
-  {name:'Salarissen (3 fte)',amount:17875,color:'#470020'},
-  {name:'Marketing & business dev.',amount:5000,color:'#7a3e40'},
-  {name:'Bedrijfsvoertuigen (3x)',amount:3000,color:'#0f9e73'},
-  {name:'Accountancy & admin.',amount:750,color:'#b8860b'},
-  {name:'Verzekeringen',amount:600,color:'#c2570a'},
-  {name:'Kantoorhuur',amount:600,color:'#1a6bb0'},
-  {name:'Onvoorzien',amount:500,color:'#9ca3af'},
-  {name:'Software & IT',amount:200,color:'#9ca3af'},
-  {name:'Telefonie',amount:150,color:'#9ca3af'},
-];
+let deals=[];
+let fc=[];
 let nid=8,filter='all',editId=null,opop=null,activePage='pipeline';
 
 const gInk=()=>parseFloat(document.getElementById('g-ink').value)||95;
@@ -1209,38 +1192,74 @@ window.updPrev=function(){
   document.getElementById('cp-mrow').className='cpr '+(m>=0?'mp-pos':'mp-neg');
 };
 
-function saveDeal(){
+async function saveDeal(){
   const name=document.getElementById('f-name').value.trim();if(!name){alert('Vul een projectnaam in');return;}
   const useO=document.getElementById('f-ovr').checked;
-  const d={id:editId||nid++,name,type:document.getElementById('f-type').value,stage:document.getElementById('f-stage').value,
-    kwh:parseFloat(document.getElementById('f-kwh').value)||0,vp:parseFloat(document.getElementById('f-vp').value)||0,
-    prob:parseInt(document.getElementById('f-prob').value)||0,q:document.getElementById('f-q').value.trim(),
-    contact:document.getElementById('f-contact').value.trim(),notes:document.getElementById('f-notes').value.trim(),
+  const d={
+    id:editId||null,name,type:document.getElementById('f-type').value,
+    stage:document.getElementById('f-stage').value,
+    kwh:parseFloat(document.getElementById('f-kwh').value)||0,
+    vp:parseFloat(document.getElementById('f-vp').value)||0,
+    prob:parseInt(document.getElementById('f-prob').value)||0,
+    q:document.getElementById('f-q').value.trim(),
+    contact:document.getElementById('f-contact').value.trim(),
+    notes:document.getElementById('f-notes').value.trim(),
     ink:useO&&document.getElementById('f-ink').value?parseFloat(document.getElementById('f-ink').value):null,
-    epc:useO&&document.getElementById('f-epc').value?parseFloat(document.getElementById('f-epc').value):null};
-  deals=editId?deals.map(x=>x.id===editId?d:x):[...deals,d];
+    epc:useO&&document.getElementById('f-epc').value?parseFloat(document.getElementById('f-epc').value):null,
+  };
   document.getElementById('dealModal').classList.add('hidden');
-  render();saveLS();
+  _setSyncStatus('saving');
+  try {
+    const saved = await _saveDeal(d);
+    if(saved){
+      d.id = saved.id;
+      if(editId) deals=deals.map(x=>x.id===editId?d:x);
+      else deals=[...deals,d];
+    }
+    _setSyncStatus('saved');
+  } catch(e){
+    console.warn('Deal opslaan mislukt:', e);
+    _setSyncStatus('error');
+  }
+  render();
 }
-window.delDeal=id=>{if(!confirm('Deal verwijderen?'))return;deals=deals.filter(d=>d.id!==id);render();saveLS();};
+window.delDeal=async id=>{
+  if(!confirm('Deal verwijderen?'))return;
+  deals=deals.filter(d=>d.id!==id);
+  render();
+  try{ await _deleteDeal(id); _setSyncStatus('saved'); }
+  catch(e){ console.warn('Delete mislukt:',e); _setSyncStatus('error'); }
+};
 function render(){renderKPIs();renderFunnel();renderTable();if(activePage==='cashflow'){renderCF();renderMB();}if(activePage==='pl')renderPL();if(activePage==='advies')renderAdv();if(activePage==='begroting')renderBegroting();if(activePage==='cashflow_project')renderProjectCF();saveLS();}
 
 // ══════════════════════════════════════════════════════════════════════
-// DATA PERSISTENTIE — localStorage met in-memory fallback (CSP-safe)
+// SUPABASE SYNC — real-time data persistentie voor alle gebruikers
 // ══════════════════════════════════════════════════════════════════════
-// Veilige storage wrapper — gebruikt localStorage als het mag, anders in-memory
-const _store = (()=>{
-  let _mem = {};
-  let _hasLS = false;
-  try { localStorage.setItem('__test__','1'); localStorage.removeItem('__test__'); _hasLS = true; } catch(e){}
-  return {
-    get(k){ try{ return _hasLS ? localStorage.getItem(k) : (_mem[k]||null); }catch(e){ return _mem[k]||null; } },
-    set(k,v){ try{ if(_hasLS) localStorage.setItem(k,v); else _mem[k]=v; }catch(e){ _mem[k]=v; } },
-    remove(k){ try{ if(_hasLS) localStorage.removeItem(k); else delete _mem[k]; }catch(e){ delete _mem[k]; } },
-  };
-})();
-const LS_KEY='gs_dashboard_v1';
+const SUPA_URL  = 'https://smrgpmjgigmgohalkzbf.supabase.co';
+const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtcmdwbWpnaWdtZ29oYWxremJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NzQ2MjMsImV4cCI6MjA5MDQ1MDYyM30.aGB5sxlfduP7A0mdVs9Q6y0PujxS8xPGnKq-u76rP-g';
+const _sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 
+// ── Sync status indicator ─────────────────────────────────────────────
+function _setSyncStatus(status, msg){
+  const el = document.getElementById('saveChip');
+  if(!el) return;
+  const styles = {
+    saving:  {text:'⟳ Opslaan...',  color:'#b8860b', opacity:'1'},
+    saved:   {text:'✓ Opgeslagen',  color:'var(--green)', opacity:'1'},
+    error:   {text:'⚠ Sync fout',   color:'var(--red)', opacity:'1'},
+    live:    {text:'● Live',        color:'var(--green)', opacity:'1'},
+  };
+  const s = styles[status] || styles.saved;
+  el.textContent = msg || s.text;
+  el.style.color = s.color;
+  el.style.opacity = s.opacity;
+  if(status === 'saved' || status === 'live'){
+    clearTimeout(el._t);
+    el._t = setTimeout(()=>{ el.style.opacity='0'; }, 2500);
+  }
+}
+
+// ── Serialize beg (Set → Array voor JSON) ─────────────────────────────
 function _serializeBeg(b){
   return JSON.parse(JSON.stringify({
     ...b,
@@ -1254,6 +1273,7 @@ function _serializeBeg(b){
 }
 
 function _deserializeBeg(plain){
+  if(!plain) return null;
   ['civiel','hekwerk','facilitair','transport','et','netaansluiting'].forEach(k=>{
     if(plain[k]&&Array.isArray(plain[k].subs)) plain[k].subs=new Set(plain[k].subs);
   });
@@ -1264,51 +1284,182 @@ function _deserializeBeg(plain){
   return plain;
 }
 
-let _saveTimer;
-function saveLS(){
-  clearTimeout(_saveTimer);
-  _saveTimer=setTimeout(()=>{
-    try{
-      const state={
-        deals,nid,fc,
-        beg:_serializeBeg(beg),
-        pcfFases,pcfNextFaseId,
-        pcfOAs,pcfNextId,
-        projectFases,projNextId,
-        gInkoop:document.getElementById('g-ink')?.value,
-        gEpc:document.getElementById('g-epc')?.value,
-      };
-      _store.set(LS_KEY,JSON.stringify(state));
-      const el=document.getElementById('saveChip');
-      if(el){el.style.opacity='1';clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity='0',1800);}
-    }catch(e){console.warn('localStorage save mislukt',e);}
-  },500);
+// ── LOAD — laad alle data van Supabase bij opstarten ──────────────────
+async function loadFromSupabase(){
+  _setSyncStatus('saving','⟳ Laden...');
+  try {
+    const [dealsRes, fcRes, begRes, pcfFasesRes, pcfOAsRes, projFasesRes, settingsRes] = await Promise.all([
+      _sb.from('deals').select('*').order('id'),
+      _sb.from('fixed_costs').select('*').order('sort_order'),
+      _sb.from('begroting').select('*').limit(1),
+      _sb.from('pcf_fases').select('*').order('sort_order'),
+      _sb.from('pcf_oas').select('*').order('id'),
+      _sb.from('project_fases').select('*').order('sort_order'),
+      _sb.from('settings').select('*'),
+    ]);
+
+    if(dealsRes.data?.length){
+      deals = dealsRes.data.map(d=>({
+        id:d.id, name:d.name, type:d.type, stage:d.stage,
+        kwh:parseFloat(d.kwh)||0, vp:parseFloat(d.vp)||0,
+        prob:parseInt(d.prob)||0, q:d.q||'',
+        contact:d.contact||'', notes:d.notes||'',
+        ink:d.ink!=null?parseFloat(d.ink):null,
+        epc:d.epc!=null?parseFloat(d.epc):null,
+      }));
+      nid = Math.max(...deals.map(d=>d.id), 0) + 1;
+    }
+
+    if(fcRes.data?.length){
+      fc = fcRes.data.map(c=>({name:c.name, amount:parseFloat(c.amount)||0, color:c.color||'#470020', _id:c.id}));
+    }
+
+    if(begRes.data?.length && begRes.data[0].data){
+      const restored = _deserializeBeg(begRes.data[0].data);
+      if(restored) beg = restored;
+    }
+
+    if(pcfFasesRes.data?.length){
+      pcfFases = pcfFasesRes.data.map(f=>({naam:f.naam, pct:parseFloat(f.pct)||0, toelichting:f.toelichting||'', _id:f.id}));
+    }
+
+    if(pcfOAsRes.data?.length){
+      pcfOAs = pcfOAsRes.data.map(o=>({
+        id:o.id, naam:o.naam, cat:o.cat||'', contract:parseFloat(o.contract)||0,
+        contact:o.contact||'', tel:o.tel||'',
+        pct: Array.isArray(o.pct) ? o.pct : JSON.parse(o.pct||'[]'),
+      }));
+      pcfNextId = Math.max(...pcfOAs.map(o=>o.id), 0) + 1;
+    }
+
+    if(projFasesRes.data?.length){
+      projectFases = projFasesRes.data.map(f=>({
+        id:f.id, naam:f.naam, weken:parseFloat(f.weken)||1,
+        kleur:f.kleur||'#470020', notitie:f.notitie||'',
+      }));
+      projNextId = Math.max(...projectFases.map(f=>f.id), 0) + 1;
+    }
+
+    if(settingsRes.data?.length){
+      settingsRes.data.forEach(s=>{
+        requestAnimationFrame(()=>{
+          if(s.key==='g_inkoop'){const el=document.getElementById('g-ink');if(el)el.value=s.value;}
+          if(s.key==='g_epc'){const el=document.getElementById('g-epc');if(el)el.value=s.value;}
+        });
+      });
+    }
+
+    _setSyncStatus('live','● Live');
+    _setupRealtime();
+    return true;
+  } catch(e){
+    console.warn('Supabase load mislukt, gebruik lokale data:', e);
+    _setSyncStatus('error','⚠ Offline modus');
+    return false;
+  }
 }
 
-function loadLS(){
-  try{
-    const raw=_store.get(LS_KEY);
-    if(!raw)return false;
-    const s=JSON.parse(raw);
-    if(s.deals&&s.deals.length){deals=s.deals;nid=s.nid||Math.max(...s.deals.map(d=>d.id),0)+1;}
-    if(s.fc&&s.fc.length) fc=s.fc;
-    if(s.beg) beg=_deserializeBeg(s.beg);
-    if(s.pcfFases&&s.pcfFases.length){pcfFases=s.pcfFases;pcfNextFaseId=s.pcfNextFaseId||pcfFases.length+1;}
-    if(s.pcfOAs&&s.pcfOAs.length){pcfOAs=s.pcfOAs;pcfNextId=s.pcfNextId||pcfOAs.length+1;}
-    if(s.projectFases&&s.projectFases.length){projectFases=s.projectFases;projNextId=s.projNextId||projectFases.length+1;}
-    requestAnimationFrame(()=>{
-      if(s.gInkoop){const el=document.getElementById('g-ink');if(el)el.value=s.gInkoop;}
-      if(s.gEpc){const el=document.getElementById('g-epc');if(el)el.value=s.gEpc;}
-    });
-    return true;
-  }catch(e){console.warn('localStorage load mislukt',e);return false;}
+// ── SAVE — debounced opslaan naar Supabase ────────────────────────────
+let _saveTimer;
+function saveLS(){
+  _setSyncStatus('saving');
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(async ()=>{
+    try {
+      await Promise.all([
+        _saveBegroting(),
+        _saveSettings(),
+      ]);
+      _setSyncStatus('saved');
+    } catch(e){
+      console.warn('Supabase save mislukt:', e);
+      _setSyncStatus('error');
+    }
+  }, 800);
+}
+
+async function _saveDeal(deal){
+  const row = {
+    name:deal.name, type:deal.type, stage:deal.stage,
+    kwh:deal.kwh, vp:deal.vp, prob:deal.prob, q:deal.q||null,
+    contact:deal.contact||null, notes:deal.notes||null,
+    ink:deal.ink, epc:deal.epc,
+    updated_at: new Date().toISOString(),
+  };
+  if(deal.id && deal.id > 0 && deals.find(d=>d.id===deal.id)){
+    const {data} = await _sb.from('deals').update(row).eq('id', deal.id).select().single();
+    return data;
+  } else {
+    const {data} = await _sb.from('deals').insert(row).select().single();
+    return data;
+  }
+}
+
+async function _deleteDeal(id){
+  await _sb.from('deals').delete().eq('id', id);
+}
+
+async function _saveFixedCost(cost, index){
+  const row = {name:cost.name, amount:cost.amount, color:cost.color, sort_order:index};
+  if(cost._id){
+    await _sb.from('fixed_costs').update(row).eq('id', cost._id);
+  } else {
+    const {data} = await _sb.from('fixed_costs').insert(row).select().single();
+    if(data) fc[index]._id = data.id;
+  }
+}
+
+async function _saveBegroting(){
+  const existing = await _sb.from('begroting').select('id').limit(1);
+  const data = { data: _serializeBeg(beg), updated_at: new Date().toISOString() };
+  if(existing.data?.length){
+    await _sb.from('begroting').update(data).eq('id', existing.data[0].id);
+  } else {
+    await _sb.from('begroting').insert(data);
+  }
+}
+
+async function _saveSettings(){
+  const ink = document.getElementById('g-ink')?.value || '95';
+  const epc = document.getElementById('g-epc')?.value || '20';
+  await _sb.from('settings').upsert([
+    {key:'g_inkoop', value:ink, updated_at:new Date().toISOString()},
+    {key:'g_epc',    value:epc, updated_at:new Date().toISOString()},
+  ], {onConflict:'key'});
+}
+
+// ── REALTIME — live updates van andere gebruikers ─────────────────────
+function _setupRealtime(){
+  _sb.channel('gs-realtime')
+    .on('postgres_changes', {event:'*', schema:'public', table:'deals'}, payload=>{
+      if(payload.eventType==='INSERT'){
+        const d = payload.new;
+        if(!deals.find(x=>x.id===d.id)){
+          deals.push({id:d.id,name:d.name,type:d.type,stage:d.stage,kwh:parseFloat(d.kwh)||0,vp:parseFloat(d.vp)||0,prob:parseInt(d.prob)||0,q:d.q||'',contact:d.contact||'',notes:d.notes||'',ink:d.ink!=null?parseFloat(d.ink):null,epc:d.epc!=null?parseFloat(d.epc):null});
+          render(); _setSyncStatus('live', '● Update ontvangen');
+        }
+      } else if(payload.eventType==='UPDATE'){
+        const d = payload.new;
+        const idx = deals.findIndex(x=>x.id===d.id);
+        if(idx>=0){deals[idx]={id:d.id,name:d.name,type:d.type,stage:d.stage,kwh:parseFloat(d.kwh)||0,vp:parseFloat(d.vp)||0,prob:parseInt(d.prob)||0,q:d.q||'',contact:d.contact||'',notes:d.notes||'',ink:d.ink!=null?parseFloat(d.ink):null,epc:d.epc!=null?parseFloat(d.epc):null};render();_setSyncStatus('live','● Update ontvangen');}
+      } else if(payload.eventType==='DELETE'){
+        deals=deals.filter(x=>x.id!==payload.old.id); render(); _setSyncStatus('live','● Update ontvangen');
+      }
+    })
+    .subscribe();
 }
 
 function resetData(){
-  if(!confirm('Alle opgeslagen data wissen en terugzetten naar voorbeelddata?\n\nDeze actie kan niet ongedaan worden gemaakt.'))return;
-  _store.remove(LS_KEY);
-  location.reload();
+  if(!confirm('Alle opgeslagen data wissen?\n\nDeze actie verwijdert alle deals uit de database en kan niet ongedaan worden gemaakt.'))return;
+  Promise.all([
+    _sb.from('deals').delete().neq('id',0),
+    _sb.from('begroting').delete().neq('id',0),
+  ]).then(()=>location.reload());
 }
+
+// Oude loadLS alias voor compatibiliteit
+async function loadLS(){ return loadFromSupabase(); }
+
 
 // ══════════════════════════════════════════════════════════════════════
 // EXPORT — CSV & PDF print
@@ -2441,8 +2592,17 @@ let projectFases = [
 let projNextId = 21;
 
 // ── Init: laad opgeslagen data (na alle state-declaraties) ────────────
-loadLS();
-(()=>{const el=document.getElementById('nowChip');if(el){const y=new Date().getFullYear(),q=Math.ceil((new Date().getMonth()+1)/3);el.textContent=`${y} — Q${q}`;}})();
+(async()=>{
+  // Toon laadscherm
+  document.getElementById('dealTbody').innerHTML=
+    '<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">⟳ Laden uit database...</td></tr>';
+  
+  await loadFromSupabase();
+  
+  const el=document.getElementById('nowChip');
+  if(el){const y=new Date().getFullYear(),q=Math.ceil((new Date().getMonth()+1)/3);el.textContent=`${y} — Q${q}`;}
+  render();
+})();
 
 // ══════════════════════════════════
 // BEGROTING HELPERS
