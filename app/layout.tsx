@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
-import SiteChrome from "@/components/SiteChrome";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -28,7 +27,7 @@ export default function RootLayout({
     <html lang="nl" className={`${montserrat.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-[#1a0810] antialiased">
         <LanguageProvider>
-          <SiteChrome>{children}</SiteChrome>
+          {children}
         </LanguageProvider>
       </body>
     </html>

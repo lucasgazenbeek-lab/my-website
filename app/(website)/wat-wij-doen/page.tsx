@@ -57,7 +57,7 @@ export default function WatWijDoen() {
             <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
               Onze diensten
             </p>
-            <h1 className="text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
               style={{ letterSpacing: "-0.03em" }}>
               {s.heroTitle}
             </h1>
@@ -126,7 +126,7 @@ export default function WatWijDoen() {
       {/* ─── C&I — Wit ───────────────────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <ScrollReveal direction="left">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
                 Marktsegment 01
@@ -180,7 +180,7 @@ export default function WatWijDoen() {
       {/* ─── UTILITY — Lichtgrijs ────────────────────────────── */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <ScrollReveal direction="right" className="lg:order-2">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
                 Marktsegment 02
@@ -376,7 +376,7 @@ export default function WatWijDoen() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {guarantees.map((g, i) => (
               <ScrollReveal key={i} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="relative p-8 lg:p-10 border-2 border-[#e0d5d0] rounded-xl bg-white hover:border-[#470020] hover:shadow-[0_8px_32px_rgba(71,0,32,0.12)] transition-all duration-300 h-full group overflow-hidden cursor-default">
+                <div className="relative p-6 sm:p-8 lg:p-10 border-2 border-[#e0d5d0] rounded-xl bg-white hover:border-[#470020] hover:shadow-[0_8px_32px_rgba(71,0,32,0.12)] transition-all duration-300 h-full group overflow-hidden cursor-default">
                   {/* Decorative bg number */}
                   <span
                     className="absolute top-4 right-6 font-black text-[#e0d5d0] group-hover:text-[#470020]/10 leading-none select-none pointer-events-none transition-colors duration-300"

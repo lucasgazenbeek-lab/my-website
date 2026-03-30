@@ -34,9 +34,9 @@ export default function ScrollReveal({
   }, [delay]);
 
   const translateMap = {
-    up: "translateY(32px)",
-    left: "translateX(-32px)",
-    right: "translateX(32px)",
+    up: "translateY(24px)",
+    left: "translateX(-20px)",
+    right: "translateX(20px)",
   };
 
   return (

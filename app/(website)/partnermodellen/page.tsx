@@ -82,7 +82,7 @@ export default function Partnermodellen() {
               Samenwerking
             </p>
             <h1
-              className="text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
+              className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
               style={{ letterSpacing: "-0.03em" }}
             >
               {p.heroTitle}
@@ -98,7 +98,7 @@ export default function Partnermodellen() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {models.map((m, i) => (
               <ScrollReveal key={i} delay={i * 120}>
-                <div className={`relative flex flex-col h-full p-8 rounded-lg border-2 transition-all duration-300 ${
+                <div className={`relative flex flex-col h-full p-6 sm:p-8 rounded-lg border-2 transition-all duration-300 ${
                   m.featured
                     ? "border-[#470020] bg-[#470020]"
                     : "border-[#e0d5d0] bg-white hover:border-[#470020]/40 hover:shadow-md"

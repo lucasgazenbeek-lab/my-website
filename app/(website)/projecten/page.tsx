@@ -32,7 +32,7 @@ export default function Projecten() {
               Portfolio
             </p>
             <h1
-              className="text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
+              className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
               style={{ letterSpacing: "-0.03em" }}
             >
               {p.heroTitle}
@@ -50,7 +50,7 @@ export default function Projecten() {
             ["6", "Actieve & geplande projecten"],
             ["Benelux", "Werkgebied"],
           ].map(([val, label], i) => (
-            <div key={i} className="px-8 first:pl-0 last:pr-0 text-center">
+            <div key={i} className="px-3 sm:px-8 first:pl-0 last:pr-0 text-center">
               <div className="text-2xl font-black text-[#1a0810]" style={{ letterSpacing: "-0.03em" }}>{val}</div>
               <div className="text-xs text-[#6b4a56] mt-1">{label}</div>
             </div>

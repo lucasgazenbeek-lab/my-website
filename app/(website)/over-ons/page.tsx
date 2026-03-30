@@ -51,7 +51,7 @@ export default function OverOns() {
             Over ons
           </p>
           <h1
-            className="text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95]"
+            className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95]"
             style={{ letterSpacing: "-0.03em" }}
           >
             {a.heroTitle}
@@ -186,7 +186,7 @@ export default function OverOns() {
       {/* ─── THE STORY — Wit ─────────────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <ScrollReveal direction="left">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-6">
                 Ons verhaal
@@ -250,7 +250,7 @@ export default function OverOns() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {a.whyPoints.map((point, i) => (
               <ScrollReveal key={i} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="relative p-10 lg:p-12 border-2 border-[#e0d5d0] rounded-xl bg-white hover:border-[#470020] hover:shadow-[0_8px_32px_rgba(71,0,32,0.12)] transition-all duration-300 h-full group overflow-hidden cursor-default">
+                <div className="relative p-6 sm:p-10 lg:p-12 border-2 border-[#e0d5d0] rounded-xl bg-white hover:border-[#470020] hover:shadow-[0_8px_32px_rgba(71,0,32,0.12)] transition-all duration-300 h-full group overflow-hidden cursor-default">
                   {/* Decorative bg number */}
                   <span
                     className="absolute top-4 right-6 font-black text-[#e0d5d0] group-hover:text-[#470020]/10 leading-none select-none pointer-events-none transition-colors duration-300"

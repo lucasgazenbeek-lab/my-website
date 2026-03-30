@@ -262,7 +262,7 @@ export default function Home() {
             {services.map((s, i) => (
               <ScrollReveal key={i} delay={i * 100}>
                 <Link href={s.href} className="group block">
-                  <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "4/5" }}>
+                  <div className="relative overflow-hidden rounded-2xl aspect-[3/2] sm:aspect-[4/5]">
                     {/* Image — placeholder until real AI photo */}
                     <img
                       src={s.image}
@@ -345,7 +345,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
             {ab.whyPoints.map((point, i) => (
               <ScrollReveal key={i} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="p-10 lg:p-12 bg-white border border-[#e0d5d0] rounded-2xl hover:shadow-lg hover:border-[#470020]/20 transition-all duration-300">
+                <div className="p-6 sm:p-10 lg:p-12 bg-white border border-[#e0d5d0] rounded-2xl hover:shadow-lg hover:border-[#470020]/20 transition-all duration-300">
                   <div className="w-14 h-14 rounded-2xl bg-[#f9f6f4] border border-[#e0d5d0] flex items-center justify-center mb-8">
                     {whyIcons[i]}
                   </div>
