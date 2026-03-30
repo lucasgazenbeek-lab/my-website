@@ -93,6 +93,16 @@ export default function Navigation() {
               </button>
             </div>
 
+            {/* Login */}
+            <Link
+              href="/login"
+              className={`text-xs font-semibold tracking-wide transition-colors duration-200 ${
+                onDark ? "text-white/50 hover:text-white/80" : "text-[#1a0810]/40 hover:text-[#470020]"
+              }`}
+            >
+              Login
+            </Link>
+
             {/* CTA */}
             <Link
               href="/plan-een-afspraak"
@@ -139,6 +149,13 @@ export default function Navigation() {
             className="mt-4 inline-block px-6 py-4 bg-[#470020] text-white text-xl font-bold rounded w-fit hover:bg-[#5c0029] transition-colors"
           >
             {t.nav.contact}
+          </Link>
+          <Link
+            href="/login"
+            onClick={() => setMenuOpen(false)}
+            className="text-sm font-semibold text-[#1a0810]/40 hover:text-[#470020] transition-colors"
+          >
+            Login
           </Link>
         </div>
         <div className="px-8 pb-8 flex items-center gap-3">
