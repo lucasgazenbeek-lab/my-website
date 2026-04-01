@@ -72,21 +72,24 @@ export default function Home() {
       title: h.service1Title,
       sub: h.service1Sub,
       href: "/wat-wij-doen",
-      image: "https://placehold.co/600x750/2a0012/3a0018",
+      bg: "linear-gradient(145deg, #3a0018 0%, #1a0810 60%, #0e0008 100%)",
+      accent: "rgba(139,20,60,0.4)",
     },
     {
       label: "Utility-Scale",
       title: h.service2Title,
       sub: h.service2Sub,
       href: "/wat-wij-doen",
-      image: "https://placehold.co/600x750/1a0810/221010",
+      bg: "linear-gradient(145deg, #2a000f 0%, #150608 60%, #080005 100%)",
+      accent: "rgba(107,0,48,0.5)",
     },
     {
       label: "Technical",
       title: h.service3Title,
       sub: h.service3Sub,
       href: "/wat-wij-doen",
-      image: "https://placehold.co/600x750/30001a/420020",
+      bg: "linear-gradient(145deg, #470020 0%, #200010 60%, #0d0006 100%)",
+      accent: "rgba(160,30,80,0.3)",
     },
   ];
 
@@ -261,32 +264,37 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             {services.map((s, i) => (
               <ScrollReveal key={i} delay={i * 100}>
-                <Link href={s.href} className="group block">
-                  <div className="relative overflow-hidden rounded-2xl aspect-[3/2] sm:aspect-[4/5]">
-                    {/* Image — placeholder until real AI photo */}
-                    <img
-                      src={s.image}
-                      alt={s.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                    />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0" style={{
-                      background: "linear-gradient(to top, rgba(26,8,16,0.97) 0%, rgba(26,8,16,0.55) 40%, rgba(26,8,16,0.08) 100%)",
+                <Link href={s.href} className="group block h-full">
+                  <div
+                    className="relative overflow-hidden rounded-2xl aspect-[3/2] sm:aspect-[4/5] transition-transform duration-300 group-hover:scale-[1.02]"
+                    style={{ background: s.bg, boxShadow: "0 8px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)" }}
+                  >
+                    {/* Radial glow accent */}
+                    <div className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-60" style={{
+                      background: `radial-gradient(ellipse 70% 50% at 50% 100%, ${s.accent} 0%, transparent 70%)`,
                     }} />
-                    {/* Hover tint */}
-                    <div className="absolute inset-0 bg-[#470020]/0 group-hover:bg-[#470020]/15 transition-colors duration-500" />
+                    {/* Grain texture */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.06]" aria-hidden>
+                      <filter id={`grain-${i}`}>
+                        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" />
+                        <feColorMatrix type="saturate" values="0" />
+                      </filter>
+                      <rect width="100%" height="100%" filter={`url(#grain-${i})`} />
+                    </svg>
+                    {/* Hover shimmer line */}
+                    <div className="absolute top-0 left-0 right-0 h-px bg-white/0 group-hover:bg-white/10 transition-colors duration-500" />
                     {/* Content */}
                     <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                      <p className="text-xs font-black tracking-widest text-[#C7B3AC] uppercase mb-3" style={{ letterSpacing: "0.1em" }}>
+                      <p className="text-xs font-black tracking-widest text-[#C7B3AC]/70 uppercase mb-3" style={{ letterSpacing: "0.1em" }}>
                         {s.label}
                       </p>
-                      <h3 className="text-2xl lg:text-3xl font-black text-white mb-3 leading-tight" style={{ letterSpacing: "-0.02em" }}>
+                      <h3 className="text-2xl lg:text-3xl font-black text-white mb-3 leading-tight group-hover:text-white transition-colors duration-200" style={{ letterSpacing: "-0.02em" }}>
                         {s.title}
                       </h3>
-                      <p className="text-white/60 text-sm leading-relaxed mb-6 line-clamp-2">
+                      <p className="text-white/55 text-sm leading-relaxed mb-6 line-clamp-2 group-hover:text-white/75 transition-colors duration-200">
                         {s.sub}
                       </p>
-                      <span className="inline-flex items-center gap-2 text-sm font-bold text-white/70 group-hover:text-white group-hover:gap-3 transition-all duration-200">
+                      <span className="inline-flex items-center gap-2 text-sm font-bold text-white/60 group-hover:text-white group-hover:gap-3 transition-all duration-200">
                         {h.learnMore}
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                           <path d="M2 7h10M7.5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -387,7 +395,7 @@ export default function Home() {
                 {h.ctaButton}
               </Link>
               <a
-                href="tel:+31612345678"
+                href="tel:+31652350318"
                 className="inline-flex items-center gap-3 px-8 py-4 border-2 border-white/25 text-white font-bold text-base rounded hover:border-white/50 hover:bg-white/8 active:scale-[0.98] transition-colors duration-200"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">

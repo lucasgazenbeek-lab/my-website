@@ -12,8 +12,8 @@ interface BookingCTAProps {
 export default function BookingCTA({
   title = "Klaar om aan de slag te gaan?",
   sub = "Plan direct een gesprek of bel ons — zonder verplichtingen.",
-  phone = "+31612345678",
-  phoneDisplay = "+31 (0)6 12 34 56 78",
+  phone = "+31652350318",
+  phoneDisplay = "+31 (0)6 52 35 03 18",
 }: BookingCTAProps) {
   return (
     <section className="relative py-24 lg:py-32 bg-[#1a0810] overflow-hidden">

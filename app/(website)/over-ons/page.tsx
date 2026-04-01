@@ -207,7 +207,7 @@ export default function OverOns() {
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    ["70+ MWh", "Gerealiseerd & verkocht"],
+                    ["70+ MWh", "Gerealiseerd"],
                     ["€7M+", "Omzet vorig bedrijf"],
                     ["12+ jr", "Gecombineerde ervaring"],
                     ["Benelux", "Focusmarkt"],
