@@ -549,6 +549,9 @@ var D = {
   p50Factor:1.00,
   p90Factor:0.88,
   // BESS financing mode
+  solarFinMode:'loan',     // 'loan' | 'ol'
+  solarOlRate:0.12,        // operational lease jaarlast % van zon capex
+  solarOlTenor:15,         // OL looptijd jaren zon
   bessFinMode:'loan',      // 'loan' | 'ol'
   bessOlRate:0.13,         // operational lease jaarlast % van BESS capex
   bessOlTenor:10,          // OL looptijd jaren
@@ -661,17 +664,19 @@ function runModel(p) {
   var bessCapex  = bess  ? p.bessMwh  * p.bessCapexPerMwh  : 0;
   var totalCapex = solarCapex + bessCapex;
   var solarDebt = solar ? solarCapex * p.solarDebtRatio : 0;
+  // Solar: loan or operational lease
+  var solarIsOL = solar && p.solarFinMode === 'ol';
+  if (solarIsOL) solarDebt = 0;
+  var solarOLAnn = solarIsOL ? solarCapex * p.solarOlRate : 0;
   // BESS: loan or operational lease
   var bessIsOL  = bess && p.bessFinMode === 'ol';
   var bessDebt  = (bess && !bessIsOL) ? bessCapex * p.bessDebtRatio : 0;
   var bessOLAnn = bessIsOL ? bessCapex * p.bessOlRate : 0;  // annual OL payment
-  var solarDS = solar ? annuity(solarDebt, p.solarDebtRate, p.solarDebtTenor) : 0;
+  var solarDS = (solar && !solarIsOL) ? annuity(solarDebt, p.solarDebtRate, p.solarDebtTenor) : 0;
   var bessDS  = (bess && !bessIsOL) ? annuity(bessDebt, p.bessDebtRate, p.bessDebtTenor) : 0;
   var totalDebt = solarDebt + bessDebt;  // OL is off-balance, not in debt
-  var totalEquity = bessIsOL
-    ? totalCapex - solarDebt - bessCapex   // OL: full BESS not on balance sheet
-    : totalCapex - totalDebt;
-  var cfAll = [-totalEquity], cfSol = [-(solarCapex - solarDebt)], cfBat = [-(bessCapex - bessDebt)];
+  var totalEquity = totalCapex - (solarIsOL ? solarCapex : solarDebt) - (bessIsOL ? bessCapex : bessDebt);
+  var cfAll = [-totalEquity], cfSol = [-(solarIsOL ? 0 : solarCapex - solarDebt)], cfBat = [-(bessIsOL ? 0 : bessCapex - bessDebt)];
   var bessCapFactor = 1.0, years = [];
   for (var yr = 1; yr <= p.projectLife; yr++) {
     var solarCapFactor = solar ? Math.pow(1 - p.solarDegradation, yr - 1) : 0;
@@ -750,8 +755,10 @@ function runModel(p) {
     var solarOm = solar ? p.solarMwp * p.solarOmPerMwpYear * Math.pow(1 + p.solarOmGrowth, yr - 1) : 0;
     var bessOm  = bess  ? p.bessMw * p.bessOmPerMwYear * Math.pow(1 + p.bessOmGrowth, yr - 1) : 0;
     var augHit  = (bess && yr === p.bessAugYear) ? p.bessMwh * p.bessAugCostPerMwh : 0;
-    var solarEbitda = solarRev + sdeRev - solarOm;
-    // OL cost: possibly discounted after renewal
+    // Solar OL cost
+    var solarOlCost = (solarIsOL && yr <= p.solarOlTenor) ? solarOLAnn : 0;
+    var solarEbitda = solarRev + sdeRev - solarOm - solarOlCost;
+    // BESS OL cost: possibly discounted after renewal
     var olCycleNum  = bessIsOL ? Math.floor((yr - 1) / (p.bessOlTenor || 10)) : 0;
     var olDiscount  = olCycleNum > 0 && p.bessOlRenew ? Math.pow(1 - (p.bessOlRenewDiscount||0.10), olCycleNum) : 1.0;
     var bessOLAnnAdj= bessIsOL && (!p.bessOlRenew && yr > (p.bessOlTenor||10)) ? 0 : bessOLAnn * olDiscount;
@@ -777,7 +784,7 @@ function runModel(p) {
       salePrice: salePrice, solarRev: solarRev, sdeRev: sdeRev,
       bessArbRev: bessArbRev, bessAncRev: bessAncRev, bessBalRev: bessBalRev, bessRevTotal: bessRevTotal,
       isMerchant: isMerchant,
-      solarOm: solarOm, bessOm: bessOm, bessOlCost: bessOlCost, augHit: augHit,
+      solarOm: solarOm, solarOlCost: solarOlCost, bessOm: bessOm, bessOlCost: bessOlCost, augHit: augHit,
       solarEbitda: solarEbitda, bessEbitda: bessEbitda, totalEbitda: totalEbitda,
       solarNoi: solarNoi, bessNoi: bessNoi, combinedNoi: combinedNoi,
       sDS: sDS, bDS: bDS, totalDS: totalDS,
@@ -935,11 +942,31 @@ function renderSidebar() {
           '</div>'
         : '')
     );
-    html += mkColl('sollening', LANG==='EN'?'Solar Financing':'Zonlening', 'solar',
-      mkSl('solarDebtRatio',T('sl-solarLtv'),0.4,0.85,0.05,fPct,T('note-sol-ltv'),'#d97706') +
-      mkSl('solarDebtRate',T('sl-solarRate'),0.03,0.10,0.005,fPct,null,'#d97706') +
-      mkSl('solarDebtTenor',T('sl-solarTenor'),8,25,1,null,null,'#d97706')
-    );
+    var solLnBg = P.solarFinMode==='loan' ? 'background:#d97706;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15)' : 'color:#64748b';
+    var solOlBg = P.solarFinMode==='ol'   ? 'background:#ea580c;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15)' : 'color:#64748b';
+    var solFinToggle =
+      '<div style="display:flex;gap:0;background:#f1f5f9;border-radius:8px;padding:2px;border:1px solid #e2e8f0;margin-bottom:12px">' +
+      '<div onclick="setP(\'solarFinMode\',\'loan\')" style="flex:1;text-align:center;padding:6px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s;' + solLnBg + '">' + T('fin-loan') + '</div>' +
+      '<div onclick="setP(\'solarFinMode\',\'ol\')" style="flex:1;text-align:center;padding:6px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s;' + solOlBg + '">Op. Lease</div>' +
+      '</div>';
+    if (P.solarFinMode === 'ol') {
+      html += mkColl('sollening', LANG==='EN'?'Solar Financing':'Zonlening', 'solar',
+        solFinToggle +
+        mkSl('solarOlRate',LANG==='EN'?'OL annual cost (% capex)':'OL jaarlast (% capex)',0.06,0.20,0.01,function(v){return Math.round(v*100)+'%'},LANG==='EN'?'Typical: 10-14%/yr of solar capex':'Typisch: 10-14%/jr van zon capex','#ea580c') +
+        mkSl('solarOlTenor',LANG==='EN'?'OL tenor (yr)':'OL looptijd (jr)',8,25,1,null,null,'#ea580c') +
+        '<div style="background:#ffedd5;border-radius:6px;padding:8px 10px;font-size:10px;color:#9a3412;margin-top:4px;line-height:1.6">' +
+        '<b>Off-balance:</b> ' + (LANG==='EN'?'Solar asset not on SPV balance sheet.':'Zon asset niet op balans SPV.') + '<br>' +
+        '<b>' + (LANG==='EN'?'Monthly cost: \u20ac ':'Maandlast: \u20ac ') + Math.round(P.solarMwp * P.solarCapexPerMwp * P.solarOlRate / 12 / 1000) + 'k/' + T('note-mnd') + '</b>' +
+        '</div>'
+      );
+    } else {
+      html += mkColl('sollening', LANG==='EN'?'Solar Financing':'Zonlening', 'solar',
+        solFinToggle +
+        mkSl('solarDebtRatio',T('sl-solarLtv'),0.4,0.85,0.05,fPct,T('note-sol-ltv'),'#d97706') +
+        mkSl('solarDebtRate',T('sl-solarRate'),0.03,0.10,0.005,fPct,null,'#d97706') +
+        mkSl('solarDebtTenor',T('sl-solarTenor'),8,25,1,null,null,'#d97706')
+      );
+    }
   }
   if (bess) {
     // ── Merchant modus toggle bovenaan BESS sectie
@@ -1209,6 +1236,7 @@ function renderContent() {
         html += mkPl(T('pl-stroomverkoop'), fM(yr1.solarRev||0), '#d97706');
         html += mkPl(T('pl-sde'), fM(yr1.sdeRev||0), '#ea580c');
         html += mkPl(T('pl-om'), '-'+fM(yr1.solarOm||0), '#dc2626');
+        if (P.solarFinMode === 'ol') html += mkPl(LANG==='EN'?'Solar Op. Lease':'Zon Op. Lease', '-'+fM(yr1.solarOlCost||0), '#ea580c');
         html += mkPl(T('pl-ebitda-zon'), fM(yr1.solarEbitda||0), yr1.solarEbitda>0?'#16a34a':'#dc2626', true);
         html += mkPl(T('pl-schuld'), '-'+fM(yr1.sDS||0), '#dc2626');
         html += mkPl(T('pl-fcfe'), fM(yr1.solarFcfe||0), yr1.solarFcfe>0?'#16a34a':'#dc2626', true);
