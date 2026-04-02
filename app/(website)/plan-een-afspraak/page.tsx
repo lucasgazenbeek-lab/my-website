@@ -110,14 +110,14 @@ export default function PlanEenAfspraak() {
                 name={c.emielName}
                 role={c.emielRole}
                 phone="+31 6 25 40 43 50"
-                email="emiel@gridstate.nl"
+                email="e.verlee@gridstate.nl"
                 featured
               />
               <ContactCard
                 name={c.lucasName}
                 role={c.lucasRole}
                 phone="+31 6 52 35 03 18"
-                email="lucas@gridstate.nl"
+                email="l.gazenbeek@gridstate.nl"
               />
               <div className="p-6 border border-[#e0d5d0] rounded-lg bg-[#f9f6f4] flex flex-col justify-center">
                 <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-3">Algemeen</p>
