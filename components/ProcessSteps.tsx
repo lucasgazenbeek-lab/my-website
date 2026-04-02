@@ -10,18 +10,11 @@ interface Step {
 interface ProcessStepsProps {
   steps: Step[];
   processTitle: string;
+  stepDetails: string[];
+  sectionLabel?: string;
 }
 
-// Detailed hover descriptions — written per step
-const STEP_DETAILS_NL = [
-  "Bij het intake gesprek maken we kennis en kijken we of we iets voor elkaar kunnen betekenen. We bespreken het projecttype, welke dienst of advies er nodig is, en wat uw verwachtingen zijn. Geen verplichtingen — gewoon een open en eerlijk gesprek over de mogelijkheden.",
-  "We brengen uw bestaande projecten, schaal en technische behoeften in kaart. Samen bepalen we de juiste rolverdeling en kijken we welk samenwerkingsmodel het beste aansluit bij uw organisatie, capaciteit en het specifieke projecttype.",
-  "Op basis van uw projectvereisten werken we de systeemarchitectuur, BESS-configuratie en projectstructuur volledig uit. Technische keuzes worden onderbouwd, risico's in kaart gebracht en alle partijen zijn op één lijn voordat we verder gaan.",
-  "We stellen een transparante prijsstructuur en leveringsplanning op die naadloos aansluit bij de EPC-fasering. De samenwerkingsovereenkomst wordt opgesteld — helder over rollen, verantwoordelijkheden, marges en verwachtingen van beide kanten.",
-  "Rollen en verantwoordelijkheden zijn officieel vastgelegd. Uw project wordt geregistreerd in ons projectsysteem, non-circumvention is geborgd en de samenwerking start formeel. Samen bouwen we aan uw eerste opdracht.",
-];
-
-export default function ProcessSteps({ steps, processTitle }: ProcessStepsProps) {
+export default function ProcessSteps({ steps, processTitle, stepDetails, sectionLabel = "Onboarding" }: ProcessStepsProps) {
   const [active, setActive] = useState(0);
   const [fading, setFading] = useState(false);
 
@@ -38,7 +31,7 @@ export default function ProcessSteps({ steps, processTitle }: ProcessStepsProps)
     <div className="mt-20 pt-16 border-t border-[#e0d5d0]">
       {/* Sub-header */}
       <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-3" style={{ letterSpacing: "0.1em" }}>
-        Onboarding
+        {sectionLabel}
       </p>
       <h3
         className="text-3xl lg:text-4xl font-black text-[#1a0810] mb-14"
@@ -182,7 +175,7 @@ export default function ProcessSteps({ steps, processTitle }: ProcessStepsProps)
               {steps[active].title}
             </h4>
             <p className="text-[#6b4a56] leading-relaxed text-base">
-              {STEP_DETAILS_NL[active]}
+              {stepDetails[active]}
             </p>
           </div>
         </div>

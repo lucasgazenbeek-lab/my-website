@@ -29,7 +29,7 @@ export default function Projecten() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-              Portfolio
+              {p.portfolioLabel}
             </p>
             <h1
               className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
@@ -46,9 +46,9 @@ export default function Projecten() {
       <section className="border-b border-[#e0d5d0] bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 grid grid-cols-3 divide-x divide-[#e0d5d0]">
           {[
-            ["50+ MWh", "Gerealiseerd & verkocht"],
-            ["6", "Actieve & geplande projecten"],
-            ["Benelux", "Werkgebied"],
+            ["50+ MWh", p.statsInOwnPlanning],
+            ["6", p.statsActiveProjects],
+            ["Benelux", p.statsWorkArea],
           ].map(([val, label], i) => (
             <div key={i} className="px-3 sm:px-8 first:pl-0 last:pr-0 text-center">
               <div className="text-2xl font-black text-[#1a0810]" style={{ letterSpacing: "-0.03em" }}>{val}</div>
@@ -118,7 +118,7 @@ export default function Projecten() {
       <section className="py-12 bg-white border-y border-[#e0d5d0]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <p className="text-xs text-[#6b4a56]/60 text-center leading-relaxed max-w-2xl mx-auto">
-            Projecten worden anoniem gepresenteerd ter bescherming van klantvertrouwelijkheid. Sector, type, capaciteit en toepassing zijn geverifieerde indicaties.
+            {p.projectDisclaimer}
           </p>
         </div>
       </section>

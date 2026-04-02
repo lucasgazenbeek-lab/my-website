@@ -79,7 +79,7 @@ export default function Partnermodellen() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-              Samenwerking
+              {p.collaborationLabel}
             </p>
             <h1
               className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
@@ -155,7 +155,7 @@ export default function Partnermodellen() {
           <ScrollReveal>
             <div className="mb-16">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Onboarding
+                {p.onboardingLabel}
               </p>
               <h2
                 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight"
@@ -199,7 +199,7 @@ export default function Partnermodellen() {
           <ScrollReveal>
             <div className="mb-14">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Fundament
+                {p.foundationLabel}
               </p>
               <h2
                 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight"
@@ -236,7 +236,9 @@ export default function Partnermodellen() {
 
       <BookingCTA
         title="Welk model past bij u?"
+        titleEn="Which model fits you?"
         sub="Plan een gesprek of bel ons direct — we bepalen samen het beste samenwerkingsmodel."
+        subEn="Book a call or contact us directly — we'll determine the best collaboration model together."
       />
     </div>
   );

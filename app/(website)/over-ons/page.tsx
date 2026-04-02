@@ -48,7 +48,7 @@ export default function OverOns() {
         <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-            Over ons
+            {a.aboutLabel}
           </p>
           <h1
             className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95]"
@@ -63,15 +63,18 @@ export default function OverOns() {
       <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-14 text-center">
-              Het team
-            </p>
+            <h2
+              className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-14 text-center"
+              style={{ letterSpacing: "-0.03em" }}
+            >
+              {a.teamLabel}
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Emiel — featured */}
-            <ScrollReveal delay={0} direction="left" className="flex flex-col">
-              <div className="flex-1 p-10 border-2 border-[#470020] rounded-lg bg-[#470020]">
+            <ScrollReveal delay={0} direction="left">
+              <div className="p-10 border-2 border-[#470020] rounded-lg bg-[#470020]">
                 <div className="flex items-start gap-5 mb-8">
                   <div className="w-16 h-16 rounded-lg bg-white/20 border border-white/30 flex items-center justify-center shrink-0">
                     <span className="text-2xl font-black text-white">EV</span>
@@ -108,8 +111,8 @@ export default function OverOns() {
             </ScrollReveal>
 
             {/* Lucas */}
-            <ScrollReveal delay={120} className="flex flex-col">
-              <div className="flex-1 p-10 border border-[#e0d5d0] rounded-lg bg-white">
+            <ScrollReveal delay={120}>
+              <div className="p-10 border border-[#e0d5d0] rounded-lg bg-white">
                 <div className="flex items-start gap-5 mb-8">
                   <div className="w-16 h-16 rounded-lg bg-[#470020]/10 border border-[#470020]/20 flex items-center justify-center shrink-0">
                     <span className="text-2xl font-black text-[#470020]">LG</span>
@@ -189,7 +192,7 @@ export default function OverOns() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <ScrollReveal direction="left">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-6">
-                Ons verhaal
+                {a.storyLabel}
               </p>
               <h2
                 className="text-3xl lg:text-4xl font-black text-[#1a0810] tracking-tight mb-6"
@@ -203,12 +206,12 @@ export default function OverOns() {
             <ScrollReveal direction="right">
               <div className="p-8 border-2 border-[#470020] rounded-lg bg-[#470020]">
                 <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-                  Trackrecord
+                  {a.trackrecordLabel}
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     ["70+ MWh", "Gerealiseerd"],
-                    ["€7M+", "Omzet vorig bedrijf"],
+                    ["€7M+", "Gecombineerde projectomzet"],
                     ["12+ jr", "Gecombineerde ervaring"],
                     ["Benelux", "Focusmarkt"],
                   ].map(([val, label], i) => (
@@ -230,7 +233,7 @@ export default function OverOns() {
           <ScrollReveal>
             <div className="mb-14">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-6">
-                Waarom wij
+                {a.whyUsLabel}
               </p>
               <h2
                 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6"
@@ -273,7 +276,9 @@ export default function OverOns() {
 
       <BookingCTA
         title="Maak kennis met het team"
+        titleEn="Meet the team"
         sub="Directe lijnen — geen salesafdeling, geen intermediairs. Gewoon een open gesprek."
+        subEn="Direct lines — no sales department, no intermediaries. Just an open conversation."
       />
     </div>
   );

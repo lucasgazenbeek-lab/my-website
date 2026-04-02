@@ -1,20 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import { useLang } from "@/components/LanguageProvider";
 
 interface BookingCTAProps {
   title?: string;
+  titleEn?: string;
   sub?: string;
+  subEn?: string;
   phone?: string;
   phoneDisplay?: string;
 }
 
 export default function BookingCTA({
   title = "Klaar om aan de slag te gaan?",
+  titleEn,
   sub = "Plan direct een gesprek of bel ons — zonder verplichtingen.",
+  subEn,
   phone = "+31652350318",
   phoneDisplay = "+31 (0)6 52 35 03 18",
 }: BookingCTAProps) {
+  const { t, lang } = useLang();
+  const g = t.general;
+  const displayTitle = lang === "en" && titleEn ? titleEn : title;
+  const displaySub = lang === "en" && subEn ? subEn : sub;
   return (
     <section className="relative py-24 lg:py-32 bg-[#1a0810] overflow-hidden">
       {/* Grain overlay */}
@@ -39,15 +48,15 @@ export default function BookingCTA({
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs font-black tracking-widest text-white/40 uppercase mb-4">
-            Direct contact
+            {g.directContact}
           </p>
           <h2
             className="text-4xl lg:text-5xl font-black text-white mb-4"
             style={{ letterSpacing: "-0.03em" }}
           >
-            {title}
+            {displayTitle}
           </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">{sub}</p>
+          <p className="text-white/50 text-lg max-w-xl mx-auto">{displaySub}</p>
         </div>
 
         {/* Two-track CTA */}
@@ -68,8 +77,8 @@ export default function BookingCTA({
               </svg>
             </div>
             <div className="text-center">
-              <div className="font-black text-lg tracking-tight" style={{ letterSpacing: "-0.02em" }}>Plan een afspraak</div>
-              <div className="text-sm text-[#6b4a56] mt-1">Kies een moment dat u past</div>
+              <div className="font-black text-lg tracking-tight" style={{ letterSpacing: "-0.02em" }}>{g.bookMeeting}</div>
+              <div className="text-sm text-[#6b4a56] mt-1">{g.chooseTime}</div>
             </div>
             {/* Arrow */}
             <div className="absolute right-5 top-1/2 -translate-y-1/2 text-[#470020] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200">
@@ -91,7 +100,7 @@ export default function BookingCTA({
               </svg>
             </div>
             <div className="text-center">
-              <div className="font-black text-lg text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>Bel ons nu</div>
+              <div className="font-black text-lg text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>{g.callNow}</div>
               <div className="text-sm text-white/50 mt-1 font-mono tracking-wide">{phoneDisplay}</div>
             </div>
             {/* Arrow */}
@@ -105,7 +114,7 @@ export default function BookingCTA({
 
         {/* Trust line */}
         <p className="text-center text-white/25 text-sm mt-10">
-          Geen verplichtingen — gewoon een open gesprek over de mogelijkheden.
+          {g.noObligation}
         </p>
       </div>
     </section>

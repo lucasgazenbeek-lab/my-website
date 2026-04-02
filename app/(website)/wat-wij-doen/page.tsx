@@ -55,7 +55,7 @@ export default function WatWijDoen() {
         <div className="relative flex items-center max-w-7xl mx-auto px-6 lg:px-8 w-full">
           <div className="max-w-3xl">
             <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-              Onze diensten
+              {s.servicesLabel}
             </p>
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
               style={{ letterSpacing: "-0.03em" }}>
@@ -71,20 +71,14 @@ export default function WatWijDoen() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <ScrollReveal direction="left">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">Waarom batterijopslag</p>
+              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{s.whyBatteryLabel}</p>
               <h2 className="text-3xl lg:text-4xl font-black text-[#1a0810] tracking-tight mb-6"
                 style={{ letterSpacing: "-0.03em" }}>
-                Het stroomnet zit vol. Wij lossen dat op.
+                {s.whyBatteryH2}
               </h2>
-              <p className="text-[#6b4a56] text-lg leading-relaxed mb-6">
-                Nederland kampt met netcongestie. Bedrijven kunnen niet meer aansluiten op het net, zonneparken worden afgeremd en industrieterreinen lopen vast. De oplossing is simpel in theorie: sla energie op wanneer er teveel is, gebruik het wanneer het net het nodig heeft.
-              </p>
-              <p className="text-[#6b4a56] leading-relaxed mb-6">
-                In de praktijk is dat complexer. Je hebt een partij nodig die de techniek beheerst, de fabrikanten kent, en het hele traject van ontwerp tot oplevering kan regelen. Dat is precies wat Gridstate doet.
-              </p>
-              <p className="text-[#6b4a56] leading-relaxed">
-                Wij zijn geen doorgeefluik. Wij bouwen. Van de eerste haalbaarheidsanalyse tot de dag dat het systeem live gaat — en daarna.
-              </p>
+              <p className="text-[#6b4a56] text-lg leading-relaxed mb-6">{s.whyBatteryP1}</p>
+              <p className="text-[#6b4a56] leading-relaxed mb-6">{s.whyBatteryP2}</p>
+              <p className="text-[#6b4a56] leading-relaxed">{s.whyBatteryP3}</p>
             </ScrollReveal>
 
             <ScrollReveal direction="right">
@@ -129,17 +123,14 @@ export default function WatWijDoen() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <ScrollReveal direction="left">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Marktsegment 01
+                {s.marketSeg1Label}
               </p>
               <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-3"
                 style={{ letterSpacing: "-0.03em" }}>
                 {s.ciTitle}
               </h2>
               <p className="text-[#470020] text-sm font-semibold tracking-wide mb-5">{s.ciSub}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-5">{s.ciDesc}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-8">
-                Voor bedrijven met een grote, voorspelbare energievraag is batterijopslag direct rendabel. U betaalt geen piekprijzen meer, vermijdt netcongestieboetes en benut zelf opgewekte zonne-energie maximaal. Wij rekenen het voor, ontwerpen het systeem op maat en leveren het kant-en-klaar op.
-              </p>
+              <p className="text-[#6b4a56] leading-relaxed mb-8">{s.ciBodyText}</p>
               <div className="flex flex-wrap gap-2">
                 {s.ciUseCases.map((u, i) => (
                   <span key={i} className="px-3 py-1.5 border border-[#470020]/20 text-xs font-semibold text-[#470020] rounded-sm bg-[#f9f6f4]">
@@ -150,14 +141,9 @@ export default function WatWijDoen() {
             </ScrollReveal>
             <ScrollReveal direction="right">
               <div className="p-8 border border-[#e0d5d0] rounded-lg bg-white shadow-sm">
-                <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-5">Hoe het werkt</p>
+                <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-5">{s.howItWorksLabel}</p>
                 <div className="flex flex-col gap-4">
-                  {[
-                    { step: "01", title: "Analyse", desc: "We analyseren uw energieprofiel: wanneer verbruikt u wat, en wat kost dat nu?" },
-                    { step: "02", title: "Ontwerp", desc: "Op basis van de analyse ontwerpen we een systeem dat maximaal rendement geeft." },
-                    { step: "03", title: "Realisatie", desc: "Wij regelen vergunningen, inkoop, installatie en netaansluiting." },
-                    { step: "04", title: "Oplevering", desc: "Het systeem gaat live. U ziet direct het verschil op uw energierekening." },
-                  ].map((item) => (
+                  {s.ciSteps.map((item) => (
                     <div key={item.step} className="flex items-start gap-4">
                       <span className="w-8 h-8 shrink-0 rounded-lg bg-[#470020] text-white text-xs font-black flex items-center justify-center">{item.step}</span>
                       <div>
@@ -167,10 +153,6 @@ export default function WatWijDoen() {
                     </div>
                   ))}
                 </div>
-                <div className="h-px bg-[#e0d5d0] my-6" />
-                <p className="text-sm text-[#6b4a56] leading-relaxed">
-                  Via onze samenwerking met Next Source realiseren we 50 C&I systemen per jaar — schaalbaar en efficiënt.
-                </p>
               </div>
             </ScrollReveal>
           </div>
@@ -183,17 +165,14 @@ export default function WatWijDoen() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <ScrollReveal direction="right" className="lg:order-2">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Marktsegment 02
+                {s.marketSeg2Label}
               </p>
               <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-3"
                 style={{ letterSpacing: "-0.03em" }}>
                 {s.utilityTitle}
               </h2>
               <p className="text-[#470020] text-sm font-semibold tracking-wide mb-5">{s.utilitySub}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-5">{s.utilityDesc}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-8">
-                Grote batterijsystemen op gridniveau spelen een cruciale rol in de energietransitie. Ze stabiliseren het net, leveren regeldiensten aan TSO's en DSO's, en maken hybride zonnepark+BESS-projecten financieel haalbaar. Gridstate heeft de technische diepgang om dit soort projecten van A tot Z te structureren en te realiseren.
-              </p>
+              <p className="text-[#6b4a56] leading-relaxed mb-8">{s.utilityBodyText}</p>
               <div className="flex flex-wrap gap-2">
                 {s.utilityUseCases.map((u, i) => (
                   <span key={i} className="px-3 py-1.5 border border-[#470020]/20 text-xs font-semibold text-[#470020] rounded-sm bg-white">
@@ -205,7 +184,7 @@ export default function WatWijDoen() {
             <ScrollReveal direction="left" className="lg:order-1">
               <div className="p-8 border-2 border-[#470020] rounded-lg bg-[#470020]">
                 <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-                  Schaalbaar
+                  {s.scalableLabel}
                 </p>
                 <div className="flex items-end gap-2 mb-6">
                   <span className="text-6xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
@@ -213,11 +192,9 @@ export default function WatWijDoen() {
                   </span>
                   <span className="text-2xl font-bold text-white/60 mb-2">MW</span>
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed mb-6">
-                  Van enkele MW tot 100+ MW — onze architectuur schaalt mee met uw project, zonder concessies op grid compliance.
-                </p>
+                <p className="text-white/70 text-sm leading-relaxed mb-6">{s.utilityCertDesc}</p>
                 <div className="flex flex-col gap-3">
-                  {["TSO/DSO certified", "IEC/NEN/PGS compliant", "SDE++ compatible", "FCR/aFRR certified"].map((tag, i) => (
+                  {s.certifications.map((tag, i) => (
                     <div key={i} className="flex items-center gap-2 text-sm text-white/70">
                       <CheckIcon dark />
                       {tag}
@@ -236,7 +213,7 @@ export default function WatWijDoen() {
           <ScrollReveal>
             <div className="mb-14">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Technische architectuur
+                {s.techArchLabel}
               </p>
               <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-4"
                 style={{ letterSpacing: "-0.03em" }}>
@@ -329,7 +306,7 @@ export default function WatWijDoen() {
           <ScrollReveal>
             <div className="mb-14">
               <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-4">
-                Werkwijze
+                {s.processSectionLabel}
               </p>
               <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4"
                 style={{ letterSpacing: "-0.03em" }}>
@@ -364,7 +341,7 @@ export default function WatWijDoen() {
           <ScrollReveal>
             <div className="mb-14">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Zekerheid
+                {s.certaintySectionLabel}
               </p>
               <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight"
                 style={{ letterSpacing: "-0.03em" }}>
@@ -410,7 +387,7 @@ export default function WatWijDoen() {
           <ScrollReveal>
             <div className="mb-14">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                Onderscheidend vermogen
+                {s.differentiatorsSectionLabel}
               </p>
               <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight"
                 style={{ letterSpacing: "-0.03em" }}>
@@ -450,7 +427,9 @@ export default function WatWijDoen() {
 
       <BookingCTA
         title="Laten we uw project bespreken"
+        titleEn="Let's discuss your project"
         sub="Plan een gesprek of bel ons direct — we nemen uw project door van A tot Z."
+        subEn="Book a call or contact us directly — we'll walk through your project from A to Z."
       />
     </div>
   );

@@ -179,7 +179,7 @@ export default function Home() {
       <section id="section-partners" className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-3 text-center">Samenwerking</p>
+            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-3 text-center">{pm.collaborationLabel}</p>
             <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] text-center mb-4" style={{ letterSpacing: "-0.03em" }}>
               {h.partnersTitle}
             </h2>
@@ -224,6 +224,8 @@ export default function Home() {
           <ProcessSteps
             steps={pm.steps}
             processTitle={pm.processTitle}
+            stepDetails={pm.stepDetails}
+            sectionLabel={pm.onboardingLabel}
           />
         </div>
       </section>
@@ -252,7 +254,7 @@ export default function Home() {
               <div className="lg:max-w-sm">
                 <p className="text-[#6b4a56] text-lg leading-relaxed mb-4">{h.servicesSub}</p>
                 <Link href="/wat-wij-doen" className="inline-flex items-center gap-2 text-[#470020] font-bold hover:underline text-sm">
-                  Bekijk alles wat wij doen
+                  {h.heroCta2}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -401,7 +403,7 @@ export default function Home() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
-                Bel ons nu
+                {t.general.callNow}
               </a>
             </div>
           </ScrollReveal>
