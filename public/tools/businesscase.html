@@ -606,7 +606,9 @@ var D = {
   aglaRepExPost: 4302,           // Repowered ex-post/portfolio jaar 1
   // Profitshare & Ex-post (Eddy Grid)
   aglaEddyProfitSharePct: 0.12,  // Eddy Grid commissie % (12% netto batterij)
-  aglaEddyExPost: 10955          // Eddy Grid portfolio/ex-post jaar 1
+  aglaEddyExPost: 10955,         // Eddy Grid portfolio/ex-post jaar 1
+  aglaRepName: 'Repowered',      // Naam aggregator 1 (instelbaar)
+  aglaEddyName: 'Eddy Grid'      // Naam aggregator 2 (instelbaar)
 };
 var P = Object.assign({}, D);
 var COLL = {};  // all closed on load
@@ -2044,17 +2046,25 @@ function renderAglaTab() {
       'onchange="'+cb+'" onblur="'+cb+'">'+(sub?'<div style="font-size:9px;color:#9ca3af;margin-top:1px">'+sub+'</div>':'')+'</div>';
   }
 
+  // Name inputs for the two aggregators
+  h += '<div style="grid-column:span 2"><div style="color:#16a34a;font-size:10px;font-weight:700;margin-bottom:2px">' + (LANG==='EN'?'Aggregator 1 name':'Naam aggregator 1') + '</div>' +
+    '<input type="text" value="'+P.aglaRepName.replace(/"/g,'&quot;')+'" style="width:100%;border:1px solid #bae6fd;border-radius:6px;padding:4px 7px;font-size:11px;font-family:inherit;outline:none" ' +
+    'onchange="setP(\'aglaRepName\',this.value)" onblur="setP(\'aglaRepName\',this.value)" placeholder="bijv. Repowered"></div>';
+  h += '<div style="grid-column:span 2"><div style="color:#2563eb;font-size:10px;font-weight:700;margin-bottom:2px">' + (LANG==='EN'?'Aggregator 2 name':'Naam aggregator 2') + '</div>' +
+    '<input type="text" value="'+P.aglaEddyName.replace(/"/g,'&quot;')+'" style="width:100%;border:1px solid #bae6fd;border-radius:6px;padding:4px 7px;font-size:11px;font-family:inherit;outline:none" ' +
+    'onchange="setP(\'aglaEddyName\',this.value)" onblur="setP(\'aglaEddyName\',this.value)" placeholder="bijv. Eddy Grid"></div>';
+
   h += ni('BESS CAPEX (€)', 'aglaBessCapex', P.aglaBessCapex, 10000);
   h += ni(LANG==='EN'?'OL rate (%/yr)':'OL-tarief (%/jr)', 'aglaOlPct', P.aglaOlPct, 0.5, true);
   h += ni(LANG==='EN'?'OL tenor (yr)':'OL looptijd (jr)', 'aglaOlTenor', P.aglaOlTenor, 1);
   h += ni(LANG==='EN'?'Residual value % CAPEX':'Restwaarde % CAPEX', 'aglaRestwaardePct', P.aglaRestwaardePct, 5, true);
 
-  h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.5px">Repowered ' + (LANG==='EN'?'forecast':'prognose') + ' (30-03-2026)</div>';
+  h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.5px">'+P.aglaRepName+' ' + (LANG==='EN'?'forecast':'prognose') + ' (30-03-2026)</div>';
   h += ni(LANG==='EN'?'BESS gross yr1 (before PS)':'BESS bruto jr1 (voor PS)', 'aglaRepoweredBess', P.aglaRepoweredBess, 1000, false, (LANG==='EN'?'Model deducts ':'Model trekt ') + Math.round(P.aglaRepProfitSharePct*100) + (LANG==='EN'?'% PS itself':'% PS zelf af'));
   h += ni(LANG==='EN'?'Solar market yr1':'Solar markt jr1', 'aglaRepoweredSolar', P.aglaRepoweredSolar, 1000);
   h += ni('SDE++ yr1', 'aglaRepoweredSde', P.aglaRepoweredSde, 1000);
   h += ni(LANG==='EN'?'Ex-post/portfolio yr1 (gross)':'Ex-post/portfolio jr1 (bruto)', 'aglaRepExPost', P.aglaRepExPost, 500, false, LANG==='EN'?'Included in PS base (excl. SDE++)':'Meegenomen in PS grondslag (excl. SDE++)');
-  h += ni(LANG==='EN'?'Profit share %':'Profit share %', 'aglaRepProfitSharePct', P.aglaRepProfitSharePct, 1, true, LANG==='EN'?'Repowered charges 10% of gross':'Repowered rekent 10% van bruto');
+  h += ni(LANG==='EN'?'Profit share %':'Profit share %', 'aglaRepProfitSharePct', P.aglaRepProfitSharePct, 1, true, (LANG==='EN'?'Charges ':'Rekent ')+Math.round(P.aglaRepProfitSharePct*100)+'% of gross');
   h += ni(LANG==='EN'?'Variable fee yr1 (BRP)':'Variabele fee jr1 (BRP)', 'aglaRepVarFee', P.aglaRepVarFee, 500, false, LANG==='EN'?'BRP cost €2.50/MWh — separate from PS':'BRP kosten €2,50/MWh — apart van PS');
   h += '<div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px">' +
     '<div style="font-size:9px;color:#6b7280">' + (LANG==='EN'?'Gross PS base':'Bruto grondslag PS') + '</div>' +
@@ -2064,12 +2074,12 @@ function renderAglaTab() {
     '<div style="font-size:9px;font-weight:700;color:#16a34a;margin-top:2px">= ' + (LANG==='EN'?'Net: ':'Netto: ') + '<span style="font-size:12px;font-family:monospace">'+fEur(A.repTotaal0)+'</span></div>' +
     '</div>';
 
-  h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:.5px">Eddy Grid ' + (LANG==='EN'?'forecast':'prognose') + ' (30-03-2026)</div>';
+  h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:.5px">'+P.aglaEddyName+' ' + (LANG==='EN'?'forecast':'prognose') + ' (30-03-2026)</div>';
   h += ni(LANG==='EN'?'BESS increase yr1 (net)':'BESS toename jr1 (netto)', 'aglaEddyBessOnly', P.aglaEddyBessOnly, 1000, false, LANG==='EN'?'Already net from Eddy case (12% deducted)':'Al netto uit Eddy businesscase (12% al afgetrokken)');
   h += ni(LANG==='EN'?'Solar market yr1':'Solar markt jr1', 'aglaEddySolar', P.aglaEddySolar, 1000);
   h += ni('SDE++ yr1', 'aglaEddySde', P.aglaEddySde, 1000);
   h += ni(LANG==='EN'?'Ex-post/portfolio yr1 (net)':'Ex-post/portfolio jr1 (netto)', 'aglaEddyExPost', P.aglaEddyExPost, 500, false, LANG==='EN'?'Already net — no extra commission on ex-post at Eddy':'Al netto — geen extra commissie op ex-post bij Eddy');
-  h += ni(LANG==='EN'?'Commission %':'Commissie %', 'aglaEddyProfitSharePct', P.aglaEddyProfitSharePct, 1, true, LANG==='EN'?'Eddy Grid 12% net battery':'Eddy Grid 12% netto batterij');
+  h += ni(LANG==='EN'?'Commission %':'Commissie %', 'aglaEddyProfitSharePct', P.aglaEddyProfitSharePct, 1, true, P.aglaEddyName+' '+Math.round(P.aglaEddyProfitSharePct*100)+'% '+(LANG==='EN'?'net battery':'netto batterij'));
   h += '<div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px"><div style="font-size:9px;color:#6b7280">' + (LANG==='EN'?'Total yr1 (incl. ex-post)':'Totaal jr1 (incl. ex-post)') + '</div><div style="font-size:13px;font-weight:800;color:#2563eb;font-family:monospace">'+fEur(A.eddyTotaal0)+'</div><div style="font-size:9px;color:#9ca3af">' + (LANG==='EN'?'Commission ':'Commissie ') + Math.round(P.aglaEddyProfitSharePct*100) + (LANG==='EN'?'% already deducted':'% al afgetrokken') + '</div></div>';
 
   h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px">' + (LANG==='EN'?'Scenarios':'Scenario\'s') + '</div>';
@@ -2092,7 +2102,7 @@ function renderAglaTab() {
     h += ni(LANG==='EN'?'Remaining tenor (yr)':'Restlooptijd (jr)', 'aglaZonleningRestlooptijd', P.aglaZonleningRestlooptijd, 1);
     h += '</div>';
     h += '<div style="margin-top:8px;background:#fff;border-radius:6px;padding:7px 12px;font-size:10px;color:#92400e">';
-    h += (LANG==='EN'?'Solar loan annuity: ':'Annuïteit zonlening: ') + '<b>'+fEur(A.zonDS)+'/'+(LANG==='EN'?'year':'jaar')+'</b>  ·  <b>'+fEur(A.zonDS/12)+'/'+(LANG==='EN'?'month':'maand')+'</b>  ·  ' + (LANG==='EN'?'Available after solar loan DS: ':'Beschikbaar na zonlening DS: ') + '<b>'+fEur(A.rowsRep[0].netAfterZon)+'</b> (yr1 Repowered)';
+    h += (LANG==='EN'?'Solar loan annuity: ':'Annuïteit zonlening: ') + '<b>'+fEur(A.zonDS)+'/'+(LANG==='EN'?'year':'jaar')+'</b>  ·  <b>'+fEur(A.zonDS/12)+'/'+(LANG==='EN'?'month':'maand')+'</b>  ·  ' + (LANG==='EN'?'Available after solar loan DS: ':'Beschikbaar na zonlening DS: ') + '<b>'+fEur(A.rowsRep[0].netAfterZon)+'</b> (yr1 '+P.aglaRepName+')';
     h += '</div>';
   }
   h += '</div>';
@@ -2100,22 +2110,22 @@ function renderAglaTab() {
   // ── KPI row
   h += '<div class="kpi-row">';
   h += mkKpi(LANG==='EN'?'OL monthly cost':'OL-maandlast', fEur(A.olMaand), fEur(A.olJaar)+'/'+(LANG==='EN'?'yr':'jr')+' · '+P.aglaOlTenor+' '+(LANG==='EN'?'yr tenor':'jr looptijd'), '#1e3a5f');
-  h += mkKpi(LANG==='EN'?'Repowered total yr1':'Repowered totaal jr1', fEur(A.repTotaal0), fEur(A.repBess0)+' BESS + '+fEur(A.repSolar0)+' solar + '+fEur(A.repSde0)+' SDE++', '#16a34a');
-  h += mkKpi(LANG==='EN'?'Eddy Grid total yr1':'Eddy Grid totaal jr1', fEur(A.eddyTotaal0), fEur(A.eddyBess0)+' BESS + '+fEur(A.eddySolar0)+' solar + '+fEur(A.eddySde0)+' SDE++', '#2563eb');
-  h += mkKpi(LANG==='EN'?'Coverage yr1 Rep.':'Coverage jr1 Rep.', A.rowsRep[0].coverage.toFixed(2)+'x', zlOn?(LANG==='EN'?'Incl. solar loan deduction':'Incl. zonlening aftrek'):(LANG==='EN'?'Gross coverage':'Brutocoverage'), A.rowsRep[0].coverage>=1.35?'#16a34a':A.rowsRep[0].coverage>=1.2?'#ca8a04':'#dc2626');
-  h += mkKpi(LANG==='EN'?'Coverage yr1 Eddy':'Coverage jr1 Eddy', A.rowsEddy[0].coverage.toFixed(2)+'x', zlOn?(LANG==='EN'?'Incl. solar loan deduction':'Incl. zonlening aftrek'):(LANG==='EN'?'Gross coverage':'Brutocoverage'), A.rowsEddy[0].coverage>=1.35?'#16a34a':A.rowsEddy[0].coverage>=1.2?'#ca8a04':'#dc2626');
+  h += mkKpi(P.aglaRepName+' '+(LANG==='EN'?'total yr1':'totaal jr1'), fEur(A.repTotaal0), fEur(A.repBess0)+' BESS + '+fEur(A.repSolar0)+' solar + '+fEur(A.repSde0)+' SDE++', '#16a34a');
+  h += mkKpi(P.aglaEddyName+' '+(LANG==='EN'?'total yr1':'totaal jr1'), fEur(A.eddyTotaal0), fEur(A.eddyBess0)+' BESS + '+fEur(A.eddySolar0)+' solar + '+fEur(A.eddySde0)+' SDE++', '#2563eb');
+  h += mkKpi((LANG==='EN'?'Coverage yr1 ':'Coverage jr1 ')+P.aglaRepName.substring(0,6)+'.', A.rowsRep[0].coverage.toFixed(2)+'x', zlOn?(LANG==='EN'?'Incl. solar loan deduction':'Incl. zonlening aftrek'):(LANG==='EN'?'Gross coverage':'Brutocoverage'), A.rowsRep[0].coverage>=1.35?'#16a34a':A.rowsRep[0].coverage>=1.2?'#ca8a04':'#dc2626');
+  h += mkKpi((LANG==='EN'?'Coverage yr1 ':'Coverage jr1 ')+P.aglaEddyName.substring(0,6)+'.', A.rowsEddy[0].coverage.toFixed(2)+'x', zlOn?(LANG==='EN'?'Incl. solar loan deduction':'Incl. zonlening aftrek'):(LANG==='EN'?'Gross coverage':'Brutocoverage'), A.rowsEddy[0].coverage>=1.35?'#16a34a':A.rowsEddy[0].coverage>=1.2?'#ca8a04':'#dc2626');
   h += mkKpi(LANG==='EN'?'BESS residual value':'Restwaarde BESS', fEur(A.restwaarde), (LANG==='EN'?'After ':'Na ')+P.aglaOlTenor+(LANG==='EN'?' yr · ':' jaar · ')+Math.round(P.aglaRestwaardePct*100)+'% CAPEX', '#1e3a5f');
   h += '</div>';
 
-  h += '<div class="panel"><div class="panel-title" style="color:#1e3a5f">OL Coverage — Repowered vs. Eddy Grid · ' + P.aglaOlTenor + ' ' + (LANG==='EN'?'yr':'jaar') + '</div>';
+  h += '<div class="panel"><div class="panel-title" style="color:#1e3a5f">OL Coverage — '+P.aglaRepName+' vs. '+P.aglaEddyName+' · ' + P.aglaOlTenor + ' ' + (LANG==='EN'?'yr':'jaar') + '</div>';
   if (zlOn) h += '<div style="font-size:10px;background:#fefce8;border-radius:6px;padding:5px 10px;margin-bottom:8px;color:#92400e">' + (LANG==='EN'?'Solar loan debt service (':'Zonlening schulddienst (') + fEur(A.zonDS) + (LANG==='EN'?'/yr) deducted from income':'/jr) afgetrokken van inkomsten') + '</div>';
   h += '<div style="overflow-x:auto"><table>';
 
   h += '<thead>';
   h += '<tr style="background:#1e3a5f">';
   h += '<th rowspan="2" style="color:#fff;vertical-align:bottom">' + (LANG==='EN'?'Year':'Jaar') + '</th>';
-  h += '<th colspan="4" style="color:#86efac;text-align:center;border-right:2px solid #2563eb">REPOWERED</th>';
-  h += '<th colspan="4" style="color:#93c5fd;text-align:center">EDDY GRID</th>';
+  h += '<th colspan="4" style="color:#86efac;text-align:center;border-right:2px solid #2563eb">'+P.aglaRepName.toUpperCase()+'</th>';
+  h += '<th colspan="4" style="color:#93c5fd;text-align:center">'+P.aglaEddyName.toUpperCase()+'</th>';
   h += '</tr>';
   h += '<tr style="background:#1e3a5f">';
   h += '<th style="color:#86efac;font-size:9px">Base</th>';
@@ -2196,8 +2206,8 @@ function renderAglaTab() {
       (P.aglaZonleningEnabled?'<div style="display:flex;justify-content:space-between;padding:2px 0;color:#92400e"><span>- ' + (LANG==='EN'?'Solar loan DS':'Zonlening DS') + '</span><b>'+fEur(A.zonDS)+'</b></div>':'') +
       '</div></div>';
   }
-  h += srcBoxRep('Repowered (30-03-2026)', A);
-  h += srcBox('Eddy Grid (30-03-2026)', '#2563eb', '#bfdbfe', A.eddyBess0, A.eddySolar0, A.eddySde0, A.eddyExPost0, A.eddyProfitPct, A.eddyTotaal0, A.rowsEddy[0].coverage);
+  h += srcBoxRep(P.aglaRepName+' (30-03-2026)', A);
+  h += srcBox(P.aglaEddyName+' (30-03-2026)', '#2563eb', '#bfdbfe', A.eddyBess0, A.eddySolar0, A.eddySde0, A.eddyExPost0, A.eddyProfitPct, A.eddyTotaal0, A.rowsEddy[0].coverage);
   h += '</div>';
 
   // ── Conclusion
@@ -2212,21 +2222,21 @@ function renderAglaTab() {
   function verdictKpi(label, val, col) {
     return '<div style="background:#f8fafc;border-radius:8px;padding:10px 12px"><div style="font-size:9px;color:#9ca3af;margin-bottom:4px">'+label+'</div><div style="font-size:16px;font-weight:800;color:'+col+'">'+val+'</div></div>';
   }
-  h += verdictKpi((LANG==='EN'?'Min. cov. Rep. base (yr':'Min. cov. Rep. base (jr')+P.aglaOlTenor+')', A.minRepBase.toFixed(2)+'x', A.minRepBase>=1.2?'#16a34a':'#dc2626');
-  h += verdictKpi((LANG==='EN'?'Min. cov. Eddy base (yr':'Min. cov. Eddy base (jr')+P.aglaOlTenor+')', A.minEddyBase.toFixed(2)+'x', A.minEddyBase>=1.2?'#16a34a':'#dc2626');
-  h += verdictKpi(LANG==='EN'?'Min. cov. stress Rep.':'Min. cov. stress Rep.', A.minRepStress.toFixed(2)+'x', A.minRepStress>=1.0?'#ca8a04':'#dc2626');
-  h += verdictKpi(LANG==='EN'?'Min. cov. stress Eddy':'Min. cov. stress Eddy', A.minEddyStress.toFixed(2)+'x', A.minEddyStress>=1.0?'#ca8a04':'#dc2626');
+  h += verdictKpi('Min. cov. '+P.aglaRepName.substring(0,8)+' base ('+(LANG==='EN'?'yr':'jr')+P.aglaOlTenor+')', A.minRepBase.toFixed(2)+'x', A.minRepBase>=1.2?'#16a34a':'#dc2626');
+  h += verdictKpi('Min. cov. '+P.aglaEddyName.substring(0,8)+' base ('+(LANG==='EN'?'yr':'jr')+P.aglaOlTenor+')', A.minEddyBase.toFixed(2)+'x', A.minEddyBase>=1.2?'#16a34a':'#dc2626');
+  h += verdictKpi('Min. cov. stress '+P.aglaRepName.substring(0,6)+'.', A.minRepStress.toFixed(2)+'x', A.minRepStress>=1.0?'#ca8a04':'#dc2626');
+  h += verdictKpi('Min. cov. stress '+P.aglaEddyName.substring(0,6)+'.', A.minEddyStress.toFixed(2)+'x', A.minEddyStress>=1.0?'#ca8a04':'#dc2626');
   h += verdictKpi((LANG==='EN'?'OL total sum ':'OL-totaalsom ')+P.aglaOlTenor+(LANG==='EN'?' yr':' jr'), fEur(A.olJaar*P.aglaOlTenor), '#1e3a5f');
   h += verdictKpi(LANG==='EN'?'BESS residual value':'Restwaarde BESS', fEur(A.restwaarde), '#1e3a5f');
   h += '</div>';
   h += '<div style="font-size:10px;color:#6b7280;background:#f8fafc;border-radius:6px;padding:8px 12px;line-height:1.8">';
   if (LANG==='EN') {
-    h += 'Two independent parties (Repowered and Eddy Grid, both 30-03-2026) confirm comparable forecasts for the same installation. ';
+    h += 'Two independent parties ('+P.aglaRepName+' and '+P.aglaEddyName+', both 30-03-2026) confirm comparable forecasts for the same installation. ';
     h += 'The SDE++ component (\u2248'+fEur(A.repSde0)+'/yr) forms a guaranteed subsidy floor independent of market prices. ';
     if (P.aglaZonleningEnabled) h += 'Existing solar loan debt service ('+fEur(A.zonDS)+'/yr) is included in the coverage calculation. ';
     h += 'In the stress scenario ('+Math.round(P.aglaStressScenario*100)+'%) coverage remains above 1.0x for both sources.';
   } else {
-    h += 'Twee onafhankelijke partijen (Repowered en Eddy Grid, beide 30-03-2026) bevestigen vergelijkbare prognoses voor dezelfde installatie. ';
+    h += 'Twee onafhankelijke partijen ('+P.aglaRepName+' en '+P.aglaEddyName+', beide 30-03-2026) bevestigen vergelijkbare prognoses voor dezelfde installatie. ';
     h += 'De SDE++-component (&asymp;'+fEur(A.repSde0)+'/jr) vormt een gegarandeerde subsidie-onderlaag onafhankelijk van marktprijzen. ';
     if (P.aglaZonleningEnabled) h += 'Bestaande zonlening schulddienst ('+fEur(A.zonDS)+'/jr) is meegenomen in de coverage berekening. ';
     h += 'In het stress-scenario ('+Math.round(P.aglaStressScenario*100)+'%) blijft de coverage boven 1.0x bij beide bronnen.';
@@ -2370,13 +2380,13 @@ function buildAglaBalanceSheetHtml(A) {
   '</div>' +
 
   // P&L
-  '<div class="sec-title">Resultatenrekening (P&amp;L) — Gemiddeld Repowered + Eddy Grid prognose</div>' +
+  '<div class="sec-title">Resultatenrekening (P&amp;L) — Gemiddeld '+P.aglaRepName+' + '+P.aglaEddyName+' prognose</div>' +
   '<table><thead><tr>' +
-  '<th>Jr</th><th>Inkomsten Rep.</th><th>Inkomsten Eddy</th><th>Gem. Bruto</th><th>O&amp;M BESS</th><th>Netto inkomsten</th><th>OL-jaarlast</th>' +
+  '<th>Jr</th><th>Inkomsten '+P.aglaRepName+'</th><th>Inkomsten '+P.aglaEddyName+'</th><th>Gem. Bruto</th><th>O&amp;M BESS</th><th>Netto inkomsten</th><th>OL-jaarlast</th>' +
   zonlenCol +
   '<th>Vrije kasstroom</th><th>Cum. kasstroom</th>' +
   '</tr></thead><tbody>' + plRows + '</tbody></table>' +
-  '<div class="note">O&M BESS geschat op 3.5% van bruto inkomsten. Gemiddelde van Repowered en Eddy Grid prognoses gehanteerd als centrale inkomstenlijn. SDE++ inbegrepen in totale inkomsten.</div>' +
+  '<div class="note">O&M BESS geschat op 3.5% van bruto inkomsten. Gemiddelde van '+P.aglaRepName+' en '+P.aglaEddyName+' prognoses gehanteerd als centrale inkomstenlijn. SDE++ inbegrepen in totale inkomsten.</div>' +
 
   // Balance Sheet
   '<div class="sec-title">Balans per jaar — BESS activum (OL off-balance, restwaarde on-balance)</div>' +
@@ -2386,7 +2396,7 @@ function buildAglaBalanceSheetHtml(A) {
   '</tr></thead><tbody>' + bsRows + '</tbody></table>' +
   '<div class="note">Boekwaarde BESS: lineaire afschrijving over '+tenor+' jaar. OL is juridisch off-balance (operational lease); restschuld indicatief op basis van resterende termijnen. Eigen vermogen = cumulatieve vrije kasstroom (proxy). Exclusief SDE++-subsidie balanseffecten.</div>' +
 
-  '<div class="note" style="margin-top:16px"><b>Disclaimer:</b> Opgesteld door Gridstate B.V. op basis van prognoses Repowered B.V. en Eddy Grid B.V. (30-03-2026). Prognoses zijn indicatief en geen garantie. Uitsluitend bestemd voor Agla Energy. Vertrouwelijk.</div>' +
+  '<div class="note" style="margin-top:16px"><b>Disclaimer:</b> Opgesteld door Gridstate B.V. op basis van prognoses van '+P.aglaRepName+' en '+P.aglaEddyName+' (30-03-2026). Prognoses zijn indicatief en geen garantie. Uitsluitend bestemd voor Agla Energy. Vertrouwelijk.</div>' +
   '</div></body></html>';
 }
 
@@ -2502,10 +2512,10 @@ function buildAglaReportHtml(A) {
   '<div class="verdict" style="border-color:'+cCol+';background:'+cBg+'">'+
   '<div style="font-size:22px;font-weight:800;color:'+cCol+';margin-bottom:10px">'+concl+'</div>'+
   '<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;font-size:10px">'+
-  '<div><div style="color:#6b7280;font-size:9px">Min. cov. Rep. base</div><div style="font-size:15px;font-weight:800;color:'+(A.minRepBase>=1.2?cCol:'#dc2626')+'">'+A.minRepBase.toFixed(2)+'x</div></div>'+
-  '<div><div style="color:#6b7280;font-size:9px">Min. cov. Eddy base</div><div style="font-size:15px;font-weight:800;color:'+(A.minEddyBase>=1.2?cCol:'#dc2626')+'">'+A.minEddyBase.toFixed(2)+'x</div></div>'+
-  '<div><div style="color:#6b7280;font-size:9px">Stress '+Math.round(P.aglaStressScenario*100)+'% Rep.</div><div style="font-size:15px;font-weight:800;color:'+(A.minRepStress>=1.0?'#ca8a04':'#dc2626')+'">'+A.minRepStress.toFixed(2)+'x</div></div>'+
-  '<div><div style="color:#6b7280;font-size:9px">Stress '+Math.round(P.aglaStressScenario*100)+'% Eddy</div><div style="font-size:15px;font-weight:800;color:'+(A.minEddyStress>=1.0?'#ca8a04':'#dc2626')+'">'+A.minEddyStress.toFixed(2)+'x</div></div>'+
+  '<div><div style="color:#6b7280;font-size:9px">Min. cov. '+P.aglaRepName+' base</div><div style="font-size:15px;font-weight:800;color:'+(A.minRepBase>=1.2?cCol:'#dc2626')+'">'+A.minRepBase.toFixed(2)+'x</div></div>'+
+  '<div><div style="color:#6b7280;font-size:9px">Min. cov. '+P.aglaEddyName+' base</div><div style="font-size:15px;font-weight:800;color:'+(A.minEddyBase>=1.2?cCol:'#dc2626')+'">'+A.minEddyBase.toFixed(2)+'x</div></div>'+
+  '<div><div style="color:#6b7280;font-size:9px">Stress '+Math.round(P.aglaStressScenario*100)+'% '+P.aglaRepName+'</div><div style="font-size:15px;font-weight:800;color:'+(A.minRepStress>=1.0?'#ca8a04':'#dc2626')+'">'+A.minRepStress.toFixed(2)+'x</div></div>'+
+  '<div><div style="color:#6b7280;font-size:9px">Stress '+Math.round(P.aglaStressScenario*100)+'% '+P.aglaEddyName+'</div><div style="font-size:15px;font-weight:800;color:'+(A.minEddyStress>=1.0?'#ca8a04':'#dc2626')+'">'+A.minEddyStress.toFixed(2)+'x</div></div>'+
   '<div><div style="color:#6b7280;font-size:9px">OL-totaalsom</div><div style="font-size:15px;font-weight:800;color:#1e3a5f">'+fE(A.olJaar*P.aglaOlTenor)+'</div></div>'+
   '<div><div style="color:#6b7280;font-size:9px">Restwaarde</div><div style="font-size:15px;font-weight:800;color:#1e3a5f">'+fE(A.restwaarde)+'</div></div>'+
   '</div></div>'+
@@ -2521,14 +2531,14 @@ function buildAglaReportHtml(A) {
 
   // Parameters tabel
   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">'+
-  '<table class="param-table"><thead><tr><th colspan="4" style="text-align:center;color:#86efac">Repowered (30-03-2026)</th></tr><tr><th>Post</th><th>Jaar 1</th><th>Bron</th><th></th></tr></thead><tbody>'+
+  '<table class="param-table"><thead><tr><th colspan="4" style="text-align:center;color:#86efac">'+P.aglaRepName+' (30-03-2026)</th></tr><tr><th>Post</th><th>Jaar 1</th><th>Bron</th><th></th></tr></thead><tbody>'+
   '<tr><td>BESS netto</td><td style="font-weight:700;color:#16a34a">'+fE(A.repBess0)+'</td><td>Day-Ahead+ID+Onbalans</td><td></td></tr>'+
   '<tr><td>Solar markt</td><td>'+fE(A.repSolar0)+'</td><td>EPEX spot</td><td></td></tr>'+
   '<tr><td>SDE++ subsidie</td><td style="color:#d97706">'+fE(A.repSde0)+'</td><td>Gegarandeerd</td><td></td></tr>'+
   '<tr style="border-top:2px solid #16a34a"><td><b>Totaal jaar 1</b></td><td style="font-weight:800;color:#16a34a">'+fE(A.repTotaal0)+'</td><td><b>Coverage jr1: '+(A.rowsRep[0].coverage).toFixed(2)+'x</b></td><td></td></tr>'+
   zonLenStr+
   '</tbody></table>'+
-  '<table class="param-table"><thead><tr><th colspan="4" style="text-align:center;color:#93c5fd">Eddy Grid (30-03-2026)</th></tr><tr><th>Post</th><th>Jaar 1</th><th>Bron</th><th></th></tr></thead><tbody>'+
+  '<table class="param-table"><thead><tr><th colspan="4" style="text-align:center;color:#93c5fd">'+P.aglaEddyName+' (30-03-2026)</th></tr><tr><th>Post</th><th>Jaar 1</th><th>Bron</th><th></th></tr></thead><tbody>'+
   '<tr><td>BESS toename</td><td style="font-weight:700;color:#2563eb">'+fE(A.eddyBess0)+'</td><td>Day-Ahead+ID+Onbalans</td><td></td></tr>'+
   '<tr><td>Solar markt</td><td>'+fE(A.eddySolar0)+'</td><td>EPEX spot</td><td></td></tr>'+
   '<tr><td>SDE++ subsidie</td><td style="color:#d97706">'+fE(A.eddySde0)+'</td><td>Gegarandeerd</td><td></td></tr>'+
@@ -2537,13 +2547,13 @@ function buildAglaReportHtml(A) {
   '</div>'+
 
   // Coverage tabel
-  '<div class="sec-title">OL Coverage tabel &mdash; Repowered vs. Eddy Grid &mdash; '+P.aglaOlTenor+' jaar</div>'+
+  '<div class="sec-title">OL Coverage tabel &mdash; '+P.aglaRepName+' vs. '+P.aglaEddyName+' &mdash; '+P.aglaOlTenor+' jaar</div>'+
   (P.aglaZonleningEnabled?'<div style="font-size:9px;background:#fefce8;border-radius:5px;padding:4px 10px;margin-bottom:8px;color:#92400e">Zonlening schulddienst '+fE(A.zonDS)+'/jr afgetrokken van kasstroom</div>':'')+
   '<table><thead>'+
   '<tr style="background:#0f2240">'+
   '<th rowspan="2" style="vertical-align:bottom">Jr</th>'+
-  '<th colspan="7" style="color:#86efac;text-align:center;border-right:2px solid #4b6cb7">REPOWERED</th>'+
-  '<th colspan="7" style="color:#93c5fd;text-align:center">EDDY GRID</th>'+
+  '<th colspan="7" style="color:#86efac;text-align:center;border-right:2px solid #4b6cb7">'+P.aglaRepName.toUpperCase()+'</th>'+
+  '<th colspan="7" style="color:#93c5fd;text-align:center">'+P.aglaEddyName.toUpperCase()+'</th>'+
   '</tr>'+
   '<tr style="background:#0f2240">'+
   '<th style="color:#86efac;font-size:8px">BESS</th><th style="color:#86efac;font-size:8px">Solar</th><th style="color:#fde68a;font-size:8px">SDE++</th>'+
@@ -2559,7 +2569,7 @@ function buildAglaReportHtml(A) {
 
   // Disclaimer
   '<div class="disclaimer">'+
-  '<b>Disclaimer:</b> Opgesteld door Gridstate B.V. op basis van prognoses van Repowered B.V. en Eddy Grid B.V. (beide 30-03-2026). '+
+  '<b>Disclaimer:</b> Opgesteld door Gridstate B.V. op basis van prognoses van '+P.aglaRepName+' en '+P.aglaEddyName+' (beide 30-03-2026). '+
   'Prognoses zijn gebaseerd op historische simulaties en zijn geen garantie voor toekomstige resultaten. '+
   'Gridstate B.V. is EPC-aannemer en draagt geen verantwoordelijkheid voor optimalisatieprestaties van de energiehandelpartijen. '+
   'Uitsluitend bestemd voor Agla Energy. Vertrouwelijk.'+
