@@ -577,6 +577,7 @@ var D = {
   sdeIndexPpaBasisbedrag: 95,    // Beschikkingsbedrag (EUR/MWh) voor Index PPA
   // ── Agla Lease parameters
   aglaOlPct: 0.135,              // OL jaarlast als % van BESS CAPEX (13.5%)
+  aglaBessAfschrijvingPct: 0,    // BESS afschrijving % per jaar (opgeteld bij OL jaarlast)
   aglaOlTenor: 10,               // OL looptijd jaren
   aglaRestwaardePct: 0.15,       // Restwaarde BESS na looptijd (% van CAPEX)
   // Repowered split
@@ -1924,7 +1925,7 @@ function renderContent() {
 // ═══════════════════════════════════════════════════════════════
 function aglaCalc() {
   var bessCapex  = P.aglaBessCapex;
-  var olJaar     = bessCapex * P.aglaOlPct;
+  var olJaar     = bessCapex * P.aglaOlPct + bessCapex * P.aglaBessAfschrijvingPct;
   var olMaand    = olJaar / 12;
   var restwaarde = bessCapex * P.aglaRestwaardePct;
 
@@ -1951,12 +1952,12 @@ function aglaCalc() {
     varFee0 = varFee0 || 0;
     for (var yr = 1; yr <= P.aglaOlTenor; yr++) {
       var brutoBess   = bess0   * scenarioPct * Math.pow(1-degRate,    yr-1) * Math.pow(1-mktDecline, yr-1);
-      var brutoSolar  = solar0  * scenarioPct * Math.pow(1-solarDeg,   yr-1);
-      var brutoExPost = expost0 * scenarioPct * Math.pow(1-mktDecline, yr-1);
+      var brutoSolar  = solar0                * Math.pow(1-solarDeg,   yr-1);
+      var brutoExPost = expost0               * Math.pow(1-mktDecline, yr-1);
       var sdeRev      = sde0                  * Math.pow(1-solarDeg,   yr-1);
       var psGrondslag = brutoBess + brutoSolar + brutoExPost;
       var psAftrek    = psGrondslag * psRate;
-      var varFeeYr    = varFee0 * scenarioPct * Math.pow(1-mktDecline, yr-1); // var fee daalt mee
+      var varFeeYr    = varFee0               * Math.pow(1-mktDecline, yr-1); // var fee daalt mee
       var nettoMarkt  = psGrondslag - psAftrek - varFeeYr;
       var totalRev    = nettoMarkt + sdeRev;
       var zonDsYr     = (P.aglaZonleningEnabled && yr <= P.aglaZonleningRestlooptijd) ? zonDS : 0;
@@ -1976,18 +1977,18 @@ function aglaCalc() {
 
   // Repowered rows (4 scenarios)
   // Repowered: bruto invoer, model trekt PS af (SDE++ buiten grondslag)
-  var rowsRep       = buildYears(P.aglaRepoweredBess, P.aglaRepoweredSolar, P.aglaRepoweredSde, P.aglaRepExPost, 1.0,                    P.aglaRepProfitSharePct, P.aglaRepVarFee);
-  var rowsRepStress = buildYears(P.aglaRepoweredBess, P.aglaRepoweredSolar, P.aglaRepoweredSde, P.aglaRepExPost, P.aglaStressScenario,   P.aglaRepProfitSharePct, P.aglaRepVarFee);
-  var rowsRepWorst  = buildYears(P.aglaRepoweredBess, P.aglaRepoweredSolar, P.aglaRepoweredSde, P.aglaRepExPost, P.aglaWorstScenario,    P.aglaRepProfitSharePct, P.aglaRepVarFee);
+  var rowsRep       = buildYears(P.aglaRepoweredBess, P.aglaRepoweredSolar, P.aglaRepoweredSde, P.aglaRepExPost, 1.0,                    0, 0);
+  var rowsRepStress = buildYears(P.aglaRepoweredBess, P.aglaRepoweredSolar, P.aglaRepoweredSde, P.aglaRepExPost, P.aglaStressScenario,   0, 0);
+  var rowsRepWorst  = buildYears(P.aglaRepoweredBess, P.aglaRepoweredSolar, P.aglaRepoweredSde, P.aglaRepExPost, P.aglaWorstScenario,    0, 0);
 
   // Eddy Grid: bedragen al netto (commissie al verwerkt in businesscase), psRate = 0, varFee = 0
   var rowsEddy       = buildYears(P.aglaEddyBessOnly, P.aglaEddySolar, P.aglaEddySde, P.aglaEddyExPost, 1.0,                    0, 0);
   var rowsEddyStress = buildYears(P.aglaEddyBessOnly, P.aglaEddySolar, P.aglaEddySde, P.aglaEddyExPost, P.aglaStressScenario,   0, 0);
   var rowsEddyWorst  = buildYears(P.aglaEddyBessOnly, P.aglaEddySolar, P.aglaEddySde, P.aglaEddyExPost, P.aglaWorstScenario,    0, 0);
 
-  var repBruto0   = P.aglaRepoweredBess + P.aglaRepoweredSolar + P.aglaRepExPost; // PS grondslag
-  var repPS0      = repBruto0 * P.aglaRepProfitSharePct;
-  var repTotaal0  = repBruto0 - repPS0 - P.aglaRepVarFee + P.aglaRepoweredSde; // netto incl. SDE++
+  var repBruto0   = P.aglaRepoweredBess + P.aglaRepoweredSolar + P.aglaRepoweredSde + P.aglaRepExPost; // al netto
+  var repPS0      = 0;
+  var repTotaal0  = repBruto0; // al netto (commissie al verwerkt in invoer)
   var eddyTotaal0 = P.aglaEddyBessOnly + P.aglaEddySolar + P.aglaEddySde + P.aglaEddyExPost; // al netto
 
   var minRepBase    = Math.min.apply(null, rowsRep.map(function(r){return r.coverage;}));
@@ -2080,23 +2081,17 @@ function renderAglaTab() {
 
   h += ni('BESS CAPEX (€)', 'aglaBessCapex', P.aglaBessCapex, 10000);
   h += ni(LANG==='EN'?'OL rate (%/yr)':'OL-tarief (%/jr)', 'aglaOlPct', P.aglaOlPct, 0.5, true);
+  h += ni(LANG==='EN'?'BESS depreciation (%/yr)':'BESS afschrijving (%/jr)', 'aglaBessAfschrijvingPct', P.aglaBessAfschrijvingPct, 0.5, true, LANG==='EN'?'Added to OL annual cost':'Opgeteld bij OL jaarlast');
   h += ni(LANG==='EN'?'OL tenor (yr)':'OL looptijd (jr)', 'aglaOlTenor', P.aglaOlTenor, 1);
   h += ni(LANG==='EN'?'Residual value % CAPEX':'Restwaarde % CAPEX', 'aglaRestwaardePct', P.aglaRestwaardePct, 5, true);
 
   h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.5px">'+P.aglaRepName+' ' + (LANG==='EN'?'forecast':'prognose') + ' (30-03-2026)</div>';
-  h += ni(LANG==='EN'?'BESS gross yr1 (before PS)':'BESS bruto jr1 (voor PS)', 'aglaRepoweredBess', P.aglaRepoweredBess, 1000, false, (LANG==='EN'?'Model deducts ':'Model trekt ') + Math.round(P.aglaRepProfitSharePct*100) + (LANG==='EN'?'% PS itself':'% PS zelf af'));
+  h += ni(LANG==='EN'?'BESS yr1 (net)':'BESS jr1 (netto)', 'aglaRepoweredBess', P.aglaRepoweredBess, 1000, false, LANG==='EN'?'Commission already deducted':'Commissie al afgetrokken');
   h += ni(LANG==='EN'?'Solar market yr1':'Solar markt jr1', 'aglaRepoweredSolar', P.aglaRepoweredSolar, 1000);
   h += ni('SDE++ yr1', 'aglaRepoweredSde', P.aglaRepoweredSde, 1000);
-  h += ni(LANG==='EN'?'Ex-post/portfolio yr1 (gross)':'Ex-post/portfolio jr1 (bruto)', 'aglaRepExPost', P.aglaRepExPost, 500, false, LANG==='EN'?'Included in PS base (excl. SDE++)':'Meegenomen in PS grondslag (excl. SDE++)');
-  h += ni(LANG==='EN'?'Profit share %':'Profit share %', 'aglaRepProfitSharePct', P.aglaRepProfitSharePct, 1, true, (LANG==='EN'?'Charges ':'Rekent ')+Math.round(P.aglaRepProfitSharePct*100)+'% of gross');
-  h += ni(LANG==='EN'?'Variable fee yr1 (BRP)':'Variabele fee jr1 (BRP)', 'aglaRepVarFee', P.aglaRepVarFee, 500, false, LANG==='EN'?'BRP cost €2.50/MWh — separate from PS':'BRP kosten €2,50/MWh — apart van PS');
-  h += '<div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px">' +
-    '<div style="font-size:9px;color:#6b7280">' + (LANG==='EN'?'Gross PS base':'Bruto grondslag PS') + '</div>' +
-    '<div style="font-size:11px;font-weight:700;color:#6b7280;font-family:monospace">'+fEur(A.repBruto0)+'</div>' +
-    '<div style="font-size:9px;color:#dc2626">- PS '+Math.round(P.aglaRepProfitSharePct*100)+'%: '+fEur(A.repPS0)+'</div>' +
-    '<div style="font-size:9px;color:#ea580c">+ SDE++: '+fEur(P.aglaRepoweredSde)+'</div>' +
-    '<div style="font-size:9px;font-weight:700;color:#16a34a;margin-top:2px">= ' + (LANG==='EN'?'Net: ':'Netto: ') + '<span style="font-size:12px;font-family:monospace">'+fEur(A.repTotaal0)+'</span></div>' +
-    '</div>';
+  h += ni(LANG==='EN'?'Ex-post/portfolio yr1 (net)':'Ex-post/portfolio jr1 (netto)', 'aglaRepExPost', P.aglaRepExPost, 500, false, LANG==='EN'?'Already net':'Al netto');
+  h += ni(LANG==='EN'?'Commission %':'Commissie %', 'aglaRepProfitSharePct', P.aglaRepProfitSharePct, 1, true, LANG==='EN'?'Info only — already deducted from inputs':'Alleen info — al verwerkt in invoer');
+  h += '<div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2px"><div style="font-size:9px;color:#6b7280">' + (LANG==='EN'?'Total yr1 (incl. ex-post)':'Totaal jr1 (incl. ex-post)') + '</div><div style="font-size:13px;font-weight:800;color:#16a34a;font-family:monospace">'+fEur(A.repTotaal0)+'</div><div style="font-size:9px;color:#9ca3af">' + (LANG==='EN'?'Commission ':'Commissie ') + Math.round(P.aglaRepProfitSharePct*100) + (LANG==='EN'?'% already deducted':'% al afgetrokken') + '</div></div>';
 
   h += '<div style="grid-column:span 4;border-top:1px solid #bae6fd;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:.5px">'+P.aglaEddyName+' ' + (LANG==='EN'?'forecast':'prognose') + ' (30-03-2026)</div>';
   h += ni(LANG==='EN'?'BESS increase yr1 (net)':'BESS toename jr1 (netto)', 'aglaEddyBessOnly', P.aglaEddyBessOnly, 1000, false, LANG==='EN'?'Already net from Eddy case (12% deducted)':'Al netto uit Eddy businesscase (12% al afgetrokken)');
@@ -2217,14 +2212,11 @@ function renderAglaTab() {
     return '<div class="panel" style="border-top:3px solid #16a34a">' +
       '<div style="font-weight:800;color:#16a34a;font-size:11px;margin-bottom:10px">'+title+'</div>' +
       '<div style="font-size:11px;line-height:2.1">' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#6b7280">' + (LANG==='EN'?'BESS gross (market trading)':'BESS bruto (markthandel)') + '</span><b>'+fEur(A.repBess0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#6b7280">' + (LANG==='EN'?'Solar gross (market price)':'Solar bruto (marktprijs)') + '</span><b>'+fEur(A.repSolar0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#7c3aed">' + (LANG==='EN'?'Ex-post/portfolio gross':'Ex-post/portfolio bruto') + '</span><b style="color:#7c3aed">'+fEur(A.repExPost0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0;border-top:1px dashed #d1fae5;margin-top:2px"><span style="color:#6b7280">' + (LANG==='EN'?'PS base':'PS grondslag') + '</span><b>'+fEur(A.repBruto0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#dc2626">- Profit share '+Math.round(P.aglaRepProfitSharePct*100)+'%</span><b style="color:#dc2626">-'+fEur(A.repPS0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#dc2626">- ' + (LANG==='EN'?'Variable fee (BRP)':'Variabele fee (BRP)') + '</span><b style="color:#dc2626">-'+fEur(A.repVarFee0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#ea580c">+ SDE++ ' + (LANG==='EN'?'subsidy':'subsidie') + '</span><b style="color:#ea580c">+'+fEur(A.repSde0)+'</b></div>' +
-      '<div style="display:flex;justify-content:space-between;padding:5px 0;border-top:2px solid #bbf7d0;margin-top:4px"><span style="font-weight:700">' + (LANG==='EN'?'Net year 1':'Netto jaar 1') + '</span><b style="color:#16a34a;font-size:13px">'+fEur(A.repTotaal0)+'</b></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#6b7280">' + (LANG==='EN'?'BESS net (after ':'BESS netto (na ') + Math.round(P.aglaRepProfitSharePct*100) + '% ' + (LANG==='EN'?'commission)':'commissie)') + '</span><b>'+fEur(A.repBess0)+'</b></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#6b7280">' + (LANG==='EN'?'Solar (market price)':'Solar (marktprijs)') + '</span><b>'+fEur(A.repSolar0)+'</b></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#ea580c">SDE++ ' + (LANG==='EN'?'subsidy':'subsidie') + '</span><b style="color:#ea580c">'+fEur(A.repSde0)+'</b></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#7c3aed">Ex-post / portfolio</span><b style="color:#7c3aed">'+fEur(A.repExPost0)+'</b></div>' +
+      '<div style="display:flex;justify-content:space-between;padding:5px 0;border-top:1px solid #d1fae5;margin-top:4px"><span style="font-weight:700">' + (LANG==='EN'?'Total year 1':'Totaal jaar 1') + '</span><b style="color:#16a34a;font-size:13px">'+fEur(A.repTotaal0)+'</b></div>' +
       '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#6b7280">' + (LANG==='EN'?'OL annual cost':'OL-jaarlast') + '</span><b style="color:#1e3a5f">'+fEur(A.olJaar)+'</b></div>' +
       '<div style="display:flex;justify-content:space-between;padding:2px 0"><span style="color:#6b7280">' + (LANG==='EN'?'Coverage year 1':'Coverage jaar 1') + '</span><b style="color:'+(cov1>=1.35?'#16a34a':cov1>=1.2?'#ca8a04':'#dc2626')+'">'+cov1.toFixed(2)+'x</b></div>' +
       (P.aglaZonleningEnabled?'<div style="display:flex;justify-content:space-between;padding:2px 0;color:#92400e"><span>- ' + (LANG==='EN'?'Solar loan DS':'Zonlening DS') + '</span><b>'+fEur(A.zonDS)+'</b></div>':'') +
