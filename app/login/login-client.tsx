@@ -1,9 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -12,6 +11,11 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
+
+  // Sign out any existing session when the login page loads
+  useEffect(() => {
+    supabase.auth.signOut()
+  }, [])
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
@@ -32,20 +36,49 @@ export default function LoginPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f0eff2',
+      position: 'relative',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: "'Inter', sans-serif",
       padding: '20px',
+      overflow: 'hidden',
     }}>
       {/* Google Fonts */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');`}</style>
 
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark overlay */}
       <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(135deg, rgba(71,0,32,0.82) 0%, rgba(10,6,9,0.72) 100%)',
+        zIndex: 1,
+      }} />
+
+      <div style={{
+        position: 'relative',
+        zIndex: 2,
         background: '#fff',
         borderRadius: '16px',
-        boxShadow: '0 8px 40px rgba(0,0,0,.10)',
+        boxShadow: '0 24px 80px rgba(0,0,0,.45)',
         width: '100%',
         maxWidth: '420px',
         overflow: 'hidden',
