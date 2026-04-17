@@ -3053,13 +3053,14 @@ function buildPDFHtml(M, projnaam, locatie) {
     accent = '#1e293b'; accentMid = '#334155'; targetLabel = 'S\u0026LB Partij (Financier)'; targetBadgeColor = '#7c3aed';
   }
 
-  // Kernmetrieken
-  var olAnn = (f === 'ol' || t === 'slb') ? M.bessCapex * (P.dealOlRate || 0.12) : 0;
+  // Kernmetrieken — OL altijd berekend uit P.dealOlRate (onafhankelijk van financieringsstructuur label)
+  var olAnn = M.bessCapex * (P.dealOlRate || 0.13);
   var ebitda = (yr1.solarRev||0)+(yr1.sdeRev||0)+(yr1.bessRevTotal||0)-(yr1.solarOm||0)-(yr1.bessOm||0);
   var ebitdaNaOl = ebitda - olAnn;
   var ds = M.solarDS + M.bessDS;
-  // DSCR: voor S&LB partij = EBITDA / OL-jaarlast; anders = EBITDA-OL / DS
-  var dscr = (t === 'slb' && olAnn > 0) ? ebitda / olAnn : (ds > 0 ? ebitdaNaOl / ds : 0);
+  // DSCR na OL (voor lening dekking); OL coverage = EBITDA / OL-jaarlast
+  var olCoverage = olAnn > 0 ? ebitda / olAnn : 0;
+  var dscr = ds > 0 ? ebitdaNaOl / ds : 0;
   var fcfe = ebitdaNaOl - ds;
 
   // SDE split info
@@ -3084,8 +3085,8 @@ function buildPDFHtml(M, projnaam, locatie) {
       '<td style="padding:7px 12px;font-size:12px;color:'+(col||'#111827')+';font-weight:800;text-align:right;font-family:\'JetBrains Mono\',monospace;border-top:2px solid #e2e8f0">' + val + '</td>' +
       '</tr>';
   }
-  function sec(title, col) {
-    return '<tr><td colspan="6" style="background:'+(col||accent)+';color:#fff;padding:7px 12px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px">'+title+'</td></tr>';
+  function sec(title, col, span) {
+    return '<tr><td colspan="'+(span||6)+'" style="background:'+(col||accent)+';color:#fff;padding:7px 12px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px">'+title+'</td></tr>';
   }
   function sec2(title, col) {
     return '<tr><td colspan="2" style="background:'+(col||accent)+';color:#fff;padding:7px 12px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px">'+title+'</td></tr>';
@@ -3100,13 +3101,14 @@ function buildPDFHtml(M, projnaam, locatie) {
 
   // ─── KPI BLOK ──────────────────────────────────────────────────────────
   var kpiHtml = '';
-  var dscrCol = dscr>=1.35?'#16a34a':dscr>=1.20?'#ca8a04':'#dc2626';
+  var dscrCol    = dscr>=1.35?'#16a34a':dscr>=1.20?'#ca8a04':'#dc2626';
+  var olCovCol   = olCoverage>=1.35?'#16a34a':olCoverage>=1.20?'#ca8a04':'#dc2626';
   if (t === 'int') {
-    kpiHtml = kpi('EBITDA jaar 1', fM(ebitda), '#16a34a', 'voor OL en schulddienst') +
-              kpi('DSCR jaar 1', fX(dscr), dscrCol, 'norm \u2265 1,35x') +
-              kpi('Vrije kasstroom jr1', fM(fcfe), fcfe>=0?'#16a34a':'#dc2626', 'na OL + DS') +
-              kpi('Schulddienst/jr', fM(ds), '#dc2626', fK(ds/12)+'/mnd') +
-              kpi('SDE++ restlooptijd', P.sdeDuration+'jr', '#ea580c', 'subsidiezekerheid');
+    kpiHtml = kpi('EBITDA jaar 1', fM(ebitda), '#16a34a', 'v\u00f3\u00f3r OL + schulddienst') +
+              kpi('OL-jaarlast', fM(olAnn), '#7c3aed', fK(olAnn/12)+'/mnd \u00b7 '+Math.round(P.dealOlRate*100)+'% BESS') +
+              kpi('OL Coverage jr1', fX(olCoverage), olCovCol, 'EBITDA / OL-jaarlast') +
+              kpi('DSCR jr1 (na OL)', fX(dscr), dscrCol, 'norm \u2265 1,35x') +
+              kpi('Vrije kasstroom jr1', fM(fcfe), fcfe>=0?'#16a34a':'#dc2626', 'na OL + schulddienst');
   } else if (t === 'verk') {
     kpiHtml = kpi('Zonnepark', P.solarMwp+' MWp', '#d97706', P.country==='NL'?'Nederland':'Belgi\u00eb') +
               kpi('BESS systeem', P.bessMwh+' MWh', '#2563eb', 'gecombineerd') +
@@ -3116,7 +3118,7 @@ function buildPDFHtml(M, projnaam, locatie) {
   } else {
     kpiHtml = kpi('OL-jaarlast', fM(olAnn), '#7c3aed', fK(olAnn/12)+'/mnd') +
               kpi('EBITDA jaar 1', fM(ebitda), '#16a34a', 'beschikbaar voor dekking') +
-              kpi('OL Coverage jr1', fX(dscr), dscrCol, 'EBITDA / OL-jaarlast') +
+              kpi('OL Coverage jr1', fX(olCoverage), olCovCol, 'EBITDA / OL-jaarlast') +
               kpi('SDE++ zekerheid', P.sdeDuration+' jaar', '#ea580c', 'gegarandeerde subsidie') +
               kpi('BESS capaciteit', P.bessMwh+' MWh', '#2563eb', 'lease-object');
   }
@@ -3170,98 +3172,128 @@ function buildPDFHtml(M, projnaam, locatie) {
   revHtml += '</table>';
 
   // ─── SECTIE 3: KOSTEN & SCHULDENDIENST ─────────────────────────────────
+  // Kosten tabel: OL-huur altijd tonen; Lening DS alleen voor int/slb
+  var kostenCols = t!=='verk' ? 6 : 5;
   var kostenHtml = '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:10px">' +
-    sec('3. KOSTEN & FINANCIERINGSLASTEN (25 JAAR)') +
+    sec('3. KOSTEN & FINANCIERINGSLASTEN (25 JAAR)', null, kostenCols) +
     '<tr style="background:#f1f5f9">' +
     '<th style="padding:5px 12px;text-align:left;font-size:9px;font-weight:700;color:#374151">Jaar</th>' +
     '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">O&amp;M zon</th>' +
     '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">O&amp;M BESS</th>' +
-    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:'+(t==='slb'?'#7c3aed':'#374151')+'">OL-huur'+(t==='slb'?' (primair)':'')+'</th>' : '') +
-    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">Lening DS</th>' : '') +
+    '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#7c3aed">OL-huur BESS</th>' +
+    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#dc2626">Lening DS</th>' : '') +
     '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">Totaal lasten</th>' +
     '</tr>';
   M.years.forEach(function(y,i) {
     var bg = i%2===0?'#fff':'#f9fafb';
-    var om = (y.solarOm||0)+(y.bessOm||0);
-    var ol2 = (f==='ol' || t==='slb') ? olAnn : 0;
-    var totL = om + (t!=='verk'?ol2+y.totalDS:0);
+    var totL = (y.solarOm||0) + (y.bessOm||0) + olAnn + (t!=='verk'?y.totalDS:0);
     kostenHtml += '<tr style="background:'+bg+'">' +
       '<td style="padding:4px 12px;font-weight:700;color:#1e3a5f">'+y.yr+'</td>' +
       '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#dc2626">'+fM(y.solarOm||0)+'</td>' +
       '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#dc2626">'+fM(y.bessOm||0)+'</td>' +
-      (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#7c3aed">'+(ol2>0?fM(ol2):'\u2014')+'</td>' : '') +
+      '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#7c3aed;font-weight:700">'+fM(olAnn)+'</td>' +
       (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#dc2626">'+(y.totalDS>0?fM(y.totalDS):'\u2014')+'</td>' : '') +
       '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#dc2626;font-weight:700">'+fM(totL)+'</td>' +
       '</tr>';
   });
   kostenHtml += '</table>';
 
+  // ─── SECTIE 3b: OL COVERAGE PER JAAR (aparte tabel) ───────────────────
+  var olCovHtml = '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:10px">' +
+    sec('3B. OPERATIONELE LEASE — COVERAGE ANALYSE PER JAAR', '#7c3aed', 7) +
+    '<tr style="background:#f5f3ff">' +
+    '<th style="padding:5px 12px;text-align:left;font-size:9px;font-weight:700;color:#374151">Jaar</th>' +
+    '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">EBITDA</th>' +
+    '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#7c3aed">OL-jaarlast</th>' +
+    '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">EBITDA na OL</th>' +
+    '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#7c3aed">OL Coverage</th>' +
+    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">DS na OL</th>' : '') +
+    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">DSCR na OL</th>' : '') +
+    '</tr>';
+  M.years.forEach(function(y,i) {
+    var bg = i%2===0?'#fff':'#f9fafb';
+    var eb = y.totalEbitda;
+    var ebNaOl = eb - olAnn;
+    var olCov = olAnn > 0 ? eb / olAnn : 0;
+    var olCovC = olCov>=1.35?'#16a34a':olCov>=1.20?'#ca8a04':'#dc2626';
+    var olCovBg = olCov>=1.35?'rgba(220,252,231,.4)':olCov>=1.20?'rgba(254,252,232,.4)':'rgba(254,226,226,.4)';
+    var dsNaOl = y.totalDS > 0 ? ebNaOl / y.totalDS : 0;
+    var dsNaOlC = dsNaOl>=1.35?'#16a34a':dsNaOl>=1.20?'#ca8a04':'#dc2626';
+    olCovHtml += '<tr style="background:'+(olCov>=1.35?'#f0fdf4':olCov>=1.20?'#fefce8':'#fff5f5')+'">' +
+      '<td style="padding:4px 12px;font-weight:700;color:#1e3a5f">'+y.yr+'</td>' +
+      '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#16a34a">'+fM(eb)+'</td>' +
+      '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#7c3aed;font-weight:700">'+fM(olAnn)+'</td>' +
+      '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:'+(ebNaOl>=0?'#16a34a':'#dc2626')+'">'+fM(ebNaOl)+'</td>' +
+      '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:'+olCovC+';font-weight:800;font-size:11px">'+fX(olCov)+'</td>' +
+      (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#dc2626">'+(y.totalDS>0?fM(y.totalDS):'\u2014')+'</td>' : '') +
+      (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:'+dsNaOlC+';font-weight:700">'+(y.totalDS>0?fX(dsNaOl):'\u2014')+'</td>' : '') +
+      '</tr>';
+  });
+  olCovHtml += '</table>';
+
   // ─── SECTIE 4: 25-JAAR CASHFLOW TABEL ──────────────────────────────────
+  var cfCols = t!=='verk' ? 7 : 4;
   var cfHtml = '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:10px">' +
-    sec('4. 25-JAAR KASSTROOMPROGNOSE') +
+    sec('4. 25-JAAR KASSTROOMPROGNOSE', null, cfCols) +
     '<tr style="background:#f1f5f9">' +
     '<th style="padding:5px 12px;text-align:left;font-size:9px;font-weight:700;color:#374151">Jaar</th>' +
     '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">Totaal omzet</th>' +
     '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">EBITDA</th>' +
-    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#7c3aed">OL-huur</th>' : '') +
+    '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#7c3aed">OL-huur</th>' +
     (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#dc2626">Lening DS</th>' : '') +
     '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">Vrije kasstroom</th>' +
-    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">DSCR</th>' : '') +
+    (t!=='verk' ? '<th style="padding:5px 12px;text-align:right;font-size:9px;font-weight:700;color:#374151">DSCR (na OL)</th>' : '') +
     '</tr>';
   M.years.forEach(function(y,i) {
     var bg = i%2===0?'#fff':'#f9fafb';
     var totRev = (y.solarRev||0)+(y.sdeRev||0)+(y.bessRevTotal||0);
-    var ol2 = (f==='ol' || t==='slb') ? olAnn : 0;
-    var fc = y.totalEbitda - ol2 - (t!=='verk'?y.totalDS:0);
+    var fc = y.totalEbitda - olAnn - (t!=='verk'?y.totalDS:0);
     var fcCol = fc>=0?'#16a34a':'#dc2626';
-    // DSCR: S&LB partij = EBITDA/OL; intern = (EBITDA-OL)/DS
-    var dc, dcCol;
-    if (t==='slb' && ol2>0) { dc=y.totalEbitda/ol2; }
-    else if (t!=='verk' && y.totalDS>0) { dc=(y.totalEbitda-ol2)/y.totalDS; }
-    dcCol = dc?(dc>=1.35?'#16a34a':dc>=1.20?'#ca8a04':'#dc2626'):'#9ca3af';
+    var dc = (t!=='verk' && y.totalDS>0) ? (y.totalEbitda-olAnn)/y.totalDS : null;
+    var dcCol = dc?(dc>=1.35?'#16a34a':dc>=1.20?'#ca8a04':'#dc2626'):'#9ca3af';
     cfHtml += '<tr style="background:'+bg+'">' +
       '<td style="padding:4px 12px;font-weight:700;color:#1e3a5f">'+y.yr+'</td>' +
       '<td style="padding:4px 12px;text-align:right;font-family:monospace">'+fM(totRev)+'</td>' +
       '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#16a34a;font-weight:700">'+fM(y.totalEbitda)+'</td>' +
-      (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#7c3aed">'+(ol2>0?fM(ol2):'\u2014')+'</td>' : '') +
+      '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#7c3aed;font-weight:700">'+fM(olAnn)+'</td>' +
       (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:#dc2626">'+(y.totalDS>0?fM(y.totalDS):'\u2014')+'</td>' : '') +
       '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:'+fcCol+';font-weight:800">'+fM(fc)+'</td>' +
-      (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:'+dcCol+';font-weight:700">'+(dc?fX(dc):'\u2014')+'</td>' : '') +
+      (t!=='verk' ? '<td style="padding:4px 12px;text-align:right;font-family:monospace;color:'+dcCol+';font-weight:700">'+(dc!==null?fX(dc):'\u2014')+'</td>' : '') +
       '</tr>';
   });
   cfHtml += '</table>';
 
-  // ─── SECTIE 5: DSCR ANALYSE ─────────────────────────────────────────────
-  var dscrHtml = '';
-  if (t === 'int' || t === 'slb') {
-    var dscrTitle = t==='slb' ? '5. OL COVERAGE ANALYSE (STRESS TEST)' : '5. DSCR ANALYSE (STRESS TEST)';
-    var dscrBase = t==='slb' ? ebitda : ebitdaNaOl;
-    var dscrDen  = t==='slb' ? olAnn : ds;
-    dscrHtml = '<table style="width:100%;border-collapse:collapse;margin-bottom:20px">' +
-      sec2(dscrTitle) +
-      '<tr style="background:#f1f5f9">' +
-      '<td style="padding:5px 12px;font-size:9px;font-weight:700;color:#374151">Scenario</td>' +
-      '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#374151">EBITDA</td>' +
-      '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:'+(t==='slb'?'#7c3aed':'#374151')+'">'+(t==='slb'?'OL-jaarlast':'Schulddienst')+'</td>' +
-      '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#374151">'+(t==='slb'?'OL Coverage':'DSCR')+'</td>' +
-      '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#374151">Oordeel</td>' +
+  // ─── SECTIE 5: DSCR + OL COVERAGE STRESS TEST ──────────────────────────
+  var showDs = t !== 'verk' && ds > 0;
+  var stressCols = showDs ? 6 : 4;
+  var dscrHtml = '<table style="width:100%;border-collapse:collapse;margin-bottom:20px">' +
+    sec('5. DSCR & OL COVERAGE — STRESS TEST', '#475569', stressCols) +
+    '<tr style="background:#f1f5f9">' +
+    '<td style="padding:5px 12px;font-size:9px;font-weight:700;color:#374151">Scenario</td>' +
+    '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#374151">EBITDA</td>' +
+    '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#7c3aed">OL-jaarlast</td>' +
+    '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#7c3aed">OL Coverage</td>' +
+    (showDs ? '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#dc2626">DS na OL</td>' : '') +
+    (showDs ? '<td style="padding:5px 12px;font-size:9px;font-weight:700;text-align:right;color:#374151">DSCR na OL</td>' : '') +
+    '</tr>';
+  [[1.00,'Basisscenario','#16a34a'],[0.90,'Neerwaarts \u221210%','#ca8a04'],[0.80,'Zwaar \u221220%','#dc2626'],[0.70,'Extreem \u221230%','#dc2626']].forEach(function(s) {
+    var eb = ebitda * s[0];
+    var olCov2 = olAnn > 0 ? eb / olAnn : 0;
+    var ebNaOl2 = eb - olAnn;
+    var dscr2 = ds > 0 ? ebNaOl2 / ds : 0;
+    var olCol = olCov2>=1.35?'#16a34a':olCov2>=1.20?'#ca8a04':'#dc2626';
+    var dsCol = dscr2>=1.35?'#16a34a':dscr2>=1.20?'#ca8a04':'#dc2626';
+    var bg = olCov2>=1.35?'#dcfce7':olCov2>=1.20?'#fefce8':'#fee2e2';
+    dscrHtml += '<tr style="background:'+bg+'">' +
+      '<td style="padding:5px 12px;font-size:10px;color:'+s[2]+';font-weight:600">'+s[1]+'</td>' +
+      '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:10px">'+fM(eb)+'</td>' +
+      '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:10px;color:#7c3aed">'+fM(olAnn)+'</td>' +
+      '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:11px;color:'+olCol+';font-weight:800">'+fX(olCov2)+'</td>' +
+      (showDs ? '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:10px;color:#dc2626">'+fM(ds)+'</td>' : '') +
+      (showDs ? '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:11px;color:'+dsCol+';font-weight:800">'+fX(dscr2)+'</td>' : '') +
       '</tr>';
-    [[1.00,'Basisscenario','#16a34a'],[0.90,'Neerwaarts \u221210%','#ca8a04'],[0.80,'Zwaar \u221220%','#dc2626'],[0.70,'Extreem \u221230%','#dc2626']].forEach(function(s) {
-      var eb = dscrBase * s[0];
-      var d = dscrDen > 0 ? eb / dscrDen : 0;
-      var col = d>=1.35?'#16a34a':d>=1.20?'#ca8a04':'#dc2626';
-      var bg = d>=1.35?'#dcfce7':d>=1.20?'#fefce8':'#fee2e2';
-      var oordeel = d>=1.35?'Voldoende':d>=1.20?'Grenswaarde':'Onvoldoende';
-      dscrHtml += '<tr style="background:'+bg+'">' +
-        '<td style="padding:5px 12px;font-size:10px;color:'+s[2]+';font-weight:600">'+s[1]+'</td>' +
-        '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:10px">'+fM(eb)+'</td>' +
-        '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:10px;color:'+(t==='slb'?'#7c3aed':'#374151')+'">'+fM(dscrDen)+'</td>' +
-        '<td style="padding:5px 12px;text-align:right;font-family:monospace;font-size:11px;color:'+col+';font-weight:800">'+fX(d)+'</td>' +
-        '<td style="padding:5px 12px;text-align:right;font-size:10px;color:'+col+';font-weight:700">'+oordeel+'</td>' +
-        '</tr>';
-    });
-    dscrHtml += '</table>';
-  }
+  });
+  dscrHtml += '</table>';
 
   // ─── SECTIE 6: RISICOANALYSE ────────────────────────────────────────────
   var risicoItems = [
@@ -3358,7 +3390,7 @@ function buildPDFHtml(M, projnaam, locatie) {
     '<div style="display:flex;gap:10px;padding:16px 20px;background:#f8fafc;flex-wrap:wrap;border-bottom:1px solid #e5e7eb">'+kpiHtml+'</div>' +
     // CONTENT
     '<div style="padding:20px 24px">' +
-    projHtml + revHtml + kostenHtml + cfHtml + dscrHtml + risHtml + slbHtml +
+    projHtml + revHtml + kostenHtml + olCovHtml + cfHtml + dscrHtml + risHtml + slbHtml +
     '</div>' +
     // FOOTER
     '<div style="background:#1e293b;color:#64748b;padding:12px 24px;font-size:9px;display:flex;justify-content:space-between;align-items:center">' +
