@@ -500,6 +500,9 @@ var D = {
   vpbRate:0.258,           // VPB 25.8% NL
   taxDepreciationYears:10, // fiscale afschrijving BESS
   taxInterestDeductible:true,
+  // ── Vaste zonomzet modus
+  solarFixedRevMode: false,      // false = EPEX/PPA berekening, true = vast bedrag jr1
+  solarFixedRevYear1: 150000,    // Vaste marktomzet jaar 1 (EUR, excl. SDE)
   // ── Merchant / Aggregator modus
   merchantMode: false,           // false = eigen berekening, true = extern aggregator
   merchantInputType: 'netto',    // 'netto' | 'bruto'
@@ -682,7 +685,7 @@ function runModel(p) {
     }
     var effMwh = bess ? p.bessMwh * bessCapFactor : 0;
     var sdeRev = 0;
-    if (solar && p.sdeEnabled && yr <= p.sdeDuration) {
+    if (solar && p.sdeEnabled && yr <= p.sdeDuration && !p.solarFixedRevMode) {
       // SDE betaalt altijd netto: basisbedrag − correctiebedrag
       // Bij Index PPA: PPA-partij garandeert het correctiebedrag; SDE dekt het verschil
       var netto = Math.max(0, p.sdeBasisbedrag - p.sdeCorrectie);
@@ -702,7 +705,12 @@ function runModel(p) {
     } else {
       salePrice = p.epexAvgPrice * rm;
     }
-    var solarRev = solar ? solarSoldMwh * salePrice : 0;
+    var solarRev;
+    if (solar && p.solarFixedRevMode) {
+      solarRev = p.solarFixedRevYear1 * Math.pow(1 - p.solarDegradation, yr - 1);
+    } else {
+      solarRev = solar ? solarSoldMwh * salePrice : 0;
+    }
 
     // ── BESS revenues: eigen berekening of merchant modus
     var bessArbRev, bessAncRev, bessBalRev, bessRevTotal;
@@ -904,14 +912,33 @@ function renderSidebar() {
       mkSl('solarFullLoadHoursNL',T('sl-solarFLH-NL'),700,1200,25,null,T('note-flh-nl'),'#d97706') +
       mkSl('solarFullLoadHoursBE',T('sl-solarFLH-BE'),800,1400,25,null,T('note-flh-be'),'#d97706') +
       mkSl('solarDegradation',T('sl-solarDeg'),0.002,0.010,0.001,fPct,null,'#d97706') +
-      mkSl('solarOmPerMwpYear',T('sl-solarOm'),5000,25000,500,fK,null,'#d97706')
+      mkSl('solarOmPerMwpYear',T('sl-solarOm'),5000,60000,500,fK,null,'#d97706')
     );
+    var sfOn = P.solarFixedRevMode;
+    var sfBg = sfOn ? 'background:linear-gradient(135deg,#d97706,#b45309);color:#fff;border-color:#d97706' : 'background:#f8fafc;color:#4b5563;border-color:#fed7aa';
+    var sfBadge = sfOn ? '<span style="background:rgba(255,255,255,0.25);color:#fff;font-size:9px;font-weight:800;padding:1px 7px;border-radius:10px;margin-left:6px">ACTIEF</span>' : '';
+    var sfTogHtml = '<div onclick="setP(\'solarFixedRevMode\',' + !sfOn + ')" style="cursor:pointer;border:2px solid;border-radius:10px;padding:10px 12px;margin-bottom:8px;' + sfBg + ';transition:all .2s;user-select:none">' +
+      '<div style="font-size:11px;font-weight:800;letter-spacing:.3px">Vaste marktomzet invoeren' + sfBadge + '</div>' +
+      '<div style="font-size:9.5px;margin-top:2px;opacity:.75">Vervang EPEX/PPA + SDE berekening door vast jaar 1 totaalbedrag (incl. SDE)</div>' +
+      '</div>';
+    var sfInputHtml = sfOn
+      ? '<div class="sl-row">' +
+        '<div class="sl-top"><span class="sl-name">Marktomzet jaar 1 (€)</span>' +
+        '<span class="sl-val" style="color:#d97706">€ ' + Math.round(P.solarFixedRevYear1 / 1000) + 'k</span></div>' +
+        '<input type="range" min="10000" max="2000000" step="5000" value="' + P.solarFixedRevYear1 + '" style="accent-color:#d97706" oninput="setP(\'solarFixedRevYear1\',parseInt(this.value))">' +
+        '<input type="number" value="' + P.solarFixedRevYear1 + '" min="0" step="1000" style="width:100%;margin-top:4px;border:1px solid #fed7aa;border-radius:6px;padding:5px 8px;font-size:11px;font-family:inherit;background:#fff;outline:none" onchange="setP(\'solarFixedRevYear1\',parseInt(this.value)||0)" onblur="setP(\'solarFixedRevYear1\',parseInt(this.value)||0)" placeholder="Typ exact bedrag in EUR"/>' +
+        '<div class="sl-note">Totaal incl. SDE++. Neemt jaarlijks af met degradatie (' + Math.round(P.solarDegradation * 1000) / 10 + '%/jr). SDE-berekening wordt uitgeschakeld.</div>' +
+        '</div>'
+      : '';
     html += mkColl('dispatch', T('coll-dispatch'), 'solar',
-      mkSeg('dispatchMode', [{val:'epex',label:'EPEX spot'},{val:'ppa',label:'PPA'}]) +
-      (P.dispatchMode === 'epex'
-        ? mkSl('epexAvgPrice',T('sl-epex'),20,150,5,function(v){return 'EUR '+v;},T('note-epex'),'#d97706')
-        : mkSl('ppaPrice',T('sl-ppa'),20,120,5,function(v){return 'EUR '+v;},null,'#7c3aed') +
-          mkSl('ppaDuration',T('sl-ppaDur'),5,20,1,null,null,'#7c3aed')) +
+      sfTogHtml + sfInputHtml +
+      (!sfOn
+        ? mkSeg('dispatchMode', [{val:'epex',label:'EPEX spot'},{val:'ppa',label:'PPA'}]) +
+          (P.dispatchMode === 'epex'
+            ? mkSl('epexAvgPrice',T('sl-epex'),20,150,5,function(v){return 'EUR '+v;},T('note-epex'),'#d97706')
+            : mkSl('ppaPrice',T('sl-ppa'),20,120,5,function(v){return 'EUR '+v;},null,'#7c3aed') +
+              mkSl('ppaDuration',T('sl-ppaDur'),5,20,1,null,null,'#7c3aed'))
+        : '') +
       (bess ? mkSmTog('exportOnly',T('tog-exportOnly')) : '')
     );
     html += mkColl('sde', T('coll-sde'), 'sde',
@@ -2805,6 +2832,7 @@ function renderFlTab() {
   h += '<div style="background:linear-gradient(135deg,#1e3a5f,#7c3aed);border-radius:12px;padding:16px 20px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">';
   h += '<div><div style="color:#fff;font-size:15px;font-weight:800">FL Calculator — Financial Lease BESS</div>';
   h += '<div style="color:#c4b5fd;font-size:11px;margin-top:3px">' + P.flProjectName + '  ·  ' + P.flBessMw + 'MW/' + P.flBessMwh + 'MWh BESS  ·  ' + P.flLooptijd + ' jr  ·  ' + (P.flRepayMode === 'annuity' ? 'Annuïtair' : 'Lineair') + '</div></div>';
+  h += '<button onclick="exportFlReport()" style="background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.4);color:#fff;border-radius:8px;padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s" onmouseover="this.style.background=\'rgba(255,255,255,0.25)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.15)\'">Exporteren &#9660;</button>';
   h += '</div>';
 
   // ── In-tab parameters
@@ -4779,6 +4807,209 @@ function exportAglaBalanceSheet() {
   var A    = aglaCalc();
   var html = buildAglaBalanceSheetHtml(A);
   openAglaPreview(html, 'Agla Energy \u2014 Balance Sheet');
+}
+
+function exportFlReport() {
+  var F    = flCalc();
+  var html = buildFlReportHtml(F);
+  openAglaPreview(html, P.flProjectName + ' \u2014 FL Coverage Analyse');
+}
+
+function buildFlReportHtml(F) {
+  var date = new Date().toLocaleDateString('nl-NL', {day:'2-digit', month:'long', year:'numeric'});
+  var flZlOn = P.flZonleningEnabled;
+
+  function fE(n) { return n === null || n === undefined ? '—' : '&euro;&nbsp;' + Math.round(n).toLocaleString('nl-NL'); }
+  function fC(v) {
+    if (v === null || isNaN(v)) return '<span style="color:#9ca3af">—</span>';
+    var col = v >= 1.35 ? '#16a34a' : v >= 1.20 ? '#ca8a04' : '#dc2626';
+    return '<span style="color:' + col + ';font-weight:800">' + v.toFixed(2) + 'x</span>';
+  }
+  function fD(v) { // DSCR coloring
+    if (v === null || isNaN(v)) return '<span style="color:#9ca3af">—</span>';
+    var col = v >= 1.35 ? '#16a34a' : v >= 1.25 ? '#ca8a04' : '#dc2626';
+    return '<span style="color:' + col + ';font-weight:800">' + v.toFixed(2) + 'x</span>';
+  }
+
+  var minBase = F.minBase, minStress = F.minStress;
+  var caseOk   = minBase !== null && minBase >= 1.20;
+  var stressOk = minStress !== null && minStress >= 1.00;
+  var concl, cCol, cBg;
+  if (caseOk && stressOk) {
+    concl = 'SOLIDE FINANCIERING'; cCol = '#16a34a'; cBg = '#f0fdf4';
+  } else if (caseOk) {
+    concl = 'CONDITIONEEL FINANCIERBAAR'; cCol = '#ca8a04'; cBg = '#fefce8';
+  } else {
+    concl = 'KRITISCHE COVERAGE'; cCol = '#dc2626'; cBg = '#fee2e2';
+  }
+
+  // Coverage table rows
+  var tableRows = '';
+  for (var yi = 0; yi < F.rows.length; yi++) {
+    var r = F.rows[yi];
+    var bg = yi % 2 === 0 ? '#f8fafc' : '#ffffff';
+    tableRows += '<tr style="background:' + bg + '">';
+    tableRows += '<td style="font-weight:700;text-align:center">' + r.yr + '</td>';
+    tableRows += '<td>' + fE(r.bessRevBase) + '</td>';
+    tableRows += '<td style="color:#ca8a04">' + fE(r.bessRevStress) + '</td>';
+    tableRows += '<td style="color:#dc2626">' + fE(r.bessRevWorst) + '</td>';
+    tableRows += '<td style="color:#b45309">' + fE(r.interest) + '</td>';
+    tableRows += '<td>' + fE(r.flPrincipal) + '</td>';
+    tableRows += '<td style="font-weight:700">' + fE(r.flPayment) + '</td>';
+    tableRows += '<td style="color:#6b7280">' + fE(r.balance) + '</td>';
+    tableRows += '<td style="text-align:center">' + fC(r.covBase) + '</td>';
+    tableRows += '<td style="text-align:center">' + fC(r.covStress) + '</td>';
+    tableRows += '<td style="text-align:center">' + fC(r.covWorst) + '</td>';
+    if (flZlOn) {
+      tableRows += '<td style="color:#d97706">' + fE(r.zonDsYr) + '</td>';
+      tableRows += '<td style="text-align:center">' + fD(r.dscrVoor) + '</td>';
+      tableRows += '<td style="text-align:center">' + fD(r.dscrNa) + '</td>';
+    }
+    tableRows += '</tr>';
+  }
+  // Min row
+  tableRows += '<tr style="background:#1e3a5f;color:#fff">';
+  tableRows += '<td style="font-weight:700;text-align:center">Min.</td>';
+  tableRows += '<td></td><td></td><td></td><td></td><td></td><td></td><td></td>';
+  var minBaseCol  = minBase  !== null ? (minBase  >= 1.35 ? '#86efac' : minBase  >= 1.20 ? '#fde68a' : '#fca5a5') : '#9ca3af';
+  var minStressCol= minStress!== null ? (minStress>= 1.00 ? '#fde68a' : '#fca5a5') : '#9ca3af';
+  tableRows += '<td style="text-align:center"><span style="font-weight:800;color:' + minBaseCol + '">' + (minBase !== null ? minBase.toFixed(2) + 'x' : '—') + '</span></td>';
+  tableRows += '<td style="text-align:center"><span style="font-weight:800;color:' + minStressCol + '">' + (minStress !== null ? minStress.toFixed(2) + 'x' : '—') + '</span></td>';
+  tableRows += '<td style="text-align:center"></td>';
+  if (flZlOn) { tableRows += '<td></td><td></td><td></td>'; }
+  tableRows += '</tr>';
+
+  // Zonlening section
+  var zonSection = '';
+  if (flZlOn && F.rows.length > 0) {
+    var r0 = F.rows[0];
+    var dvCol  = r0.dscrVoor !== null ? (r0.dscrVoor >= 1.25 ? '#16a34a' : '#dc2626') : '#9ca3af';
+    var dnCol  = r0.dscrNa  !== null ? (r0.dscrNa  >= 1.35 ? '#16a34a' : r0.dscrNa >= 1.25 ? '#ca8a04' : '#dc2626') : '#9ca3af';
+    var delta  = (r0.dscrVoor !== null && r0.dscrNa !== null) ? r0.dscrNa - r0.dscrVoor : null;
+    zonSection =
+      '<div class="sec-title">DSCR Voor/Na BESS — Parkperspectief (Jaar 1)</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">' +
+      '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px">' +
+      '<div style="font-size:10px;font-weight:700;color:#4b5563;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Park ZONDER BESS</div>' +
+      '<table class="param-table" style="width:100%"><tbody>' +
+      '<tr><td>Zon omzet jr1</td><td style="text-align:right;font-weight:700">' + fE(r0.solarRevYr) + '</td></tr>' +
+      '<tr><td style="color:#dc2626">Zonlening DS</td><td style="text-align:right;font-weight:700;color:#dc2626">-' + fE(r0.zonDsYr) + '</td></tr>' +
+      '<tr style="border-top:2px solid #1e3a5f"><td style="font-weight:700">FCFE (zon)</td><td style="text-align:right;font-weight:700;color:' + (r0.solarRevYr - r0.zonDsYr >= 0 ? '#16a34a' : '#dc2626') + '">' + fE(r0.solarRevYr - r0.zonDsYr) + '</td></tr>' +
+      '<tr><td style="font-weight:700">DSCR zonder BESS</td><td style="text-align:right;font-size:16px">' + fD(r0.dscrVoor) + '</td></tr>' +
+      '</tbody></table></div>' +
+      '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px">' +
+      '<div style="font-size:10px;font-weight:700;color:#16a34a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Park MET BESS (FL)</div>' +
+      '<table class="param-table" style="width:100%"><tbody>' +
+      '<tr><td>Zon omzet jr1</td><td style="text-align:right;font-weight:700">' + fE(r0.solarRevYr) + '</td></tr>' +
+      '<tr><td style="color:#16a34a">+ BESS opbrengst jr1</td><td style="text-align:right;font-weight:700;color:#16a34a">+' + fE(r0.bessRevBase) + '</td></tr>' +
+      '<tr><td style="color:#dc2626">- Zonlening DS</td><td style="text-align:right;font-weight:700;color:#dc2626">-' + fE(r0.zonDsYr) + '</td></tr>' +
+      '<tr><td style="color:#7c3aed">- FL-jaarlast BESS</td><td style="text-align:right;font-weight:700;color:#7c3aed">-' + fE(r0.flPayment) + '</td></tr>' +
+      '<tr style="border-top:2px solid #16a34a"><td style="font-weight:700">FCFE (totaal)</td><td style="text-align:right;font-weight:700;color:' + (r0.solarRevYr + r0.bessRevBase - r0.zonDsYr - r0.flPayment >= 0 ? '#16a34a' : '#dc2626') + '">' + fE(r0.solarRevYr + r0.bessRevBase - r0.zonDsYr - r0.flPayment) + '</td></tr>' +
+      '<tr><td style="font-weight:700">DSCR met BESS</td><td style="text-align:right;font-size:16px">' + fD(r0.dscrNa) + '</td></tr>' +
+      '</tbody></table></div></div>' +
+      (delta !== null ? '<div style="background:#eff6ff;border-radius:8px;padding:10px 14px;font-size:10px;color:#1e40af;margin-bottom:16px"><b>DSCR-verbetering door BESS:</b> ' + (delta >= 0 ? '+' : '') + delta.toFixed(2) + 'x &nbsp;&middot;&nbsp; Van <b>' + r0.dscrVoor.toFixed(2) + 'x</b> naar <b style="color:' + dnCol + '">' + r0.dscrNa.toFixed(2) + 'x</b> in jaar 1</div>' : '');
+  }
+
+  var conclusionText = caseOk && stressOk
+    ? 'Solide financiering: de FL-coverage blijft boven 1.35x in alle jaren bij het basiscenario. BESS-opbrengsten dekken de FL-last ruim voldoende. Stress-coverage (' + Math.round(P.flStress * 100) + '%) blijft boven 1.0x.'
+    : caseOk
+    ? 'Voldoende financiering: minimum coverage boven 1.20x. Stress-coverage (' + Math.round(P.flStress * 100) + '%) van ' + (minStress !== null ? minStress.toFixed(2) + 'x' : '—') + ' valt onder 1.0x — overweeg aanvullende zekerheden, lagere FL-rate of langere looptijd.'
+    : 'Kritische coverage: minimum coverage van ' + (minBase !== null ? minBase.toFixed(2) + 'x' : '—') + ' valt onder 1.20x. Overweeg lagere hoofdsom, langere looptijd, hogere BESS-opbrengst, of extra zekerheden.';
+
+  var extraCols = flZlOn ? '<th>Zon DS</th><th>DSCR voor</th><th>DSCR na BESS</th>' : '';
+
+  return '<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8"/>' +
+    '<title>Gridstate &mdash; FL Coverage</title>' +
+    '<style>' +
+    '@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap");' +
+    '*{box-sizing:border-box;margin:0;padding:0}' +
+    'body{font-family:"IBM Plex Sans",sans-serif;background:#fff;color:#111827;font-size:11px;line-height:1.5}' +
+    '.page{max-width:1100px;margin:0 auto;padding:28px 36px}' +
+    '.hdr{background:linear-gradient(135deg,#1e3a5f,#7c3aed);border-radius:12px;padding:22px 26px;margin-bottom:20px;color:#fff;display:flex;justify-content:space-between;align-items:flex-start}' +
+    '.hdr h1{font-size:20px;font-weight:800;margin-bottom:4px}' +
+    '.hdr-sub{color:#c4b5fd;font-size:10px}' +
+    '.verdict{border-radius:10px;padding:14px 18px;border:2px solid;margin-bottom:18px}' +
+    '.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}' +
+    '.kpi{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 11px}' +
+    '.kpi-lbl{font-size:9px;color:#9ca3af;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}' +
+    '.kpi-val{font-size:15px;font-weight:800;font-family:"JetBrains Mono",monospace}' +
+    '.kpi-sub{font-size:9px;color:#9ca3af;margin-top:2px}' +
+    '.sec-title{font-size:12px;font-weight:800;color:#1e3a5f;border-bottom:2px solid #7c3aed;padding-bottom:4px;margin:18px 0 10px}' +
+    'table{width:100%;border-collapse:collapse;font-size:9.5px}' +
+    'th{background:#1e3a5f;color:#fff;padding:5px 7px;text-align:left;font-weight:600;font-size:9px}' +
+    'td{padding:4px 7px;border-bottom:1px solid #e5e7eb;font-family:"JetBrains Mono",monospace;font-size:9.5px}' +
+    '.param-table td{font-family:"IBM Plex Sans",sans-serif;font-size:10px}' +
+    '.disclaimer{font-size:8.5px;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:10px;margin-top:20px;line-height:1.7}' +
+    '@media print{body{font-size:9.5px}.page{padding:16px 20px}.no-print{display:none!important}}' +
+    '</style><script>function printReport(){window.print();}<\/script></head><body>' +
+    '<div class="no-print" style="background:#1e3a5f;padding:8px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:99">' +
+    '<button onclick="printReport()" style="background:#7c3aed;color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'IBM Plex Sans\',sans-serif">Afdrukken / Opslaan als PDF</button>' +
+    '<span style="font-size:11px;color:#c4b5fd">Gebruik A4 liggend, marges smal, achtergrondkleuren aan voor best resultaat</span>' +
+    '</div>' +
+    '<div class="page">' +
+
+    '<div class="hdr">' +
+    '<div>' +
+    '<div style="font-size:10px;color:#c4b5fd;font-weight:600;margin-bottom:3px">VERTROUWELIJK &mdash; FINANCIAL LEASE COVERAGE ANALYSE</div>' +
+    '<h1>FL Coverage Analyse &mdash; BESS Financial Lease</h1>' +
+    '<div class="hdr-sub">' + P.flProjectName + ' &nbsp;&middot;&nbsp; ' + P.flBessMw + 'MW/' + P.flBessMwh + 'MWh BESS &nbsp;&middot;&nbsp; FL looptijd ' + P.flLooptijd + ' jaar &nbsp;&middot;&nbsp; ' + (P.flRepayMode === 'annuity' ? 'Annuïtair' : 'Lineair') + '</div>' +
+    '<div class="hdr-sub" style="margin-top:3px">Opgesteld door Gridstate B.V. &nbsp;&middot;&nbsp; ' + date + '</div>' +
+    '</div>' +
+    '<div style="text-align:right">' +
+    '<div style="font-size:9px;color:#c4b5fd">Rente / LTV</div>' +
+    '<div style="font-size:24px;font-weight:800;color:#fff">' + Math.round(P.flRente * 1000) / 10 + '%</div>' +
+    '<div style="font-size:13px;font-weight:700;color:#fff;margin-top:2px">' + fE(F.yr1Payment / 12) + '/mnd</div>' +
+    '<div style="font-size:9px;color:#c4b5fd">' + Math.round(P.flLtv * 100) + '% LTV &nbsp;&middot;&nbsp; ' + fE(F.yr1Payment) + '/jaar</div>' +
+    '</div></div>' +
+
+    '<div class="verdict" style="border-color:' + cCol + ';background:' + cBg + '">' +
+    '<div style="font-size:22px;font-weight:800;color:' + cCol + ';margin-bottom:10px">' + concl + '</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:10px">' +
+    '<div><div style="color:#6b7280;font-size:9px">Min. coverage basis</div><div style="font-size:15px;font-weight:800;color:' + cCol + '">' + (minBase !== null ? minBase.toFixed(2) + 'x' : '—') + '</div></div>' +
+    '<div><div style="color:#6b7280;font-size:9px">Min. coverage stress ' + Math.round(P.flStress * 100) + '%</div><div style="font-size:15px;font-weight:800;color:' + (stressOk ? '#ca8a04' : '#dc2626') + '">' + (minStress !== null ? minStress.toFixed(2) + 'x' : '—') + '</div></div>' +
+    '<div><div style="color:#6b7280;font-size:9px">FL totaalsom</div><div style="font-size:15px;font-weight:800;color:#1e3a5f">' + fE(F.totalPaid) + '</div></div>' +
+    '<div><div style="color:#6b7280;font-size:9px">Restwaarde (Gridstate)</div><div style="font-size:15px;font-weight:800;color:#7c3aed">' + fE(F.restwaarde) + '</div></div>' +
+    '</div></div>' +
+
+    '<div class="sec-title">FL-structuur &amp; parameters</div>' +
+    '<div class="kpi-grid">' +
+    '<div class="kpi"><div class="kpi-lbl">BESS CAPEX</div><div class="kpi-val">' + fE(P.flBessCapex) + '</div><div class="kpi-sub">' + P.flBessMw + 'MW / ' + P.flBessMwh + 'MWh</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">FL hoofdsom (' + Math.round(P.flLtv * 100) + '% LTV)</div><div class="kpi-val">' + fE(F.principal) + '</div><div class="kpi-sub">Op balans lessee</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">Jaarlast jr1</div><div class="kpi-val">' + fE(F.yr1Payment) + '</div><div class="kpi-sub">' + (P.flRepayMode === 'annuity' ? 'Gelijk elk jaar' : 'Hoogst in jr1, daalt lineair') + '</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">Totale rente</div><div class="kpi-val">' + fE(F.totalInterest) + '</div><div class="kpi-sub">Over ' + P.flLooptijd + ' jaar looptijd</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">BESS netto jr1</div><div class="kpi-val">' + fE(P.flBessRev1) + '</div><div class="kpi-sub">Deg. ' + Math.round(P.flBessDeg * 1000) / 10 + '%/jr · Markt ' + Math.round(P.flMarketDecline * 1000) / 10 + '%/jr</div></div>' +
+    '</div>' +
+
+    (flZlOn ?
+      '<div style="background:#fff7ed;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:10px;color:#92400e;margin-bottom:14px">' +
+      '<b>Bestaande zonlening:</b> Restschuld ' + fE(P.flZonleningRestschuld) + ' &nbsp;&middot;&nbsp; ' + Math.round(P.flZonleningRente * 1000) / 10 + '% rente &nbsp;&middot;&nbsp; ' + P.flZonleningRestlooptijd + ' jaar restlooptijd &nbsp;&middot;&nbsp; DS: <b>' + fE(F.zonDS) + '/jr</b>' +
+      '</div>' : '') +
+
+    '<div class="sec-title">FL Coverage tabel &mdash; ' + P.flProjectName + ' &mdash; ' + P.flLooptijd + ' jaar</div>' +
+    '<table><thead>' +
+    '<tr style="background:#0f2240">' +
+    '<th>Jr</th><th>BESS basis</th><th style="color:#fde68a">Stress ' + Math.round(P.flStress * 100) + '%</th><th style="color:#fca5a5">Worst ' + Math.round(P.flWorst * 100) + '%</th>' +
+    '<th style="color:#fcd34d">Rente</th><th>Aflossing</th><th>FL-last</th><th style="color:#93c5fd">Restschuld</th>' +
+    '<th>Cov. basis</th><th style="color:#fde68a">Stress</th><th style="color:#fca5a5">Worst</th>' +
+    extraCols +
+    '</tr>' +
+    '</thead><tbody>' + tableRows + '</tbody></table>' +
+    '<div style="font-size:8px;color:#9ca3af;margin-top:5px">Coverage = netto BESS-opbrengst / FL-jaarlast. &ge;1.35x goed &middot; &ge;1.20x voldoende &middot; &lt;1.20x kritiek. Degradatie BESS: ' + Math.round(P.flBessDeg * 1000) / 10 + '%/jr · Markt: ' + Math.round(P.flMarketDecline * 1000) / 10 + '%/jr.</div>' +
+
+    zonSection +
+
+    '<div class="sec-title">Conclusie</div>' +
+    '<div style="background:' + cBg + ';border:1.5px solid ' + cCol + ';border-radius:8px;padding:12px 16px;font-size:11px;color:#374151;line-height:1.7;margin-bottom:16px">' +
+    '<b style="color:' + cCol + '">' + concl + '</b><br>' + conclusionText +
+    '</div>' +
+
+    '<div class="disclaimer">' +
+    '<b>Disclaimer:</b> Opgesteld door Gridstate B.V. op basis van door de klant aangeleverde en intern berekende prognoses. ' +
+    'De BESS-opbrengsten zijn schattingen gebaseerd op historische marktsimulaties en zijn geen garantie voor toekomstige resultaten. ' +
+    'Gridstate B.V. treedt op als lessor en eigenaar van de BESS-installatie gedurende de FL-looptijd van ' + P.flLooptijd + ' jaar; de restwaarde bij einde looptijd behoort toe aan Gridstate B.V. ' +
+    'Dit document is vertrouwelijk en uitsluitend bestemd voor de financier/bank aan wie de FL-businesscase wordt gepresenteerd.' +
+    '</div>' +
+    '</div></body></html>';
 }
 </script>
 
