@@ -906,7 +906,24 @@ function renderSidebar() {
     mkSl('p90Factor',T('sl-p90Factor'),0.70,0.99,0.01,function(v){return Math.round(v*100)+'%'},T('note-p90'))
   );
   if (solar) {
+    var sfOn = P.solarFixedRevMode;
+    var sfBg = sfOn ? 'background:linear-gradient(135deg,#d97706,#b45309);color:#fff;border-color:#d97706' : 'background:#f8fafc;color:#4b5563;border-color:#fed7aa';
+    var sfBadge = sfOn ? '<span style="background:rgba(255,255,255,0.25);color:#fff;font-size:9px;font-weight:800;padding:1px 7px;border-radius:10px;margin-left:6px">ACTIEF</span>' : '';
+    var sfTogHtml = '<div onclick="setP(\'solarFixedRevMode\',' + !sfOn + ')" style="cursor:pointer;border:2px solid;border-radius:10px;padding:10px 12px;margin-bottom:8px;' + sfBg + ';transition:all .2s;user-select:none">' +
+      '<div style="font-size:11px;font-weight:800;letter-spacing:.3px">Vaste jaaromzet invoeren' + sfBadge + '</div>' +
+      '<div style="font-size:9.5px;margin-top:2px;opacity:.75">Vervang EPEX/PPA + SDE door vast totaalbedrag jaar 1 (incl. SDE)</div>' +
+      '</div>';
+    var sfInputHtml = sfOn
+      ? '<div class="sl-row">' +
+        '<div class="sl-top"><span class="sl-name">Totale zonomzet jaar 1 (€)</span>' +
+        '<span class="sl-val" style="color:#d97706">€ ' + Math.round(P.solarFixedRevYear1 / 1000) + 'k</span></div>' +
+        '<input type="range" min="10000" max="2000000" step="5000" value="' + P.solarFixedRevYear1 + '" style="accent-color:#d97706" oninput="setP(\'solarFixedRevYear1\',parseInt(this.value))">' +
+        '<input type="number" value="' + P.solarFixedRevYear1 + '" min="0" step="1000" style="width:100%;margin-top:4px;border:1px solid #fed7aa;border-radius:6px;padding:5px 8px;font-size:11px;font-family:inherit;background:#fff;outline:none" onchange="setP(\'solarFixedRevYear1\',parseInt(this.value)||0)" onblur="setP(\'solarFixedRevYear1\',parseInt(this.value)||0)" placeholder="Typ exact bedrag in EUR"/>' +
+        '<div class="sl-note">Incl. SDE++. Daalt met degradatie (' + Math.round(P.solarDegradation * 1000) / 10 + '%/jr). EPEX/PPA/SDE-berekening uitgeschakeld.</div>' +
+        '</div>'
+      : '';
     html += mkColl('solar', T('coll-solar'), 'solar',
+      sfTogHtml + sfInputHtml +
       mkSl('solarMwp',T('sl-solarMwp'),1,50,0.5,null,null,'#d97706') +
       mkSl('solarCapexPerMwp',T('sl-solarCapex'),125000,1200000,25000,fK,LANG==='EN'?'Incl. land, panels, connection':'Incl. grond, panelen, aansluiting','#d97706') +
       mkSl('solarFullLoadHoursNL',T('sl-solarFLH-NL'),700,1200,25,null,T('note-flh-nl'),'#d97706') +
@@ -914,31 +931,12 @@ function renderSidebar() {
       mkSl('solarDegradation',T('sl-solarDeg'),0.002,0.010,0.001,fPct,null,'#d97706') +
       mkSl('solarOmPerMwpYear',T('sl-solarOm'),5000,60000,500,fK,null,'#d97706')
     );
-    var sfOn = P.solarFixedRevMode;
-    var sfBg = sfOn ? 'background:linear-gradient(135deg,#d97706,#b45309);color:#fff;border-color:#d97706' : 'background:#f8fafc;color:#4b5563;border-color:#fed7aa';
-    var sfBadge = sfOn ? '<span style="background:rgba(255,255,255,0.25);color:#fff;font-size:9px;font-weight:800;padding:1px 7px;border-radius:10px;margin-left:6px">ACTIEF</span>' : '';
-    var sfTogHtml = '<div onclick="setP(\'solarFixedRevMode\',' + !sfOn + ')" style="cursor:pointer;border:2px solid;border-radius:10px;padding:10px 12px;margin-bottom:8px;' + sfBg + ';transition:all .2s;user-select:none">' +
-      '<div style="font-size:11px;font-weight:800;letter-spacing:.3px">Vaste marktomzet invoeren' + sfBadge + '</div>' +
-      '<div style="font-size:9.5px;margin-top:2px;opacity:.75">Vervang EPEX/PPA + SDE berekening door vast jaar 1 totaalbedrag (incl. SDE)</div>' +
-      '</div>';
-    var sfInputHtml = sfOn
-      ? '<div class="sl-row">' +
-        '<div class="sl-top"><span class="sl-name">Marktomzet jaar 1 (€)</span>' +
-        '<span class="sl-val" style="color:#d97706">€ ' + Math.round(P.solarFixedRevYear1 / 1000) + 'k</span></div>' +
-        '<input type="range" min="10000" max="2000000" step="5000" value="' + P.solarFixedRevYear1 + '" style="accent-color:#d97706" oninput="setP(\'solarFixedRevYear1\',parseInt(this.value))">' +
-        '<input type="number" value="' + P.solarFixedRevYear1 + '" min="0" step="1000" style="width:100%;margin-top:4px;border:1px solid #fed7aa;border-radius:6px;padding:5px 8px;font-size:11px;font-family:inherit;background:#fff;outline:none" onchange="setP(\'solarFixedRevYear1\',parseInt(this.value)||0)" onblur="setP(\'solarFixedRevYear1\',parseInt(this.value)||0)" placeholder="Typ exact bedrag in EUR"/>' +
-        '<div class="sl-note">Totaal incl. SDE++. Neemt jaarlijks af met degradatie (' + Math.round(P.solarDegradation * 1000) / 10 + '%/jr). SDE-berekening wordt uitgeschakeld.</div>' +
-        '</div>'
-      : '';
     html += mkColl('dispatch', T('coll-dispatch'), 'solar',
-      sfTogHtml + sfInputHtml +
-      (!sfOn
-        ? mkSeg('dispatchMode', [{val:'epex',label:'EPEX spot'},{val:'ppa',label:'PPA'}]) +
-          (P.dispatchMode === 'epex'
-            ? mkSl('epexAvgPrice',T('sl-epex'),20,150,5,function(v){return 'EUR '+v;},T('note-epex'),'#d97706')
-            : mkSl('ppaPrice',T('sl-ppa'),20,120,5,function(v){return 'EUR '+v;},null,'#7c3aed') +
-              mkSl('ppaDuration',T('sl-ppaDur'),5,20,1,null,null,'#7c3aed'))
-        : '') +
+      mkSeg('dispatchMode', [{val:'epex',label:'EPEX spot'},{val:'ppa',label:'PPA'}]) +
+      (P.dispatchMode === 'epex'
+        ? mkSl('epexAvgPrice',T('sl-epex'),20,150,5,function(v){return 'EUR '+v;},T('note-epex'),'#d97706')
+        : mkSl('ppaPrice',T('sl-ppa'),20,120,5,function(v){return 'EUR '+v;},null,'#7c3aed') +
+          mkSl('ppaDuration',T('sl-ppaDur'),5,20,1,null,null,'#7c3aed')) +
       (bess ? mkSmTog('exportOnly',T('tog-exportOnly')) : '')
     );
     html += mkColl('sde', T('coll-sde'), 'sde',
