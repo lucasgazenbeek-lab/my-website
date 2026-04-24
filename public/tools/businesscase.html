@@ -331,7 +331,7 @@ input[type=number] { -moz-appearance: textfield; }
           <button class="btn" id="btn-export" style="background:#16a34a;color:#fff" onclick="openExportModal()">Export PDF / Excel</button>
           <button class="btn" id="btn-report" style="background:#7c3aed;color:#fff" onclick="openFullReport()">Volledig Rapport</button>
           <div style="position:relative;display:inline-block" id="agla-hdr-wrap">
-            <button class="btn" style="background:#1e3a5f;color:#fff;display:flex;align-items:center;gap:5px" onclick="toggleAglaMenu(event)">Agla OL ▾</button>
+            <button class="btn" style="background:#1e3a5f;color:#fff;display:flex;align-items:center;gap:5px" onclick="toggleAglaMenu(event)">OL Calculator ▾</button>
             <div id="agla-hdr-menu" style="display:none;position:absolute;right:0;top:calc(100% + 6px);background:#1e293b;border:1px solid #334155;border-radius:10px;min-width:200px;z-index:500;box-shadow:0 8px 24px rgba(0,0,0,.4);overflow:hidden">
               <div onclick="exportAglaReport();toggleAglaMenu()" style="padding:11px 16px;cursor:pointer;color:#fff;font-size:12px;font-weight:700;border-bottom:1px solid #334155;transition:background .12s" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='transparent'">📄 PDF exporteren</div>
               <div onclick="exportAglaBalanceSheet();toggleAglaMenu()" style="padding:11px 16px;cursor:pointer;color:#93c5fd;font-size:12px;font-weight:700;transition:background .12s" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='transparent'">📊 Balance Sheet</div>
@@ -513,7 +513,10 @@ var D = {
   // ── SDE++ Index PPA optie (solar)
   sdeIndexPpaEnabled: false,     // false = standaard SDE, true = Index PPA
   sdeIndexPpaBasisbedrag: 95,    // Beschikkingsbedrag (EUR/MWh) voor Index PPA
-  // ── Agla Lease parameters
+  // ── Lening aflossingsmodus (standaard model)
+  solarRepayMode: 'annuity',   // 'annuity' | 'linear'
+  bessRepayMode:  'annuity',   // 'annuity' | 'linear'
+  // ── OL Calculator parameters (voorheen Agla)
   aglaOlPct: 0.135,              // OL jaarlast als % van BESS CAPEX (13.5%)
   aglaBessAfschrijvingPct: 0,    // BESS afschrijving % per jaar (opgeteld bij OL jaarlast)
   aglaOlTenor: 10,               // OL looptijd jaren
@@ -552,7 +555,28 @@ var D = {
   aglaEddyName: 'Eddy Grid',     // Naam aggregator 2 (instelbaar)
   aglaBessMw: 2,                 // BESS vermogen (MW)
   aglaBessMwh: 4,                // BESS capaciteit (MWh)
-  aglaAggMode: 'both'            // 'both' | 'agg1' | 'agg2'
+  aglaAggMode: 'both',           // 'both' | 'agg1' | 'agg2'
+  // ── FL Calculator parameters
+  flProjectName: 'Project naam',
+  flBessCapex: 500000,
+  flBessMw: 2,
+  flBessMwh: 4,
+  flRepayMode: 'annuity',      // 'annuity' | 'linear'
+  flRente: 0.055,              // rente % per jaar
+  flLooptijd: 10,              // looptijd jaren
+  flLtv: 1.00,                 // financieringsgraad (1.0 = 100% van BESS CAPEX)
+  flRestwaardePct: 0.15,       // restwaarde % CAPEX (voor Gridstate als lessor)
+  flBessRev1: 150000,          // BESS netto opbrengst jaar 1
+  flBessDeg: 0.007,            // capaciteitsdegradatie per jaar
+  flMarketDecline: 0.020,      // marktprijsdaling per jaar
+  flStress: 0.70,              // stress scenario (% van prognose)
+  flWorst: 0.50,               // worst case (% van prognose)
+  flZonleningEnabled: false,   // bestaande zonlening meenemen
+  flZonleningRestschuld: 800000,
+  flZonleningRente: 0.055,
+  flZonleningRestlooptijd: 15,
+  flSolarRevYr1: 100000,       // zon marktopbrengst jr1 (voor voor/na DSCR)
+  flSolarDeg: 0.004            // zon degradatie per jaar
 };
 var P = Object.assign({}, D);
 var COLL = {};  // all closed on load
@@ -618,11 +642,21 @@ function runModel(p) {
   var bessIsOL  = bess && p.bessFinMode === 'ol';
   var bessDebt  = (bess && !bessIsOL) ? bessCapex * p.bessDebtRatio : 0;
   var bessOLAnn = bessIsOL ? bessCapex * p.bessOlRate : 0;  // annual OL payment
-  var solarDS = (solar && !solarIsOL) ? annuity(solarDebt, p.solarDebtRate, p.solarDebtTenor) : 0;
-  var bessDS  = (bess && !bessIsOL) ? annuity(bessDebt, p.bessDebtRate, p.bessDebtTenor) : 0;
+  // Annuïtair vs. lineair aflossen
+  var solarIsLinear = !solarIsOL && p.solarRepayMode === 'linear';
+  var bessIsLinear  = !bessIsOL  && p.bessRepayMode  === 'linear';
+  var solarAnnuity  = (solar && !solarIsOL) ? annuity(solarDebt, p.solarDebtRate, p.solarDebtTenor) : 0;
+  var bessAnnuity   = (bess  && !bessIsOL)  ? annuity(bessDebt,  p.bessDebtRate,  p.bessDebtTenor)  : 0;
+  var solarAnnPrin  = (solar && solarIsLinear && p.solarDebtTenor > 0) ? solarDebt / p.solarDebtTenor : 0;
+  var bessAnnPrin   = (bess  && bessIsLinear  && p.bessDebtTenor  > 0) ? bessDebt  / p.bessDebtTenor  : 0;
+  // solarDS/bessDS = jaar-1 referentie voor return object
+  var solarDS = solarAnnuity || (solarAnnPrin + solarDebt * p.solarDebtRate);
+  var bessDS  = bessAnnuity  || (bessAnnPrin  + bessDebt  * p.bessDebtRate);
   var totalDebt = solarDebt + bessDebt;  // OL is off-balance, not in debt
   var totalEquity = totalCapex - (solarIsOL ? solarCapex : solarDebt) - (bessIsOL ? bessCapex : bessDebt);
   var cfAll = [-totalEquity], cfSol = [-(solarIsOL ? 0 : solarCapex - solarDebt)], cfBat = [-(bessIsOL ? 0 : bessCapex - bessDebt)];
+  // Balance trackers voor aflossingsschema
+  var solarBalance = solarDebt, bessBalance = bessDebt;
   var bessCapFactor = 1.0, years = [];
   for (var yr = 1; yr <= p.projectLife; yr++) {
     var solarCapFactor = solar ? Math.pow(1 - p.solarDegradation, yr - 1) : 0;
@@ -719,8 +753,21 @@ function runModel(p) {
     var augHitAdj = bessIsOL ? 0 : augHit;               // geen augmentatie bij OL
     var bessNoi  = bessEbitda - augHitAdj;               // OL al in ebitda verwerkt
     var combinedNoi = solarNoi + bessNoi;
-    var sDS = (solar && yr <= p.solarDebtTenor) ? solarDS : 0;
-    var bDS = (bess  && yr <= p.bessDebtTenor)  ? bessDS  : 0;
+    // ── Schulddienst per jaar (annuïtair of lineair)
+    var sDS = 0, sDS_int = 0, sDS_prin = 0;
+    if (solar && !solarIsOL && yr <= p.solarDebtTenor) {
+      sDS_int  = solarBalance * p.solarDebtRate;
+      sDS_prin = solarIsLinear ? solarAnnPrin : Math.max(0, solarAnnuity - sDS_int);
+      sDS      = sDS_int + sDS_prin;
+      solarBalance = Math.max(0, solarBalance - sDS_prin);
+    }
+    var bDS = 0, bDS_int = 0, bDS_prin = 0;
+    if (bess && !bessIsOL && yr <= p.bessDebtTenor) {
+      bDS_int  = bessBalance * p.bessDebtRate;
+      bDS_prin = bessIsLinear ? bessAnnPrin : Math.max(0, bessAnnuity - bDS_int);
+      bDS      = bDS_int + bDS_prin;
+      bessBalance = Math.max(0, bessBalance - bDS_prin);
+    }
     var totalDS = sDS + bDS;
     var dscrSolar    = (solar && sDS > 0) ? solarNoi / sDS : null;
     var dscrBess     = (bess  && bDS > 0) ? bessNoi  / bDS : null;
@@ -737,7 +784,9 @@ function runModel(p) {
       solarOm: solarOm, solarOlCost: solarOlCost, bessOm: bessOm, bessOlCost: bessOlCost, augHit: augHit,
       solarEbitda: solarEbitda, bessEbitda: bessEbitda, totalEbitda: totalEbitda,
       solarNoi: solarNoi, bessNoi: bessNoi, combinedNoi: combinedNoi,
-      sDS: sDS, bDS: bDS, totalDS: totalDS,
+      sDS: sDS, sDS_int: sDS_int, sDS_prin: sDS_prin,
+      bDS: bDS, bDS_int: bDS_int, bDS_prin: bDS_prin,
+      totalDS: totalDS,
       dscrSolar: dscrSolar, dscrBess: dscrBess, dscrCombined: dscrCombined,
       solarFcfe: solarFcfe, bessFcfe: bessFcfe, combinedFcfe: combinedFcfe });
   }
@@ -909,9 +958,16 @@ function renderSidebar() {
         '</div>'
       );
     } else {
+      var solAnn = P.solarRepayMode !== 'linear';
+      var solRepayToggle = '<div style="margin-bottom:10px"><div style="font-size:10px;color:#4b5563;margin-bottom:5px;font-weight:600">' + (LANG==='EN'?'Repayment type:':'Aflossingstype:') + '</div>' +
+        '<div style="display:flex;gap:0;background:#f1f5f9;border-radius:8px;padding:2px;border:1px solid #e2e8f0">' +
+        '<div onclick="setP(\'solarRepayMode\',\'annuity\')" style="flex:1;text-align:center;padding:5px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:700;' + (solAnn?'background:#d97706;color:#fff':'color:#64748b') + '">' + (LANG==='EN'?'Annuity (equal)':'Annuïtair (gelijk)') + '</div>' +
+        '<div onclick="setP(\'solarRepayMode\',\'linear\')" style="flex:1;text-align:center;padding:5px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:700;' + (!solAnn?'background:#d97706;color:#fff':'color:#64748b') + '">' + (LANG==='EN'?'Linear (declining)':'Lineair (dalend)') + '</div>' +
+        '</div></div>';
       html += mkColl('sollening', LANG==='EN'?'Solar Financing':'Zonlening', 'solar',
         solFinToggle +
-        mkSl('solarDebtRatio',T('sl-solarLtv'),0.4,0.85,0.05,fPct,T('note-sol-ltv'),'#d97706') +
+        solRepayToggle +
+        mkSl('solarDebtRatio',T('sl-solarLtv'),0.4,1.00,0.05,fPct,T('note-sol-ltv'),'#d97706') +
         mkSl('solarDebtRate',T('sl-solarRate'),0.03,0.10,0.005,fPct,null,'#d97706') +
         mkSl('solarDebtTenor',T('sl-solarTenor'),8,25,1,null,null,'#d97706')
       );
@@ -1044,9 +1100,16 @@ function renderSidebar() {
       '</div>';
 
     if (P.bessFinMode === 'loan') {
+      var bessAnnMode = P.bessRepayMode !== 'linear';
+      var bessRepayToggle = '<div style="margin-bottom:10px"><div style="font-size:10px;color:#4b5563;margin-bottom:5px;font-weight:600">' + (LANG==='EN'?'Repayment type:':'Aflossingstype:') + '</div>' +
+        '<div style="display:flex;gap:0;background:#f1f5f9;border-radius:8px;padding:2px;border:1px solid #e2e8f0">' +
+        '<div onclick="setP(\'bessRepayMode\',\'annuity\')" style="flex:1;text-align:center;padding:5px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:700;' + (bessAnnMode?'background:#2563eb;color:#fff':'color:#64748b') + '">' + (LANG==='EN'?'Annuity (equal)':'Annuïtair (gelijk)') + '</div>' +
+        '<div onclick="setP(\'bessRepayMode\',\'linear\')" style="flex:1;text-align:center;padding:5px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:700;' + (!bessAnnMode?'background:#2563eb;color:#fff':'color:#64748b') + '">' + (LANG==='EN'?'Linear (declining)':'Lineair (dalend)') + '</div>' +
+        '</div></div>';
       html += mkColl('besslen', T('coll-besslen'), 'bess',
         finToggle +
-        mkSl('bessDebtRatio',T('sl-bessLtv'),0.4,0.80,0.05,fPct,T('note-bess-ltv'),'#2563eb') +
+        bessRepayToggle +
+        mkSl('bessDebtRatio',T('sl-bessLtv'),0.4,1.00,0.05,fPct,T('note-bess-ltv'),'#2563eb') +
         mkSl('bessDebtRate',T('sl-bessRate'),0.03,0.10,0.005,fPct,null,'#2563eb') +
         mkSl('bessDebtTenor',T('sl-bessTenor'),6,18,1,null,null,'#2563eb')
       );
@@ -1119,7 +1182,7 @@ function disMsgHtml(nameKey) {
 // TABS & CONTENT
 // ═══════════════════════════════════════════════
 function getTABS() {
-  return [T('tab-0'),T('tab-1'),T('tab-2'),T('tab-3'),T('tab-4'),T('tab-5'),T('tab-6'),T('tab-7'),T('tab-8'),T('tab-9')];
+  return [T('tab-0'),T('tab-1'),T('tab-2'),T('tab-3'),T('tab-4'),T('tab-5'),T('tab-6'),T('tab-7'),T('tab-8'),T('tab-9'),T('tab-10')];
 }
 
 function renderTabs() {
@@ -1428,9 +1491,16 @@ function renderContent() {
     html += '<div class="panel"><div class="panel-title">' + (LANG==='EN'?'Financing structure':'Financieringsstructuur') + '</div><canvas id="c-fin"></canvas></div>';
     html += '</div>';
     html += '<div class="panel"><div class="panel-title">' + (LANG==='EN'?'Full P&L — all years':'Volledige P&L  -  alle jaren') + '</div><div style="overflow-x:auto"><table><thead><tr>';
+    var showLoanBreakdown = P.bessFinMode !== 'ol' && (P.solarRepayMode === 'linear' || P.bessRepayMode === 'linear' || P.solarFinMode !== 'ol');
+    var dsLabel = P.bessFinMode==='ol' ? (LANG==='EN'?'OL rent / Solar DS':'OL-huur / Zon DS') : (LANG==='EN'?'Debt service':'Schulddienst');
     var plCols = LANG==='EN'
-      ? ['Year','Solar rev.','SDE++','Bat. rev.','Total rev.','EBITDA',(P.bessFinMode==='ol'?'OL rent / Solar DS':'Debt service'),'FCFE','DSCR']
-      : ['Jaar','Zon omzet','SDE++','Bat. omzet','Totaal omzet','EBITDA',(P.bessFinMode==='ol'?'OL-huur / Zon DS':'Schulddienst'),'FCFE','DSCR'];
+      ? ['Year','Solar rev.','SDE++','Bat. rev.','Total rev.','EBITDA', dsLabel]
+      : ['Jaar','Zon omzet','SDE++','Bat. omzet','Totaal omzet','EBITDA', dsLabel];
+    if (showLoanBreakdown && P.bessFinMode !== 'ol') {
+      plCols.push(LANG==='EN'?'Interest':'Rente');
+      plCols.push(LANG==='EN'?'Principal':'Aflossing');
+    }
+    plCols.push('FCFE'); plCols.push('DSCR');
     for (var ci=0;ci<plCols.length;ci++) html += '<th>'+plCols[ci]+'</th>';
     html += '</tr></thead><tbody>';
     for (var ri=0;ri<M.years.length;ri++) {
@@ -1451,7 +1521,11 @@ function renderContent() {
           (y.totalDS > 0 ? '<br>' + fM(y.totalDS) + ' zon' : '') +
           '</td>';
       } else {
-        html += '<td style="color:#dc2626">' + fM(y.totalDS) + '</td>';
+        html += '<td style="color:#dc2626;font-weight:700">' + fM(y.totalDS) + '</td>';
+        if (showLoanBreakdown) {
+          html += '<td style="color:#b45309;font-size:10px">' + fM((y.sDS_int||0)+(y.bDS_int||0)) + '</td>';
+          html += '<td style="color:#6b7280;font-size:10px">' + fM((y.sDS_prin||0)+(y.bDS_prin||0)) + '</td>';
+        }
       }
       html += '<td style="color:'+fcol+';font-weight:700">'+fM(y.combinedFcfe)+'</td>';
       html += '<td style="color:'+dcol+';font-weight:700">'+(d!==null?fX(d):' - ')+'</td>';
@@ -1712,9 +1786,13 @@ function renderContent() {
 
   document.getElementById('content').innerHTML = html;
 
-  // ── Agla tab (tab 9) - rendered separately to keep clean
+  // ── OL Calculator tab (tab 9) - rendered separately to keep clean
   if (currentTab === 9) {
     document.getElementById('content').innerHTML = renderAglaTab();
+  }
+  // ── FL Calculator tab (tab 10)
+  if (currentTab === 10) {
+    document.getElementById('content').innerHTML = renderFlTab();
   }
 
   // Draw charts
@@ -2636,6 +2714,288 @@ function buildAglaReportHtml(A) {
 }
 
 
+
+// ═══════════════════════════════════════════════════════════════
+// FL CALCULATOR TAB
+// ═══════════════════════════════════════════════════════════════
+function flCalc() {
+  var capex     = P.flBessCapex;
+  var principal = capex * P.flLtv;
+  var restwaarde = capex * P.flRestwaardePct;
+  var tenor     = P.flLooptijd;
+  var rate      = P.flRente;
+  var isLinear  = P.flRepayMode === 'linear';
+
+  var annuityPayment = (principal > 0 && rate > 0 && tenor > 0)
+    ? principal * (rate * Math.pow(1+rate,tenor)) / (Math.pow(1+rate,tenor)-1)
+    : 0;
+  var annualPrincipal = tenor > 0 ? principal / tenor : 0;
+
+  // Bestaande zonlening DS
+  var zonDS = 0;
+  if (P.flZonleningEnabled && P.flZonleningRestschuld > 0) {
+    var zr = P.flZonleningRente, zn = P.flZonleningRestlooptijd;
+    zonDS = P.flZonleningRestschuld * (zr * Math.pow(1+zr,zn)) / (Math.pow(1+zr,zn)-1);
+  }
+
+  var rows = [];
+  var balance = principal;
+
+  for (var yr = 1; yr <= tenor; yr++) {
+    var bessRevBase   = P.flBessRev1 * Math.pow(1-P.flBessDeg, yr-1) * Math.pow(1-P.flMarketDecline, yr-1);
+    var bessRevStress = bessRevBase * P.flStress;
+    var bessRevWorst  = bessRevBase * P.flWorst;
+
+    var interest = balance * rate;
+    var flPrincipal, flPayment;
+    if (isLinear) {
+      flPrincipal = annualPrincipal;
+      flPayment   = interest + flPrincipal;
+    } else {
+      flPayment   = annuityPayment;
+      flPrincipal = Math.max(0, flPayment - interest);
+    }
+    balance = Math.max(0, balance - flPrincipal);
+
+    var zonDsYr = (P.flZonleningEnabled && yr <= P.flZonleningRestlooptijd) ? zonDS : 0;
+
+    // Zon opbrengst voor voor/na vergelijking
+    var solarRevYr = P.flSolarRevYr1 * Math.pow(1-P.flSolarDeg, yr-1);
+
+    var covBase   = flPayment > 0 ? bessRevBase   / flPayment : null;
+    var covStress = flPayment > 0 ? bessRevStress / flPayment : null;
+    var covWorst  = flPayment > 0 ? bessRevWorst  / flPayment : null;
+
+    // Park DSCR voor/na BESS
+    var dscrVoor = (zonDsYr > 0) ? solarRevYr / zonDsYr : null;
+    var totalDSNa = flPayment + zonDsYr;
+    var dscrNa   = (totalDSNa > 0) ? (solarRevYr + bessRevBase) / totalDSNa : null;
+
+    rows.push({
+      yr: yr,
+      bessRevBase: bessRevBase, bessRevStress: bessRevStress, bessRevWorst: bessRevWorst,
+      interest: interest, flPrincipal: flPrincipal, flPayment: flPayment,
+      balance: balance, zonDsYr: zonDsYr, solarRevYr: solarRevYr,
+      covBase: covBase, covStress: covStress, covWorst: covWorst,
+      dscrVoor: dscrVoor, dscrNa: dscrNa
+    });
+  }
+
+  var allBase   = rows.map(function(r){return r.covBase;}).filter(function(v){return v!==null;});
+  var allStress = rows.map(function(r){return r.covStress;}).filter(function(v){return v!==null;});
+  var minBase   = allBase.length   ? Math.min.apply(null,allBase)   : null;
+  var minStress = allStress.length ? Math.min.apply(null,allStress) : null;
+
+  return {
+    rows: rows, principal: principal, restwaarde: restwaarde,
+    annuityPayment: annuityPayment, annualPrincipal: annualPrincipal,
+    zonDS: zonDS, minBase: minBase, minStress: minStress,
+    yr1Payment: rows.length ? rows[0].flPayment : 0,
+    yr1Coverage: rows.length ? rows[0].covBase : null,
+    totalInterest: rows.reduce(function(s,r){return s+r.interest;}, 0),
+    totalPaid: rows.reduce(function(s,r){return s+r.flPayment;}, 0)
+  };
+}
+
+function renderFlTab() {
+  var F = flCalc();
+  var h = '';
+
+  // ── Header
+  h += '<div style="background:linear-gradient(135deg,#1e3a5f,#7c3aed);border-radius:12px;padding:16px 20px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">';
+  h += '<div><div style="color:#fff;font-size:15px;font-weight:800">FL Calculator — Financial Lease BESS</div>';
+  h += '<div style="color:#c4b5fd;font-size:11px;margin-top:3px">' + P.flProjectName + '  ·  ' + P.flBessMw + 'MW/' + P.flBessMwh + 'MWh BESS  ·  ' + P.flLooptijd + ' jr  ·  ' + (P.flRepayMode === 'annuity' ? 'Annuïtair' : 'Lineair') + '</div></div>';
+  h += '</div>';
+
+  // ── In-tab parameters
+  h += '<div style="background:#f5f3ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:14px 16px;margin-bottom:14px">';
+  h += '<div style="font-size:10px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Parameters</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:11px">';
+
+  function flNi(label, key, val, step, pct, sub) {
+    var v = pct ? (val*100).toFixed(1) : val;
+    var cb = pct ? 'setP(\''+key+'\',parseFloat(this.value)/100||'+val+')' : 'setP(\''+key+'\',parseFloat(this.value)||'+val+')';
+    return '<div><div style="color:#4b5563;font-size:10px;font-weight:600;margin-bottom:2px">'+label+'</div>' +
+      '<input type="number" value="'+v+'" step="'+(step||1000)+'" style="width:100%;border:1px solid #ddd6fe;border-radius:6px;padding:4px 7px;font-size:11px;font-family:inherit;outline:none" ' +
+      'onchange="'+cb+'" onblur="'+cb+'">'+(sub?'<div style="font-size:9px;color:#9ca3af;margin-top:1px">'+sub+'</div>':'')+'</div>';
+  }
+
+  h += '<div style="grid-column:span 4"><input type="text" value="'+P.flProjectName.replace(/"/g,'&quot;')+'" style="width:100%;border:1px solid #ddd6fe;border-radius:6px;padding:4px 7px;font-size:11px;font-family:inherit;outline:none" onchange="setP(\'flProjectName\',this.value)" onblur="setP(\'flProjectName\',this.value)" placeholder="Projectnaam"></div>';
+  h += flNi('BESS CAPEX (€)', 'flBessCapex', P.flBessCapex, 10000);
+  h += flNi('BESS vermogen (MW)', 'flBessMw', P.flBessMw, 0.5);
+  h += flNi('BESS capaciteit (MWh)', 'flBessMwh', P.flBessMwh, 1);
+  h += flNi('Financieringsgraad %', 'flLtv', P.flLtv, 5, true, '100% = volledig gefinancierd');
+  h += flNi('Rente % per jaar', 'flRente', P.flRente, 0.5, true);
+  h += flNi('Looptijd (jaar)', 'flLooptijd', P.flLooptijd, 1);
+  h += flNi('Restwaarde % CAPEX', 'flRestwaardePct', P.flRestwaardePct, 5, true, 'Na looptijd, voor Gridstate (lessor)');
+
+  // Aflossingstype toggle
+  var flAnn = P.flRepayMode !== 'linear';
+  h += '<div style="grid-column:span 2"><div style="font-size:10px;color:#4b5563;font-weight:600;margin-bottom:4px">Aflossingstype</div>' +
+    '<div style="display:flex;gap:0;background:#ede9fe;border-radius:7px;padding:2px">' +
+    '<div onclick="setP(\'flRepayMode\',\'annuity\')" style="flex:1;text-align:center;padding:5px;border-radius:5px;cursor:pointer;font-size:10px;font-weight:700;' + (flAnn?'background:#7c3aed;color:#fff':'color:#64748b') + '">Annuïtair (gelijk)</div>' +
+    '<div onclick="setP(\'flRepayMode\',\'linear\')" style="flex:1;text-align:center;padding:5px;border-radius:5px;cursor:pointer;font-size:10px;font-weight:700;' + (!flAnn?'background:#7c3aed;color:#fff':'color:#64748b') + '">Lineair (dalend)</div>' +
+    '</div></div>';
+
+  h += '<div style="grid-column:span 4;border-top:1px solid #ddd6fe;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.5px">BESS Opbrengst</div>';
+  h += flNi('Netto BESS opbrengst jr1 (€)', 'flBessRev1', P.flBessRev1, 5000, false, 'Netto na aggregatorkosten');
+  h += flNi('Capaciteitsdeg./jaar %', 'flBessDeg', P.flBessDeg, 0.1, true);
+  h += flNi('Marktprijsdaling/jaar %', 'flMarketDecline', P.flMarketDecline, 0.5, true);
+  h += '<div></div>';
+  h += flNi('Stress scenario %', 'flStress', P.flStress, 5, true);
+  h += flNi('Worst case %', 'flWorst', P.flWorst, 5, true);
+
+  h += '<div style="grid-column:span 4;border-top:1px solid #ddd6fe;margin:4px 0;padding-top:8px;font-size:10px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.5px">Bestaande Zonlening (voor DSCR voor/na)</div>';
+  var flZlOn = P.flZonleningEnabled;
+  h += '<div style="grid-column:span 4;display:flex;align-items:center;gap:10px;margin-bottom:6px">' +
+    '<div onclick="setP(\'flZonleningEnabled\','+!flZlOn+')" style="cursor:pointer;background:'+(flZlOn?'#d97706':'#d1d5db')+';width:36px;height:20px;border-radius:10px;position:relative;flex-shrink:0">' +
+    '<div style="position:absolute;top:2px;left:'+(flZlOn?'16':'2')+'px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div></div>' +
+    '<span style="font-size:11px;color:#4b5563">Bestaande zonlening meenemen</span></div>';
+  if (flZlOn) {
+    h += flNi('Restschuld (€)', 'flZonleningRestschuld', P.flZonleningRestschuld, 10000);
+    h += flNi('Rente %', 'flZonleningRente', P.flZonleningRente, 0.5, true);
+    h += flNi('Restlooptijd (jr)', 'flZonleningRestlooptijd', P.flZonleningRestlooptijd, 1);
+    h += flNi('Zon omzet jr1 (€)', 'flSolarRevYr1', P.flSolarRevYr1, 5000, false, 'Marktopbrengst excl. SDE++');
+    h += '<div style="grid-column:span 4;background:#fff7ed;border-radius:6px;padding:7px 10px;font-size:10px;color:#92400e">' +
+      'Zonlening annuïteit: <b>' + fEur(F.zonDS) + '/jr</b>  ·  <b>' + fEur(F.zonDS/12) + '/mnd</b></div>';
+  }
+  h += '</div></div>';
+
+  // ── KPI row
+  var cov1Col = F.yr1Coverage === null ? '#9ca3af' : F.yr1Coverage >= 1.35 ? '#16a34a' : F.yr1Coverage >= 1.20 ? '#ca8a04' : '#dc2626';
+  var minCol  = F.minBase === null ? '#9ca3af' : F.minBase >= 1.35 ? '#16a34a' : F.minBase >= 1.20 ? '#ca8a04' : '#dc2626';
+  h += '<div class="kpi-row">';
+  h += mkKpi('FL Hoofdsom', fEur(F.principal), Math.round(P.flLtv*100) + '% van CAPEX ' + fEur(P.flBessCapex), '#7c3aed');
+  h += mkKpi('Jaarlast jr1', fEur(F.yr1Payment), P.flRepayMode === 'annuity' ? 'Annuïtair — gelijk elk jaar' : 'Lineair — hoogst in jr1', '#2563eb');
+  h += mkKpi('Coverage jr1', F.yr1Coverage !== null ? F.yr1Coverage.toFixed(2)+'x' : '—', 'BESS opbrengst / FL-last', cov1Col);
+  h += mkKpi('Min. coverage', F.minBase !== null ? F.minBase.toFixed(2)+'x' : '—', 'Laagste over ' + P.flLooptijd + ' jaar (basis)', minCol);
+  h += mkKpi('Restwaarde BESS', fEur(F.restwaarde), 'Na ' + P.flLooptijd + 'jr · ' + Math.round(P.flRestwaardePct*100) + '% CAPEX (Gridstate)', '#1e3a5f');
+  h += '</div>';
+
+  // ── Coverage tabel
+  var panelTitle = 'FL Coverage — ' + P.flLooptijd + ' jaar  ·  ' + Math.round(P.flRente*100*10)/10 + '% rente  ·  ' + (P.flRepayMode === 'annuity' ? 'Annuïtair' : 'Lineair');
+  h += '<div class="panel"><div class="panel-title">' + panelTitle + '</div><div style="overflow-x:auto"><table><thead>';
+  h += '<tr>';
+  h += '<th>Jr</th><th>BESS opbrengst</th><th style="color:#fde68a">Stress '+Math.round(P.flStress*100)+'%</th><th style="color:#fca5a5">Worst '+Math.round(P.flWorst*100)+'%</th>';
+  h += '<th>Rente</th><th>Aflossing</th><th>FL-last</th><th>Restschuld</th>';
+  h += '<th>Coverage</th><th style="color:#fde68a">Stress</th><th style="color:#fca5a5">Worst</th>';
+  if (flZlOn) h += '<th>Zon DS</th><th>DSCR voor</th><th>DSCR na</th>';
+  h += '</tr>';
+  h += '</thead><tbody>';
+
+  for (var yi = 0; yi < F.rows.length; yi++) {
+    var r = F.rows[yi];
+    var bg = yi % 2 === 0 ? '#f9fafb' : '#fff';
+    var cbBase   = r.covBase   !== null ? (r.covBase   >= 1.35 ? '#16a34a' : r.covBase   >= 1.20 ? '#ca8a04' : '#dc2626') : '#9ca3af';
+    var cbStress = r.covStress !== null ? (r.covStress >= 1.00 ? '#ca8a04' : '#dc2626') : '#9ca3af';
+    var cbWorst  = r.covWorst  !== null ? (r.covWorst  >= 1.00 ? '#ca8a04' : '#dc2626') : '#9ca3af';
+    h += '<tr style="background:'+bg+'">';
+    h += '<td style="font-weight:700">'+r.yr+'</td>';
+    h += '<td>'+fEur(r.bessRevBase)+'</td>';
+    h += '<td style="color:#ca8a04">'+fEur(r.bessRevStress)+'</td>';
+    h += '<td style="color:#dc2626">'+fEur(r.bessRevWorst)+'</td>';
+    h += '<td style="color:#b45309">'+fEur(r.interest)+'</td>';
+    h += '<td>'+fEur(r.flPrincipal)+'</td>';
+    h += '<td style="font-weight:700">'+fEur(r.flPayment)+'</td>';
+    h += '<td style="color:#6b7280">'+fEur(r.balance)+'</td>';
+    h += '<td style="font-weight:800;color:'+cbBase+'">'+fCov(r.covBase)+'</td>';
+    h += '<td style="color:'+cbStress+'">'+fCov(r.covStress)+'</td>';
+    h += '<td style="color:'+cbWorst+'">'+fCov(r.covWorst)+'</td>';
+    if (flZlOn) {
+      var dvCol = r.dscrVoor !== null ? (r.dscrVoor >= 1.25 ? '#16a34a' : '#dc2626') : '#9ca3af';
+      var dnCol = r.dscrNa  !== null ? (r.dscrNa  >= 1.25 ? '#16a34a' : '#dc2626') : '#9ca3af';
+      h += '<td style="color:#d97706">'+fEur(r.zonDsYr)+'</td>';
+      h += '<td style="color:'+dvCol+'">'+(r.dscrVoor!==null?r.dscrVoor.toFixed(2)+'x':'—')+'</td>';
+      h += '<td style="font-weight:800;color:'+dnCol+'">'+(r.dscrNa!==null?r.dscrNa.toFixed(2)+'x':'—')+'</td>';
+    }
+    h += '</tr>';
+  }
+  h += '</tbody></table></div>';
+  h += '<div style="font-size:9px;color:#9ca3af;margin-top:5px;line-height:1.6">Coverage = BESS netto opbrengst / FL-jaarlast. &ge;1.35x goed &middot; &ge;1.20x voldoende &middot; &lt;1.20x kritiek. Degradatie: BESS '+Math.round(P.flBessDeg*100*10)/10+'%/jr · Markt '+Math.round(P.flMarketDecline*100*10)/10+'%/jr.</div>';
+  h += '</div>';
+
+  // ── Financieel overzicht (totalen)
+  h += '<div class="kpi-row">';
+  h += mkKpi('Totale FL-betalingen', fEur(F.totalPaid), 'Hoofd + rente over ' + P.flLooptijd + ' jr', '#2563eb');
+  h += mkKpi('Totale rente', fEur(F.totalInterest), 'Rentekosten over looptijd', '#b45309');
+  h += mkKpi('Financieringskosten', fEur(F.totalPaid - F.principal), 'Boven op hoofdsom', '#dc2626');
+  h += mkKpi('Maandlast jr1', fEur(F.yr1Payment/12) + '/mnd', P.flRepayMode === 'annuity' ? 'Gelijk elk jaar' : 'Laagst in laatste jaar', '#7c3aed');
+  if (P.flRepayMode === 'linear') {
+    var lastRow = F.rows.length ? F.rows[F.rows.length-1] : null;
+    h += mkKpi('Maandlast jr' + P.flLooptijd, lastRow ? fEur(lastRow.flPayment/12) + '/mnd' : '—', 'Laagste betaling (laatste jaar)', '#16a34a');
+  }
+  h += '</div>';
+
+  // ── Voor/Na BESS DSCR vergelijking (alleen als zonlening aan)
+  if (flZlOn && F.rows.length > 0) {
+    h += '<div class="panel" style="border-top:3px solid #d97706">';
+    h += '<div class="panel-title" style="color:#d97706">DSCR Voor/Na BESS — Parkperspectief (Jaar 1)</div>';
+    var r0 = F.rows[0];
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:12px">';
+
+    // Voor BESS
+    h += '<div style="background:#f8fafc;border-radius:8px;padding:12px">';
+    h += '<div style="font-size:11px;font-weight:700;color:#4b5563;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Park ZONDER BESS</div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #e5e7eb"><span style="color:#6b7280">Zon omzet jr1</span><b>'+fEur(r0.solarRevYr)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #e5e7eb;color:#dc2626"><span>- Zonlening DS</span><b>'+fEur(r0.zonDsYr)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #e5e7eb"><span style="font-weight:700">FCFE (zon)</span><b style="color:'+(r0.solarRevYr-r0.zonDsYr>=0?'#16a34a':'#dc2626')+'">'+fEur(r0.solarRevYr-r0.zonDsYr)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0"><span style="font-weight:700">DSCR zon</span><b style="color:'+(r0.dscrVoor!==null?(r0.dscrVoor>=1.25?'#16a34a':'#dc2626'):'#9ca3af')+';font-size:16px">'+(r0.dscrVoor!==null?r0.dscrVoor.toFixed(2)+'x':'—')+'</b></div>';
+    h += '</div>';
+
+    // Na BESS
+    var dscrNaOk = r0.dscrNa !== null && r0.dscrNa >= 1.25;
+    var dscrNaCol = r0.dscrNa !== null ? (r0.dscrNa >= 1.35 ? '#16a34a' : r0.dscrNa >= 1.25 ? '#ca8a04' : '#dc2626') : '#9ca3af';
+    h += '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px">';
+    h += '<div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Park MET BESS (FL)</div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #dcfce7"><span style="color:#6b7280">Zon omzet jr1</span><b>'+fEur(r0.solarRevYr)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #dcfce7;color:#16a34a"><span>+ BESS opbrengst jr1</span><b>+'+fEur(r0.bessRevBase)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #dcfce7;color:#dc2626"><span>- Zonlening DS</span><b>'+fEur(r0.zonDsYr)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #dcfce7;color:#7c3aed"><span>- FL-jaarlast BESS</span><b>'+fEur(r0.flPayment)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #dcfce7"><span style="font-weight:700">FCFE (totaal)</span><b style="color:'+(r0.solarRevYr+r0.bessRevBase-r0.zonDsYr-r0.flPayment>=0?'#16a34a':'#dc2626')+'">'+fEur(r0.solarRevYr+r0.bessRevBase-r0.zonDsYr-r0.flPayment)+'</b></div>';
+    h += '<div style="display:flex;justify-content:space-between;padding:3px 0"><span style="font-weight:700">DSCR totaal</span><b style="color:'+dscrNaCol+';font-size:16px">'+(r0.dscrNa!==null?r0.dscrNa.toFixed(2)+'x':'—')+'</b></div>';
+    h += '</div>';
+    h += '</div>';
+
+    // Verbetering
+    if (r0.dscrVoor !== null && r0.dscrNa !== null) {
+      var delta = r0.dscrNa - r0.dscrVoor;
+      h += '<div style="margin-top:10px;background:#f0fdf4;border-radius:8px;padding:10px 14px;font-size:11px;color:#166534">';
+      h += '<b>DSCR-verbetering door BESS:</b> ' + (delta >= 0 ? '+' : '') + delta.toFixed(2) + 'x  ·  ';
+      h += 'Van <b>' + r0.dscrVoor.toFixed(2) + 'x</b> naar <b style="color:'+dscrNaCol+'">' + r0.dscrNa.toFixed(2) + 'x</b> in jaar 1';
+      h += '</div>';
+    }
+    h += '</div>';
+  }
+
+  // ── Verdict
+  h += '<div class="panel" style="border-left:4px solid ' + (F.minBase !== null && F.minBase >= 1.20 ? '#16a34a' : '#dc2626') + '">';
+  h += '<div class="panel-title" style="color:' + (F.minBase !== null && F.minBase >= 1.20 ? '#16a34a' : '#dc2626') + '">Verdict & Samenvatting</div>';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:11px">';
+
+  function verdictKpi(label, val, col) {
+    return '<div><b style="color:'+col+';font-size:14px">'+val+'</b><br><span style="color:#6b7280;font-size:10px">'+label+'</span></div>';
+  }
+  h += verdictKpi('Min. coverage basis (jr'+P.flLooptijd+')', F.minBase !== null ? F.minBase.toFixed(2)+'x' : '—', F.minBase !== null && F.minBase >= 1.20 ? '#16a34a' : '#dc2626');
+  h += verdictKpi('Min. coverage stress '+Math.round(P.flStress*100)+'%', F.minStress !== null ? F.minStress.toFixed(2)+'x' : '—', F.minStress !== null && F.minStress >= 1.00 ? '#ca8a04' : '#dc2626');
+  h += verdictKpi('FL totaalsom ('+P.flLooptijd+' jr)', fEur(F.totalPaid), '#1e3a5f');
+  h += verdictKpi('Totale rente over looptijd', fEur(F.totalInterest), '#b45309');
+  h += verdictKpi('Restwaarde (voor Gridstate)', fEur(F.restwaarde), '#7c3aed');
+  h += verdictKpi('Eff. jaarlast jr1', fEur(F.yr1Payment), '#2563eb');
+  h += '</div>';
+
+  var conclusion = '';
+  if (F.minBase !== null && F.minBase >= 1.35) {
+    conclusion = 'Solide financiering: coverage blijft boven 1.35x in alle jaren bij basiscenario. BESS-opbrengsten dekken de FL-last ruim voldoende.';
+  } else if (F.minBase !== null && F.minBase >= 1.20) {
+    conclusion = 'Voldoende financiering: coverage boven 1.20x. Geef aan dat coverage in stress-scenario (' + Math.round(P.flStress*100) + '%) ' + (F.minStress !== null && F.minStress >= 1.00 ? 'boven 1.0x blijft.' : 'onder 1.0x zakt — overweeg lagere FL-rate of langere looptijd.');
+  } else {
+    conclusion = 'Kritische coverage: minimum coverage onder 1.20x. Overweeg: lagere hoofdsom, langere looptijd, hogere BESS-opbrengst, of extra zekerheden.';
+  }
+  h += '<div style="margin-top:10px;font-size:11px;color:#374151;line-height:1.7;background:#f8fafc;border-radius:8px;padding:10px 14px">' + conclusion + '</div>';
+  h += '</div>';
+
+  return h;
+}
 
 // ═══════════════════════════════════════════════
 // HEADER UPDATE
@@ -3923,7 +4283,8 @@ var TR = {
   'tab-6':             {NL:'Inkomsten',                         EN:'Revenue'},
   'tab-7':             {NL:'Financieel',                        EN:'Financial'},
   'tab-8':             {NL:'Deal Calculator',                   EN:'Deal Calculator'},
-  'tab-9':             {NL:'Agla Lease',                        EN:'Agla Lease'},
+  'tab-9':             {NL:'OL Calculator',                     EN:'OL Calculator'},
+  'tab-10':            {NL:'FL Calculator',                     EN:'FL Calculator'},
 
   // ── Sidebar labels
   'sb-actief':         {NL:'Actieve onderdelen',                EN:'Active components'},
@@ -4152,8 +4513,8 @@ var TR = {
   'note-sde-base':     {NL:'SDE++ veld NL',                    EN:'SDE++ field NL'},
   'note-sde-corr':     {NL:'= EPEX jaargemiddelde',            EN:'= EPEX annual average'},
   'note-epex':         {NL:'NL/BE daggemiddelde',              EN:'NL/BE daily average'},
-  'note-sol-ltv':      {NL:'Banken: max 70% op zon',           EN:'Banks: max 70% on solar'},
-  'note-bess-ltv':     {NL:'Banken: max 65% op BESS',         EN:'Banks: max 65% on BESS'},
+  'note-sol-ltv':      {NL:'Banken: typisch 60-75% · slider tot 100%',  EN:'Banks: typical 60-75% · slider to 100%'},
+  'note-bess-ltv':     {NL:'Banken: typisch 60-70% · slider tot 100%',  EN:'Banks: typical 60-70% · slider to 100%'},
   'note-bess-deg':     {NL:'LFP: ca. 0,7%/jr garantieperiode', EN:'LFP: approx. 0.7%/yr warranty period'},
   'note-bess-ol':      {NL:'Typisch 12-16%/jr · off-balance',  EN:'Typical 12-16%/yr · off-balance'},
   'note-bess-ol-tenor':{NL:'Na looptijd: nieuwe batterij of stoppen', EN:'After term: new battery or stop'},
