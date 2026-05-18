@@ -362,7 +362,9 @@ export const translations = {
       links: "Pagina's",
       contact: "Contact",
       legal: "Legal",
-      kvk: "KvK: [nummer]",
+      terms: "Algemene voorwaarden",
+      address: "Burgemeester Hoffscholteweg 4, 1431 DN Aalsmeer",
+      kvk: "KvK: 99572621",
       copyright: "© 2025 Gridstate B.V. Alle rechten voorbehouden.",
     },
     general: {
@@ -699,7 +701,9 @@ export const translations = {
       links: "Pages",
       contact: "Contact",
       legal: "Legal",
-      kvk: "CoC: [number]",
+      terms: "General terms & conditions",
+      address: "Burgemeester Hoffscholteweg 4, 1431 DN Aalsmeer",
+      kvk: "CoC: 99572621",
       copyright: "© 2025 Gridstate B.V. All rights reserved.",
     },
     general: {

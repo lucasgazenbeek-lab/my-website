@@ -39,6 +39,16 @@ export default function Footer() {
                 <Link href={p.href} className="text-sm text-white/60 hover:text-white transition-colors">{p.label}</Link>
               </li>
             ))}
+            <li>
+              <a
+                href="/algemene-voorwaarden.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-white/60 hover:text-white transition-colors"
+              >
+                {t.footer.terms}
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -63,7 +73,10 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
           <span>{t.footer.copyright}</span>
-          <span>{t.footer.kvk}</span>
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+            <span>{t.footer.address}</span>
+            <span>{t.footer.kvk}</span>
+          </div>
         </div>
       </div>
     </footer>
