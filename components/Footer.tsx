@@ -23,10 +23,11 @@ export default function Footer() {
         <div className="lg:col-span-2">
           <Image src="/logo-alt.png" alt="Gridstate" width={140} height={40} className="h-10 w-auto object-contain mb-4" />
           <p className="text-white/60 text-sm leading-relaxed max-w-sm">{t.footer.tagline}</p>
-          <div className="mt-6">
+          <div className="mt-6 flex flex-col gap-2">
             <a href="mailto:info@gridstate.nl" className="text-white/60 text-sm hover:text-white transition-colors">
               info@gridstate.nl
             </a>
+            <p className="text-white/60 text-sm">{t.footer.address}</p>
           </div>
         </div>
 
