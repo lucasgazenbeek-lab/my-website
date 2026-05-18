@@ -64,7 +64,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-white font-semibold">Lucas Gazenbeek</p>
-              <p className="text-white/40 text-xs">DGA & Commercieel Directeur</p>
+              <p className="text-white/40 text-xs">Commercieel Directeur & Mede-eigenaar</p>
               <a href="tel:+31652350318" className="text-white/60 hover:text-white transition-colors block mt-1">+31 6 52 35 03 18</a>
             </div>
           </div>
