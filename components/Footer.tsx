@@ -27,7 +27,14 @@ export default function Footer() {
             <a href="mailto:info@gridstate.nl" className="text-white/60 text-sm hover:text-white transition-colors">
               info@gridstate.nl
             </a>
-            <p className="text-white/60 text-sm">{t.footer.address}</p>
+            <a
+              href="https://maps.google.com/?q=Burgemeester+Hoffscholteweg+4,+1431+DN+Aalsmeer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 text-sm hover:text-white transition-colors"
+            >
+              {t.footer.address}
+            </a>
           </div>
         </div>
 
