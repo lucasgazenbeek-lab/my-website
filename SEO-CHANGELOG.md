@@ -37,8 +37,7 @@ De site is Next.js 16 (App Router) op Vercel. Alle publieke pagina's waren clien
 - Overige cijferweergaven (wat-wij-doen, projecten, full-epc, over-ons) waren al statische tekst en lezen nu uit de siteconfig.
 
 ### Fase 6 — Performance & Core Web Vitals (`perf`)
-- Posterframe uit de hero-video geëxtraheerd (`public/hero-poster.jpg`, 183 KB) en altijd server-side gerenderd via `next/image` met `priority` en `sizes="100vw"` → de LCP-kandidaat is nu de poster/H1, niet de video. Vercel's image optimizer levert hem als AVIF/WebP.
-- De video mount alleen client-side op schermen ≥768px zonder reduced-motion, met `preload="metadata"`, `poster`, `muted`, `playsInline`, `loop`, `autoPlay`. Mobiel krijgt alleen de (visueel identieke) poster — de 25,8 MB video wordt daar niet meer geladen.
+- ~~Posterframe + client-side video-mount~~ **Teruggedraaid op verzoek (10 juni 2026):** de semi-transparante video (55% opacity) kwam bovenop het eveneens semi-transparante posterframe te liggen, wat een dubbelbeeld/ghosting-effect gaf. De hero is hersteld naar de originele video-only opzet. Het geëxtraheerde posterframe (`public/hero-poster.jpg`) blijft beschikbaar voor een toekomstige, correcte implementatie (poster verbergen zodra de video speelt) — zie TODO's.
 - Correcte `sizes` op nav-logo (110px i.p.v. laden op w=640), footer-logo en alle partnerlogo's.
 - Duplicaat-logoset in de marquee heeft `aria-hidden="true"` en lege alts.
 - Fonts liepen al via `next/font` (Montserrat) — geen wijziging nodig.
@@ -85,7 +84,7 @@ Aandachtspunten (geen fouten, wel ter bevestiging/verbetering):
 |---|-------|------|
 | 1 | **Sitemap indienen** in Google Search Console (`https://gridstate.nl/sitemap.xml`) + domein verifiëren | Search Console |
 | 2 | **Rich Results Test** draaien op `/`, `/wat-wij-doen` en `/partnermodellen/full-epc` na deploy | search.google.com/test/rich-results |
-| 3 | **Hero-video comprimeren** (nu 25,8 MB) en WebM-variant maken — ffmpeg was niet beschikbaar in deze omgeving:<br>`ffmpeg -i hero-bg.mp4 -vcodec libx264 -crf 28 -preset slow -vf scale=1920:-2 -an hero-bg-opt.mp4`<br>`ffmpeg -i hero-bg.mp4 -c:v libvpx-vp9 -crf 38 -b:v 0 -vf scale=1920:-2 -an hero-bg.webm`<br>Daarna in `page-client.tsx` een tweede `<source type="video/webm">` boven de mp4 zetten. | `public/hero-bg.mp4` |
+| 3 | **Hero-video comprimeren** (nu 25,8 MB) en WebM-variant maken — ffmpeg was niet beschikbaar in deze omgeving:<br>`ffmpeg -i hero-bg.mp4 -vcodec libx264 -crf 28 -preset slow -vf scale=1920:-2 -an hero-bg-opt.mp4`<br>`ffmpeg -i hero-bg.mp4 -c:v libvpx-vp9 -crf 38 -b:v 0 -vf scale=1920:-2 -an hero-bg.webm`<br>Daarna in `page-client.tsx` een tweede `<source type="video/webm">` boven de mp4 zetten. De poster/LCP-optimalisatie kan dan ook correct terug: poster tonen tot de video speelt en hem daarna verbergen (i.p.v. beide gestapeld op 55% opacity, wat ghosting gaf). | `public/hero-bg.mp4` |
 | 4 | **`logos/nedkab.jpeg`** vervangen door PNG/WebP met transparante achtergrond (vereist beeldbewerking; jpeg heeft geen alfakanaal) | `public/logos/` |
 | 5 | **Privacyverklaring juridisch laten reviewen** (disclaimer staat als comment in de code) | `app/(website)/privacyverklaring/page.tsx` |
 | 6 | **LinkedIn-bedrijfspagina URL** invullen (`social.linkedin`) → komt automatisch in het Organization-schema als `sameAs` | `lib/site-config.ts` |

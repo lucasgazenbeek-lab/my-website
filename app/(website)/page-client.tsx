@@ -2,8 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import PartnerTicker from "@/components/PartnerTicker";
@@ -15,21 +14,6 @@ import ProcessSteps from "@/components/ProcessSteps";
 import { siteConfig } from "@/lib/site-config";
 
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
-
-const VIDEO_MEDIA_QUERIES = ["(min-width: 768px)", "(prefers-reduced-motion: reduce)"];
-
-function subscribeToVideoMedia(callback: () => void) {
-  const lists = VIDEO_MEDIA_QUERIES.map((q) => window.matchMedia(q));
-  lists.forEach((l) => l.addEventListener("change", callback));
-  return () => lists.forEach((l) => l.removeEventListener("change", callback));
-}
-
-function getShowVideoSnapshot() {
-  return (
-    window.matchMedia("(min-width: 768px)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
 
 export default function Home() {
   const { t } = useLang();
@@ -120,16 +104,6 @@ export default function Home() {
 
   const heroContentRef = useRef<HTMLDivElement>(null);
 
-  // The hero video only mounts client-side on larger screens without a
-  // reduced-motion preference; everyone else keeps the (visually identical)
-  // poster frame. This keeps the 25 MB video off mobile connections.
-  // useSyncExternalStore renders false on the server and during hydration.
-  const showVideo = useSyncExternalStore(
-    subscribeToVideoMedia,
-    getShowVideoSnapshot,
-    () => false
-  );
-
   useEffect(() => {
     const onScroll = () => {
       if (!heroContentRef.current) return;
@@ -148,31 +122,17 @@ export default function Home() {
 
       {/* ─── 1. HERO ───────────────────────────────────────────── */}
       <section id="section-hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#1a0810]">
-        {/* Poster frame — always server-rendered so it is the LCP candidate */}
-        <Image
-          src="/hero-poster.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+        {/* Video background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
           style={{ opacity: 0.55 }}
-        />
-        {/* Video background — mounts client-side over the identical poster */}
-        {showVideo && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/hero-poster.jpg"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ opacity: 0.55 }}
-          >
-            <source src="/hero-bg.mp4" type="video/mp4" />
-          </video>
-        )}
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
 
         <FloatingChips />
 
