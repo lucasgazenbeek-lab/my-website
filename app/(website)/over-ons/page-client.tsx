@@ -280,6 +280,8 @@ export default function OverOns() {
         titleEn="Meet the team"
         sub="Directe lijnen — geen salesafdeling, geen intermediairs. Gewoon een open gesprek."
         subEn="Direct lines — no sales department, no intermediaries. Just an open conversation."
+        trustLine="U spreekt direct met het team zelf — zonder verkooppraatje."
+        trustLineEn="You'll speak directly with the team itself — no sales pitch."
       />
     </div>
   );

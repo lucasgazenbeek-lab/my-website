@@ -239,6 +239,8 @@ export default function Partnermodellen() {
         titleEn="Which model fits you?"
         sub="Plan een gesprek of bel ons direct — we bepalen samen het beste samenwerkingsmodel."
         subEn="Book a call or contact us directly — we'll determine the best collaboration model together."
+        trustLine="Geen verplichtingen — we verkennen samen welk model bij uw organisatie past."
+        trustLineEn="No obligations — together we'll explore which model fits your organisation."
       />
     </div>
   );

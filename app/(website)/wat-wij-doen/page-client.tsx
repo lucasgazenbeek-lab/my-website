@@ -431,6 +431,8 @@ export default function WatWijDoen() {
         titleEn="Let's discuss your project"
         sub="Plan een gesprek of bel ons direct — we nemen uw project door van A tot Z."
         subEn="Book a call or contact us directly — we'll walk through your project from A to Z."
+        trustLine="Vrijblijvend kennismaken — u weet na één gesprek waar u staat."
+        trustLineEn="A no-strings introduction — you'll know where you stand after one conversation."
       />
     </div>
   );
