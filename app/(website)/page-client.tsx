@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import PartnerTicker from "@/components/PartnerTicker";
@@ -15,6 +15,21 @@ import ProcessSteps from "@/components/ProcessSteps";
 import { siteConfig } from "@/lib/site-config";
 
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
+
+const VIDEO_MEDIA_QUERIES = ["(min-width: 768px)", "(prefers-reduced-motion: reduce)"];
+
+function subscribeToVideoMedia(callback: () => void) {
+  const lists = VIDEO_MEDIA_QUERIES.map((q) => window.matchMedia(q));
+  lists.forEach((l) => l.addEventListener("change", callback));
+  return () => lists.forEach((l) => l.removeEventListener("change", callback));
+}
+
+function getShowVideoSnapshot() {
+  return (
+    window.matchMedia("(min-width: 768px)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
 
 export default function Home() {
   const { t } = useLang();
@@ -108,12 +123,12 @@ export default function Home() {
   // The hero video only mounts client-side on larger screens without a
   // reduced-motion preference; everyone else keeps the (visually identical)
   // poster frame. This keeps the 25 MB video off mobile connections.
-  const [showVideo, setShowVideo] = useState(false);
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (desktop.matches && !reducedMotion.matches) setShowVideo(true);
-  }, []);
+  // useSyncExternalStore renders false on the server and during hydration.
+  const showVideo = useSyncExternalStore(
+    subscribeToVideoMedia,
+    getShowVideoSnapshot,
+    () => false
+  );
 
   useEffect(() => {
     const onScroll = () => {

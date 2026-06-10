@@ -120,7 +120,7 @@ export default function Privacyverklaring() {
             <ul className="list-disc pl-5 flex flex-col gap-2">
               <li>Inzage in de persoonsgegevens die wij van u verwerken;</li>
               <li>Rectificatie van onjuiste of onvolledige gegevens;</li>
-              <li>Verwijdering van uw gegevens ("recht op vergetelheid");</li>
+              <li>Verwijdering van uw gegevens (&ldquo;recht op vergetelheid&rdquo;);</li>
               <li>Beperking van de verwerking en bezwaar tegen de verwerking;</li>
               <li>Overdraagbaarheid van uw gegevens (dataportabiliteit).</li>
             </ul>
