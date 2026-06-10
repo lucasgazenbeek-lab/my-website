@@ -73,10 +73,29 @@ export default function PlanEenAfspraak() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || c.formError);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : c.formError);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -204,8 +223,8 @@ export default function PlanEenAfspraak() {
                       <path d="M5 12l5 5L20 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-black text-white mb-2">Bericht ontvangen</h3>
-                  <p className="text-white/60">We nemen zo snel mogelijk contact met u op.</p>
+                  <h3 className="text-xl font-black text-white mb-2">{c.formSuccessTitle}</h3>
+                  <p className="text-white/60">{c.formSuccessSub}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -296,14 +315,23 @@ export default function PlanEenAfspraak() {
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-sm text-[#470020] bg-[#470020]/8 border border-[#470020]/20 rounded-lg px-4 py-3">
+                      {error}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="mt-2 px-8 py-4 bg-[#470020] text-white font-bold rounded-lg hover:bg-[#5c0029] active:bg-[#2d0015] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2"
+                    disabled={sending}
+                    className="mt-2 px-8 py-4 bg-[#470020] text-white font-bold rounded-lg hover:bg-[#5c0029] active:bg-[#2d0015] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {c.formSubmit}
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    {sending ? c.formSending : c.formSubmit}
+                    {!sending && (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
                   </button>
                 </form>
               )}
