@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import BookingCTA from "@/components/BookingCTA";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -84,8 +85,8 @@ export default function OverOns() {
                       {a.emielName}
                     </h2>
                     <p className="text-white/60 text-sm font-semibold">{a.emielRole}</p>
-                    <a href="tel:+31625404350" className="text-white/50 text-sm hover:text-white transition-colors mt-1 block">
-                      +31 6 25 40 43 50
+                    <a href={`tel:${siteConfig.contacts.emiel.phoneHref}`} className="text-white/50 text-sm hover:text-white transition-colors mt-1 block">
+                      {siteConfig.contacts.emiel.phoneDisplay}
                     </a>
                   </div>
                 </div>
@@ -122,8 +123,8 @@ export default function OverOns() {
                       {a.lucasName}
                     </h2>
                     <p className="text-[#470020] text-sm font-semibold">{a.lucasRole}</p>
-                    <a href="tel:+31652350318" className="text-[#6b4a56] text-sm hover:text-[#470020] transition-colors mt-1 block">
-                      +31 6 52 35 03 18
+                    <a href={`tel:${siteConfig.contacts.lucas.phoneHref}`} className="text-[#6b4a56] text-sm hover:text-[#470020] transition-colors mt-1 block">
+                      {siteConfig.contacts.lucas.phoneDisplay}
                     </a>
                   </div>
                 </div>
@@ -210,9 +211,9 @@ export default function OverOns() {
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    ["70+ MWh", "Gerealiseerd"],
-                    ["€7M+", "Gecombineerde projectomzet"],
-                    ["12+ jr", "Gecombineerde ervaring"],
+                    [siteConfig.stats.mwhRealized.display, "Gerealiseerd"],
+                    [siteConfig.stats.combinedRevenue.display, "Gecombineerde projectomzet"],
+                    [`${siteConfig.stats.combinedExperienceYears.display} jr`, "Gecombineerde ervaring"],
                     ["Benelux", "Focusmarkt"],
                   ].map(([val, label], i) => (
                     <div key={i} className="p-4 border border-white/20 rounded-lg bg-white/10">

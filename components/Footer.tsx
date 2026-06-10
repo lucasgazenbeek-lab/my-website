@@ -3,9 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "./LanguageProvider";
+import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
   const { t } = useLang();
+  const { company, contacts } = siteConfig;
 
   const pages = [
     { href: "/", label: t.nav.home },
@@ -24,16 +26,16 @@ export default function Footer() {
           <Image src="/logo-alt.png" alt="Gridstate" width={140} height={40} className="h-10 w-auto object-contain mb-4" />
           <p className="text-white/60 text-sm leading-relaxed max-w-sm">{t.footer.tagline}</p>
           <div className="mt-6 flex flex-col gap-2">
-            <a href="mailto:info@gridstate.nl" className="text-white/60 text-sm hover:text-white transition-colors">
-              info@gridstate.nl
+            <a href={`mailto:${company.email}`} className="text-white/60 text-sm hover:text-white transition-colors">
+              {company.email}
             </a>
             <a
-              href="https://maps.google.com/?q=Burgemeester+Hoffscholteweg+4,+1431+DN+Aalsmeer"
+              href={`https://maps.google.com/?q=${encodeURIComponent(company.address.full)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/60 text-sm hover:text-white transition-colors"
             >
-              {t.footer.address}
+              {company.address.full}
             </a>
           </div>
         </div>
@@ -65,14 +67,14 @@ export default function Footer() {
           <p className="text-xs font-black tracking-widest text-white/40 uppercase mb-5">{t.footer.contact}</p>
           <div className="flex flex-col gap-6 text-sm">
             <div>
-              <p className="text-white font-semibold">Emiel Verlee</p>
+              <p className="text-white font-semibold">{contacts.emiel.name}</p>
               <p className="text-white/40 text-xs">CEO & Oprichter</p>
-              <a href="tel:+31625404350" className="text-white/60 hover:text-white transition-colors block mt-1">+31 6 25 40 43 50</a>
+              <a href={`tel:${contacts.emiel.phoneHref}`} className="text-white/60 hover:text-white transition-colors block mt-1">{contacts.emiel.phoneDisplay}</a>
             </div>
             <div>
-              <p className="text-white font-semibold">Lucas Gazenbeek</p>
+              <p className="text-white font-semibold">{contacts.lucas.name}</p>
               <p className="text-white/40 text-xs">Commercieel Directeur & Mede-eigenaar</p>
-              <a href="tel:+31652350318" className="text-white/60 hover:text-white transition-colors block mt-1">+31 6 52 35 03 18</a>
+              <a href={`tel:${contacts.lucas.phoneHref}`} className="text-white/60 hover:text-white transition-colors block mt-1">{contacts.lucas.phoneDisplay}</a>
             </div>
           </div>
         </div>
@@ -80,10 +82,10 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
-          <span>{t.footer.copyright}</span>
+          <span>{`© ${new Date().getFullYear()} ${company.legalName} ${t.footer.rights}`}</span>
           <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
-            <span>{t.footer.address}</span>
-            <span>{t.footer.kvk}</span>
+            <span>{company.address.full}</span>
+            <span>{`${t.footer.kvkLabel}: ${company.kvk}`}</span>
           </div>
         </div>
       </div>

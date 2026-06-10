@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -128,20 +129,20 @@ export default function PlanEenAfspraak() {
               <ContactCard
                 name={c.emielName}
                 role={c.emielRole}
-                phone="+31 6 25 40 43 50"
-                email="e.verlee@gridstate.nl"
+                phone={siteConfig.contacts.emiel.phoneDisplay}
+                email={siteConfig.contacts.emiel.email}
                 featured
               />
               <ContactCard
                 name={c.lucasName}
                 role={c.lucasRole}
-                phone="+31 6 52 35 03 18"
-                email="l.gazenbeek@gridstate.nl"
+                phone={siteConfig.contacts.lucas.phoneDisplay}
+                email={siteConfig.contacts.lucas.email}
               />
               <div className="p-6 border border-[#e0d5d0] rounded-lg bg-[#f9f6f4] flex flex-col justify-center">
                 <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-3">Algemeen</p>
-                <a href="mailto:info@gridstate.nl" className="text-lg font-bold text-[#1a0810] hover:text-[#470020] transition-colors">
-                  info@gridstate.nl
+                <a href={`mailto:${siteConfig.company.email}`} className="text-lg font-bold text-[#1a0810] hover:text-[#470020] transition-colors">
+                  {siteConfig.company.email}
                 </a>
                 <p className="text-xs text-[#6b4a56] mt-2">Gridstate B.V. — Benelux</p>
               </div>

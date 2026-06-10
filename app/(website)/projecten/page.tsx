@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -46,8 +47,8 @@ export default function Projecten() {
       <section className="border-b border-[#e0d5d0] bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 grid grid-cols-3 divide-x divide-[#e0d5d0]">
           {[
-            ["50+ MWh", p.statsInOwnPlanning],
-            ["6", p.statsActiveProjects],
+            [siteConfig.stats.mwhInDevelopment.display, p.statsInOwnPlanning],
+            [siteConfig.stats.activeProjects.display, p.statsActiveProjects],
             ["Benelux", p.statsWorkArea],
           ].map(([val, label], i) => (
             <div key={i} className="px-3 sm:px-8 first:pl-0 last:pr-0 text-center">

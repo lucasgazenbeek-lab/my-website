@@ -3,6 +3,7 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useLang } from "@/components/LanguageProvider";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -65,9 +66,9 @@ const content = {
     heroCta1: "Word partner",
     heroCta2: "Bekijk het model",
     trustStats: [
-      { stat: "20 MW+", label: "BESS-vermogen geleverd en ondersteund" },
-      { stat: "100%", label: "Eigen engineering & technische documentatie" },
-      { stat: "6+", label: "Actieve partnerprojecten in Benelux" },
+      { stat: siteConfig.stats.mwhRealized.display, label: "Opslagcapaciteit gerealiseerd en ondersteund" },
+      { stat: siteConfig.stats.inHouseEngineering.display, label: "Eigen engineering & technische documentatie" },
+      { stat: siteConfig.stats.activeProjects.display, label: "Actieve & geplande projecten in de Benelux" },
       { stat: "FAT/SAT", label: "Begeleiding standaard inbegrepen" },
     ],
     whatLabel: "Het Supply & Technical model",
@@ -196,7 +197,7 @@ const content = {
     finalTitle: ["Bouw jouw BESS-portfolio", "met Gridstate als basis"],
     finalBody: "Gridstate ondersteunt installateurs, EPC'ers en solar-partijen bij het realiseren van batterijprojecten — met de juiste systemen en de technische rugdekking die je nodig hebt.",
     finalCta1: "Plan een partnergesprek",
-    finalCta2: "info@gridstate.nl",
+    finalCta2: siteConfig.company.email,
   },
   en: {
     back: "Partner models",
@@ -206,9 +207,9 @@ const content = {
     heroCta1: "Become a partner",
     heroCta2: "See the model",
     trustStats: [
-      { stat: "20 MW+", label: "BESS capacity supplied and supported" },
-      { stat: "100%", label: "In-house engineering & technical documentation" },
-      { stat: "6+", label: "Active partner projects in the Benelux" },
+      { stat: siteConfig.stats.mwhRealized.display, label: "Storage capacity realised and supported" },
+      { stat: siteConfig.stats.inHouseEngineering.display, label: "In-house engineering & technical documentation" },
+      { stat: siteConfig.stats.activeProjects.display, label: "Active & planned projects in the Benelux" },
       { stat: "FAT/SAT", label: "Guidance included as standard" },
     ],
     whatLabel: "The Supply & Technical model",
@@ -337,7 +338,7 @@ const content = {
     finalTitle: ["Build your BESS portfolio", "with Gridstate as your foundation"],
     finalBody: "Gridstate supports installers, EPC contractors and solar companies in realising battery projects — with the right systems and the technical backing you need.",
     finalCta1: "Schedule a partner conversation",
-    finalCta2: "info@gridstate.nl",
+    finalCta2: siteConfig.company.email,
   },
 };
 
@@ -700,7 +701,7 @@ export default function SupplyTechnicalPage() {
               <Link href="/plan-een-afspraak" className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#470020] font-black rounded hover:bg-[#f2edea] active:scale-[0.98] transition-opacity duration-200">
                 {c.finalCta1}<ArrowRight />
               </Link>
-              <a href="mailto:info@gridstate.nl" className="inline-flex items-center justify-center gap-3 px-10 py-5 border border-white/30 text-white font-semibold rounded hover:bg-white/10 active:scale-[0.98] transition-opacity duration-200">
+              <a href={`mailto:${siteConfig.company.email}`} className="inline-flex items-center justify-center gap-3 px-10 py-5 border border-white/30 text-white font-semibold rounded hover:bg-white/10 active:scale-[0.98] transition-opacity duration-200">
                 {c.finalCta2}
               </a>
             </div>

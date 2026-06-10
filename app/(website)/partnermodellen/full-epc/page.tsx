@@ -3,6 +3,7 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useLang } from "@/components/LanguageProvider";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -65,9 +66,9 @@ const content = {
     heroCta1: "Plan een kennismaking",
     heroCta2: "Bekijk onze aanpak",
     trustStats: [
-      { stat: "20 MW+", label: "BESS-vermogen gerealiseerd en ondersteund" },
-      { stat: "100%", label: "Eigen engineering — geen uitbesteding" },
-      { stat: "6+", label: "Actieve projecten in ontwikkeling" },
+      { stat: siteConfig.stats.mwhRealized.display, label: "Opslagcapaciteit gerealiseerd" },
+      { stat: siteConfig.stats.inHouseEngineering.display, label: "Eigen engineering — geen uitbesteding" },
+      { stat: siteConfig.stats.activeProjects.display, label: "Actieve & geplande projecten" },
       { stat: "1 contract", label: "Volledige EPC-verantwoordelijkheid" },
     ],
     whatLabel: "Wat is Full EPC",
@@ -168,7 +169,7 @@ const content = {
     finalTitle: ["Uw batterijproject begint", "met één gesprek"],
     finalBody: "Gridstate analyseert uw situatie, brengt de mogelijkheden in kaart en levert u een eerlijk beeld van haalbaarheid en rendement — zonder verplichtingen.",
     finalCta1: "Plan een kennismaking",
-    finalCta2: "info@gridstate.nl",
+    finalCta2: siteConfig.company.email,
   },
   en: {
     back: "Partner models",
@@ -178,9 +179,9 @@ const content = {
     heroCta1: "Schedule a meeting",
     heroCta2: "See our approach",
     trustStats: [
-      { stat: "20 MW+", label: "BESS capacity realised and supported" },
-      { stat: "100%", label: "In-house engineering — no outsourcing" },
-      { stat: "6+", label: "Active projects in development" },
+      { stat: siteConfig.stats.mwhRealized.display, label: "Storage capacity realised" },
+      { stat: siteConfig.stats.inHouseEngineering.display, label: "In-house engineering — no outsourcing" },
+      { stat: siteConfig.stats.activeProjects.display, label: "Active & planned projects" },
       { stat: "1 contract", label: "Full EPC responsibility" },
     ],
     whatLabel: "What is Full EPC",
@@ -281,7 +282,7 @@ const content = {
     finalTitle: ["Your battery project begins", "with one conversation"],
     finalBody: "Gridstate analyses your situation, maps the opportunities and gives you an honest picture of feasibility and return — without obligations.",
     finalCta1: "Schedule a meeting",
-    finalCta2: "info@gridstate.nl",
+    finalCta2: siteConfig.company.email,
   },
 };
 
@@ -584,7 +585,7 @@ export default function FullEpcPage() {
               <Link href="/plan-een-afspraak" className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#470020] font-black rounded hover:bg-[#f2edea] active:scale-[0.98] transition-opacity duration-200">
                 {c.finalCta1}<ArrowRight />
               </Link>
-              <a href="mailto:info@gridstate.nl" className="inline-flex items-center justify-center gap-3 px-10 py-5 border border-white/30 text-white font-semibold rounded hover:bg-white/10 active:scale-[0.98] transition-opacity duration-200">
+              <a href={`mailto:${siteConfig.company.email}`} className="inline-flex items-center justify-center gap-3 px-10 py-5 border border-white/30 text-white font-semibold rounded hover:bg-white/10 active:scale-[0.98] transition-opacity duration-200">
                 {c.finalCta2}
               </a>
             </div>

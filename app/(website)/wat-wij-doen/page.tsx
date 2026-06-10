@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import BookingCTA from "@/components/BookingCTA";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -87,9 +88,9 @@ export default function WatWijDoen() {
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { val: "A tot Z", label: "Eén verantwoordelijke partij", desc: "Van vergunning tot oplevering" },
-                    { val: "5+", label: "Directe fabrikantrelaties", desc: "Geen tussenpersonen" },
-                    { val: "20 MW+", label: "Technisch ondersteund", desc: "Bewezen track record" },
-                    { val: "100%", label: "Engineering-first", desc: "Kwaliteit boven snelheid" },
+                    { val: siteConfig.stats.manufacturerRelations.display, label: "Directe fabrikantrelaties", desc: "Geen tussenpersonen" },
+                    { val: siteConfig.stats.mwhRealized.display, label: "Gerealiseerd", desc: "Bewezen track record" },
+                    { val: siteConfig.stats.inHouseEngineering.display, label: "Engineering-first", desc: "Kwaliteit boven snelheid" },
                   ].map((item, i) => (
                     <div key={i} className={`p-5 rounded-lg border-2 ${i === 0 ? "border-[#470020] bg-[#470020]" : "border-[#e0d5d0] bg-[#f9f6f4]"}`}>
                       <div className={`text-2xl font-black mb-1 ${i === 0 ? "text-white" : "text-[#470020]"}`}

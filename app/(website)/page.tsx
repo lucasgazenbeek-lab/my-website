@@ -11,6 +11,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ScrollZoom from "@/components/ScrollZoom";
 import FloatingChips from "@/components/FloatingChips";
 import ProcessSteps from "@/components/ProcessSteps";
+import { siteConfig } from "@/lib/site-config";
 
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -20,11 +21,12 @@ export default function Home() {
   const pm = t.partnermodels;
   const ab = t.about;
 
+  const st = siteConfig.stats;
   const stats = [
-    { value: 20, suffix: " MW+", label: h.stat1Label },
-    { value: 30, suffix: " MW+", label: h.stat2Label },
-    { value: 5,  suffix: "+",    label: h.stat3Label },
-    { value: 100,suffix: "%",    label: h.stat4Label },
+    { value: st.mwhRealized.value, suffix: `${st.mwhRealized.suffix} ${st.mwhRealized.unit}`, label: h.stat1Label },
+    { value: st.mwhInDevelopment.value, suffix: `${st.mwhInDevelopment.suffix} ${st.mwhInDevelopment.unit}`, label: h.stat2Label },
+    { value: st.manufacturerRelations.value, suffix: st.manufacturerRelations.suffix, label: h.stat3Label },
+    { value: st.inHouseEngineering.value, suffix: st.inHouseEngineering.suffix, label: h.stat4Label },
   ];
 
   const partnerModels = [
@@ -397,7 +399,7 @@ export default function Home() {
                 {h.ctaButton}
               </Link>
               <a
-                href="tel:+31652350318"
+                href={`tel:${siteConfig.contacts.lucas.phoneHref}`}
                 className="inline-flex items-center gap-3 px-8 py-4 border-2 border-white/25 text-white font-bold text-base rounded hover:border-white/50 hover:bg-white/8 active:scale-[0.98] transition-colors duration-200"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">

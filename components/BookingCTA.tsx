@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
+import { siteConfig } from "@/lib/site-config";
 
 interface BookingCTAProps {
   title?: string;
@@ -10,6 +11,8 @@ interface BookingCTAProps {
   subEn?: string;
   phone?: string;
   phoneDisplay?: string;
+  trustLine?: string;
+  trustLineEn?: string;
 }
 
 export default function BookingCTA({
@@ -17,13 +20,17 @@ export default function BookingCTA({
   titleEn,
   sub = "Plan direct een gesprek of bel ons — zonder verplichtingen.",
   subEn,
-  phone = "+31652350318",
-  phoneDisplay = "+31 (0)6 52 35 03 18",
+  phone = siteConfig.contacts.lucas.phoneHref,
+  phoneDisplay = siteConfig.contacts.lucas.phoneDisplay,
+  trustLine,
+  trustLineEn,
 }: BookingCTAProps) {
   const { t, lang } = useLang();
   const g = t.general;
   const displayTitle = lang === "en" && titleEn ? titleEn : title;
   const displaySub = lang === "en" && subEn ? subEn : sub;
+  const displayTrustLine =
+    lang === "en" ? (trustLineEn ?? trustLine ?? g.noObligation) : (trustLine ?? g.noObligation);
   return (
     <section className="relative py-24 lg:py-32 bg-[#1a0810] overflow-hidden">
       {/* Grain overlay */}
@@ -114,7 +121,7 @@ export default function BookingCTA({
 
         {/* Trust line */}
         <p className="text-center text-white/25 text-sm mt-10">
-          {g.noObligation}
+          {displayTrustLine}
         </p>
       </div>
     </section>

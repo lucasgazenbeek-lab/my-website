@@ -3,6 +3,7 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useLang } from "@/components/LanguageProvider";
+import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -66,7 +67,7 @@ const content = {
     heroCta1: "Vraag een RFQ aan",
     heroCta2: "Bekijk het aanbod",
     trustStats: [
-      { stat: "20 MW+", label: "BESS-vermogen geleverd" },
+      { stat: siteConfig.stats.mwhRealized.display, label: "Opslagcapaciteit geleverd" },
       { stat: "Directe", label: "fabrieksrelaties EU & Azië" },
       { stat: "FAT", label: "Elk systeem geïnspecteerd" },
       { stat: "Benelux", label: "én internationale levering" },
@@ -170,7 +171,7 @@ const content = {
     finalTitle: ["Professionele supply", "voor serieuze projecten"],
     finalBody: "Gridstate levert BESS-systemen en componenten aan professionele partijen. Direct vanuit de fabrikant, met FAT-garantie en volledige documentatie.",
     finalCta1: "RFQ aanvragen",
-    finalCta2: "info@gridstate.nl",
+    finalCta2: siteConfig.company.email,
   },
   en: {
     back: "Partner models",
@@ -180,7 +181,7 @@ const content = {
     heroCta1: "Request an RFQ",
     heroCta2: "View the offer",
     trustStats: [
-      { stat: "20 MW+", label: "BESS capacity supplied" },
+      { stat: siteConfig.stats.mwhRealized.display, label: "Storage capacity supplied" },
       { stat: "Direct", label: "factory relationships EU & Asia" },
       { stat: "FAT", label: "Every system inspected" },
       { stat: "Benelux", label: "and international delivery" },
@@ -284,7 +285,7 @@ const content = {
     finalTitle: ["Professional supply", "for serious projects"],
     finalBody: "Gridstate supplies BESS systems and components to professional parties. Direct from the manufacturer, with FAT guarantee and complete documentation.",
     finalCta1: "Request an RFQ",
-    finalCta2: "info@gridstate.nl",
+    finalCta2: siteConfig.company.email,
   },
 };
 
@@ -572,7 +573,7 @@ export default function SupplyOnlyPage() {
               <Link href="/plan-een-afspraak" className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#470020] font-black rounded hover:bg-[#f2edea] active:scale-[0.98] transition-opacity duration-200">
                 {c.finalCta1}<ArrowRight />
               </Link>
-              <a href="mailto:info@gridstate.nl" className="inline-flex items-center justify-center gap-3 px-10 py-5 border border-white/30 text-white font-semibold rounded hover:bg-white/10 active:scale-[0.98] transition-opacity duration-200">
+              <a href={`mailto:${siteConfig.company.email}`} className="inline-flex items-center justify-center gap-3 px-10 py-5 border border-white/30 text-white font-semibold rounded hover:bg-white/10 active:scale-[0.98] transition-opacity duration-200">
                 {c.finalCta2}
               </a>
             </div>

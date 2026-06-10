@@ -1,18 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { siteConfig } from "@/lib/site-config";
 
 const CHIPS = [
   {
-    value: "20 MW+",
-    label: "BESS Ondersteund",
+    value: siteConfig.stats.mwhRealized.display,
+    label: "Gerealiseerd",
     depth: 32,
     bobDur: 7,
     bobDel: 0,
     style: { right: "13%", top: "18%" },
   },
   {
-    value: "30 MW+",
+    value: siteConfig.stats.mwhInDevelopment.display,
     label: "In Ontwikkeling",
     depth: 48,
     bobDur: 9,
@@ -28,7 +29,7 @@ const CHIPS = [
     style: { right: "16%", top: "62%" },
   },
   {
-    value: "5+",
+    value: siteConfig.stats.manufacturerRelations.display,
     label: "Fabrikantrelaties",
     depth: 40,
     bobDur: 7.5,
