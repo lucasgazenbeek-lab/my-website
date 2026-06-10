@@ -3,6 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { siteConfig } from "@/lib/site-config";
+import { organizationSchema } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -48,30 +50,7 @@ export default function RootLayout({
   return (
     <html lang="nl" className={`${montserrat.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-[#1a0810] antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Gridstate",
-              url: "https://gridstate.nl",
-              logo: "https://gridstate.nl/logo.png",
-              description:
-                "Turnkey EPC-aannemer gespecialiseerd in grootschalige batterijopslagsystemen en hybride zonnepark+BESS-projecten in de Benelux.",
-              areaServed: ["NL", "BE", "LU"],
-              knowsAbout: [
-                "BESS",
-                "batterijopslag",
-                "energieopslag",
-                "utility-scale zonneparken",
-                "EPC",
-                "peakshaving",
-                "netcongestie",
-              ],
-            }),
-          }}
-        />
+        <JsonLd data={organizationSchema()} />
         <LanguageProvider>
           {children}
         </LanguageProvider>
