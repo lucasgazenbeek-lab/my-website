@@ -21,9 +21,30 @@ const LOGOS = [
   { src: "/logos/eenovance.png", alt: "Eenovance", h: 38 },
 ];
 
-export default function PartnerTicker() {
-  const doubled = [...LOGOS, ...LOGOS];
+function LogoSet({ hidden = false }: { hidden?: boolean }) {
+  return (
+    // The second set only exists for the seamless scroll loop; hide it
+    // from screen readers and crawlers so logos aren't announced twice.
+    <div className="flex items-center gap-16" aria-hidden={hidden || undefined}>
+      {LOGOS.map((logo, i) => (
+        <div key={i} className="shrink-0 flex items-center justify-center opacity-40 hover:opacity-90 transition-opacity duration-300"
+          style={{ height: 72, minWidth: 100 }}>
+          <Image
+            src={logo.src}
+            alt={hidden ? "" : logo.alt}
+            width={160}
+            height={logo.h}
+            sizes="160px"
+            className="object-contain"
+            style={{ maxHeight: logo.h, width: "auto" }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
 
+export default function PartnerTicker() {
   return (
     <div className="overflow-hidden w-full py-2 relative">
       <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
@@ -32,19 +53,8 @@ export default function PartnerTicker() {
         style={{ background: "linear-gradient(to left, #f2edea, transparent)" }} />
 
       <div className="ticker-track flex items-center gap-16 w-max">
-        {doubled.map((logo, i) => (
-          <div key={i} className="shrink-0 flex items-center justify-center opacity-40 hover:opacity-90 transition-opacity duration-300"
-            style={{ height: 72, minWidth: 100 }}>
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={160}
-              height={logo.h}
-              className="object-contain"
-              style={{ maxHeight: logo.h, width: "auto" }}
-            />
-          </div>
-        ))}
+        <LogoSet />
+        <LogoSet hidden />
       </div>
     </div>
   );

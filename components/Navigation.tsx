@@ -44,6 +44,7 @@ export default function Navigation() {
               alt="Gridstate"
               width={220}
               height={101}
+              sizes="110px"
               className="h-12 w-auto object-contain"
               priority
             />

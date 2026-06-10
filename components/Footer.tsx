@@ -23,7 +23,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {/* Brand */}
         <div className="lg:col-span-2">
-          <Image src="/logo-alt.png" alt="Gridstate" width={140} height={40} className="h-10 w-auto object-contain mb-4" />
+          <Image src="/logo-alt.png" alt="Gridstate" width={140} height={40} sizes="140px" className="h-10 w-auto object-contain mb-4" />
           <p className="text-white/60 text-sm leading-relaxed max-w-sm">{t.footer.tagline}</p>
           <div className="mt-6 flex flex-col gap-2">
             <a href={`mailto:${company.email}`} className="text-white/60 text-sm hover:text-white transition-colors">
