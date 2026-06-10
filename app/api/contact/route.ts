@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Afzender — pas aan naar een adres op je geverifieerde domein zodra dat klaar is,
 // bijv. "Gridstate <formulier@gridstate.nl>". Tot die tijd het Resend-testdomein.
 const FROM = process.env.CONTACT_FROM ?? "Gridstate <onboarding@resend.dev>";
@@ -77,6 +75,7 @@ export async function POST(req: Request) {
     </div>`;
 
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const result = await resend.emails.send({
       from: FROM,
       to: TO,
