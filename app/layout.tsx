@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { siteConfig } from "@/lib/site-config";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -11,27 +12,13 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gridstate.nl"),
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
     default: "Gridstate — Turnkey EPC Batterijopslag Benelux",
     template: "%s | Gridstate",
   },
   description:
     "Gridstate is een turnkey EPC-aannemer gespecialiseerd in grootschalige batterijopslagsystemen en hybride zonnepark+BESS-projecten in de Benelux.",
-  keywords: [
-    "BESS",
-    "batterijopslag",
-    "EPC",
-    "energieopslag",
-    "Benelux",
-    "utility-scale",
-    "C&I",
-    "peakshaving",
-    "netcongestie",
-    "batterijopslag Benelux",
-    "EPC aannemer Nederland",
-    "grootschalige energieopslag",
-  ],
   robots: {
     index: true,
     follow: true,
@@ -39,8 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "nl_NL",
-    url: "https://gridstate.nl",
-    siteName: "Gridstate",
+    url: siteConfig.siteUrl,
+    siteName: siteConfig.company.name,
     title: "Gridstate — Turnkey EPC Batterijopslag Benelux",
     description:
       "Turnkey EPC-aannemer voor grootschalige BESS en hybride zonnepark+BESS projecten in de Benelux.",
