@@ -81,9 +81,9 @@ export default function OverOns() {
                     <span className="text-2xl font-black text-white">EV</span>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                    <h3 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
                       {a.emielName}
-                    </h2>
+                    </h3>
                     <p className="text-white/60 text-sm font-semibold">{a.emielRole}</p>
                     <a href={`tel:${siteConfig.contacts.emiel.phoneHref}`} className="text-white/50 text-sm hover:text-white transition-colors mt-1 block">
                       {siteConfig.contacts.emiel.phoneDisplay}
@@ -119,9 +119,9 @@ export default function OverOns() {
                     <span className="text-2xl font-black text-[#470020]">LG</span>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                    <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
                       {a.lucasName}
-                    </h2>
+                    </h3>
                     <p className="text-[#470020] text-sm font-semibold">{a.lucasRole}</p>
                     <a href={`tel:${siteConfig.contacts.lucas.phoneHref}`} className="text-[#6b4a56] text-sm hover:text-[#470020] transition-colors mt-1 block">
                       {siteConfig.contacts.lucas.phoneDisplay}
@@ -157,9 +157,9 @@ export default function OverOns() {
                     <span className="text-2xl font-black text-[#470020]">SK</span>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                    <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
                       {a.shaneName}
-                    </h2>
+                    </h3>
                     <p className="text-[#470020] text-sm font-semibold">{a.shaneRole}</p>
                   </div>
                 </div>

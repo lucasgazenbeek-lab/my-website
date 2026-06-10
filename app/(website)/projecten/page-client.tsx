@@ -62,6 +62,7 @@ export default function Projecten() {
       {/* ─── PROJECT GRID — Lichtgrijs ───────────────────────── */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="sr-only">{p.portfolioLabel}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((proj, i) => (
               <ScrollReveal key={i} delay={i * 80}>

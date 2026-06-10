@@ -550,7 +550,7 @@ export default function SupplyOnlyPage() {
           {c.faqs.map((faq, i) => (
             <ScrollReveal key={i}>
               <div className="border-b border-[#e8e0dc] py-7">
-                <p className="font-black text-[#1a0810] mb-3" style={{ letterSpacing: "-0.01em" }}>{faq.q}</p>
+                <h3 className="font-black text-[#1a0810] mb-3" style={{ letterSpacing: "-0.01em" }}>{faq.q}</h3>
                 <p className="text-[#6b4a56] leading-relaxed text-sm">{faq.a}</p>
               </div>
             </ScrollReveal>

@@ -90,7 +90,7 @@ export default function Home() {
       label: "Technical",
       title: h.service3Title,
       sub: h.service3Sub,
-      href: "/wat-wij-doen",
+      href: "/partnermodellen/supply-technical",
       bg: "linear-gradient(145deg, #470020 0%, #200010 60%, #0d0006 100%)",
       accent: "rgba(160,30,80,0.3)",
     },
@@ -262,7 +262,7 @@ export default function Home() {
       <section className="py-16 bg-[#f9f6f4] border-y border-[#e0d5d0]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-10">
           <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-[#1a0810]/30 uppercase text-center">{h.tickerTitle}</p>
+            <h2 className="text-xs font-black tracking-widest text-[#1a0810]/30 uppercase text-center">{h.tickerTitle}</h2>
           </ScrollReveal>
         </div>
         <PartnerTicker />
@@ -346,7 +346,7 @@ export default function Home() {
         <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-white/35 uppercase mb-20 text-center">{h.statsTitle}</p>
+            <h2 className="text-xs font-black tracking-widest text-white/35 uppercase mb-20 text-center">{h.statsTitle}</h2>
           </ScrollReveal>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
             {stats.map((s, i) => (
@@ -374,9 +374,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4 text-center">{ab.whyTitle}</p>
-            <p className="text-2xl lg:text-3xl font-black text-[#1a0810] text-center max-w-3xl mx-auto mb-16 leading-snug" style={{ letterSpacing: "-0.02em" }}>
+            <h2 className="text-2xl lg:text-3xl font-black text-[#1a0810] text-center max-w-3xl mx-auto mb-16 leading-snug" style={{ letterSpacing: "-0.02em" }}>
               {ab.whyQuote}
-            </p>
+            </h2>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
