@@ -69,6 +69,16 @@ De site is Next.js 16 (App Router) op Vercel. Alle publieke pagina's waren clien
 
 ---
 
+## Naronde — Eenheidscontrole MW/MWh + pre-deploy smoke test (10 juni 2026)
+
+**Eenheidscontrole:** alle 17 vindplaatsen van kerncijfers met label geïnventariseerd (home-counters, FloatingChips, statcards wat-wij-doen, stats-strip projecten, trackrecord over-ons, trustbars van de drie partnermodel-pagina's, revenue-stack voorbeelden, projectkaarten). Uitkomst: **geen eenheidsfouten** — de labels zijn in de hoofdronde al samen met de waarden omgezet ("BESS-vermogen …" → "Opslagcapaciteit …", EN "power" → "capacity"). Alle resterende MW-vermeldingen (1 MW–50 MW+, 100+ MW, 10 MVA, 100 kW–4/5 MW, 5 MWh platform, 500 kWh–5+ MWh) zijn productspecificaties en correct. NL en EN tonen overal exact dezelfde waarde + eenheid (beide lezen uit `lib/site-config.ts` of identieke literals). Er was dus geen `fix(content)`-commit nodig.
+
+Aandachtspunten (geen fouten, wel ter bevestiging/verbetering):
+- **Supply Only** toont "70+ MWh — Opslagcapaciteit geleverd" ("supplied"): zelfde cijfer als "gerealiseerd", maar het label claimt levering. Laten staan; graag bevestiging van Lucas dat 70+ MWh ook als "geleverd" klopt.
+- Enkele labels zijn NL-only hardcoded en wisselen niet mee met de EN-toggle (FloatingChips-chips, statcards op /wat-wij-doen, trackrecord-labels op /over-ons). Dit was al zo vóór de upgrade; waarden + eenheden zijn identiek. Aanbeveling: meenemen bij een eventuele EN-routes-migratie.
+
+**Smoke test:** productie-build slaagt zonder errors. Alle 10 publieke routes getest in headless Chrome: NL-content rendert, EN-toggle werkt op elke pagina na de server/client-splitsing, en er verschenen **0 console-errors, -warnings of hydration-meldingen**. De hero-video mount correct client-side op desktop. SSR-HTML van de homepage bevat de echte eindwaarden (70+ MWh, 50+ MWh, 5+, 100%) met de juiste labels; nergens een counter op "0".
+
 ## TODO's die handmatige actie vereisen
 
 | # | Actie | Waar |
