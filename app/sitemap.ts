@@ -17,6 +17,7 @@ const routes: Array<{
   { path: "/projecten", changeFrequency: "monthly", priority: 0.7 },
   { path: "/over-ons", changeFrequency: "monthly", priority: 0.6 },
   { path: "/plan-een-afspraak", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/privacyverklaring", changeFrequency: "yearly", priority: 0.2 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

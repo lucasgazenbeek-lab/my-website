@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import { siteConfig } from "@/lib/site-config";
@@ -334,6 +335,14 @@ export default function PlanEenAfspraak() {
                       </svg>
                     )}
                   </button>
+
+                  <p className="text-xs text-[#6b4a56]/80 leading-relaxed">
+                    {c.formPrivacyPrefix}{" "}
+                    <Link href="/privacyverklaring" className="text-[#470020] font-semibold hover:underline">
+                      {c.formPrivacyLink}
+                    </Link>
+                    .
+                  </p>
                 </form>
               )}
             </ScrollReveal>
