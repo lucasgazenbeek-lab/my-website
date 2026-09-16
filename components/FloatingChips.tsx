@@ -2,43 +2,24 @@
 
 import { useEffect, useRef } from "react";
 import { siteConfig } from "@/lib/site-config";
+import { useLang } from "./LanguageProvider";
 
-const CHIPS = [
-  {
-    value: siteConfig.stats.mwhRealized.display,
-    label: "Gerealiseerd",
-    depth: 32,
-    bobDur: 7,
-    bobDel: 0,
-    style: { right: "13%", top: "18%" },
-  },
-  {
-    value: siteConfig.stats.mwhInDevelopment.display,
-    label: "In Ontwikkeling",
-    depth: 48,
-    bobDur: 9,
-    bobDel: 1.4,
-    style: { right: "4%", top: "40%" },
-  },
-  {
-    value: "Turnkey EPC",
-    label: "Van concept tot oplevering",
-    depth: 22,
-    bobDur: 8,
-    bobDel: 0.7,
-    style: { right: "16%", top: "62%" },
-  },
-  {
-    value: siteConfig.stats.manufacturerRelations.display,
-    label: "Fabrikantrelaties",
-    depth: 40,
-    bobDur: 7.5,
-    bobDel: 2,
-    style: { right: "5%", top: "76%" },
-  },
+const CHIP_MOTION = [
+  { depth: 32, bobDur: 7, bobDel: 0, style: { right: "13%", top: "18%" } },
+  { depth: 48, bobDur: 9, bobDel: 1.4, style: { right: "4%", top: "40%" } },
+  { depth: 22, bobDur: 8, bobDel: 0.7, style: { right: "16%", top: "62%" } },
+  { depth: 40, bobDur: 7.5, bobDel: 2, style: { right: "5%", top: "76%" } },
 ];
 
 export default function FloatingChips() {
+  const { t } = useLang();
+  const h = t.home;
+  const CHIPS = [
+    { value: siteConfig.stats.mwhRealized.display, label: h.chipRealizedLabel, ...CHIP_MOTION[0] },
+    { value: siteConfig.stats.mwhInDevelopment.display, label: h.chipInDevLabel, ...CHIP_MOTION[1] },
+    { value: h.chipTurnkeyValue, label: h.chipTurnkeyLabel, ...CHIP_MOTION[2] },
+    { value: siteConfig.stats.manufacturerRelations.display, label: h.chipRelationsLabel, ...CHIP_MOTION[3] },
+  ];
   const parallaxRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -57,7 +38,7 @@ export default function FloatingChips() {
     const tick = () => {
       cx += (tx - cx) * 0.055;
       cy += (ty - cy) * 0.055;
-      CHIPS.forEach((chip, i) => {
+      CHIP_MOTION.forEach((chip, i) => {
         const el = parallaxRefs.current[i];
         if (!el) return;
         el.style.transform = `translate(${cx * chip.depth}px, ${cy * chip.depth * 0.55}px)`;

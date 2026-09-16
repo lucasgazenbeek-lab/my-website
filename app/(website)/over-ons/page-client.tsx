@@ -210,10 +210,10 @@ export default function OverOns() {
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    [siteConfig.stats.mwhRealized.display, "Gerealiseerd"],
-                    [siteConfig.stats.combinedRevenue.display, "Gecombineerde projectomzet"],
-                    [`${siteConfig.stats.combinedExperienceYears.display} jr`, "Gecombineerde ervaring"],
-                    ["Benelux", "Focusmarkt"],
+                    [siteConfig.stats.mwhRealized.display, a.trackStatLabels[0]],
+                    [siteConfig.stats.mwhInDevelopment.display, a.trackStatLabels[1]],
+                    [`${siteConfig.stats.combinedExperienceYears.display} jr`, a.trackStatLabels[2]],
+                    ["Benelux", a.trackStatLabels[3]],
                   ].map(([val, label], i) => (
                     <div key={i} className="p-4 border border-white/20 rounded-lg bg-white/10">
                       <div className="text-2xl font-black text-white mb-1" style={{ letterSpacing: "-0.03em" }}>{val}</div>

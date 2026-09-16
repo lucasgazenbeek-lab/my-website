@@ -27,7 +27,7 @@ export default function Home() {
     { value: st.mwhRealized.value, suffix: `${st.mwhRealized.suffix} ${st.mwhRealized.unit}`, label: h.stat1Label },
     { value: st.mwhInDevelopment.value, suffix: `${st.mwhInDevelopment.suffix} ${st.mwhInDevelopment.unit}`, label: h.stat2Label },
     { value: st.manufacturerRelations.value, suffix: st.manufacturerRelations.suffix, label: h.stat3Label },
-    { value: st.inHouseEngineering.value, suffix: st.inHouseEngineering.suffix, label: h.stat4Label },
+    { value: st.activeProjects.value, suffix: st.activeProjects.suffix, label: h.stat4Label },
   ];
 
   // Collaboration cards mirror the first three partner models; the fourth

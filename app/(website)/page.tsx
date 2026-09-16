@@ -4,7 +4,7 @@ import HomeClient from "./page-client";
 export const metadata = buildMetadata({
   title: "Batterijopslag (BESS) Benelux — Turnkey EPC | Gridstate",
   description:
-    "Gridstate realiseert grootschalige batterijopslag (BESS) in de Benelux: turnkey EPC van engineering tot oplevering, met directe fabrikantrelaties en eigen engineering.",
+    "Gridstate realiseert grootschalige batterijopslag (BESS) in de Benelux: turnkey EPC van vergunning tot netcodetest, met regie over de hele keten en extern gestempeld ontwerp.",
   path: "/",
 });
 

@@ -53,13 +53,18 @@ export const siteConfig = {
    * use MW only where actual power is meant.
    */
   stats: {
+    // Realised by the founding team BEFORE Gridstate — no project in the
+    // register has been delivered under the Gridstate flag yet. Labels must
+    // always carry that context (uitbreiding.md DEEL 6).
     mwhRealized: { value: 70, suffix: "+", unit: "MWh", display: "70+ MWh" },
-    mwhInDevelopment: { value: 50, suffix: "+", unit: "MWh", display: "50+ MWh" },
-    activeProjects: { value: 6, suffix: "", unit: "", display: "6" },
-    manufacturerRelations: { value: 5, suffix: "+", unit: "", display: "5+" },
-    combinedRevenue: { value: 7, prefix: "€", suffix: "M+", unit: "", display: "€7M+" },
+    mwhInDevelopment: { value: 200, suffix: "+", unit: "MWh", display: "200+ MWh" },
+    activeProjects: { value: 7, suffix: "", unit: "", display: "7" },
+    // Six documented relations; supplier names never appear on the site.
+    manufacturerRelations: { value: 6, suffix: "", unit: "", display: "6" },
+    // TODO(Lucas): "€7M+ gecombineerde omzet" is niet te onderbouwen uit de
+    // dossiers — herformuleren naar uitgebrachte offertewaarde of schrappen.
+    // Verwijderd uit de site tot dat besluit er is (uitbreiding.md DEEL 6).
     combinedExperienceYears: { value: 12, suffix: "+", unit: "jaar", display: "12+" },
-    inHouseEngineering: { value: 100, suffix: "%", unit: "", display: "100%" },
     businessCasesCalculated: { value: 24, suffix: "", unit: "", display: "24" },
     engineeringDossiers: { value: 5, suffix: "", unit: "", display: "5" },
   },

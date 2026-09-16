@@ -2,13 +2,11 @@
 
 import Image from "next/image";
 
+// Grid operators (TenneT, Stedin, Enexis, Liander) and RVO were removed:
+// presenting them as partners is a retracted claim (CLAUDE.md). Supplier
+// logos (Eenovance, Sinexcel) were removed too — supplier names stay off
+// the site (uitbreiding.md DEEL 6).
 const LOGOS = [
-  { src: "/logos/stedin.webp", alt: "Stedin", h: 44 },
-  { src: "/logos/enexis.png", alt: "Enexis", h: 44 },
-  { src: "/logos/liander.png", alt: "Liander", h: 38 },
-  { src: "/logos/tennet.webp", alt: "TenneT", h: 44 },
-  { src: "/logos/rvo.png", alt: "RVO", h: 48 },
-  { src: "/logos/sinexcel.png", alt: "Sinexcel", h: 40 },
   { src: "/logos/eddygrid.png", alt: "EddyGrid", h: 38 },
   { src: "/logos/kiwatt.webp", alt: "Kiwatt", h: 44 },
   { src: "/logos/efs.png", alt: "EFS", h: 40 },
@@ -18,7 +16,6 @@ const LOGOS = [
   { src: "/logos/eps.png", alt: "EPS", h: 40 },
   { src: "/logos/wtg.png", alt: "WTG", h: 38 },
   { src: "/logos/de-kock.png", alt: "De Kock", h: 40 },
-  { src: "/logos/eenovance.png", alt: "Eenovance", h: 38 },
 ];
 
 function LogoSet({ hidden = false }: { hidden?: boolean }) {
