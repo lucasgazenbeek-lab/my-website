@@ -75,26 +75,25 @@ export default function OverOns() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Emiel — featured */}
             <ScrollReveal delay={0} direction="left">
-              <div className="p-10 border-2 border-[#470020] rounded-lg bg-[#470020]">
-                <div className="flex items-start gap-5 mb-8">
-                  <div className="relative w-20 h-20 rounded-lg border border-white/30 overflow-hidden shrink-0">
-                    <Image
-                      src="/fotos/team/emiel-verlee.jpg"
-                      alt={`${a.emielName} — ${a.emielRole}`}
-                      fill
-                      sizes="80px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
-                      {a.emielName}
-                    </h3>
-                    <p className="text-white/60 text-sm font-semibold">{a.emielRole}</p>
-                    <a href={`tel:${siteConfig.contacts.emiel.phoneHref}`} className="text-white/50 text-sm hover:text-white transition-colors mt-1 block">
-                      {siteConfig.contacts.emiel.phoneDisplay}
-                    </a>
-                  </div>
+              <div className="border-2 border-[#470020] rounded-lg bg-[#470020] overflow-hidden">
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src="/fotos/team/emiel-verlee.jpg"
+                    alt={`${a.emielName} — ${a.emielRole}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-[center_12%]"
+                  />
+                </div>
+                <div className="p-10">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                    {a.emielName}
+                  </h3>
+                  <p className="text-white/60 text-sm font-semibold">{a.emielRole}</p>
+                  <a href={`tel:${siteConfig.contacts.emiel.phoneHref}`} className="text-white/50 text-sm hover:text-white transition-colors mt-1 block">
+                    {siteConfig.contacts.emiel.phoneDisplay}
+                  </a>
                 </div>
 
                 <ul className="flex flex-col gap-3 mb-8">
@@ -114,31 +113,31 @@ export default function OverOns() {
                     {a.emielSkills.map((s, i) => <TagDark key={i}>{s}</TagDark>)}
                   </div>
                 </div>
+                </div>
               </div>
             </ScrollReveal>
 
             {/* Lucas */}
             <ScrollReveal delay={120}>
-              <div className="p-10 border border-[#e0d5d0] rounded-lg bg-white">
-                <div className="flex items-start gap-5 mb-8">
-                  <div className="relative w-20 h-20 rounded-lg border border-[#470020]/20 overflow-hidden shrink-0">
-                    <Image
-                      src="/fotos/team/lucas-gazenbeek.jpg"
-                      alt={`${a.lucasName} — ${a.lucasRole}`}
-                      fill
-                      sizes="80px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
-                      {a.lucasName}
-                    </h3>
-                    <p className="text-[#470020] text-sm font-semibold">{a.lucasRole}</p>
-                    <a href={`tel:${siteConfig.contacts.lucas.phoneHref}`} className="text-[#6b4a56] text-sm hover:text-[#470020] transition-colors mt-1 block">
-                      {siteConfig.contacts.lucas.phoneDisplay}
-                    </a>
-                  </div>
+              <div className="border border-[#e0d5d0] rounded-lg bg-white overflow-hidden">
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src="/fotos/team/lucas-gazenbeek.jpg"
+                    alt={`${a.lucasName} — ${a.lucasRole}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-[center_12%]"
+                  />
+                </div>
+                <div className="p-10">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                    {a.lucasName}
+                  </h3>
+                  <p className="text-[#470020] text-sm font-semibold">{a.lucasRole}</p>
+                  <a href={`tel:${siteConfig.contacts.lucas.phoneHref}`} className="text-[#6b4a56] text-sm hover:text-[#470020] transition-colors mt-1 block">
+                    {siteConfig.contacts.lucas.phoneDisplay}
+                  </a>
                 </div>
 
                 <ul className="flex flex-col gap-3 mb-8">
@@ -158,28 +157,28 @@ export default function OverOns() {
                     {a.lucasSkills.map((s, i) => <Tag key={i}>{s}</Tag>)}
                   </div>
                 </div>
+                </div>
               </div>
             </ScrollReveal>
 
             {/* Shane — centered below */}
             <ScrollReveal delay={240} className="lg:col-span-2 lg:w-1/2 lg:mx-auto">
-              <div className="p-10 border border-[#e0d5d0] rounded-lg bg-white h-full">
-                <div className="flex items-start gap-5 mb-8">
-                  <div className="relative w-20 h-20 rounded-lg border border-[#470020]/20 overflow-hidden shrink-0">
-                    <Image
-                      src="/fotos/team/shane-konijnenberg.jpg"
-                      alt={`${a.shaneName} — ${a.shaneRole}`}
-                      fill
-                      sizes="80px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
-                      {a.shaneName}
-                    </h3>
-                    <p className="text-[#470020] text-sm font-semibold">{a.shaneRole}</p>
-                  </div>
+              <div className="border border-[#e0d5d0] rounded-lg bg-white h-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src="/fotos/team/shane-konijnenberg.jpg"
+                    alt={`${a.shaneName} — ${a.shaneRole}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-[center_12%]"
+                  />
+                </div>
+                <div className="p-10">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                    {a.shaneName}
+                  </h3>
+                  <p className="text-[#470020] text-sm font-semibold">{a.shaneRole}</p>
                 </div>
 
                 <ul className="flex flex-col gap-3 mb-8">
@@ -198,6 +197,7 @@ export default function OverOns() {
                   <div className="flex flex-wrap gap-2">
                     {a.shaneSkills.map((s, i) => <Tag key={i}>{s}</Tag>)}
                   </div>
+                </div>
                 </div>
               </div>
             </ScrollReveal>
