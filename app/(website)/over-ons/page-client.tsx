@@ -8,14 +8,6 @@ import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
-function Tag({ children }: { children: string }) {
-  return (
-    <span className="inline-block px-3 py-1.5 border border-[#e0d5d0] text-xs font-semibold text-[#6b4a56] rounded-sm bg-[#f9f6f4]">
-      {children}
-    </span>
-  );
-}
-
 function TagDark({ children }: { children: string }) {
   return (
     <span className="inline-block px-3 py-1.5 border border-white/20 text-xs font-semibold text-white/70 rounded-sm">
@@ -119,7 +111,7 @@ export default function OverOns() {
 
             {/* Lucas */}
             <ScrollReveal delay={120}>
-              <div className="border border-[#e0d5d0] rounded-lg bg-white overflow-hidden">
+              <div className="border-2 border-[#470020] rounded-lg bg-[#470020] overflow-hidden">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
                     src="/fotos/team/lucas-gazenbeek.jpg"
@@ -131,30 +123,30 @@ export default function OverOns() {
                 </div>
                 <div className="p-10">
                 <div className="mb-8">
-                  <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                  <h3 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
                     {a.lucasName}
                   </h3>
-                  <p className="text-[#470020] text-sm font-semibold">{a.lucasRole}</p>
-                  <a href={`tel:${siteConfig.contacts.lucas.phoneHref}`} className="text-[#6b4a56] text-sm hover:text-[#470020] transition-colors mt-1 block">
+                  <p className="text-white/60 text-sm font-semibold">{a.lucasRole}</p>
+                  <a href={`tel:${siteConfig.contacts.lucas.phoneHref}`} className="text-white/50 text-sm hover:text-white transition-colors mt-1 block">
                     {siteConfig.contacts.lucas.phoneDisplay}
                   </a>
                 </div>
 
                 <ul className="flex flex-col gap-3 mb-8">
                   {a.lucasBio.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-[#6b4a56]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#470020] mt-2 shrink-0" />
+                    <li key={i} className="flex items-start gap-3 text-sm text-white/70">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white mt-2 shrink-0" />
                       {item}
                     </li>
                   ))}
                 </ul>
 
-                <div className="border-t border-[#e0d5d0] pt-6">
-                  <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-3">
+                <div className="border-t border-white/20 pt-6">
+                  <p className="text-xs font-black tracking-widest text-white/40 uppercase mb-3">
                     {a.coreCompetencies}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {a.lucasSkills.map((s, i) => <Tag key={i}>{s}</Tag>)}
+                    {a.lucasSkills.map((s, i) => <TagDark key={i}>{s}</TagDark>)}
                   </div>
                 </div>
                 </div>
@@ -163,7 +155,7 @@ export default function OverOns() {
 
             {/* Shane — centered below */}
             <ScrollReveal delay={240} className="lg:col-span-2 lg:w-1/2 lg:mx-auto">
-              <div className="border border-[#e0d5d0] rounded-lg bg-white h-full overflow-hidden">
+              <div className="border-2 border-[#470020] rounded-lg bg-[#470020] h-full overflow-hidden">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
                     src="/fotos/team/shane-konijnenberg.jpg"
@@ -175,27 +167,27 @@ export default function OverOns() {
                 </div>
                 <div className="p-10">
                 <div className="mb-8">
-                  <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                  <h3 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
                     {a.shaneName}
                   </h3>
-                  <p className="text-[#470020] text-sm font-semibold">{a.shaneRole}</p>
+                  <p className="text-white/60 text-sm font-semibold">{a.shaneRole}</p>
                 </div>
 
                 <ul className="flex flex-col gap-3 mb-8">
                   {a.shaneBio.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-[#6b4a56]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#470020] mt-2 shrink-0" />
+                    <li key={i} className="flex items-start gap-3 text-sm text-white/70">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white mt-2 shrink-0" />
                       {item}
                     </li>
                   ))}
                 </ul>
 
-                <div className="border-t border-[#e0d5d0] pt-6">
-                  <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-3">
+                <div className="border-t border-white/20 pt-6">
+                  <p className="text-xs font-black tracking-widest text-white/40 uppercase mb-3">
                     {a.coreCompetencies}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {a.shaneSkills.map((s, i) => <Tag key={i}>{s}</Tag>)}
+                    {a.shaneSkills.map((s, i) => <TagDark key={i}>{s}</TagDark>)}
                   </div>
                 </div>
                 </div>
