@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useLang } from "@/components/LanguageProvider";
@@ -68,32 +69,23 @@ export default function Home() {
     },
   ];
 
-  const services = [
-    {
-      label: "C&I",
-      title: h.service1Title,
-      sub: h.service1Sub,
-      href: "/wat-wij-doen",
-      bg: "linear-gradient(145deg, #3a0018 0%, #1a0810 60%, #0e0008 100%)",
-      accent: "rgba(139,20,60,0.4)",
-    },
-    {
-      label: "Utility-Scale",
-      title: h.service2Title,
-      sub: h.service2Sub,
-      href: "/wat-wij-doen",
-      bg: "linear-gradient(145deg, #2a000f 0%, #150608 60%, #080005 100%)",
-      accent: "rgba(107,0,48,0.5)",
-    },
-    {
-      label: "Technical",
-      title: h.service3Title,
-      sub: h.service3Sub,
-      href: "/partnermodellen/supply-technical",
-      bg: "linear-gradient(145deg, #470020 0%, #200010 60%, #0d0006 100%)",
-      accent: "rgba(160,30,80,0.3)",
-    },
-  ];
+  // Audience picker cards (uitbreiding.md DEEL 1): same dark image-card
+  // recipe as before, now with a photo underneath the gradient layers.
+  const audiences = h.audiences.map((a, i) => ({
+    ...a,
+    href: ["/partnermodellen", "/voor-investeerders", "/wat-wij-doen#haalbaarheid"][i],
+    photo: [
+      "/fotos/home/home-ontwikkelaars.jpg",
+      "/fotos/home/home-investeerders.jpg",
+      "/fotos/home/home-haalbaarheid.jpg",
+    ][i],
+    bg: [
+      "linear-gradient(145deg, #3a0018 0%, #1a0810 60%, #0e0008 100%)",
+      "linear-gradient(145deg, #2a000f 0%, #150608 60%, #080005 100%)",
+      "linear-gradient(145deg, #470020 0%, #200010 60%, #0d0006 100%)",
+    ][i],
+    accent: ["rgba(139,20,60,0.4)", "rgba(107,0,48,0.5)", "rgba(160,30,80,0.3)"][i],
+  }));
 
   const whyIcons = [
     <svg key={0} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
@@ -243,20 +235,20 @@ export default function Home() {
         <PartnerTicker />
       </section>
 
-      {/* ─── 4. SERVICES — image cards ─────────────────────────── */}
+      {/* ─── 4. AUDIENCE PICKER — image cards ──────────────────── */}
       <ScrollZoom>
       <section id="section-services" className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">Services</p>
+            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{h.audienceEyebrow}</p>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
               <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810]" style={{ letterSpacing: "-0.03em" }}>
-                {h.servicesTitle}
+                {h.audienceTitle}
               </h2>
               <div className="lg:max-w-sm">
-                <p className="text-[#6b4a56] text-lg leading-relaxed mb-4">{h.servicesSub}</p>
+                <p className="text-[#6b4a56] text-lg leading-relaxed mb-4">{h.audienceIntro}</p>
                 <Link href="/wat-wij-doen" className="inline-flex items-center gap-2 text-[#470020] font-bold hover:underline text-sm">
-                  {h.heroCta2}
+                  {h.audienceAllLink}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -266,13 +258,25 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            {services.map((s, i) => (
+            {audiences.map((s, i) => (
               <ScrollReveal key={i} delay={i * 100}>
                 <Link href={s.href} className="group block h-full">
                   <div
                     className="relative overflow-hidden rounded-2xl aspect-[3/2] sm:aspect-[4/5] transition-transform duration-300 group-hover:scale-[1.02]"
                     style={{ background: s.bg, boxShadow: "0 8px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)" }}
                   >
+                    {/* Photo base layer — gradient above keeps the text readable */}
+                    <Image
+                      src={s.photo}
+                      alt={s.alt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                    {/* Existing card gradient, at reduced opacity over the photo */}
+                    <div className="absolute inset-0 opacity-70" style={{ background: s.bg }} />
+                    {/* Extra bottom fade so the copy sits on near-black, like the original cards */}
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,0,6,0.88) 0%, rgba(10,0,6,0.45) 45%, transparent 70%)" }} />
                     {/* Radial glow accent */}
                     <div className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-60" style={{
                       background: `radial-gradient(ellipse 70% 50% at 50% 100%, ${s.accent} 0%, transparent 70%)`,
@@ -295,11 +299,11 @@ export default function Home() {
                       <h3 className="text-2xl lg:text-3xl font-black text-white mb-3 leading-tight group-hover:text-white transition-colors duration-200" style={{ letterSpacing: "-0.02em" }}>
                         {s.title}
                       </h3>
-                      <p className="text-white/55 text-sm leading-relaxed mb-6 line-clamp-2 group-hover:text-white/75 transition-colors duration-200">
+                      <p className="text-white/55 text-sm leading-relaxed mb-6 line-clamp-4 group-hover:text-white/75 transition-colors duration-200">
                         {s.sub}
                       </p>
                       <span className="inline-flex items-center gap-2 text-sm font-bold text-white/60 group-hover:text-white group-hover:gap-3 transition-all duration-200">
-                        {h.learnMore}
+                        {s.linkLabel}
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                           <path d="M2 7h10M7.5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>

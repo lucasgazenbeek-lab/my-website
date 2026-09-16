@@ -43,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# throwaway QA screenshots — never commit new ones (a few old ones are still tracked from main)
+/temporary screenshots/
