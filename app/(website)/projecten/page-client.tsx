@@ -59,6 +59,74 @@ export default function Projecten() {
         </div>
       </section>
 
+      {/* ─── FEATURED OWN DEVELOPMENTS — Wit (deel 5) ────────── */}
+      {/* Photos (project-lichtkiem-*.jpg, project-zutphen-*.jpg, deel 7) are
+          not yet delivered; the slot keeps the dark gradient until then. */}
+      <section className="py-24 lg:py-32 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <ScrollReveal>
+            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{p.featuredEyebrow}</p>
+            <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-16" style={{ letterSpacing: "-0.03em" }}>
+              {p.featuredTitle}
+            </h2>
+          </ScrollReveal>
+
+          <div className="flex flex-col gap-16 lg:gap-24">
+            {p.featured.map((f, i) => {
+              const specs = (Object.keys(p.specLabels) as Array<keyof typeof p.specLabels>)
+                .map((key) => ({ label: p.specLabels[key], value: f.specs[key] }))
+                .filter((s) => s.value);
+              const mirrored = i % 2 === 1;
+              return (
+                <div key={i} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                  <ScrollReveal direction={mirrored ? "right" : "left"} className={mirrored ? "lg:order-2" : ""}>
+                    <span className="inline-block px-2.5 py-1 text-xs font-black tracking-widest uppercase rounded border border-[#470020]/20 text-[#470020] bg-[#f9f6f4] mb-6">
+                      {p.featuredLabel}
+                    </span>
+                    <h3 className="text-3xl lg:text-4xl font-black text-[#1a0810] tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
+                      {f.title}
+                    </h3>
+                    {f.body && <p className="text-[#6b4a56] text-lg leading-relaxed mb-8">{f.body}</p>}
+                    {specs.length > 0 && (
+                      <dl className="divide-y divide-[#e0d5d0] border-y border-[#e0d5d0]">
+                        {specs.map((s, si) => (
+                          <div key={si} className="flex items-center justify-between py-3 text-sm">
+                            <dt className="text-[#6b4a56] font-semibold">{s.label}</dt>
+                            <dd className="text-[#1a0810] font-bold" style={{ fontVariantNumeric: "tabular-nums" }}>{s.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                  </ScrollReveal>
+                  <ScrollReveal direction={mirrored ? "left" : "right"} className={mirrored ? "lg:order-1" : ""}>
+                    {/* Photo slot — falls back to the site's dark gradient while photos are missing */}
+                    <div
+                      className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden"
+                      style={{
+                        background: "linear-gradient(145deg, #3a0018 0%, #1a0810 60%, #0e0008 100%)",
+                        boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.25)",
+                      }}
+                      aria-hidden
+                    >
+                      <div className="absolute inset-0 pointer-events-none opacity-60" style={{
+                        background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(139,20,60,0.4) 0%, transparent 70%)",
+                      }} />
+                      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.06]" aria-hidden>
+                        <filter id={`featured-grain-${i}`}>
+                          <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" />
+                          <feColorMatrix type="saturate" values="0" />
+                        </filter>
+                        <rect width="100%" height="100%" filter={`url(#featured-grain-${i})`} />
+                      </svg>
+                    </div>
+                  </ScrollReveal>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* ─── PROJECT GRID — Lichtgrijs ───────────────────────── */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">

@@ -356,6 +356,36 @@ export const translations = {
       ctaSub: "Wij bespreken graag de mogelijkheden voor uw specifieke situatie.",
       ctaButton: "Plan een afspraak",
       portfolioLabel: "Portfolio",
+      featuredEyebrow: "Uitgelicht",
+      featuredTitle: "Eigen ontwikkelingen",
+      featuredLabel: "Eigen ontwikkeling",
+      specLabels: {
+        power: "Vermogen",
+        storage: "Opslag",
+        gridLevel: "Netvlak",
+        location: "Locatie",
+        phase: "Fase",
+        delivery: "Verwachte oplevering",
+      },
+      // Spec values render only when filled; empty strings stay off the page.
+      featured: [
+        {
+          title: "Lichtkiem fase 2",
+          body: "Een terrein dat al op het net zit is de goedkoopste plek om uit te breiden. Fase 1 leverde de aansluiting en het vergunningstraject; fase 2 gebruikt die positie voor een substantieel grotere installatie op hetzelfde perceel.",
+          // TODO(Lucas): wat maakt dit project bijzonder, en wat mag daarvan publiek?
+          // TODO(Lucas): specs aanvullen — vermogen (MW), opslag (MWh), netvlak, locatie, fase, verwachte oplevering.
+          specs: { power: "", storage: "", gridLevel: "", location: "", phase: "", delivery: "" },
+          photoAlt: "",
+        },
+        {
+          title: "Zutphen",
+          // TODO(Lucas): aanleiding, netpositie en status van Zutphen — tekst aanvullen.
+          body: "",
+          // TODO(Lucas): specs aanvullen — vermogen (MW), opslag (MWh), netvlak, locatie, fase, verwachte oplevering.
+          specs: { power: "", storage: "", gridLevel: "", location: "", phase: "", delivery: "" },
+          photoAlt: "",
+        },
+      ],
       statsInOwnPlanning: "In eigen projectplanning",
       statsActiveProjects: "Actieve & geplande projecten",
       statsWorkArea: "Werkgebied",
@@ -862,6 +892,34 @@ export const translations = {
       ctaSub: "We'd be happy to discuss the possibilities for your specific situation.",
       ctaButton: "Book a meeting",
       portfolioLabel: "Portfolio",
+      featuredEyebrow: "Featured",
+      featuredTitle: "Own developments",
+      featuredLabel: "Own development",
+      specLabels: {
+        power: "Power",
+        storage: "Storage",
+        gridLevel: "Grid level",
+        location: "Location",
+        phase: "Phase",
+        delivery: "Expected delivery",
+      },
+      // Spec values render only when filled; empty strings stay off the page.
+      featured: [
+        {
+          title: "Lichtkiem phase 2",
+          body: "A site that is already grid-connected is the cheapest place to expand. Phase 1 delivered the connection and the permitting; phase 2 uses that position for a substantially larger installation on the same plot.",
+          // TODO(Lucas): fill in specs — power (MW), storage (MWh), grid level, location, phase, expected delivery.
+          specs: { power: "", storage: "", gridLevel: "", location: "", phase: "", delivery: "" },
+          photoAlt: "",
+        },
+        {
+          title: "Zutphen",
+          // TODO(Lucas): background, grid position and status of Zutphen — add copy.
+          body: "",
+          specs: { power: "", storage: "", gridLevel: "", location: "", phase: "", delivery: "" },
+          photoAlt: "",
+        },
+      ],
       statsInOwnPlanning: "In own project planning",
       statsActiveProjects: "Active & planned projects",
       statsWorkArea: "Work area",
