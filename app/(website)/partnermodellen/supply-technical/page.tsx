@@ -4,9 +4,9 @@ import JsonLd from "@/components/JsonLd";
 import SupplyTechnicalClient from "./page-client";
 
 export const metadata = buildMetadata({
-  title: "Supply + Technical Support voor BESS | Gridstate",
+  title: "Supply & Technical — apparatuur plus de technische laag | Gridstate",
   description:
-    "BESS-systemen, PCS en EMS geleverd mét technische rugdekking: systeemontwerp, FAT/SAT-begeleiding en commissioning support voor installateurs en EPC-partijen.",
+    "Wij leveren de apparatuur én het ontwerp, de netcode-onderbouwing en de kwaliteitsborging erboven. De uitvoering doet u zelf of met uw eigen aannemer.",
   path: "/partnermodellen/supply-technical",
 });
 
@@ -15,10 +15,10 @@ export default function Page() {
     <>
       <JsonLd
         data={serviceSchema({
-          name: "Supply + Technical Support voor BESS",
-          serviceType: "Battery energy storage supply and technical support",
+          name: "Supply & Technical batterijopslag",
+          serviceType: "Battery energy storage supply with technical support",
           description:
-            "Levering van BESS-systemen, PCS, EMS en MV-infrastructuur inclusief technische ondersteuning: systeemontwerp, FAT/SAT-begeleiding en commissioning support.",
+            "Levering van batterijcontainers, conversiestations, transformator en middenspanningsinstallatie, plus ontwerp, netcode-onderbouwing en begeleiding tijdens inbedrijfstelling.",
           path: "/partnermodellen/supply-technical",
         })}
       />
@@ -26,7 +26,7 @@ export default function Page() {
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "Partnermodellen", path: "/partnermodellen" },
-          { name: "Supply + Technical Support", path: "/partnermodellen/supply-technical" },
+          { name: "Supply & Technical", path: "/partnermodellen/supply-technical" },
         ])}
       />
       <SupplyTechnicalClient />

@@ -4,9 +4,9 @@ import JsonLd from "@/components/JsonLd";
 import SupplyOnlyClient from "./page-client";
 
 export const metadata = buildMetadata({
-  title: "Supply Only: directe fabrikantprijzen BESS | Gridstate",
+  title: "Supply Only — leveranciersneutrale inkoop van BESS-apparatuur | Gridstate",
   description:
-    "BESS-containers, PCS en MV-stations tegen directe fabrikantprijzen. Inclusief FAT-inspectie, volledige documentatie en logistiek — voor teams met eigen engineering.",
+    "Alleen de levering: leveranciersneutrale selectie en inkoop, fabriekstest per unit, transport en inslag, en volledige documentatie inclusief certificaten en garantiebepalingen.",
   path: "/partnermodellen/supply-only",
 });
 
@@ -15,10 +15,10 @@ export default function Page() {
     <>
       <JsonLd
         data={serviceSchema({
-          name: "Supply Only voor BESS",
-          serviceType: "Battery energy storage system supply",
+          name: "Supply Only batterijopslag",
+          serviceType: "Battery energy storage equipment supply",
           description:
-            "Levering van BESS-containerunits, PCS, EMS en MV-componenten tegen directe fabrikantprijzen, inclusief FAT-inspectie en volledige technische documentatie.",
+            "Selectie en inkoop van batterijapparatuur, fabriekstest per unit, transport en inslag op locatie, en volledige documentatie inclusief certificaten en garantiebepalingen.",
           path: "/partnermodellen/supply-only",
         })}
       />

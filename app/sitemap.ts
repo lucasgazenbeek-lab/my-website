@@ -14,6 +14,7 @@ const routes: Array<{
   { path: "/partnermodellen/full-epc", changeFrequency: "monthly", priority: 0.8 },
   { path: "/partnermodellen/supply-technical", changeFrequency: "monthly", priority: 0.7 },
   { path: "/partnermodellen/supply-only", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/partnermodellen/technical-support", changeFrequency: "monthly", priority: 0.7 },
   { path: "/projecten", changeFrequency: "monthly", priority: 0.7 },
   { path: "/over-ons", changeFrequency: "monthly", priority: 0.6 },
   { path: "/plan-een-afspraak", changeFrequency: "monthly", priority: 0.8 },

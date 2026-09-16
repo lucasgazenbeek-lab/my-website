@@ -1,13 +1,12 @@
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/structured-data";
+import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 import JsonLd from "@/components/JsonLd";
 import FullEpcClient from "./page-client";
-import { faqs } from "./faq-data";
 
 export const metadata = buildMetadata({
-  title: "Full EPC batterijopslag — van engineering tot oplevering | Gridstate",
+  title: "Full EPC — één contract, één verantwoordelijke partij | Gridstate",
   description:
-    "Full EPC voor BESS: engineering conform PGS 37-1, inkoop, realisatie en inbedrijfstelling onder één contract. Inclusief businesscase met FCR/aFRR en peakshaving.",
+    "Wij nemen het hele batterijproject over, van vergunningsdossier tot netcodetest. Eén contract, één prijs en één partij die verantwoordelijk is voor het resultaat.",
   path: "/partnermodellen/full-epc",
 });
 
@@ -19,11 +18,10 @@ export default function Page() {
           name: "Full EPC batterijopslag",
           serviceType: "Turnkey EPC battery energy storage",
           description:
-            "Volledige EPC-verantwoordelijkheid voor batterijopslagprojecten: engineering, procurement, realisatie en inbedrijfstelling onder één contract.",
+            "Volledige EPC-verantwoordelijkheid voor batterijopslagprojecten: engineering, vergunning, inkoop, civiel, plaatsing, elektrotechniek, inbedrijfstelling en overdracht onder één contract.",
           path: "/partnermodellen/full-epc",
         })}
       />
-      <JsonLd data={faqSchema([...faqs.nl])} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

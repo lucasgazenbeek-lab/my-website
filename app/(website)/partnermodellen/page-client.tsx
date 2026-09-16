@@ -38,35 +38,15 @@ export default function Partnermodellen() {
   const { t } = useLang();
   const p = t.partnermodels;
 
-  const models = [
-    {
-      href: "/partnermodellen/full-epc",
-      title: p.model1Title,
-      tag: p.model1Tag,
-      sub: p.model1Sub,
-      features: p.model1Features,
-      ideal: p.model1Ideal,
-      featured: true,
-    },
-    {
-      href: "/partnermodellen/supply-technical",
-      title: p.model2Title,
-      tag: p.model2Tag,
-      sub: p.model2Sub,
-      features: p.model2Features,
-      ideal: p.model2Ideal,
-      featured: false,
-    },
-    {
-      href: "/partnermodellen/supply-only",
-      title: p.model3Title,
-      tag: p.model3Tag,
-      sub: p.model3Sub,
-      features: p.model3Features,
-      ideal: p.model3Ideal,
-      featured: false,
-    },
-  ];
+  const models = p.models.map((m, i) => ({
+    href: `/partnermodellen/${m.slug}`,
+    title: m.title,
+    tag: m.tag,
+    sub: m.standfirst,
+    features: m.cardFeatures,
+    ideal: m.ideal,
+    featured: i === 0,
+  }));
 
   return (
     <div className="flex flex-col pt-18">
@@ -95,7 +75,7 @@ export default function Partnermodellen() {
       {/* ─── MODEL CARDS — Wit ───────────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {models.map((m, i) => (
               <ScrollReveal key={i} delay={i * 120}>
                 <div className={`relative flex flex-col h-full p-6 sm:p-8 rounded-lg border-2 transition-all duration-300 ${

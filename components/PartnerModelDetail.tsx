@@ -15,21 +15,20 @@ function CheckIcon() {
 }
 
 interface Props {
-  modelKey: "model1" | "model2" | "model3";
+  /** Index into t.partnermodels.models (0 = full-epc … 3 = technical-support). */
+  modelIndex: 0 | 1 | 2 | 3;
 }
 
-export default function PartnerModelDetail({ modelKey }: Props) {
+/**
+ * Shared layout for the four partner-model detail pages (uitbreiding.md
+ * DEEL 3): hero, what we do / what you do, when this fits, closing CTA.
+ * The hero photo slot falls back to the existing gradient while the
+ * partner-model photos are not yet delivered (deel 7).
+ */
+export default function PartnerModelDetail({ modelIndex }: Props) {
   const { t } = useLang();
   const p = t.partnermodels;
-
-  const modelData = {
-    model1: { title: p.model1Title, tag: p.model1Tag, sub: p.model1Sub, features: p.model1Features, ideal: p.model1Ideal },
-    model2: { title: p.model2Title, tag: p.model2Tag, sub: p.model2Sub, features: p.model2Features, ideal: p.model2Ideal },
-    model3: { title: p.model3Title, tag: p.model3Tag, sub: p.model3Sub, features: p.model3Features, ideal: p.model3Ideal },
-  };
-
-  const model = modelData[modelKey];
-  const isFeatured = modelKey === "model1";
+  const model = p.models[modelIndex];
 
   return (
     <div className="flex flex-col pt-18">
@@ -51,61 +50,92 @@ export default function PartnerModelDetail({ modelKey }: Props) {
               {model.tag}
             </span>
             <h1
-              className="text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
+              className="text-4xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
               style={{ letterSpacing: "-0.03em" }}
             >
               {model.title}
             </h1>
-            <p className="text-xl text-white/70 leading-relaxed">{model.sub}</p>
+            <p className="text-xl text-white/70 leading-relaxed">{model.standfirst}</p>
           </div>
         </div>
       </section>
 
-      {/* ─── FEATURES — Lichtgrijs / Wit ─────────────────────── */}
-      <section className={`py-24 lg:py-32 ${isFeatured ? "bg-white" : "bg-[#f9f6f4]"}`}>
+      {/* ─── WHAT WE DO / WHAT YOU DO — Wit ──────────────────── */}
+      <section className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+            <ScrollReveal direction="left">
               <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-6">
-                Wat Gridstate biedt
+                {p.whatWeDoLabel}
               </p>
-              <ul className="flex flex-col gap-5">
-                {model.features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-4">
-                    <div className="w-8 h-8 shrink-0 bg-[#470020]/10 border border-[#470020]/20 rounded-lg flex items-center justify-center mt-0.5">
-                      <CheckIcon />
-                    </div>
-                    <p className="text-[#6b4a56] leading-relaxed pt-1">{f}</p>
-                  </li>
+              <div className="flex flex-col gap-6">
+                {model.weDo.map((item, i) => (
+                  <div key={i}>
+                    {item.lead && (
+                      <h3 className="text-lg font-black text-[#1a0810] mb-1 tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                        {item.lead}
+                      </h3>
+                    )}
+                    <p className="text-[#6b4a56] leading-relaxed">{item.text}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
+              {model.weDoLink && (
+                <Link href="/wat-wij-doen" className="group inline-flex items-center gap-2 text-sm font-bold text-[#470020] hover:underline mt-6">
+                  {p.fullListLabel}
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-200">
+                    <path d="M2 7h10M7.5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              )}
             </ScrollReveal>
 
-            <ScrollReveal>
-              <div className={`p-8 rounded-lg border-2 ${isFeatured ? "border-[#470020] bg-[#470020]" : "border-[#e0d5d0] bg-white"}`}>
-                <p className={`text-xs font-black tracking-widest uppercase mb-4 ${isFeatured ? "text-white/50" : "text-[#6b4a56]"}`}>
+            <ScrollReveal direction="right">
+              <div className="p-8 lg:p-10 rounded-2xl border-2 border-[#470020] bg-[#470020]">
+                <p className="text-xs font-black tracking-widest uppercase mb-4 text-white/50">
+                  {p.whatYouDoLabel}
+                </p>
+                <p className="text-xl font-bold text-white leading-relaxed mb-6">{model.youDo}</p>
+                <div className="h-px bg-white/20 mb-6" />
+                <p className="text-xs font-black tracking-widest uppercase mb-2 text-white/50">
                   {p.idealFor}
                 </p>
-                <p className={`text-xl font-bold mb-6 ${isFeatured ? "text-white" : "text-[#1a0810]"}`}>{model.ideal}</p>
-                <div className={`h-px mb-6 ${isFeatured ? "bg-white/20" : "bg-[#e0d5d0]"}`} />
-                <p className={`text-xs font-black tracking-widest uppercase mb-4 ${isFeatured ? "text-white/50" : "text-[#6b4a56]"}`}>
-                  Onboarding traject
-                </p>
-                <div className="flex flex-col gap-3">
-                  {p.steps.map((step, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm">
-                      <span className={`w-6 h-6 shrink-0 rounded-lg flex items-center justify-center text-xs font-black ${
-                        isFeatured ? "bg-white/20 text-white" : "bg-[#470020]/10 text-[#470020]"
-                      }`}>
-                        {i + 1}
-                      </span>
-                      <span className={isFeatured ? "text-white/70" : "text-[#6b4a56]"}>{step.title}</span>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-white/70 text-sm leading-relaxed">{model.ideal}</p>
               </div>
             </ScrollReveal>
           </div>
+        </div>
+      </section>
+
+      {/* ─── WHEN THIS FITS — Lichtgrijs ─────────────────────── */}
+      <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <ScrollReveal>
+            <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-12" style={{ letterSpacing: "-0.03em" }}>
+              {p.whenFitsLabel}
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+            {model.whenFits.map((w, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="h-full p-6 sm:p-8 lg:p-10 bg-white border border-[#e0d5d0] rounded-2xl hover:shadow-lg hover:border-[#470020]/20 transition-all duration-300">
+                  <div className="w-8 h-8 bg-[#470020]/10 border border-[#470020]/20 rounded-lg flex items-center justify-center mb-5">
+                    <CheckIcon />
+                  </div>
+                  <p className="text-[#6b4a56] leading-relaxed">{w}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {model.extra && (
+            <ScrollReveal>
+              <div className="mt-10 p-8 lg:p-12 border-2 border-[#470020] rounded-2xl bg-[#470020]">
+                <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-4">{model.extraTitle}</p>
+                <p className="text-white/85 text-lg leading-relaxed max-w-4xl">{model.extra}</p>
+              </div>
+            </ScrollReveal>
+          )}
         </div>
       </section>
 
@@ -113,20 +143,18 @@ export default function PartnerModelDetail({ modelKey }: Props) {
       <section className="relative py-24 lg:py-32 bg-[#470020] text-center overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
         <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
-        <div className="relative">
+        <div className="relative max-w-3xl mx-auto px-6">
           <ScrollReveal>
             <h2
               className="text-3xl lg:text-4xl font-black text-white tracking-tight mb-4"
               style={{ letterSpacing: "-0.03em" }}
             >
-              Interesse in dit model?
+              {p.detailCtaTitle}
             </h2>
-            <p className="text-white/60 mb-8">
-              Laten we kennismaken en kijken hoe we kunnen samenwerken.
-            </p>
+            <p className="text-white/60 mb-8">{p.detailCtaSub}</p>
             <Link
               href="/plan-een-afspraak"
-              className="inline-block px-10 py-5 bg-white text-[#470020] font-black rounded hover:bg-[#f2edea] active:scale-[0.98] transition-all duration-200"
+              className="inline-block px-10 py-5 bg-white text-[#470020] font-black rounded hover:bg-[#f2edea] active:scale-[0.98] transition-colors duration-200"
             >
               {p.ctaButton}
             </Link>

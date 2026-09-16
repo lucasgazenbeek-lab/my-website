@@ -30,44 +30,29 @@ export default function Home() {
     { value: st.inHouseEngineering.value, suffix: st.inHouseEngineering.suffix, label: h.stat4Label },
   ];
 
-  const partnerModels = [
-    {
-      title: h.partner1Title,
-      sub: h.partner1Sub,
-      href: "/partnermodellen/full-epc",
-      tag: pm.model1Tag,
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="7" width="20" height="14" rx="2"/>
-          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
-        </svg>
-      ),
-    },
-    {
-      title: h.partner2Title,
-      sub: h.partner2Sub,
-      href: "/partnermodellen/supply-technical",
-      tag: pm.model2Tag,
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-        </svg>
-      ),
-    },
-    {
-      title: h.partner3Title,
-      sub: h.partner3Sub,
-      href: "/partnermodellen/supply-only",
-      tag: pm.model3Tag,
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12.89 1.45l8 4A2 2 0 0122 7.24v9.53a2 2 0 01-1.11 1.79l-8 4a2 2 0 01-1.79 0l-8-4A2 2 0 012 16.76V7.24a2 2 0 011.11-1.79l8-4a2 2 0 011.78 0z"/>
-          <polyline points="2.32 6.16 12 11 21.68 6.16"/>
-          <line x1="12" y1="22.76" x2="12" y2="11"/>
-        </svg>
-      ),
-    },
+  // Collaboration cards mirror the first three partner models; the fourth
+  // (technical-support) is reachable via the /partnermodellen overview.
+  const partnerModelIcons = [
+    <svg key={0} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2"/>
+      <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+    </svg>,
+    <svg key={1} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+    </svg>,
+    <svg key={2} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12.89 1.45l8 4A2 2 0 0122 7.24v9.53a2 2 0 01-1.11 1.79l-8 4a2 2 0 01-1.79 0l-8-4A2 2 0 012 16.76V7.24a2 2 0 011.11-1.79l8-4a2 2 0 011.78 0z"/>
+      <polyline points="2.32 6.16 12 11 21.68 6.16"/>
+      <line x1="12" y1="22.76" x2="12" y2="11"/>
+    </svg>,
   ];
+  const partnerModels = pm.models.slice(0, 3).map((m, i) => ({
+    title: m.title,
+    sub: m.standfirst,
+    href: `/partnermodellen/${m.slug}`,
+    tag: m.tag,
+    icon: partnerModelIcons[i],
+  }));
 
   // Audience picker cards (uitbreiding.md DEEL 1): same dark image-card
   // recipe as before, now with a photo underneath the gradient layers.
