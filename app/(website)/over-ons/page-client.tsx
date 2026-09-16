@@ -70,11 +70,11 @@ export default function OverOns() {
               <div className="border-2 border-[#470020] rounded-lg bg-[#470020] overflow-hidden">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/fotos/team/emiel-verlee.jpg"
+                    src="/fotos/team/emiel-verlee-kaart.jpg"
                     alt={`${a.emielName} — ${a.emielRole}`}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-[center_12%]"
+                    className="object-cover grayscale"
                   />
                 </div>
                 <div className="p-10">
@@ -114,11 +114,11 @@ export default function OverOns() {
               <div className="border-2 border-[#470020] rounded-lg bg-[#470020] overflow-hidden">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/fotos/team/lucas-gazenbeek.jpg"
+                    src="/fotos/team/lucas-gazenbeek-kaart.jpg"
                     alt={`${a.lucasName} — ${a.lucasRole}`}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-[center_12%]"
+                    className="object-cover grayscale"
                   />
                 </div>
                 <div className="p-10">
@@ -158,11 +158,11 @@ export default function OverOns() {
               <div className="border-2 border-[#470020] rounded-lg bg-[#470020] h-full overflow-hidden">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/fotos/team/shane-konijnenberg.jpg"
+                    src="/fotos/team/shane-konijnenberg-kaart.jpg"
                     alt={`${a.shaneName} — ${a.shaneRole}`}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-[center_12%]"
+                    className="object-cover grayscale"
                   />
                 </div>
                 <div className="p-10">
