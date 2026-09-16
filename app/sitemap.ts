@@ -12,7 +12,6 @@ const routes: Array<{
   { path: "/wat-wij-doen", changeFrequency: "monthly", priority: 0.9 },
   { path: "/partnermodellen", changeFrequency: "monthly", priority: 0.8 },
   { path: "/partnermodellen/full-epc", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/partnermodellen/supply-technical", changeFrequency: "monthly", priority: 0.7 },
   { path: "/partnermodellen/supply-only", changeFrequency: "monthly", priority: 0.7 },
   { path: "/partnermodellen/technical-support", changeFrequency: "monthly", priority: 0.7 },
   { path: "/voor-investeerders", changeFrequency: "monthly", priority: 0.8 },

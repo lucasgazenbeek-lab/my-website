@@ -38,6 +38,24 @@ export default function Partnermodellen() {
   const { t } = useLang();
   const p = t.partnermodels;
 
+  const modelIcons = [
+    // Building — full turnkey
+    <svg key={0} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2"/>
+      <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+    </svg>,
+    // Wrench — technical support
+    <svg key={1} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+    </svg>,
+    // Package — supply only
+    <svg key={2} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12.89 1.45l8 4A2 2 0 0122 7.24v9.53a2 2 0 01-1.11 1.79l-8 4a2 2 0 01-1.79 0l-8-4A2 2 0 012 16.76V7.24a2 2 0 011.11-1.79l8-4a2 2 0 011.78 0z"/>
+      <polyline points="2.32 6.16 12 11 21.68 6.16"/>
+      <line x1="12" y1="22.76" x2="12" y2="11"/>
+    </svg>,
+  ];
+
   const models = p.models.map((m, i) => ({
     href: `/partnermodellen/${m.slug}`,
     title: m.title,
@@ -45,6 +63,7 @@ export default function Partnermodellen() {
     sub: m.standfirst,
     features: m.cardFeatures,
     ideal: m.ideal,
+    icon: modelIcons[i],
     featured: i === 0,
   }));
 
@@ -75,54 +94,92 @@ export default function Partnermodellen() {
       {/* ─── MODEL CARDS — Wit ───────────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {models.map((m, i) => (
               <ScrollReveal key={i} delay={i * 120}>
-                <div className={`relative flex flex-col h-full p-6 sm:p-8 rounded-lg border-2 transition-all duration-300 ${
-                  m.featured
-                    ? "border-[#470020] bg-[#470020]"
-                    : "border-[#e0d5d0] bg-white hover:border-[#470020]/40 hover:shadow-md"
-                }`}>
-                  <div className="flex items-start justify-between mb-6">
-                    <span className={`inline-block px-2.5 py-1 text-xs font-black tracking-widest uppercase rounded ${
-                      m.featured ? "bg-white text-[#470020]" : "border border-[#e0d5d0] text-[#6b4a56]"
+                <Link href={m.href} className="group block h-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#470020] rounded-2xl">
+                  <div
+                    className={`relative flex flex-col h-full p-8 lg:p-10 rounded-2xl border-2 overflow-hidden transition-all duration-300 group-hover:-translate-y-1 ${
+                      m.featured
+                        ? "border-[#470020]"
+                        : "bg-[#f9f6f4] border-transparent group-hover:border-[#470020]/20 group-hover:bg-white group-hover:shadow-xl"
+                    }`}
+                    style={m.featured ? {
+                      background: "linear-gradient(145deg, #3a0018 0%, #470020 55%, #2d0015 100%)",
+                      boxShadow: "0 8px 40px rgba(71,0,32,0.35), 0 2px 8px rgba(0,0,0,0.2)",
+                    } : undefined}
+                  >
+                    {m.featured && (
+                      <>
+                        {/* Glow from below, brightens on hover */}
+                        <div className="absolute inset-0 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500" style={{
+                          background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(160,30,80,0.4) 0%, transparent 70%)",
+                        }} />
+                        {/* Grain */}
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.06]" aria-hidden>
+                          <filter id="model-grain">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" />
+                            <feColorMatrix type="saturate" values="0" />
+                          </filter>
+                          <rect width="100%" height="100%" filter="url(#model-grain)" />
+                        </svg>
+                        {/* Shimmer line */}
+                        <div className="absolute top-0 left-0 right-0 h-px bg-white/0 group-hover:bg-white/15 transition-colors duration-500" />
+                      </>
+                    )}
+
+                    {/* Ghost number */}
+                    <span
+                      aria-hidden
+                      className={`absolute top-4 right-6 font-black leading-none select-none pointer-events-none transition-colors duration-300 ${
+                        m.featured ? "text-white/10 group-hover:text-white/15" : "text-[#e0d5d0] group-hover:text-[#470020]/10"
+                      }`}
+                      style={{ fontSize: "88px", letterSpacing: "-0.05em", fontVariantNumeric: "tabular-nums" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    {/* Icon tile */}
+                    <div className={`relative w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${
+                      m.featured ? "bg-white text-[#470020]" : "bg-[#470020] text-white"
+                    }`}>
+                      {m.icon}
+                    </div>
+
+                    <span className={`relative inline-block w-fit px-2.5 py-1 text-xs font-black tracking-widest uppercase rounded mb-4 ${
+                      m.featured ? "bg-white/15 text-white border border-white/25" : "border border-[#470020]/20 text-[#470020] bg-white"
                     }`}>
                       {m.tag}
                     </span>
+
+                    <h2 className={`relative text-2xl font-black tracking-tight leading-tight mb-4 ${m.featured ? "text-white" : "text-[#1a0810]"}`}
+                      style={{ letterSpacing: "-0.02em" }}>
+                      {m.title}
+                    </h2>
+                    <p className={`relative text-sm leading-relaxed mb-8 ${m.featured ? "text-white/70" : "text-[#6b4a56]"}`}>{m.sub}</p>
+
+                    <ul className="relative flex flex-col gap-3 mb-8 flex-1">
+                      {m.features.map((f, fi) => (
+                        <li key={fi} className={`flex items-start gap-3 text-sm ${m.featured ? "text-white/80" : "text-[#6b4a56]"}`}>
+                          <CheckIcon dark={m.featured} />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className={`relative border-t pt-6 ${m.featured ? "border-white/20" : "border-[#e0d5d0]"}`}>
+                      <p className={`text-xs font-semibold tracking-widest uppercase mb-2 ${m.featured ? "text-white/40" : "text-[#6b4a56]"}`}>
+                        {p.idealFor}
+                      </p>
+                      <p className={`text-sm mb-6 ${m.featured ? "text-white/70" : "text-[#6b4a56]"}`}>{m.ideal}</p>
+                      <span className={`inline-flex items-center gap-2 text-sm font-bold transition-all duration-200 group-hover:gap-3 ${
+                        m.featured ? "text-white/90 group-hover:text-white" : "text-[#470020]"
+                      }`}>
+                        {p.viewModel} <ArrowIcon />
+                      </span>
+                    </div>
                   </div>
-
-                  <h2 className={`text-2xl font-black tracking-tight leading-tight mb-4 ${m.featured ? "text-white" : "text-[#1a0810]"}`}
-                    style={{ letterSpacing: "-0.02em" }}>
-                    {m.title}
-                  </h2>
-                  <p className={`text-sm leading-relaxed mb-8 ${m.featured ? "text-white/70" : "text-[#6b4a56]"}`}>{m.sub}</p>
-
-                  <ul className="flex flex-col gap-3 mb-8 flex-1">
-                    {m.features.map((f, fi) => (
-                      <li key={fi} className={`flex items-start gap-3 text-sm ${m.featured ? "text-white/80" : "text-[#6b4a56]"}`}>
-                        <CheckIcon dark={m.featured} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className={`border-t pt-6 ${m.featured ? "border-white/20" : "border-[#e0d5d0]"}`}>
-                    <p className={`text-xs font-semibold tracking-widest uppercase mb-2 ${m.featured ? "text-white/40" : "text-[#6b4a56]"}`}>
-                      {p.idealFor}
-                    </p>
-                    <p className={`text-sm mb-6 ${m.featured ? "text-white/70" : "text-[#6b4a56]"}`}>{m.ideal}</p>
-                    <Link
-                      href={m.href}
-                      className={`flex items-center gap-2 text-sm font-bold transition-colors ${
-                        m.featured
-                          ? "text-white/90 hover:text-white"
-                          : "text-[#470020] hover:underline"
-                      }`}
-                    >
-                      {p.viewModel} <ArrowIcon />
-                    </Link>
-                  </div>
-                </div>
+                </Link>
               </ScrollReveal>
             ))}
           </div>

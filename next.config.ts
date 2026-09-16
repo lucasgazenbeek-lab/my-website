@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
       headers: [{ key: 'X-Frame-Options', value: 'SAMEORIGIN' }],
     }]
   },
+  async redirects() {
+    return [{
+      // The Supply & Technical model merged into Technical Support.
+      source: '/partnermodellen/supply-technical',
+      destination: '/partnermodellen/technical-support',
+      permanent: true,
+    }]
+  },
 };
 
 export default nextConfig;
