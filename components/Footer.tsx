@@ -13,6 +13,7 @@ export default function Footer() {
     { href: "/", label: t.nav.home },
     { href: "/wat-wij-doen", label: t.nav.services },
     { href: "/partnermodellen", label: t.nav.partners },
+    { href: "/voor-investeerders", label: t.nav.investors },
     { href: "/projecten", label: t.nav.projects },
     { href: "/over-ons", label: t.nav.about },
     { href: "/plan-een-afspraak", label: t.nav.contact },

@@ -6,6 +6,7 @@ export const translations = {
       home: "Home",
       services: "Wat wij doen",
       partners: "Partnermodellen",
+      investors: "Voor investeerders",
       projects: "Projecten",
       about: "Over ons",
       contact: "Plan een afspraak",
@@ -159,6 +160,57 @@ export const translations = {
       ctaSub: "Netaansluiting, vergunning, businesscase of uitvoering — begin waar het knelt.",
       ctaPlan: "Plan een afspraak",
       ctaCall: "Bel direct",
+    },
+    investors: {
+      heroEyebrow: "Voor investeerders en IPP's",
+      heroTitle: "Meedoen, of laten narekenen",
+      heroStandfirst:
+        "Wij ontwikkelen zelf en wij kijken mee bij anderen. Dat betekent dat u met ons kunt meedoen in een project, of ons juist kunt inzetten om te toetsen wat iemand anders u voorlegt.",
+      entriesEyebrow: "Drie ingangen",
+      entriesTitle: "Meedoen, meekijken of laten narekenen",
+      entries: [
+        {
+          title: "Participatie in onze projecten",
+          desc: "Wij hebben ruim 200 MWh in eigen ontwikkeling. Voor een deel daarvan zoeken wij partijen die mee willen investeren, met of zonder operationele betrokkenheid. U krijgt vooraf inzage in het volledige model, het vergunningsdossier en de netpositie — niet pas in de due diligence.",
+        },
+        {
+          title: "Ondersteuning bij uw eigen acquisities",
+          desc: "Koopt u een project, een park of een portefeuille, dan toetsen wij wat er werkelijk staat: netpositie, vergunningsstatus, ontwerpkeuzes, restlevensduur en de verplichtingen die meekomen. En als er een batterij bij kan, rekenen wij uit wat dat doet met de dekkingsgraad van het geheel.",
+        },
+        {
+          title: "Validatie van een businesscase",
+          desc: "Wij rekenen het model na tot op de component. Bij een opbrengstrapport van een optimizer controleren wij of de totaalregel klopt met de som van de onderdelen, en dat is niet altijd zo. Bij een bandbreedte op regelvermogen nemen wij de ondergrens als basis en niet het midden — het midden is geen neutrale keuze maar een aanname van meeropbrengst.",
+        },
+      ],
+      normEyebrow: "Onze rekennorm",
+      normTitle: "Zo rekenen wij",
+      norms: [
+        {
+          title: "Nul formulefouten",
+          desc: "Elk model wordt doorgerekend en de uitkomsten worden onafhankelijk in een tweede omgeving nagerekend. Geen foutwaarden, totalen sluitend.",
+        },
+        {
+          title: "Elke aanname met een bron",
+          desc: "Aannames en bronnen staan als eigen hoofdstuk in het rapport, niet in een voetnoot.",
+        },
+        {
+          title: "IRR én dekkingsgraad",
+          desc: "Die twee kunnen tegengestelde verhalen vertellen bij hetzelfde model. Een korte horizon zonder restwaarde geeft een lage IRR terwijl de dekkingsgraad er prima uitziet. Wij tonen ze allebei en leggen het verschil uit.",
+        },
+        {
+          title: "De ruimte tot break-even",
+          desc: "Het bruikbaarste getal is niet de IRR maar hoeveel de opbrengst mag tegenvallen voordat de convenant breekt. Dat staat bij ons in de samenvatting.",
+        },
+      ],
+      honestTitle: "Waar wij eerlijk over zijn",
+      honestBody:
+        "Wij nemen geen projecties van een verkoper over zonder ze zelf na te rekenen, ook niet als dat de deal vertraagt. Wij geven geen kansinschatting in procenten, want die suggereert precisie die er niet is. En als de case niet werkt, zeggen wij dat — ook wanneer wij daarmee onszelf uit een opdracht praten.",
+      statsTitle: "Cijfers",
+      stat1Label: "In eigen ontwikkeling",
+      stat2Label: "Projecten in portefeuille",
+      stat3Label: "Doorgerekende businesscases",
+      stat4Label: "Engineeringdossiers",
+      ctaTitle: "Laten we uw case naast de onze leggen",
     },
     partnermodels: {
       heroTitle: "Vier manieren om met ons te werken",
@@ -460,6 +512,7 @@ export const translations = {
       home: "Home",
       services: "What we do",
       partners: "Partner models",
+      investors: "For investors",
       projects: "Projects",
       about: "About us",
       contact: "Book a meeting",
@@ -613,6 +666,57 @@ export const translations = {
       ctaSub: "Grid connection, permit, business case or execution — start where it hurts.",
       ctaPlan: "Book a meeting",
       ctaCall: "Call us directly",
+    },
+    investors: {
+      heroEyebrow: "For investors and IPPs",
+      heroTitle: "Join in, or have it recalculated",
+      heroStandfirst:
+        "We develop ourselves and we look over other people's shoulders. That means you can join us in a project, or bring us in to test what someone else is putting in front of you.",
+      entriesEyebrow: "Three entry points",
+      entriesTitle: "Join in, look along, or have it recalculated",
+      entries: [
+        {
+          title: "Participation in our projects",
+          desc: "We have over 200 MWh in own development. For part of that, we are looking for parties who want to co-invest, with or without operational involvement. You get access to the full model, the permit dossier and the grid position up front — not only during due diligence.",
+        },
+        {
+          title: "Support on your own acquisitions",
+          desc: "If you are buying a project, a park or a portfolio, we verify what is actually there: grid position, permit status, design choices, remaining lifetime and the obligations that come with it. And if a battery can be added, we calculate what that does to the coverage ratio of the whole.",
+        },
+        {
+          title: "Validation of a business case",
+          desc: "We recalculate the model down to the component. With an optimizer's revenue report we check whether the total line matches the sum of the parts — and it doesn't always. With a bandwidth on balancing power we take the lower bound as the base, not the middle: the middle is not a neutral choice but an assumption of extra revenue.",
+        },
+      ],
+      normEyebrow: "Our calculation standard",
+      normTitle: "How we calculate",
+      norms: [
+        {
+          title: "Zero formula errors",
+          desc: "Every model is calculated through and the outcomes are independently recalculated in a second environment. No error values, and totals that add up.",
+        },
+        {
+          title: "Every assumption with a source",
+          desc: "Assumptions and sources form their own chapter in the report, not a footnote.",
+        },
+        {
+          title: "IRR and coverage ratio together",
+          desc: "The two can tell opposite stories about the same model. A short horizon without residual value gives a low IRR while the coverage ratio looks fine. We show both and explain the difference.",
+        },
+        {
+          title: "The room to break-even",
+          desc: "The most useful number is not the IRR but how much revenue can disappoint before the covenant breaks. With us, that is in the summary.",
+        },
+      ],
+      honestTitle: "What we are honest about",
+      honestBody:
+        "We do not adopt a seller's projections without recalculating them ourselves, even if that delays the deal. We give no probability estimates in percentages, because they suggest a precision that isn't there. And if the case doesn't work, we say so — even when that talks us out of an assignment.",
+      statsTitle: "Numbers",
+      stat1Label: "In own development",
+      stat2Label: "Projects in portfolio",
+      stat3Label: "Business cases recalculated",
+      stat4Label: "Engineering dossiers",
+      ctaTitle: "Let's put your case next to ours",
     },
     partnermodels: {
       heroTitle: "Four ways to work with us",

@@ -60,6 +60,8 @@ export const siteConfig = {
     combinedRevenue: { value: 7, prefix: "€", suffix: "M+", unit: "", display: "€7M+" },
     combinedExperienceYears: { value: 12, suffix: "+", unit: "jaar", display: "12+" },
     inHouseEngineering: { value: 100, suffix: "%", unit: "", display: "100%" },
+    businessCasesCalculated: { value: 24, suffix: "", unit: "", display: "24" },
+    engineeringDossiers: { value: 5, suffix: "", unit: "", display: "5" },
   },
 } as const;
 
