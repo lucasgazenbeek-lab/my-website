@@ -1,49 +1,35 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
-import BookingCTA from "@/components/BookingCTA";
 import { siteConfig } from "@/lib/site-config";
 import dynamic from "next/dynamic";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
-function CheckIcon({ dark = false }: { dark?: boolean }) {
+function ArrowLink({ href, label }: { href: string; label: string }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5">
-      <path d="M3 8l3.5 3.5L13 4" stroke={dark ? "#ffffff" : "#470020"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <Link href={href} className="group inline-flex items-center gap-2 text-sm font-bold text-[#470020] hover:underline">
+      {label}
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-200">
+        <path d="M2 7h10M7.5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </Link>
+  );
+}
+
+function BlokPhoto({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="relative aspect-[4/5] max-h-[560px] w-full rounded-2xl overflow-hidden border border-[#e0d5d0]" style={{ boxShadow: "0 8px 40px rgba(71,0,32,0.10), 0 2px 8px rgba(71,0,32,0.06)" }}>
+      <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+    </div>
   );
 }
 
 export default function WatWijDoen() {
   const { t } = useLang();
   const s = t.services;
-
-  const steps = [
-    { n: "01", title: s.step1Title, desc: s.step1Desc },
-    { n: "02", title: s.step2Title, desc: s.step2Desc },
-    { n: "03", title: s.step3Title, desc: s.step3Desc },
-    { n: "04", title: s.step4Title, desc: s.step4Desc },
-  ];
-
-  const guarantees = [
-    { title: s.g1Title, items: s.g1Items },
-    { title: s.g2Title, items: s.g2Items },
-    { title: s.g3Title, items: s.g3Items },
-    { title: s.g4Title, items: s.g4Items },
-  ];
-
-  const guaranteeIcons = [
-    // Shield — factory guarantee
-    <svg key={0} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-    // Globe — Europe supply
-    <svg key={1} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>,
-    // Calendar — delivery planning
-    <svg key={2} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
-    // Layers — scalable architecture
-    <svg key={3} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>,
-  ];
 
   return (
     <div className="flex flex-col pt-18">
@@ -56,226 +42,42 @@ export default function WatWijDoen() {
         <div className="relative flex items-center max-w-7xl mx-auto px-6 lg:px-8 w-full">
           <div className="max-w-3xl">
             <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-              {s.servicesLabel}
+              {s.heroEyebrow}
             </p>
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white tracking-tight leading-[0.95] mb-6"
               style={{ letterSpacing: "-0.03em" }}>
               {s.heroTitle}
             </h1>
-            <p className="text-xl text-white/70 leading-relaxed">{s.heroSub}</p>
+            <p className="text-xl text-white/70 leading-relaxed">{s.heroStandfirst}</p>
           </div>
         </div>
       </section>
 
-      {/* ─── HET VERHAAL — Wit ───────────────────────────────── */}
+      {/* ─── BLOK A — Full EPC — Wit ─────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-20">
             <ScrollReveal direction="left">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{s.whyBatteryLabel}</p>
-              <h2 className="text-3xl lg:text-4xl font-black text-[#1a0810] tracking-tight mb-6"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.whyBatteryH2}
+              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{s.blokAEyebrow}</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
+                {s.blokATitle}
               </h2>
-              <p className="text-[#6b4a56] text-lg leading-relaxed mb-6">{s.whyBatteryP1}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-6">{s.whyBatteryP2}</p>
-              <p className="text-[#6b4a56] leading-relaxed">{s.whyBatteryP3}</p>
-            </ScrollReveal>
-
-            <ScrollReveal direction="right">
-              <div className="relative">
-                {/* Visual: stacked stat cards */}
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { val: "A tot Z", label: "Eén verantwoordelijke partij", desc: "Van vergunning tot oplevering" },
-                    { val: siteConfig.stats.manufacturerRelations.display, label: "Directe fabrikantrelaties", desc: "Geen tussenpersonen" },
-                    { val: siteConfig.stats.mwhRealized.display, label: "Gerealiseerd", desc: "Bewezen track record" },
-                    { val: siteConfig.stats.inHouseEngineering.display, label: "Engineering-first", desc: "Kwaliteit boven snelheid" },
-                  ].map((item, i) => (
-                    <div key={i} className={`p-5 rounded-lg border-2 ${i === 0 ? "border-[#470020] bg-[#470020]" : "border-[#e0d5d0] bg-[#f9f6f4]"}`}>
-                      <div className={`text-2xl font-black mb-1 ${i === 0 ? "text-white" : "text-[#470020]"}`}
-                        style={{ letterSpacing: "-0.03em" }}>{item.val}</div>
-                      <div className={`text-xs font-bold mb-1 ${i === 0 ? "text-white/80" : "text-[#1a0810]"}`}>{item.label}</div>
-                      <div className={`text-xs ${i === 0 ? "text-white/50" : "text-[#6b4a56]"}`}>{item.desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── INTRO — lichtgrijs ──────────────────────────────── */}
-      <section className="py-16 bg-[#f9f6f4] border-y border-[#e0d5d0]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <ScrollReveal>
-              <h2 className="text-2xl font-bold text-[#1a0810] mb-4 tracking-tight">{s.introTitle}</h2>
-              <p className="text-[#6b4a56] text-lg leading-relaxed">{s.introText}</p>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── C&I — Wit ───────────────────────────────────────── */}
-      <section className="py-24 lg:py-32 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <ScrollReveal direction="left">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                {s.marketSeg1Label}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-3"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.ciTitle}
-              </h2>
-              <p className="text-[#470020] text-sm font-semibold tracking-wide mb-5">{s.ciSub}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-8">{s.ciBodyText}</p>
-              <div className="flex flex-wrap gap-2">
-                {s.ciUseCases.map((u, i) => (
-                  <span key={i} className="px-3 py-1.5 border border-[#470020]/20 text-xs font-semibold text-[#470020] rounded-sm bg-[#f9f6f4]">
-                    {u}
-                  </span>
-                ))}
-              </div>
+              <p className="text-[#6b4a56] text-lg leading-relaxed mb-8">{s.blokAIntro}</p>
+              <ArrowLink href="/partnermodellen/full-epc" label={s.blokACta} />
             </ScrollReveal>
             <ScrollReveal direction="right">
-              <div className="p-8 border border-[#e0d5d0] rounded-lg bg-white shadow-sm">
-                <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-5">{s.howItWorksLabel}</p>
-                <div className="flex flex-col gap-4">
-                  {s.ciSteps.map((item) => (
-                    <div key={item.step} className="flex items-start gap-4">
-                      <span className="w-8 h-8 shrink-0 rounded-lg bg-[#470020] text-white text-xs font-black flex items-center justify-center">{item.step}</span>
-                      <div>
-                        <div className="font-bold text-[#1a0810] text-sm mb-0.5">{item.title}</div>
-                        <div className="text-xs text-[#6b4a56] leading-relaxed">{item.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <BlokPhoto src="/fotos/diensten/dienst-full-epc.jpg" alt={s.blokAPhotoAlt} />
             </ScrollReveal>
           </div>
-        </div>
-      </section>
 
-      {/* ─── UTILITY — Lichtgrijs ────────────────────────────── */}
-      <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <ScrollReveal direction="right" className="lg:order-2">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                {s.marketSeg2Label}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-3"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.utilityTitle}
-              </h2>
-              <p className="text-[#470020] text-sm font-semibold tracking-wide mb-5">{s.utilitySub}</p>
-              <p className="text-[#6b4a56] leading-relaxed mb-8">{s.utilityBodyText}</p>
-              <div className="flex flex-wrap gap-2">
-                {s.utilityUseCases.map((u, i) => (
-                  <span key={i} className="px-3 py-1.5 border border-[#470020]/20 text-xs font-semibold text-[#470020] rounded-sm bg-white">
-                    {u}
-                  </span>
-                ))}
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="left" className="lg:order-1">
-              <div className="p-8 border-2 border-[#470020] rounded-lg bg-[#470020]">
-                <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-6">
-                  {s.scalableLabel}
-                </p>
-                <div className="flex items-end gap-2 mb-6">
-                  <span className="text-6xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
-                    100+
-                  </span>
-                  <span className="text-2xl font-bold text-white/60 mb-2">MW</span>
-                </div>
-                <p className="text-white/70 text-sm leading-relaxed mb-6">{s.utilityCertDesc}</p>
-                <div className="flex flex-col gap-3">
-                  {s.certifications.map((tag, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-white/70">
-                      <CheckIcon dark />
-                      {tag}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── PLATFORMS — Wit ─────────────────────────────────── */}
-      <section className="py-24 lg:py-32 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Scope table */}
           <ScrollReveal>
-            <div className="mb-14">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                {s.techArchLabel}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-4"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.platformsTitle}
-              </h2>
-              <p className="text-[#6b4a56] text-lg max-w-2xl">{s.platformsSub}</p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-            <ScrollReveal delay={0} direction="left">
-              <div className="p-8 border-2 border-[#470020] rounded-lg bg-[#470020] h-full">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-white tracking-tight mb-1">{s.platform1Name}</h3>
-                    <p className="text-white/60 text-sm font-medium">{s.platform1Tag}</p>
-                  </div>
-                  <span className="px-2 py-1 bg-white text-[#470020] text-xs font-bold tracking-widest uppercase rounded">
-                    EPC
-                  </span>
-                </div>
-                <ul className="flex flex-col gap-3">
-                  {s.platform1Features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-white/80">
-                      <CheckIcon dark />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={100} direction="right">
-              <div className="p-8 border border-[#e0d5d0] rounded-lg bg-[#f9f6f4] h-full">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-[#1a0810] tracking-tight mb-1">{s.platform2Name}</h3>
-                    <p className="text-[#6b4a56] text-sm font-medium">{s.platform2Tag}</p>
-                  </div>
-                  <span className="px-2 py-1 border border-[#e0d5d0] text-[#6b4a56] text-xs font-bold tracking-widest uppercase rounded">
-                    C&I
-                  </span>
-                </div>
-                <ul className="flex flex-col gap-3">
-                  {s.platform2Features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-[#6b4a56]">
-                      <CheckIcon />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal>
-            <div className="overflow-x-auto rounded-lg border border-[#e0d5d0] bg-white">
+            <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-5">{s.blokAScopeTitle}</p>
+            <div className="overflow-x-auto rounded-lg border border-[#e0d5d0] bg-white mb-16 lg:mb-20">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-[#e0d5d0] bg-[#f9f6f4]">
-                    {s.tableHeaders.map((h, i) => (
+                    {s.blokATableHeaders.map((h, i) => (
                       <th key={i} className={`py-4 px-6 text-left text-xs font-black tracking-widest uppercase ${i === 0 ? "text-[#6b4a56]" : "text-[#1a0810]"}`}>
                         {h}
                       </th>
@@ -283,157 +85,176 @@ export default function WatWijDoen() {
                   </tr>
                 </thead>
                 <tbody>
-                  {s.tableRows.map((row, ri) => (
+                  {s.blokAScope.map((row, ri) => (
                     <tr key={ri} className="border-b border-[#e0d5d0] last:border-0 hover:bg-[#f9f6f4] transition-colors">
-                      {row.map((cell, ci) => (
-                        <td key={ci} className={`py-4 px-6 text-sm ${ci === 0 ? "text-[#6b4a56] font-semibold" : "text-[#1a0810]"}`}>
-                          {cell}
-                        </td>
-                      ))}
+                      <td className="py-4 px-6 text-sm text-[#470020] font-semibold whitespace-nowrap align-top">{row.name}</td>
+                      <td className="py-4 px-6 text-sm text-[#1a0810] leading-relaxed">{row.desc}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </ScrollReveal>
-        </div>
-      </section>
 
-      {/* ─── PROCESS — Dark Scarlet ──────────────────────────── */}
-      <section className="relative py-24 lg:py-32 bg-[#470020] overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
-        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Why turnkey */}
           <ScrollReveal>
-            <div className="mb-14">
-              <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-4">
-                {s.processSectionLabel}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-4"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.processTitle}
-              </h2>
-              <p className="text-white/60 text-lg max-w-2xl">{s.processSub}</p>
-            </div>
+            <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-5">{s.blokAWhyTitle}</p>
           </ScrollReveal>
-
-          <div className="relative">
-            <div className="hidden lg:block absolute top-8 left-[calc(12.5%+1rem)] right-[calc(12.5%+1rem)] h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {steps.map((step, i) => (
-                <ScrollReveal key={i} delay={i * 100} direction={i < 2 ? "left" : "right"}>
-                  <div className="relative">
-                    <div className="w-16 h-16 mb-6 border-2 border-white/30 rounded-lg flex items-center justify-center bg-white/10">
-                      <span className="text-white text-xl font-black">{step.n}</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2 tracking-tight">{step.title}</h3>
-                    <p className="text-sm text-white/60 leading-relaxed">{step.desc}</p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+            {s.blokAWhy.map((w, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="h-full p-8 lg:p-10 bg-[#f9f6f4] border-2 border-transparent rounded-2xl hover:border-[#470020]/20 hover:bg-white hover:shadow-xl transition-all duration-300">
+                  <h3 className="text-xl font-black text-[#1a0810] mb-4 leading-tight" style={{ letterSpacing: "-0.02em" }}>
+                    {w.title}
+                  </h3>
+                  <p className="text-sm text-[#6b4a56] leading-relaxed">{w.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ─── GUARANTEES — Lichtgrijs ─────────────────────────── */}
+      {/* ─── BLOK B — Technische ondersteuning — Warm wit ────── */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="mb-14">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                {s.certaintySectionLabel}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.guaranteesTitle}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-20">
+            <ScrollReveal direction="left" className="lg:order-2">
+              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{s.blokBEyebrow}</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
+                {s.blokBTitle}
               </h2>
-            </div>
-          </ScrollReveal>
+              <p className="text-[#6b4a56] text-lg leading-relaxed mb-8">{s.blokBIntro}</p>
+              <ArrowLink href="/partnermodellen/technical-support" label={s.blokBCta} />
+            </ScrollReveal>
+            <ScrollReveal direction="right" className="lg:order-1">
+              <BlokPhoto src="/fotos/diensten/dienst-technische-ondersteuning.jpg" alt={s.blokBPhotoAlt} />
+            </ScrollReveal>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {guarantees.map((g, i) => (
-              <ScrollReveal key={i} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="relative p-6 sm:p-8 lg:p-10 border-2 border-[#e0d5d0] rounded-xl bg-white hover:border-[#470020] hover:shadow-[0_8px_32px_rgba(71,0,32,0.12)] transition-all duration-300 h-full group overflow-hidden cursor-default">
-                  {/* Decorative bg number */}
+          {/* Three levels — numbered white cards */}
+          <ScrollReveal>
+            <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-5">{s.blokBLevelsTitle}</p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-12">
+            {s.blokBLevels.map((l, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="relative h-full p-6 sm:p-8 lg:p-10 bg-white border border-[#e0d5d0] rounded-2xl hover:shadow-lg hover:border-[#470020]/20 transition-all duration-300 overflow-hidden">
                   <span
-                    className="absolute top-4 right-6 font-black text-[#e0d5d0] group-hover:text-[#470020]/10 leading-none select-none pointer-events-none transition-colors duration-300"
-                    style={{ fontSize: "80px", letterSpacing: "-0.05em" }}
+                    className="absolute top-4 right-6 font-black text-[#e0d5d0] leading-none select-none pointer-events-none"
+                    style={{ fontSize: "72px", letterSpacing: "-0.05em" }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  {/* Icon */}
-                  <div className="relative w-12 h-12 mb-6 rounded-xl border-2 border-[#e0d5d0] bg-white flex items-center justify-center text-[#470020] group-hover:bg-[#470020] group-hover:border-[#470020] group-hover:text-white transition-all duration-300">
-                    {guaranteeIcons[i]}
-                  </div>
-                  <h3 className="font-black text-[#1a0810] text-lg mb-4 leading-snug tracking-tight">{g.title}</h3>
-                  <ul className="flex flex-col gap-2.5">
-                    {g.items.map((item, ii) => (
-                      <li key={ii} className="flex items-start gap-2 text-sm text-[#6b4a56]">
-                        <CheckIcon />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="relative text-xl font-black text-[#1a0810] mb-4 leading-tight pr-16" style={{ letterSpacing: "-0.02em" }}>
+                    {l.title}
+                  </h3>
+                  <p className="relative text-sm text-[#6b4a56] leading-relaxed">{l.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Callout — scarlet card */}
+          <ScrollReveal>
+            <div className="p-8 lg:p-12 border-2 border-[#470020] rounded-2xl bg-[#470020]">
+              <p className="text-xs font-black tracking-widest text-white/50 uppercase mb-4">{s.blokBCalloutTitle}</p>
+              <p className="text-white/85 text-lg lg:text-xl leading-relaxed max-w-4xl">{s.blokBCallout}</p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* ─── STRENGTHS — Wit ─────────────────────────────────── */}
-      <section className="py-24 lg:py-32 bg-white overflow-hidden">
+      {/* ─── BLOK C — Haalbaarheid — Wit ─────────────────────── */}
+      <section id="haalbaarheid" className="py-24 lg:py-32 bg-white overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="mb-14">
-              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-                {s.differentiatorsSectionLabel}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight"
-                style={{ letterSpacing: "-0.03em" }}>
-                {s.strengthTitle}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-20">
+            <ScrollReveal direction="left">
+              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">{s.blokCEyebrow}</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
+                {s.blokCTitle}
               </h2>
-            </div>
-          </ScrollReveal>
+              <p className="text-[#6b4a56] text-lg leading-relaxed">{s.blokCIntro}</p>
+            </ScrollReveal>
+            <ScrollReveal direction="right">
+              <BlokPhoto src="/fotos/diensten/dienst-haalbaarheid.jpg" alt={s.blokCPhotoAlt} />
+            </ScrollReveal>
+          </div>
 
-          <div className="divide-y divide-[#e0d5d0]">
-            {s.strengths.map((st, i) => (
+          {/* What we investigate — numbered rows */}
+          <ScrollReveal>
+            <p className="text-xs font-black tracking-widest text-[#6b4a56] uppercase mb-2">{s.blokCItemsTitle}</p>
+          </ScrollReveal>
+          <div className="divide-y divide-[#e0d5d0] mb-14">
+            {s.blokCItems.map((item, i) => (
               <ScrollReveal key={i} delay={i * 60}>
                 <div className="flex items-start gap-6 lg:gap-10 py-8 group cursor-default">
-                  {/* Large number */}
                   <span
                     className="shrink-0 font-black text-[#e0d5d0] group-hover:text-[#470020] leading-none transition-colors duration-300"
-                    style={{ fontSize: "clamp(40px,5vw,64px)", letterSpacing: "-0.04em", minWidth: "56px" }}
+                    style={{ fontSize: "clamp(40px,5vw,64px)", letterSpacing: "-0.04em", minWidth: "56px", fontVariantNumeric: "tabular-nums" }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  {/* Content */}
                   <div className="flex-1 pt-1">
-                    <h3 className="text-xl font-black text-[#1a0810] mb-2 tracking-tight group-hover:text-[#470020] transition-colors duration-300" style={{ letterSpacing: "-0.02em" }}>{st.title}</h3>
-                    <p className="text-[#6b4a56] leading-relaxed">{st.desc}</p>
-                  </div>
-                  {/* Arrow */}
-                  <div className="shrink-0 w-10 h-10 rounded-full border-2 border-[#e0d5d0] flex items-center justify-center text-[#c7b3ac] group-hover:bg-[#470020] group-hover:border-[#470020] group-hover:text-white transition-all duration-300 mt-1.5">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    <h3 className="text-xl font-black text-[#1a0810] mb-2 tracking-tight group-hover:text-[#470020] transition-colors duration-300" style={{ letterSpacing: "-0.02em" }}>
+                      {item.title}
+                    </h3>
+                    <p className="text-[#6b4a56] leading-relaxed max-w-3xl">{item.desc}</p>
                   </div>
                 </div>
               </ScrollReveal>
             ))}
           </div>
+
+          <ScrollReveal>
+            <Link
+              href="/plan-een-afspraak"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#470020] text-white font-black text-base rounded hover:bg-[#5c0029] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#470020] active:scale-[0.98] transition-colors duration-200"
+            >
+              {s.blokCCta}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
-      <BookingCTA
-        title="Laten we uw project bespreken"
-        titleEn="Let's discuss your project"
-        sub="Plan een gesprek of bel ons direct — we nemen uw project door van A tot Z."
-        subEn="Book a call or contact us directly — we'll walk through your project from A to Z."
-        trustLine="Vrijblijvend kennismaken — u weet na één gesprek waar u staat."
-        trustLineEn="A no-strings introduction — you'll know where you stand after one conversation."
-      />
+      {/* ─── CLOSING CTA — Scarlet + particles ───────────────── */}
+      <section className="relative py-32 lg:py-40 bg-[#470020] overflow-hidden">
+        <div className="absolute inset-0"><HeroParticles /></div>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(30,0,14,0.6) 100%)" }} />
+        <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <ScrollReveal>
+            <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tight mb-6" style={{ letterSpacing: "-0.03em" }}>
+              {s.ctaTitle}
+            </h2>
+            <p className="text-white/70 text-lg mb-10">{s.ctaSub}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/plan-een-afspraak"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#470020] font-black text-base rounded hover:bg-[#f2edea] active:scale-[0.98] transition-colors duration-200"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                {s.ctaPlan}
+              </Link>
+              <a
+                href={`tel:${siteConfig.contacts.lucas.phoneHref}`}
+                className="inline-flex items-center gap-3 px-8 py-4 border-2 border-white/25 text-white font-bold text-base rounded hover:border-white/50 hover:bg-white/8 active:scale-[0.98] transition-colors duration-200"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                {s.ctaCall}
+              </a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
     </div>
   );
 }

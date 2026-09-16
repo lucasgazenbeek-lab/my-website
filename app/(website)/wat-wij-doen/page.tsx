@@ -4,9 +4,9 @@ import JsonLd from "@/components/JsonLd";
 import WatWijDoenClient from "./page-client";
 
 export const metadata = buildMetadata({
-  title: "Turnkey EPC voor batterijopslag: C&I en utility-scale | Gridstate",
+  title: "Full EPC, technische ondersteuning en haalbaarheidsstudies | Gridstate",
   description:
-    "Eén partij voor het hele BESS-traject: C&I en utility-scale batterijopslag tegen netcongestie en voor peakshaving — van haalbaarheidsstudie tot grid connection.",
+    "Wij bouwen batterijopslag turnkey onder één contract, leveren de technische laag voor partijen die zelf bouwen, en toetsen of een locatie aansluitbaar, vergunbaar en rendabel is.",
   path: "/wat-wij-doen",
 });
 
@@ -15,19 +15,28 @@ export default function Page() {
     <>
       <JsonLd
         data={serviceSchema({
-          name: "C&I batterijopslag",
-          serviceType: "Commercial and industrial battery energy storage EPC",
+          name: "Full EPC batterijopslag",
+          serviceType: "Turnkey battery energy storage EPC",
           description:
-            "Turnkey batterijopslag voor industrie, logistiek, tuinbouw en datacenters: peakshaving, netcongestie en energiekostenreductie — van ontwerp tot oplevering.",
+            "Turnkey batterijopslag onder één contract: engineering, vergunning, inkoop, civiel, plaatsing, elektrotechniek, inbedrijfstelling en overdracht.",
           path: "/wat-wij-doen",
         })}
       />
       <JsonLd
         data={serviceSchema({
-          name: "Utility-scale BESS",
-          serviceType: "Utility-scale battery energy storage EPC",
+          name: "Technische ondersteuning batterijopslag",
+          serviceType: "Battery energy storage engineering and project management",
           description:
-            "Grootschalige batterijopslag en hybride zonnepark+BESS-projecten voor netbeheerders, energieleveranciers en projectontwikkelaars, schaalbaar tot 100+ MW.",
+            "Engineering, projectmanagement en volledige scope-uitwerking voor partijen die zelf bouwen — zonder levering van apparatuur.",
+          path: "/wat-wij-doen",
+        })}
+      />
+      <JsonLd
+        data={serviceSchema({
+          name: "Haalbaarheidsstudies batterijopslag",
+          serviceType: "Battery energy storage feasibility study",
+          description:
+            "Netpositie, vergunningsroute en businesscase van een batterijlocatie, uitgewerkt tot een informatiememorandum voor bank of investeerder.",
           path: "/wat-wij-doen",
         })}
       />
