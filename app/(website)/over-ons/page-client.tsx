@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import BookingCTA from "@/components/BookingCTA";
@@ -76,8 +77,14 @@ export default function OverOns() {
             <ScrollReveal delay={0} direction="left">
               <div className="p-10 border-2 border-[#470020] rounded-lg bg-[#470020]">
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-16 h-16 rounded-lg bg-white/20 border border-white/30 flex items-center justify-center shrink-0">
-                    <span className="text-2xl font-black text-white">EV</span>
+                  <div className="relative w-20 h-20 rounded-lg border border-white/30 overflow-hidden shrink-0">
+                    <Image
+                      src="/fotos/team/emiel-verlee.jpg"
+                      alt={`${a.emielName} — ${a.emielRole}`}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="text-2xl font-black text-white tracking-tight" style={{ letterSpacing: "-0.02em" }}>
@@ -114,8 +121,14 @@ export default function OverOns() {
             <ScrollReveal delay={120}>
               <div className="p-10 border border-[#e0d5d0] rounded-lg bg-white">
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-16 h-16 rounded-lg bg-[#470020]/10 border border-[#470020]/20 flex items-center justify-center shrink-0">
-                    <span className="text-2xl font-black text-[#470020]">LG</span>
+                  <div className="relative w-20 h-20 rounded-lg border border-[#470020]/20 overflow-hidden shrink-0">
+                    <Image
+                      src="/fotos/team/lucas-gazenbeek.jpg"
+                      alt={`${a.lucasName} — ${a.lucasRole}`}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
@@ -152,8 +165,14 @@ export default function OverOns() {
             <ScrollReveal delay={240} className="lg:col-span-2 lg:w-1/2 lg:mx-auto">
               <div className="p-10 border border-[#e0d5d0] rounded-lg bg-white h-full">
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-16 h-16 rounded-lg bg-[#470020]/10 border border-[#470020]/20 flex items-center justify-center shrink-0">
-                    <span className="text-2xl font-black text-[#470020]">SK</span>
+                  <div className="relative w-20 h-20 rounded-lg border border-[#470020]/20 overflow-hidden shrink-0">
+                    <Image
+                      src="/fotos/team/shane-konijnenberg.jpg"
+                      alt={`${a.shaneName} — ${a.shaneRole}`}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="text-2xl font-black text-[#1a0810] tracking-tight" style={{ letterSpacing: "-0.02em" }}>
