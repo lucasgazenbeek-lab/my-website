@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# raw photo sources — web-ready versions live in public/fotos/
+/public/kantoor foto's/
+/public/portretten/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
