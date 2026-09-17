@@ -153,23 +153,86 @@ export const translations = {
       heroEyebrow: "Voor investeerders en IPP's",
       heroTitle: "Meedoen, of laten narekenen",
       heroStandfirst:
-        "Wij ontwikkelen zelf en wij kijken mee bij anderen. Dat betekent dat u met ons kunt meedoen in een project, of ons juist kunt inzetten om te toetsen wat iemand anders u voorlegt.",
+        "Wij ontwikkelen zelf en wij bouwen voor anderen. Dat betekent dat u met ons kunt meedoen in een project, of ons juist kunt inzetten om te toetsen wat een ander u voorlegt. In beide gevallen krijgt u dezelfde onderbouwing — wij maken geen verschil tussen een stuk voor onszelf en een stuk voor u.",
+
+      audienceEyebrow: "Ons publiek",
+      audienceTitle: "Vier soorten partijen, vier soorten vragen",
+      audienceIntro:
+        "Batterijopslag trekt heel verschillende investeerders, en zij stellen niet dezelfde vraag. Hieronder staat waar wij ons op richten en wat elk van die partijen doorgaans van ons nodig heeft.",
+      audienceDoLabel: "Wat wij meestal doen",
+      audience: [
+        {
+          title: "Fondsen die spreiding zoeken",
+          body: "U heeft een portefeuille in duurzame opwek en wilt daar opslag naast zetten, omdat het rendementsprofiel en de risico's anders van aard zijn dan die van zon en wind. De vraag is dan zelden of batterijopslag werkt, maar of ú het kunt beoordelen, uitvoeren en beheren zonder er een afdeling voor op te tuigen.",
+          doBody: "De technische en modelmatige onderbouwing leveren waarop uw investeringscommissie kan besluiten, en het project daarna bouwen.",
+        },
+        {
+          title: "Joint ventures met infrastructuurfondsen",
+          body: "U brengt kapitaal en een beleggingshorizon, wij brengen projecten, uitvoering en de operationele kant. De gesprekken die dan gevoerd moeten worden gaan over rolverdeling, zeggenschap, de momenten waarop besloten wordt en hoe ieders belang aan dezelfde kant blijft liggen.",
+          doBody: "Met open vizier de rolverdeling en de governance uitwerken voordat er over cijfers wordt gepraat.",
+        },
+        {
+          title: "IPP's en bestaande exploitanten",
+          body: "U exploiteert al zonneparken of windparken en kijkt naar opslag op bestaande of nieuwe posities. U heeft eigen technische mensen, maar batterijopslag gedraagt zich anders dan opwek: de opbrengst komt uit meerdere markten tegelijk en de aansluiting wordt de beperkende factor.",
+          doBody: "Doorrekenen wat opslag op uw bestaande posities oplevert, en die posities vervolgens bouwen of uw eigen team ondersteunen.",
+        },
+        {
+          title: "Private investeerders en family offices",
+          body: "U investeert met eigen vermogen, vaak in één project tegelijk, en u wilt begrijpen waar u instapt zonder een laag adviseurs ertussen. Wat u nodig heeft is een stuk dat zichzelf uitlegt en iemand die de vragen erachter beantwoordt.",
+          doBody: "De case opbouwen zoals hieronder beschreven, en hem met u doorlopen tot u hem zelf kunt navertellen.",
+        },
+      ],
+      audienceFooter:
+        "Herkent u zich in geen van de vier? Dan is het gesprek waarschijnlijk alsnog de moeite waard, maar zeg er even bij waar u vandaan komt.",
+
       entriesEyebrow: "Drie ingangen",
       entriesTitle: "Meedoen, meekijken of laten narekenen",
+      entryStepLabel: "De eerste stap",
       entries: [
         {
           title: "Participatie in onze projecten",
-          desc: "Wij hebben ruim 200 MWh in eigen ontwikkeling. Voor een deel daarvan zoeken wij partijen die mee willen investeren, met of zonder operationele betrokkenheid. U krijgt vooraf inzage in het volledige model, het vergunningsdossier en de netpositie — niet pas in de due diligence.",
+          desc: "Wij hebben ruim {mwh} in eigen ontwikkeling. Voor een deel daarvan zoeken wij partijen die mee willen investeren, met of zonder operationele betrokkenheid. U krijgt vooraf inzage in het volledige model, het vergunningsdossier en de netpositie — niet pas in de due diligence.",
+          step: "Een gesprek en, na wederzijdse interesse, inzage in het volledige dossier onder geheimhouding.",
         },
         {
           title: "Ondersteuning bij uw eigen acquisities",
           desc: "Koopt u een project, een park of een portefeuille, dan toetsen wij wat er werkelijk staat: netpositie, vergunningsstatus, ontwerpkeuzes, restlevensduur en de verplichtingen die meekomen. En als er een batterij bij kan, rekenen wij uit wat dat doet met de dekkingsgraad van het geheel.",
+          step: "U stuurt wat u heeft; wij zeggen binnen een week wat wij zouden natrekken en wat dat kost.",
         },
         {
           title: "Validatie van een businesscase",
           desc: "Wij rekenen het model na tot op de component. Bij een opbrengstrapport van een optimizer controleren wij of de totaalregel klopt met de som van de onderdelen, en dat is niet altijd zo. Bij een bandbreedte op regelvermogen nemen wij de ondergrens als basis en niet het midden — het midden is geen neutrale keuze maar een aanname van meeropbrengst.",
+          step: "Het model en het onderliggende opbrengstrapport; wij komen terug met de bevindingen en de vragen die u terug moet stellen.",
         },
       ],
+
+      failEyebrow: "Uit de praktijk",
+      failTitle: "Vijf plekken waar een businesscase het begeeft",
+      failIntro:
+        "Een model dat mooi uitkomt, is niet hetzelfde als een case die houdt. Dit zijn de vijf punten waar wij in de praktijk de meeste cases zien schuiven, in de volgorde waarin ze zich meestal aandienen.",
+      fails: [
+        {
+          title: "De aansluiting beperkt de exploitatie meer dan het model laat zien",
+          body: "Het gecontracteerde vermogen geldt op het overdrachtspunt bij de netbeheerder, niet op de klemmen van de omvormer. Transformatorverliezen en hulpvoeding tellen bij het laden op bij uw afname, waardoor de bruikbare capaciteit lager ligt dan de opgestelde. Modellen die op opgesteld vermogen rekenen, zijn daarmee structureel te optimistisch.",
+        },
+        {
+          title: "De totaalregel van een opbrengstrapport klopt niet met de onderdelen",
+          body: "Optimizers en handelspartijen leveren rapporten met een totaal per jaar. Optellen wat eronder ligt, geeft niet altijd hetzelfde getal. Wij bouwen een case daarom op uit de componenten en niet uit de totalen, en als het verschil niet te verklaren is, blijft het als open punt in het stuk staan.",
+        },
+        {
+          title: "Het midden van een bandbreedte wordt als basis genomen",
+          body: "Bij regelvermogen wordt vaak een ondergrens en een bovengrens gegeven. Het midden daarvan kiezen voelt neutraal, maar het is een aanname van meeropbrengst. Wij rekenen de basiscase op de ondergrens en laten zien wat het meerdere zou doen, zodat de case ook houdt als dat meerdere er niet is.",
+        },
+        {
+          title: "De schuldquote past alleen bij een omzet die er nog niet is",
+          body: "Een hoge gearing is verdedigbaar bij een gefloorde of getolde omzet en niet bij een volledig marktafhankelijke. Cases die de ene structuur veronderstellen en de andere financiering aanhouden, breken bij de eerste tegenvallende periode — niet in het rendement, maar in de convenant.",
+        },
+        {
+          title: "De restwaarde draagt het rendement",
+          body: "Bij een korte horizon zonder restwaarde oogt het rendement laag terwijl de dekkingsgraad prima is. Bij een royale restwaarde gebeurt het omgekeerde en ziet een matige case er acceptabel uit. Wij tonen altijd beide grootheden en zeggen erbij wat de restwaarde-aanname met het resultaat doet.",
+        },
+      ],
+
       normEyebrow: "Onze rekennorm",
       normTitle: "Zo rekenen wij",
       norms: [
@@ -182,23 +245,143 @@ export const translations = {
           desc: "Aannames en bronnen staan als eigen hoofdstuk in het rapport, niet in een voetnoot.",
         },
         {
-          title: "IRR én dekkingsgraad",
+          title: "Rendement én dekkingsgraad",
           desc: "Die twee kunnen tegengestelde verhalen vertellen bij hetzelfde model. Een korte horizon zonder restwaarde geeft een lage IRR terwijl de dekkingsgraad er prima uitziet. Wij tonen ze allebei en leggen het verschil uit.",
         },
         {
           title: "De ruimte tot break-even",
           desc: "Het bruikbaarste getal is niet de IRR maar hoeveel de opbrengst mag tegenvallen voordat de convenant breekt. Dat staat bij ons in de samenvatting.",
         },
+        {
+          title: "Vaste drempels, ongeacht wie het vraagt",
+          desc: "Elk model wordt getoetst aan een vaste rendementsdrempel en een minimale dekkingsgraad. Komt een case daar niet doorheen, dan leggen wij hem niet voor — ook niet met een toelichting erbij waarom het deze keer anders ligt. Welke drempels dat zijn, hoort in een gesprek en niet op een webpagina, maar ze verschuiven niet per tegenpartij.",
+        },
+        {
+          title: "Projecties van een verkoper worden nagerekend, niet overgenomen",
+          desc: "Wat de verkopende partij aan opbrengstverwachting meelevert, is input en geen uitgangspunt. Wij rekenen het na op de twee plekken waar het in de praktijk misgaat: de omzet uit frequentiediensten en de exploitatiekosten.",
+        },
       ],
+
+      memoEyebrow: "Het document",
+      memoTitle: "Wat u in handen krijgt",
+      memoIntro:
+        "Een businesscase van ons is geen presentatie met vier sheets. Het is een memorandum dat zichzelf uitlegt, met de aannames en de bronnen als eigen hoofdstuk in plaats van als voetnoot. Hieronder de opbouw. Klik op een hoofdstuk voor de vraag die het beantwoordt.",
+      memoFeaturesLabel: "Vaste kenmerken",
+      memoFeatures: [
+        "Aannames en bronnen als eigen hoofdstuk",
+        "Basiscase én neerwaarts scenario",
+        "Open punten blijven zichtbaar",
+      ],
+      memoChapters: [
+        { title: "Opdracht, aanpak en verantwoording", question: "Wat is er precies onderzocht, met welke gegevens, en wat is er niet onderzocht?" },
+        { title: "Technische uitgangssituatie", question: "Wat staat er nu, wat zijn de maten en hoe is het aangesloten?" },
+        { title: "Aansluitcapaciteit en de gevolgen voor de exploitatie", question: "Wat kan er werkelijk over de aansluiting, en wat betekent dat voor de opbrengst?" },
+        { title: "De doorgerekende configuraties", question: "Welke varianten zijn er bekeken in vermogen, opslagduur en opstelling?" },
+        { title: "Onderbouwing van de configuratiekeuze", question: "Waarom deze variant, en wat geeft u op door de andere niet te kiezen?" },
+        { title: "Aard en bandbreedte van de opbrengsten", question: "Uit welke markten komt de omzet, hoe zeker is elk deel en wat is de spreiding?" },
+        { title: "Exploitatieresultaat in de basiscase", question: "Wat levert het op onder de aannames die wij verdedigbaar vinden?" },
+        { title: "Neerwaarts scenario", question: "Wat gebeurt er als het onzekerste deel van de omzet wegvalt?" },
+        { title: "Vergelijking van de scenario's", question: "Waar zit het verschil precies, en welk deel van het resultaat hangt eraan?" },
+        { title: "Financiering en dekkingsgraad", question: "Wat kan deze case aan schuld dragen, en hoeveel ruimte houdt de convenant?" },
+        { title: "Gevoeligheidsanalyse", question: "Bij welke verandering in welke aanname kantelt het beeld?" },
+        { title: "Risico's en beheersmaatregelen", question: "Wat kan er misgaan, hoe waarschijnlijk is dat en wat doen wij eraan?" },
+        { title: "Conclusie en vervolgstappen", question: "Wat is het oordeel, en wat moet er als eerste gebeuren?" },
+        { title: "Bijlagen: aannames, bronnen en onderliggende simulatie", question: "Waar komt elk getal vandaan?" },
+      ],
+      memoNot:
+        "Wat er niet in staat, is een kansinschatting in procenten. Wij geven geen percentage op de haalbaarheid van een vergunning of een netaansluiting, omdat dat een precisie suggereert die er niet is. Wat er wél staat, is welke voorwaarden vervuld moeten zijn en wat er gebeurt als dat niet lukt.",
+
+      dualEyebrow: "De vraag die u gaat stellen",
+      dualTitle: "Zijn jullie mijn mede-aandeelhouder of mijn aannemer?",
+      dualParagraphs: [
+        "In onze eigen ontwikkelingen allebei. Wij nemen een belang in de projecten die wij bouwen en blijven daar aandeelhouder. Dat is een bewuste keuze en het heeft een voordeel dat u niet krijgt bij een aannemer die na oplevering vertrekt: elke ontwerpkeuze die op korte termijn geld bespaart en op lange termijn geld kost, komt bij ons zelf terug. Wij bouwen wat wij zelf twintig jaar willen bezitten.",
+        "Het heeft ook een spanning, en daar doen wij niet geheimzinnig over. Als wij zowel aandeelhouder als bouwer zijn, bepalen wij mede de voorwaarden waaronder wij onszelf de opdracht geven. Daarom leggen wij die voorwaarden vooraf vast, voordat er over deelname wordt gesproken: de scope, de rolverdeling en de manier waarop de prijs tot stand komt liggen er eerder dan uw handtekening. Wat u daarvan vindt, hoort onderdeel te zijn van uw besluit om mee te doen.",
+        "Investeert u in een project dat u zelf heeft gevonden en vraagt u ons alleen om het na te rekenen of te bouwen, dan speelt dit niet. Dan zijn wij leverancier en verder niets, en dat is een prima rol.",
+      ],
+
       honestTitle: "Waar wij eerlijk over zijn",
       honestBody:
         "Wij nemen geen projecties van een verkoper over zonder ze zelf na te rekenen, ook niet als dat de deal vertraagt. Wij geven geen kansinschatting in procenten, want die suggereert precisie die er niet is. En als de case niet werkt, zeggen wij dat — ook wanneer wij daarmee onszelf uit een opdracht praten.",
-      statsTitle: "Cijfers",
-      stat1Label: "In eigen ontwikkeling",
-      stat2Label: "Projecten in portefeuille",
-      stat3Label: "Doorgerekende businesscases",
-      stat4Label: "Engineeringdossiers",
-      ctaTitle: "Laten we uw case naast de onze leggen",
+
+      quizEyebrow: "In twee minuten",
+      quizTitle: "Welke ingang past bij u?",
+      quizIntro:
+        "Vijf vragen. Aan het eind ziet u welke van de drie ingangen het meest voor de hand ligt en wat de eerste stap dan is. Er wordt niets verstuurd totdat u daar zelf op klikt, en er wordt niets opgeslagen.",
+      quizProgress: "Vraag {current} van {total}",
+      quizBack: "Vorige vraag",
+      quizRestart: "Begin opnieuw",
+      quizDiscuss: "Bespreek dit met ons",
+      quizResultLabel: "Wat het meest voor de hand ligt",
+      quizCaveatLabel: "Eerlijk erbij",
+      quizDefaultedNote:
+        "Uw antwoorden geven een gemengd beeld. Dan is dit de kleinste eerste stap: begin met één case, dan wordt de rest daarna vanzelf duidelijk.",
+      quizCaveats: {
+        participatie:
+          "Zoekt u volledige zeggenschap over de operatie, dan is meedoen in een project van ons waarschijnlijk niet wat u wilt. Dan is het kopen van een eigen positie logischer, en kunnen wij daar de bouwer in zijn.",
+        acquisitie:
+          "Heeft u zelf een team dat dit soort toetsing routineus doet, dan koopt u bij ons vooral een tweede oordeel. Dat kan waardevol zijn, maar het is een kleinere opdracht dan u misschien verwacht.",
+        validatie:
+          "Ligt er nog geen model, dan valt er ook weinig na te rekenen. Dan is een gesprek over de uitgangspunten zinniger dan een validatie, en dat kost u minder.",
+      },
+      quizQuestions: [
+        {
+          question: "Wat heeft u nu in handen?",
+          answers: [
+            "Een project of portefeuille die ik overweeg te kopen",
+            "Een model of rapport waar ik niet zeker over ben",
+            "Nog niets concreets; ik oriënteer me op deze markt",
+            "Eigen posities waar ik opslag naast wil zetten",
+          ],
+        },
+        {
+          question: "Wat voor partij bent u?",
+          answers: [
+            "Een fonds dat spreiding zoekt in de portefeuille",
+            "Een infrastructuurfonds dat een samenwerking overweegt",
+            "Een exploitant met eigen opwek",
+            "Een private investeerder of family office",
+          ],
+        },
+        {
+          question: "Wat weegt zwaarder?",
+          answers: [
+            "Een voorspelbaar resultaat, met minder zeggenschap",
+            "Zeggenschap en zicht op de operatie",
+            "Eerst begrijpen of deze markt iets voor mij is",
+          ],
+        },
+        {
+          question: "Heeft u eigen technische capaciteit?",
+          answers: [
+            "Nee",
+            "Ja, voor opwek maar niet voor opslag",
+            "Ja, maar niet met ruimte voor dit traject",
+            "Ja, ik zoek alleen een tweede oordeel",
+          ],
+        },
+        {
+          question: "Waar zit uw grootste twijfel?",
+          answers: [
+            "Of de aannames achter de opbrengst kloppen",
+            "Of de aansluiting doet wat er wordt beweerd",
+            "Of de financieringsstructuur houdt",
+            "Of de partij aan de andere kant het kan waarmaken",
+          ],
+        },
+      ],
+
+      ctaTitle: "Zullen we beginnen met één case?",
+      ctaSub:
+        "Stuur ons een model, een opbrengstrapport of een project dat u overweegt. Wij komen binnen een week terug met wat wij zouden natrekken en wat wij ervan vinden. Dat kost u niets en het verplicht u tot niets.",
+      ctaPlan: "Plan een afspraak",
+      ctaCall: "Bel direct",
+      ctaLinks: {
+        projecten: "Onze projecten",
+        hoeWijBouwen: "Hoe wij bouwen",
+        watWijDoen: "Wat wij doen",
+      },
+      disclaimer:
+        "Deze pagina is algemene informatie over onze werkwijze en dienstverlening en geen aanbod, advies of aanbeveling tot het doen van een investering.",
     },
     partnermodels: {
       heroTitle: "Drie manieren om met ons te werken",
@@ -1460,23 +1643,86 @@ export const translations = {
       heroEyebrow: "For investors and IPPs",
       heroTitle: "Join in, or have it recalculated",
       heroStandfirst:
-        "We develop ourselves and we look over other people's shoulders. That means you can join us in a project, or bring us in to test what someone else is putting in front of you.",
+        "We develop ourselves and we build for others. That means you can join us in a project, or bring us in to test what someone else is putting in front of you. Either way you get the same substantiation — we make no distinction between a document written for ourselves and one written for you.",
+
+      audienceEyebrow: "Who we work for",
+      audienceTitle: "Four kinds of party, four kinds of question",
+      audienceIntro:
+        "Battery storage attracts very different investors, and they do not ask the same question. Below is who we focus on and what each of them usually needs from us.",
+      audienceDoLabel: "What we usually do",
+      audience: [
+        {
+          title: "Funds looking to diversify",
+          body: "You hold a portfolio in renewable generation and want to put storage alongside it, because the return profile and the risks are different in kind from solar and wind. The question is then rarely whether battery storage works, but whether you can assess, deliver and manage it without building a department for it.",
+          doBody: "Deliver the technical and modelling substantiation your investment committee can decide on, and build the project afterwards.",
+        },
+        {
+          title: "Joint ventures with infrastructure funds",
+          body: "You bring capital and an investment horizon; we bring projects, delivery and the operational side. The conversations that then have to happen are about roles, control, the moments at which decisions are made, and how both parties' interests stay on the same side.",
+          doBody: "Work out the division of roles and the governance openly, before anyone talks numbers.",
+        },
+        {
+          title: "IPPs and existing operators",
+          body: "You already operate solar or wind parks and are looking at storage on existing or new positions. You have technical people of your own, but battery storage behaves differently from generation: the revenue comes from several markets at once and the grid connection becomes the limiting factor.",
+          doBody: "Calculate what storage on your existing positions yields, and then build those positions or support your own team.",
+        },
+        {
+          title: "Private investors and family offices",
+          body: "You invest your own capital, often in one project at a time, and you want to understand what you are stepping into without a layer of advisers in between. What you need is a document that explains itself and someone who answers the questions behind it.",
+          doBody: "Build the case as described below, and walk through it with you until you can retell it yourself.",
+        },
+      ],
+      audienceFooter:
+        "Do none of the four describe you? Then the conversation is probably still worth having, but do say where you are coming from.",
+
       entriesEyebrow: "Three entry points",
       entriesTitle: "Join in, look along, or have it recalculated",
+      entryStepLabel: "The first step",
       entries: [
         {
           title: "Participation in our projects",
-          desc: "We have over 200 MWh in own development. For part of that, we are looking for parties who want to co-invest, with or without operational involvement. You get access to the full model, the permit dossier and the grid position up front — not only during due diligence.",
+          desc: "We have over {mwh} in own development. For part of that, we are looking for parties who want to co-invest, with or without operational involvement. You get access to the full model, the permit dossier and the grid position up front — not only during due diligence.",
+          step: "A conversation and, once there is mutual interest, access to the full dossier under a confidentiality agreement.",
         },
         {
           title: "Support on your own acquisitions",
           desc: "If you are buying a project, a park or a portfolio, we verify what is actually there: grid position, permit status, design choices, remaining lifetime and the obligations that come with it. And if a battery can be added, we calculate what that does to the coverage ratio of the whole.",
+          step: "You send what you have; within a week we say what we would verify and what that costs.",
         },
         {
           title: "Validation of a business case",
           desc: "We recalculate the model down to the component. With an optimizer's revenue report we check whether the total line matches the sum of the parts — and it doesn't always. With a bandwidth on balancing power we take the lower bound as the base, not the middle: the middle is not a neutral choice but an assumption of extra revenue.",
+          step: "The model and the underlying revenue report; we come back with the findings and the questions you should put to them.",
         },
       ],
+
+      failEyebrow: "From practice",
+      failTitle: "Five places where a business case gives way",
+      failIntro:
+        "A model that comes out well is not the same as a case that holds. These are the five points where we see most cases shift in practice, in the order they usually present themselves.",
+      fails: [
+        {
+          title: "The connection limits operation more than the model shows",
+          body: "The contracted capacity applies at the transfer point with the grid operator, not at the inverter terminals. Transformer losses and auxiliary power add to your offtake while charging, so usable capacity is lower than installed capacity. Models that calculate on installed capacity are therefore structurally too optimistic.",
+        },
+        {
+          title: "The total line of a revenue report does not match its parts",
+          body: "Optimizers and trading parties deliver reports with an annual total. Adding up what sits underneath does not always give the same figure. We therefore build a case from the components rather than the totals, and if the difference cannot be explained, it stays in the document as an open point.",
+        },
+        {
+          title: "The middle of a bandwidth is taken as the base",
+          body: "For balancing power a lower and an upper bound are often given. Choosing the middle feels neutral, but it is an assumption of extra revenue. We calculate the base case on the lower bound and show what the excess would do, so the case holds even if that excess does not materialise.",
+        },
+        {
+          title: "The debt ratio only fits revenue that does not exist yet",
+          body: "High gearing is defensible with floored or tolled revenue and not with fully market-dependent revenue. Cases that assume one structure and carry the financing of the other break at the first disappointing period — not in the return, but in the covenant.",
+        },
+        {
+          title: "The residual value carries the return",
+          body: "With a short horizon and no residual value the return looks low while the coverage ratio is fine. With a generous residual value the opposite happens and a mediocre case looks acceptable. We always show both figures and state what the residual value assumption does to the result.",
+        },
+      ],
+
       normEyebrow: "Our calculation standard",
       normTitle: "How we calculate",
       norms: [
@@ -1489,23 +1735,143 @@ export const translations = {
           desc: "Assumptions and sources form their own chapter in the report, not a footnote.",
         },
         {
-          title: "IRR and coverage ratio together",
+          title: "Return and coverage ratio together",
           desc: "The two can tell opposite stories about the same model. A short horizon without residual value gives a low IRR while the coverage ratio looks fine. We show both and explain the difference.",
         },
         {
           title: "The room to break-even",
           desc: "The most useful number is not the IRR but how much revenue can disappoint before the covenant breaks. With us, that is in the summary.",
         },
+        {
+          title: "Fixed thresholds, whoever is asking",
+          desc: "Every model is tested against a fixed return threshold and a minimum coverage ratio. If a case does not clear them, we do not put it forward — not even with a note explaining why it is different this time. What those thresholds are belongs in a conversation rather than on a web page, but they do not shift per counterparty.",
+        },
+        {
+          title: "A seller's projections are recalculated, not adopted",
+          desc: "Whatever revenue expectation the selling party supplies is input, not a starting point. We recalculate it at the two places where it goes wrong in practice: the revenue from frequency services and the operating costs.",
+        },
       ],
+
+      memoEyebrow: "The document",
+      memoTitle: "What you get in hand",
+      memoIntro:
+        "A business case from us is not a presentation with four slides. It is a memorandum that explains itself, with the assumptions and the sources as their own chapter rather than a footnote. Below is how it is built up. Click a chapter for the question it answers.",
+      memoFeaturesLabel: "Fixed characteristics",
+      memoFeatures: [
+        "Assumptions and sources as their own chapter",
+        "Base case and downside scenario",
+        "Open points stay visible",
+      ],
+      memoChapters: [
+        { title: "Assignment, approach and accountability", question: "What exactly was examined, with which data, and what was not examined?" },
+        { title: "Technical starting position", question: "What is there now, what are the dimensions and how is it connected?" },
+        { title: "Connection capacity and its effect on operation", question: "What can actually pass over the connection, and what does that mean for revenue?" },
+        { title: "The configurations calculated", question: "Which variants were examined in capacity, storage duration and layout?" },
+        { title: "Substantiation of the configuration choice", question: "Why this variant, and what do you give up by not choosing the others?" },
+        { title: "Nature and bandwidth of the revenues", question: "Which markets does the revenue come from, how certain is each part and what is the spread?" },
+        { title: "Operating result in the base case", question: "What does it yield under the assumptions we consider defensible?" },
+        { title: "Downside scenario", question: "What happens if the least certain part of the revenue falls away?" },
+        { title: "Comparison of the scenarios", question: "Where exactly is the difference, and which part of the result depends on it?" },
+        { title: "Financing and coverage ratio", question: "How much debt can this case carry, and how much room does the covenant keep?" },
+        { title: "Sensitivity analysis", question: "At what change in which assumption does the picture tip?" },
+        { title: "Risks and mitigation", question: "What can go wrong, how likely is it and what do we do about it?" },
+        { title: "Conclusion and next steps", question: "What is the verdict, and what has to happen first?" },
+        { title: "Annexes: assumptions, sources and the underlying simulation", question: "Where does every number come from?" },
+      ],
+      memoNot:
+        "What is not in it is a probability estimate in percentages. We give no percentage on the feasibility of a permit or a grid connection, because that suggests a precision that does not exist. What is in it is which conditions have to be met and what happens if they are not.",
+
+      dualEyebrow: "The question you are about to ask",
+      dualTitle: "Are you my co-shareholder or my contractor?",
+      dualParagraphs: [
+        "In our own developments, both. We take a stake in the projects we build and stay a shareholder in them. That is a deliberate choice and it has an advantage you do not get from a contractor who leaves after handover: every design choice that saves money in the short term and costs money in the long term comes back to us. We build what we want to own ourselves for twenty years.",
+        "It also creates a tension, and we are not coy about it. If we are both shareholder and builder, we partly set the terms on which we award ourselves the work. That is why we fix those terms in advance, before participation is discussed: the scope, the division of roles and the way the price is arrived at are settled before your signature. What you make of that belongs in your decision to join.",
+        "If you invest in a project you found yourself and only ask us to recalculate or build it, none of this applies. Then we are a supplier and nothing more, and that is a perfectly good role.",
+      ],
+
       honestTitle: "What we are honest about",
       honestBody:
         "We do not adopt a seller's projections without recalculating them ourselves, even if that delays the deal. We give no probability estimates in percentages, because they suggest a precision that isn't there. And if the case doesn't work, we say so — even when that talks us out of an assignment.",
-      statsTitle: "Numbers",
-      stat1Label: "In own development",
-      stat2Label: "Projects in portfolio",
-      stat3Label: "Business cases recalculated",
-      stat4Label: "Engineering dossiers",
-      ctaTitle: "Let's put your case next to ours",
+
+      quizEyebrow: "In two minutes",
+      quizTitle: "Which entry point fits you?",
+      quizIntro:
+        "Five questions. At the end you will see which of the three entry points is the obvious one and what the first step then is. Nothing is sent until you click to send it, and nothing is stored.",
+      quizProgress: "Question {current} of {total}",
+      quizBack: "Previous question",
+      quizRestart: "Start over",
+      quizDiscuss: "Discuss this with us",
+      quizResultLabel: "The obvious starting point",
+      quizCaveatLabel: "Honestly though",
+      quizDefaultedNote:
+        "Your answers give a mixed picture. In that case this is the smallest first step: start with one case, and the rest becomes clear from there.",
+      quizCaveats: {
+        participatie:
+          "If you want full control over the operation, joining a project of ours is probably not what you are after. Buying a position of your own makes more sense then, and we can be the builder in it.",
+        acquisitie:
+          "If you have a team that does this kind of verification routinely, what you are buying from us is mainly a second opinion. That can be valuable, but it is a smaller assignment than you might expect.",
+        validatie:
+          "If there is no model yet, there is little to recalculate. A conversation about the starting points is then more useful than a validation, and it costs you less.",
+      },
+      quizQuestions: [
+        {
+          question: "What do you have in hand right now?",
+          answers: [
+            "A project or portfolio I am considering buying",
+            "A model or report I am not sure about",
+            "Nothing concrete yet; I am exploring this market",
+            "Positions of my own where I want to add storage",
+          ],
+        },
+        {
+          question: "What kind of party are you?",
+          answers: [
+            "A fund looking to diversify the portfolio",
+            "An infrastructure fund considering a partnership",
+            "An operator with generation of its own",
+            "A private investor or family office",
+          ],
+        },
+        {
+          question: "Which weighs more heavily?",
+          answers: [
+            "A predictable result, with less control",
+            "Control and visibility of the operation",
+            "First understanding whether this market is for me",
+          ],
+        },
+        {
+          question: "Do you have technical capacity of your own?",
+          answers: [
+            "No",
+            "Yes, for generation but not for storage",
+            "Yes, but without room for this project",
+            "Yes, I am only looking for a second opinion",
+          ],
+        },
+        {
+          question: "Where is your biggest doubt?",
+          answers: [
+            "Whether the assumptions behind the revenue hold",
+            "Whether the connection does what is claimed",
+            "Whether the financing structure holds",
+            "Whether the party on the other side can deliver",
+          ],
+        },
+      ],
+
+      ctaTitle: "Shall we start with one case?",
+      ctaSub:
+        "Send us a model, a revenue report or a project you are considering. Within a week we will come back with what we would verify and what we make of it. That costs you nothing and commits you to nothing.",
+      ctaPlan: "Book a meeting",
+      ctaCall: "Call us directly",
+      ctaLinks: {
+        projecten: "Our projects",
+        hoeWijBouwen: "How we build",
+        watWijDoen: "What we do",
+      },
+      disclaimer:
+        "This page is general information about how we work and what we offer, and is not an offer, advice or a recommendation to make an investment.",
     },
     partnermodels: {
       heroTitle: "Three ways to work with us",
