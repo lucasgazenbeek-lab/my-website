@@ -229,7 +229,7 @@ export const translations = {
             "Uw financier vraagt om een sluitend dossier uit één hand.",
           ],
           extraTitle: "Wat u van ons krijgt",
-          extra: "Een vaste prijs, een planning met benoemde kritieke lijn, en gedurende het hele traject één projectleider die u kent.",
+          extra: "Een planning met een benoemde kritieke lijn, een dossier dat de toets van uw financier en uw verzekeraar doorstaat, en gedurende het hele traject één projectleider die u kent.",
           photoAlt: "Locatielayout van een batterijopslagproject in CAD op het kantoor van Gridstate",
         },
         {
@@ -649,6 +649,225 @@ export const translations = {
         partnermodellen: "Alle partnermodellen",
         watWijDoen: "Wat wij doen",
         fullEpc: "Full EPC",
+      },
+    },
+    fullEpc: {
+      tag: "Partnermodel 01",
+      heroTitle: "Full EPC",
+      heroStandfirst:
+        "Wij nemen het hele project over: ontwerp, vergunning, inkoop, civiel, elektrotechniek, inbedrijfstelling en overdracht. U levert de locatie en de netaansluiting, en u beslist. Wat wij opleveren is ontworpen om verzekerd en gefinancierd te kunnen worden — niet alleen om te werken.",
+
+      problemEyebrow: "Waar dit over gaat",
+      problemTitle: "Werkend is niet hetzelfde als aanvaardbaar",
+      problemParagraphs: [
+        "Een batterijopslagsysteem dat op de bouwplaats naar behoren functioneert, is nog geen batterijopslagsysteem dat een verzekeraar wil dekken of een financier wil financieren. Dat verschil zit niet in de uitvoering. Het zit in wat er is vastgelegd voordat er iets besteld werd.",
+        "De meeste discussies die een project vertragen, gaan over aantoonbaarheid. Is de brandpropagatietest uitgevoerd op de installatie zoals die er staat, of alleen op een cel of een module? Dekt het rapport de configuratie die u daadwerkelijk heeft laten bouwen, of is het opgeteld uit losse componenttests? Sluiten de veiligheidsafstanden aan op het advies van de veiligheidsregio? Zijn de netcodeverplichtingen aantoonbaar gehaald? Dat zijn vragen die een independent engineer stelt in de technische due diligence, en een verzekeraar bij de acceptatie. Op dat moment is bijsturen duur.",
+        "Wij ontwerpen vanaf de eerste tekening naar die vragen toe. Niet omdat het netjes staat, maar omdat het de enige volgorde is die werkt: wie eerst bouwt en daarna documenteert, bouwt de discussie in.",
+      ],
+      problemBlocks: [
+        {
+          title: "Op systeemniveau",
+          body: "Een propagatietest op cel- of moduleniveau is voor een verzekeraar van beperkte waarde.",
+        },
+        {
+          title: "Op de geïnstalleerde configuratie",
+          body: "Losse componenttests bij elkaar optellen dekt de installatie niet.",
+        },
+        {
+          title: "Vóór de inkoop",
+          body: "Wat de norm eist, bepaalt wat u kunt kopen — niet andersom.",
+        },
+      ],
+
+      scopeEyebrow: "De scope",
+      scopeTitle: "Wat er allemaal in zit",
+      scopeIntro:
+        "“Turnkey” is een woord waar iedereen iets anders onder verstaat. Hieronder staan de twaalf blokken waaruit een batterijopslagproject bestaat, wat er in elk blok zit en bij wie het risico ligt. Bij Full EPC ligt vrijwel alles bij ons; wat bij u blijft, staat er ook bij.",
+      scopeRoles: { wij: "Wij", samen: "Samen", u: "U" },
+      scopeItems: {
+        batterijsysteem: {
+          label: "Batterijsysteem",
+          note: "Selectie op basis van uw gebruiksprofiel en de eisen die uw verzekeraar en financier stellen, niet op basis van wat wij op voorraad hebben. Inclusief de beoordeling van de brandpropagatiedocumentatie op systeemniveau en de garantievoorwaarden op cyclusaantal en restcapaciteit.",
+        },
+        omvormers: {
+          label: "Omvormers",
+          note: "Dimensionering op de gewenste ontlaadduur en het netvlak, vierkwadrantgedrag, en de afstemming tussen omvormer, batterijmanagement en besturing.",
+        },
+        middenspanning: {
+          label: "Middenspanning en transformator",
+          note: "Schakelinstallatie, transformator, beveiliging en selectiviteit, en de afstemming met de netbeheerder over het klantstation.",
+        },
+        netaansluiting: {
+          label: "Netaansluiting",
+          note: "De aansluiting blijft op uw naam en in uw contract. Wij voeren het traject: transportverzoek, programma van eisen van de netbeheerder, het eendraadschema van het klantstation en de planning richting energisatie.",
+        },
+        hulpvoeding: {
+          label: "Hulpvoeding",
+          note: "Een vaak onderschat blok. De hulpvoeding moet beschikbaar zijn tijdens inbedrijfstelling en bij netuitval, en telt bij laden op bij uw afname — dus bij het gecontracteerde vermogen.",
+        },
+        civiel: {
+          label: "Civiel en terreininrichting",
+          note: "Grondwerk, funderingen, verhardingen, drainage, sleufprofielen, hekwerk en toegang, en de terreininrichting die uit het veiligheidsconcept volgt.",
+        },
+        kabelwerk: {
+          label: "Kabelwerk",
+          note: "Kabelontwerp en -berekening, tracés, kruisingen, aarding, en de aanleg. Doorgaans de grootste materiaalpost in het project.",
+        },
+        besturing: {
+          label: "Besturing, EMS en SCADA",
+          note: "De koppeling tussen batterijmanagement, omvormer en energiemanagement, de begrenzing op het overdrachtspunt, monitoring, en de interface naar de partij die het systeem verhandelt.",
+        },
+        brandveiligheid: {
+          label: "Brandveiligheid en beveiliging",
+          note: "Het veiligheidsconcept conform PGS 37-1, de afstemming met de veiligheidsregio, bluswatervoorziening, detectie en camerabewaking.",
+        },
+        vergunning: {
+          label: "Vergunning en bevoegd gezag",
+          note: "Het vergunningsdossier, de milieumelding, het akoestisch onderzoek en de afstemming met gemeente en omgevingsdienst.",
+        },
+        engineering: {
+          label: "Engineering en berekeningen",
+          note: "Layout, eendraadschema, kabel- en kortsluitberekening, selectiviteit, hulpvoedingsbalans en de toets aan de geldende normen. Het ontwerp wordt extern gestempeld door een onafhankelijke engineeringpartij.",
+        },
+        inbedrijfstelling: {
+          label: "Inbedrijfstelling en overdracht",
+          note: "Testplannen, inbedrijfstelling, de netconformiteitstest conform RfG, het as-built dossier en de overdracht.",
+        },
+      },
+      scopeFooter:
+        "Wat u aanlevert staat in de volgende sectie. Het is een korte lijst, en dat is het punt van dit model.",
+
+      insuranceEyebrow: "Waarom wij hier streng in zijn",
+      insuranceTitle: "Wat u oplevert moet verzekerbaar zijn",
+      insuranceParagraphs: [
+        "PGS 37-1 vraagt dat aantoonbaar is dat brand zich niet van de ene eenheid naar de andere voortplant, onderbouwd met NEN-EN-IEC 62933-5-2 of UL 9540A. Een rapport op alleen cel- of moduleniveau voldoet daar niet aan: het moet gaan over de complete eenheid zoals die geïnstalleerd staat. Ontbreekt die onderbouwing, dan gelden er aanvullende maatregelen — zwaardere bluswatervoorziening, grotere afstanden — en vervallen vrijstellingen op brandwerendheid. Voor geclusterde of gestapelde opstellingen komen daar nog eisen bij, waaronder IEC 62619 en NFPA 68.",
+        "Verzekeraars hanteren PGS 37-1 als minimum en noemen partiële certificaten expliciet van beperkte waarde. Zonder onderbouwing op systeemniveau volgen aanvullende eisen, een hoger eigen risico, of weigering. En omdat verzekerbaarheid een voorwaarde is in vrijwel elke financieringsovereenkomst, loopt het van daaruit door naar uw financiering. De lat schuift bovendien omhoog: de nieuwste editie van UL 9540A en NFPA 855 nemen de grootschalige brandtest over meerdere eenheden op als hoogste testniveau, en de markt beweegt die kant op.",
+      ],
+      insuranceListTitle: "Vijf dingen die wij vastleggen voordat er iets besteld wordt",
+      insuranceList: [
+        {
+          title: "Op welk niveau de brandpropagatietest is uitgevoerd",
+          body: "En of het rapport de configuratie dekt die er daadwerkelijk komt te staan.",
+        },
+        {
+          title: "Wat de veiligheidsregio van deze locatie vindt",
+          body: "Afstanden, bluswater en bereikbaarheid bepalen de layout, en de layout bepaalt wat er past.",
+        },
+        {
+          title: "Welke eisen uw verzekeraar stelt",
+          body: "Die kunnen strenger zijn dan de norm, en dat weet u liever vóór de inkoop dan erna.",
+        },
+        {
+          title: "Wat uw financier laat toetsen",
+          body: "De independent engineer beoordeelt dezelfde documentatie, dus die maken wij in de vorm waarin hij hem verwacht.",
+        },
+        {
+          title: "Wat de netbeheerder in het contract heeft staan",
+          body: "Het gecontracteerde vermogen geldt op het overdrachtspunt, dus hulpvoeding en verliezen tellen mee en horen in de begrenzing.",
+        },
+      ],
+      insuranceFooter:
+        "Geen van deze vijf is spannend. Ze zijn alleen duur als u ze overslaat.",
+
+      buildEyebrow: "Van weiland tot netcodetest",
+      buildTitle: "Zo bouwen wij",
+      buildIntro:
+        "Twaalf fasen, van de eerste inmeting tot het moment dat het systeem op het net staat. Hieronder vier fasen; de volledige sequentie, met alle fasen en drie configuraties, staat op een eigen pagina.",
+      buildSteps: [
+        { fase: 1, label: "Locatie" },
+        { fase: 6, label: "Netaansluiting" },
+        { fase: 8, label: "Containers" },
+        { fase: 12, label: "In bedrijf" },
+      ],
+      buildCta: "Bekijk de volledige bouwsequentie",
+
+      yourSideEyebrow: "Uw kant",
+      yourSideTitle: "Wat er van u wordt gevraagd",
+      yourSide: [
+        {
+          title: "De locatie",
+          body: "Een perceel met een grondpositie die de looptijd van het project dekt, of het zicht daarop.",
+        },
+        {
+          title: "De netaansluiting",
+          body: "De aansluiting blijft op uw naam. Wij voeren het traject, maar het contract met de netbeheerder is van u.",
+        },
+        {
+          title: "Beslissingen",
+          body: "Op vier tot zes momenten hebben wij een besluit van u nodig. Wij leggen elk besluit voor met de opties, de gevolgen en ons advies erbij.",
+        },
+        {
+          title: "Eén aanspreekpunt",
+          body: "Iemand bij u die kan beslissen of weet wie dat kan. Meer niet.",
+        },
+      ],
+      yourSideFooter:
+        "Verder heeft u van ons geen technische organisatie nodig, en hoeft u er ook geen op te bouwen.",
+
+      fitEyebrow: "Eerlijk over de keuze",
+      fitTitle: "Wanneer Full EPC past",
+      fitYesTitle: "Dit past bij u als:",
+      fitYes: [
+        "U geen eigen technische organisatie heeft en die ook niet wilt opbouwen.",
+        "U één partij aansprakelijk wilt houden in plaats van een keten van leveranciers waar iedereen naar de ander wijst.",
+        "Uw financier om een sluitend dossier uit één hand vraagt.",
+        "U de locatie en de netaansluiting heeft, en de rest wilt uitbesteden.",
+      ],
+      fitNoTitle: "Kijk liever naar een ander model als:",
+      fitNo: [
+        {
+          text: "U een eigen engineeringsafdeling heeft met capaciteit — dan betaalt u bij ons voor werk dat u zelf kunt doen. Kijk naar",
+          linkLabel: "Technical Support",
+        },
+        {
+          text: "U de uitvoering zelf doet en alleen de laag erboven mist. Ook",
+          linkLabel: "Technical Support",
+        },
+        {
+          text: "U alles zelf kunt behalve scherp inkopen. Kijk naar",
+          linkLabel: "Supply Only",
+        },
+      ],
+
+      faqEyebrow: "Veelgestelde vragen",
+      faqTitle: "Wat u waarschijnlijk wilt weten",
+      faq: [
+        {
+          q: "Zijn jullie gebonden aan één leverancier?",
+          a: "Nee. Wij hebben gedocumenteerde relaties met meerdere fabrikanten en kiezen per project op basis van uw gebruiksprofiel, de eisen van uw verzekeraar en financier, en de levertijd. Welke dat in uw geval worden, bespreken wij met u voordat er iets vastligt.",
+        },
+        {
+          q: "Wie doet het ontwerp?",
+          a: "Wij, met eigen mensen. Het ontwerp wordt extern gestempeld door een onafhankelijke engineeringpartij, zodat er een partij naar kijkt die er geen belang bij heeft.",
+        },
+        {
+          q: "Wat als de netaansluiting vertraagt?",
+          a: "Dat gebeurt, en het is meestal de langste lijn in het project. Wij plannen daaromheen: alles wat niet van de aansluiting afhangt, gaat door. In de planning staat de aansluiting expliciet op de kritieke lijn, zodat u ziet wat een verschuiving met de rest doet.",
+        },
+        {
+          q: "Hoe lang duurt een project?",
+          a: "Dat hangt vooral af van het netvlak en de vergunning, en veel minder van de bouw zelf. Een indicatie geven zonder uw locatie en netpositie te kennen is een slag in de lucht; dat doen wij liever in het eerste gesprek, met de aannames erbij.",
+        },
+        {
+          q: "Blijven jullie na oplevering betrokken?",
+          a: "Ja, in de vorm die u wilt: van een onderhoudscontract tot beschikbaarheid op afroep. In onze eigen ontwikkelingen blijven wij zelf eigenaar, dus wij weten wat er in jaar vijf misgaat.",
+        },
+        {
+          q: "Kunnen jullie ook alleen een deel doen?",
+          a: "Ja, daarvoor zijn de andere twee partnermodellen er.",
+        },
+      ],
+      faqModelLinks: ["Technical Support", "Supply Only"],
+
+      ctaTitle: "Heeft u een locatie?",
+      ctaSub:
+        "Stuur ons de locatie, het netvlak en wat u al aan documentatie heeft. Wij zeggen binnen een week of er iets te bouwen valt en wat daarvoor nodig is.",
+      ctaPlan: "Plan een afspraak",
+      ctaCall: "Bel direct",
+      ctaLinks: {
+        hoeWijBouwen: "Hoe wij bouwen",
+        partnermodellen: "Alle partnermodellen",
+        watWijDoen: "Wat wij doen",
       },
     },
     projects: {
@@ -1078,7 +1297,7 @@ export const translations = {
             "Your financier asks for a coherent dossier from a single hand.",
           ],
           extraTitle: "What you get from us",
-          extra: "A fixed price, a schedule with a named critical path, and one project lead you know throughout the entire project.",
+          extra: "A schedule with a named critical path, a dossier that stands up to review by your financier and your insurer, and one project lead you know throughout the entire project.",
           photoAlt: "Site layout of a battery storage project in CAD at the Gridstate office",
         },
         {
@@ -1498,6 +1717,225 @@ export const translations = {
         partnermodellen: "All partner models",
         watWijDoen: "What we do",
         fullEpc: "Full EPC",
+      },
+    },
+    fullEpc: {
+      tag: "Partner model 01",
+      heroTitle: "Full EPC",
+      heroStandfirst:
+        "We take over the entire project: design, permitting, procurement, civil works, electrical works, commissioning and handover. You provide the site and the grid connection, and you decide. What we deliver is designed to be insurable and financeable — not merely to work.",
+
+      problemEyebrow: "What this is about",
+      problemTitle: "Working is not the same as acceptable",
+      problemParagraphs: [
+        "A battery storage system that performs properly on site is not yet a battery storage system an insurer wants to cover or a financier wants to fund. That difference does not sit in the execution. It sits in what was established before anything was ordered.",
+        "Most of the discussions that delay a project are about evidence. Was the fire propagation test carried out on the installation as it stands, or only on a cell or a module? Does the report cover the configuration you actually had built, or is it added up from separate component tests? Do the separation distances match the safety region's advice? Have the grid-code obligations been demonstrably met? Those are the questions an independent engineer asks during technical due diligence, and an insurer asks at acceptance. By that point, correcting course is expensive.",
+        "We design towards those questions from the first drawing. Not because it looks tidy, but because it is the only order that works: build first and document afterwards, and you build the argument in.",
+      ],
+      problemBlocks: [
+        {
+          title: "At system level",
+          body: "A propagation test at cell or module level is of limited value to an insurer.",
+        },
+        {
+          title: "On the installed configuration",
+          body: "Adding up separate component tests does not cover the installation.",
+        },
+        {
+          title: "Before procurement",
+          body: "What the standard requires determines what you can buy — not the other way around.",
+        },
+      ],
+
+      scopeEyebrow: "The scope",
+      scopeTitle: "Everything that is in it",
+      scopeIntro:
+        "“Turnkey” is a word everyone reads differently. Below are the twelve blocks a battery storage project consists of, what sits in each block and where the risk lies. Under Full EPC almost everything sits with us; what stays with you is stated as well.",
+      scopeRoles: { wij: "We", samen: "Together", u: "You" },
+      scopeItems: {
+        batterijsysteem: {
+          label: "Battery system",
+          note: "Selected on your usage profile and the requirements your insurer and financier set, not on what we happen to hold in stock. Including the assessment of the fire propagation documentation at system level and the warranty terms on cycle count and remaining capacity.",
+        },
+        omvormers: {
+          label: "Inverters",
+          note: "Sizing for the intended discharge duration and the grid level, four-quadrant behaviour, and the alignment between inverter, battery management and control.",
+        },
+        middenspanning: {
+          label: "Medium voltage and transformer",
+          note: "Switchgear, transformer, protection and selectivity, and the coordination with the grid operator on the customer substation.",
+        },
+        netaansluiting: {
+          label: "Grid connection",
+          note: "The connection stays in your name and in your contract. We run the process: transport request, the grid operator's requirements specification, the single-line diagram of the customer substation and the schedule towards energisation.",
+        },
+        hulpvoeding: {
+          label: "Auxiliary power",
+          note: "A frequently underestimated block. Auxiliary power has to be available during commissioning and on grid outage, and while charging it adds to your offtake — so to the contracted capacity.",
+        },
+        civiel: {
+          label: "Civil works and site layout",
+          note: "Earthworks, foundations, paving, drainage, trench profiles, fencing and access, and the site layout that follows from the safety concept.",
+        },
+        kabelwerk: {
+          label: "Cabling",
+          note: "Cable design and calculation, routes, crossings, earthing, and the installation itself. Usually the largest material item in the project.",
+        },
+        besturing: {
+          label: "Control, EMS and SCADA",
+          note: "The link between battery management, inverter and energy management, the limiter at the transfer point, monitoring, and the interface to the party trading the system.",
+        },
+        brandveiligheid: {
+          label: "Fire safety and security",
+          note: "The safety concept to PGS 37-1, the coordination with the safety region, firefighting water supply, detection and CCTV.",
+        },
+        vergunning: {
+          label: "Permitting and competent authority",
+          note: "The permit dossier, the environmental notification, the acoustic study and the coordination with the municipality and the environmental agency.",
+        },
+        engineering: {
+          label: "Engineering and calculations",
+          note: "Layout, single-line diagram, cable and short-circuit calculation, selectivity, auxiliary power balance and verification against the applicable standards. The design is externally stamped by an independent engineering firm.",
+        },
+        inbedrijfstelling: {
+          label: "Commissioning and handover",
+          note: "Test plans, commissioning, the grid compliance test to RfG, the as-built dossier and the handover.",
+        },
+      },
+      scopeFooter:
+        "What you provide is in the next section. It is a short list, and that is the point of this model.",
+
+      insuranceEyebrow: "Why we are strict about this",
+      insuranceTitle: "What you deliver has to be insurable",
+      insuranceParagraphs: [
+        "PGS 37-1 requires demonstrable evidence that fire does not propagate from one unit to the next, substantiated with NEN-EN-IEC 62933-5-2 or UL 9540A. A report at cell or module level alone does not meet that: it has to cover the complete unit as installed. Without that substantiation, additional measures apply — heavier firefighting water supply, larger separation distances — and exemptions on fire resistance lapse. For clustered or stacked arrangements, further requirements come on top, including IEC 62619 and NFPA 68.",
+        "Insurers treat PGS 37-1 as the minimum and explicitly call partial certificates of limited value. Without substantiation at system level, what follows is additional requirements, a higher deductible, or refusal. And because insurability is a condition in virtually every financing agreement, it carries straight through to your funding. The bar is rising too: the latest edition of UL 9540A and NFPA 855 include the large-scale fire test across multiple units as the highest test level, and the market is moving that way.",
+      ],
+      insuranceListTitle: "Five things we establish before anything is ordered",
+      insuranceList: [
+        {
+          title: "At what level the fire propagation test was carried out",
+          body: "And whether the report covers the configuration that will actually be installed.",
+        },
+        {
+          title: "What the safety region says about this site",
+          body: "Separation distances, firefighting water and access determine the layout, and the layout determines what fits.",
+        },
+        {
+          title: "Which requirements your insurer sets",
+          body: "They can be stricter than the standard, and you would rather know that before procurement than after.",
+        },
+        {
+          title: "What your financier will have reviewed",
+          body: "The independent engineer assesses the same documentation, so we produce it in the form they expect it.",
+        },
+        {
+          title: "What the grid operator has in the contract",
+          body: "The contracted capacity applies at the transfer point, so auxiliary power and losses count towards it and belong in the limiter.",
+        },
+      ],
+      insuranceFooter:
+        "None of these five is exciting. They are only expensive if you skip them.",
+
+      buildEyebrow: "From field to grid-code test",
+      buildTitle: "How we build",
+      buildIntro:
+        "Twelve phases, from the first survey to the moment the system is on the grid. Four of them below; the full sequence, with every phase and three configurations, has a page of its own.",
+      buildSteps: [
+        { fase: 1, label: "Location" },
+        { fase: 6, label: "Grid connection" },
+        { fase: 8, label: "Containers" },
+        { fase: 12, label: "Operational" },
+      ],
+      buildCta: "View the full build sequence",
+
+      yourSideEyebrow: "Your side",
+      yourSideTitle: "What is asked of you",
+      yourSide: [
+        {
+          title: "The site",
+          body: "A plot with a land position that covers the lifetime of the project, or a clear route to one.",
+        },
+        {
+          title: "The grid connection",
+          body: "The connection stays in your name. We run the process, but the contract with the grid operator is yours.",
+        },
+        {
+          title: "Decisions",
+          body: "At four to six moments we need a decision from you. We put each one to you with the options, the consequences and our recommendation.",
+        },
+        {
+          title: "One point of contact",
+          body: "Someone on your side who can decide, or knows who can. That is all.",
+        },
+      ],
+      yourSideFooter:
+        "Beyond that you need no technical organisation from us, and you do not have to build one.",
+
+      fitEyebrow: "Honest about the choice",
+      fitTitle: "When Full EPC fits",
+      fitYesTitle: "This fits you if:",
+      fitYes: [
+        "You have no technical organisation of your own and do not want to build one.",
+        "You want one party liable instead of a chain of suppliers where everyone points at the other.",
+        "Your financier asks for a coherent dossier from a single hand.",
+        "You have the site and the grid connection, and want to outsource the rest.",
+      ],
+      fitNoTitle: "Look at another model if:",
+      fitNo: [
+        {
+          text: "You have an engineering department with capacity — then you would be paying us for work you can do yourself. Look at",
+          linkLabel: "Technical Support",
+        },
+        {
+          text: "You carry out the work yourself and only lack the layer above it. Also",
+          linkLabel: "Technical Support",
+        },
+        {
+          text: "You can do everything yourself except procure sharply. Look at",
+          linkLabel: "Supply Only",
+        },
+      ],
+
+      faqEyebrow: "Frequently asked questions",
+      faqTitle: "What you probably want to know",
+      faq: [
+        {
+          q: "Are you tied to one supplier?",
+          a: "No. We have documented relations with several manufacturers and choose per project on your usage profile, the requirements of your insurer and financier, and the lead time. Which ones that becomes in your case, we discuss with you before anything is fixed.",
+        },
+        {
+          q: "Who does the design?",
+          a: "We do, with our own people. The design is externally stamped by an independent engineering firm, so a party with no stake in it looks at it too.",
+        },
+        {
+          q: "What if the grid connection is delayed?",
+          a: "It happens, and it is usually the longest line in the project. We plan around it: everything that does not depend on the connection carries on. In the schedule the connection sits explicitly on the critical path, so you can see what a shift does to the rest.",
+        },
+        {
+          q: "How long does a project take?",
+          a: "That depends mostly on the grid level and the permit, and far less on the construction itself. Giving an indication without knowing your site and grid position is guesswork; we would rather do that in the first conversation, with the assumptions stated.",
+        },
+        {
+          q: "Do you stay involved after handover?",
+          a: "Yes, in whatever form you want: from a maintenance contract to availability on call. In our own developments we stay the owner, so we know what goes wrong in year five.",
+        },
+        {
+          q: "Can you also do just a part?",
+          a: "Yes, that is what the other two partner models are for.",
+        },
+      ],
+      faqModelLinks: ["Technical Support", "Supply Only"],
+
+      ctaTitle: "Do you have a site?",
+      ctaSub:
+        "Send us the location, the grid level and whatever documentation you already have. Within a week we will tell you whether there is something to build and what it would take.",
+      ctaPlan: "Book a meeting",
+      ctaCall: "Call us directly",
+      ctaLinks: {
+        hoeWijBouwen: "How we build",
+        partnermodellen: "All partner models",
+        watWijDoen: "What we do",
       },
     },
     projects: {

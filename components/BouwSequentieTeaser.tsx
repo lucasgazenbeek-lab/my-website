@@ -19,9 +19,14 @@ import {
  * automatically (paused after interaction, disabled under
  * prefers-reduced-motion). The full page is /hoe-wij-bouwen.
  */
-export default function BouwSequentieTeaser() {
+export default function BouwSequentieTeaser({
+  steps: stepsProp,
+}: {
+  /** Phases to show. Defaults to the homepage selection. */
+  steps?: Array<{ fase: number; label: string }>;
+} = {}) {
   const { t } = useLang();
-  const steps = t.home.seqSteps as Array<{ fase: number; label: string }>;
+  const steps = stepsProp ?? (t.home.seqSteps as Array<{ fase: number; label: string }>);
 
   const [bundle, setBundle] = useState<VariantBundle | null>(null);
   const [step, setStep] = useState(0);
