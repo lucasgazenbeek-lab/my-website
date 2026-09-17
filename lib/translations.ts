@@ -263,21 +263,21 @@ export const translations = {
           tag: "Partnermodel 03",
           title: "Supply Only",
           standfirst:
-            "Alleen de levering. U heeft de kennis en de uitvoering in huis en wilt scherp en betrouwbaar inkopen.",
-          cardFeatures: ["Leveranciersneutrale selectie en inkoop", "Fabriekstest, transport en inslag", "Volledige documentatie, certificaten en garanties"],
-          ideal: "Bouwers met een eigen technische organisatie",
+            "U ontwerpt, installeert en sluit aan. Wij leveren het systeem geplaatst op uw fundatie, en ondersteunen op de punten waar kennis van het batterijsysteem het verschil maakt.",
+          cardFeatures: ["Geplaatst op uw fundatie, niet afgeleverd bij het hek", "Ontwerpreview, PGS 37-1 en besturingskoppeling inbegrepen", "Integratietest en overdracht van het complete dossier"],
+          ideal: "Bouwers en installateurs met een eigen technische organisatie",
           weDo: [
             { lead: "", text: "Selectie en inkoop van de apparatuur, fabriekstest per unit, transport en inslag op de locatie, en de volledige documentatie inclusief certificaten en garantiebepalingen." },
           ],
           weDoLink: false,
-          youDo: "Alles daaromheen — ontwerp, vergunning, civiel, montage en inbedrijfstelling.",
+          youDo: "Het systeemontwerp, het civiele werk, de aansluiting en de netconformiteit.",
           whenFits: [
             "U bouwt vaker en heeft een eigen technische organisatie.",
             "U wilt niet vastzitten aan één fabrikant en zoekt een partij die leveranciersneutraal selecteert.",
             "U wilt zekerheid over wat er precies geleverd wordt, inclusief het propagatiebewijs en de garantievoorwaarden.",
           ],
-          extraTitle: "Let op, en dat zeggen wij er vooraf bij",
-          extra: "Bij dit model ligt de verantwoordelijkheid voor het systeemontwerp bij u. Wij leveren wat besteld is en toetsen niet of het geheel klopt. Twijfelt u daarover, dan kiest u Full EPC of neemt u onze Technical Support ernaast.",
+          extraTitle: "Waarom dit meer is dan inkopen",
+          extra: "Een leverancier zet een container bij het hek. Tussen dat moment en een werkend systeem zitten de raakvlakken met uw installatie, het veiligheidsdossier, de besturingskoppeling en een integratietest die verder gaat dan wat de fabrikanten elk voor hun eigen apparaat doen. Dat nemen wij erbij.",
           photoAlt: "",
         },
       ],
@@ -887,6 +887,214 @@ export const translations = {
         watWijDoen: "Wat wij doen",
       },
     },
+    supplyOnly: {
+      tag: "Partnermodel 03",
+      heroTitle: "Supply Only",
+      heroStandfirst:
+        "U ontwerpt, installeert en sluit aan. Wij leveren het batterijsysteem en de omvormers, geplaatst op uw fundatie, en ondersteunen op de punten waar kennis van het batterijsysteem het verschil maakt. Eén prijs, geen losse uren, geen nacalculatie.",
+
+      problemEyebrow: "Waar dit over gaat",
+      problemTitle: "Tussen geleverd en werkend zit meer dan een vrachtbrief",
+      problemParagraphs: [
+        "Een batterijcontainer inkopen lijkt eenvoudig. U kiest een leverancier, u tekent, en een paar maanden later staat er een container bij het hek. Voor een partij die zelf kan ontwerpen en installeren is dat op papier precies genoeg.",
+        "In de praktijk zit er tussen die container en een werkend systeem een reeks dingen die in geen enkel contract staan. Sluit de hulpvoeding aan op wat u heeft gepland, en wat doet die bij netuitval? Klopt het aantal doorvoeren met uw kabelontwerp? Wat vindt de veiligheidsregio van deze opstelling op deze afstand? Wie legt de koppeling tussen het batterijmanagement, de omvormers en het energiemanagement, en wie zorgt dat de partij die het systeem verhandelt er straks bij kan? En als er drie fabrikanten komen inbedrijfstellen die elk alleen hun eigen doos aanzetten, wie test dan het geheel?",
+        "Dat zijn geen grote posten. Het zijn de posten die een project twee maanden ophouden omdat niemand ze bezit. Wij nemen ze erbij, binnen dezelfde prijs.",
+      ],
+      problemBlocks: [
+        { title: "Geplaatst, niet afgeleverd", body: "Transport, hijswerk en plaatsing op uw fundatie zitten erin." },
+        { title: "Getest vóór verscheping", body: "De fabrieksacceptatietest is een mijlpaal, geen formaliteit." },
+        { title: "Eén prijs", body: "Geen losse uren, geen nacalculatie, geen optionele posten die later blijken te moeten." },
+      ],
+
+      deliveryEyebrow: "De levering",
+      deliveryTitle: "Wat er meekomt",
+      deliveryIntro:
+        "Vijf onderdelen, in één prijs. De eerste twee zijn het materieel. De laatste drie zijn het verschil tussen ons en een importeur.",
+      delivery: [
+        {
+          title: "Het batterijsysteem, geplaatst",
+          lead: "Selectie op uw gebruiksprofiel en op wat uw verzekeraar en financier van de documentatie verlangen — niet op wat wij toevallig kunnen leveren.",
+          items: [
+            "Selectie en inkoop, leveranciersneutraal",
+            "Fabrieksacceptatietest vóór verscheping",
+            "Transport, hijswerk en plaatsing op uw fundatie",
+            "Beoordeling van de brandpropagatiedocumentatie en de garantievoorwaarden",
+          ],
+        },
+        {
+          title: "De omvormers",
+          lead: "Gedimensioneerd op de ontlaadduur die u wilt halen en op het spanningsniveau waarop u aansluit.",
+          items: [
+            "Selectie, inkoop en levering op locatie",
+            "Afstemming tussen omvormer, batterijmanagement en besturing",
+            "Opstelling en aansluiting doet u",
+          ],
+        },
+        {
+          title: "Projectondersteuning",
+          lead: "De laag waar wij het verschil maken en waar een leverancier u naar de handleiding verwijst.",
+          items: [
+            "Ontwerpreview op de raakvlakken met uw installatie",
+            "Toets aan PGS 37-1 en afstemming met de veiligheidsregio",
+            "Leverbegeleiding, van order tot aankomst",
+            "Supervisie bij de plaatsing",
+          ],
+        },
+        {
+          title: "Besturingskoppeling",
+          lead: "Het batterijsysteem praat met de omvormers, de omvormers met het energiemanagement, en het geheel met de partij die het verhandelt. Die keten richten wij in.",
+          items: [
+            "Koppeling tussen batterijmanagement, omvormers en energiemanagement",
+            "Monitoring en toegang op afstand",
+            "Interface naar uw handelspartij",
+            "Begrenzing op het overdrachtspunt, zodat u binnen uw gecontracteerde vermogen blijft",
+          ],
+        },
+        {
+          title: "Inbedrijfstelling en overdracht",
+          lead: "De fabrikanten stellen elk hun eigen apparaat in bedrijf. Iemand moet het geheel testen. Dat doen wij.",
+          items: [
+            "Voorbereiding en begeleiding van de inbedrijfstellingen door de fabrikanten",
+            "Integratietest van het complete systeem",
+            "Overdracht van dossier, certificaten en garanties",
+          ],
+        },
+      ],
+      deliveryNotTitle: "Wat er niet bij zit",
+      deliveryNotBody:
+        "Transformator, middenspanning en netaansluiting, het civiele werk, het vergunningstraject, het aansluiten zelf en de netconformiteitstest. Dat is uw werk, en het systeemontwerp blijft daarmee ook uw verantwoordelijkheid — wij leveren de gegevens die u daarvoor nodig heeft. Wilt u die laag er wél bij, dan is dat een ander model.",
+      deliveryNotLink: "Bekijk Technical Support",
+
+      checkEyebrow: "Voor u tekent",
+      checkTitle: "Veertien vragen bij een leveranciersofferte",
+      checkIntro:
+        "Dit is de lijst die wij zelf aflopen voordat wij een bod van een fabrikant serieus nemen. Hij staat hier omdat hij ook zonder ons bruikbaar is: neemt u de inkoop zelf ter hand, loop hem dan af. De meeste verrassingen in een batterijproject zitten niet in de techniek maar in de kleine lettertjes van de offerte, en ze worden pas zichtbaar als het te laat is om nog iets te kiezen.",
+      checkGroups: {
+        krijgt: "Wat u krijgt",
+        voorwaarden: "Wanneer en onder welke voorwaarden",
+        ontwerp: "Wat het met uw ontwerp doet",
+      },
+      checkItems: {
+        commissioning: {
+          q: "Zit de inbedrijfstelling in de basisprijs?",
+          a: "Commissioning staat regelmatig bij de optionele posten in plaats van in de prijs waarop u vergelijkt. Vraag wat er precies onder valt, hoeveel dagen erbij zitten en wat er gebeurt als het langer duurt.",
+        },
+        garantie: {
+          q: "Wat dekt de garantie precies?",
+          a: "Een garantie op een batterijsysteem heeft minstens drie assen: looptijd, aantal cycli en resterende capaciteit. Een bod dat er één noemt, zegt niets. Vraag alle drie, plus de meetmethode.",
+        },
+        gebruiksvoorwaarden: {
+          q: "Onder welke gebruiksvoorwaarden geldt die garantie?",
+          a: "Dieper ontladen, vaker cyclen of een hogere omgevingstemperatuur dan aangenomen kan de garantie beperken of laten vervallen. Leg uw eigen gebruiksprofiel naast de voorwaarden voordat u tekent, niet erna.",
+        },
+        eenheidsprijzen: {
+          q: "Zijn de eenheidsprijzen zichtbaar?",
+          a: "Eén totaalbedrag laat zich niet doorrekenen. Met de prijs per blok en per station kunt u zelf combinaties uitwerken die de leverancier niet heeft aangeboden. Vraag om de opbouw, niet om korting.",
+        },
+        uitsluitingen: {
+          q: "Wat zit er níet in?",
+          a: "Vraag expliciet om de uitsluitingenlijst. Wat een leverancier niet noemt, komt later als meerwerk terug, en dan is er geen alternatief meer.",
+        },
+        levertijd: {
+          q: "Is de levertijd intern consistent?",
+          a: "Het komt regelmatig voor dat de samenvatting en de voorwaarden in hetzelfde document maanden uit elkaar liggen. Tel de weken zelf na en vraag welke geldt.",
+        },
+        startmoment: {
+          q: "Vanaf welk moment loopt de levertijd?",
+          a: "Vanaf ondertekening, vanaf orderacceptatie, vanaf de aanbetaling of vanaf technische vrijgave? Dat scheelt in de praktijk weken tot maanden, en alleen de laatste hangt van uzelf af.",
+        },
+        prijsvastheid: {
+          q: "Is de prijs vast, of onder voorbehoud?",
+          a: "Celprijs en valuta zijn de twee gebruikelijke voorbehouden. Vraag tot wanneer de prijs geldt, wat er precies onder het voorbehoud valt, en wat de bandbreedte is.",
+        },
+        leveringsconditie: {
+          q: "Waar geldt de leveringsconditie?",
+          a: "Een DDP-prijs is adresgebonden. Staat er een ander afleveradres in het bod dan waar het systeem terechtkomt, dan klopt de vrachtcomponent niet. Controleer het adres letterlijk.",
+        },
+        transportrisico: {
+          q: "Wie draagt het transportrisico, en tot waar precies?",
+          a: "Tot de poort, tot naast de fundatie, of tot de container staat? Die drie liggen in de praktijk ver uit elkaar, en het hijswerk zit er zelden bij.",
+        },
+        eigendom: {
+          q: "Wanneer gaat het eigendom over?",
+          a: "Meestal bij volledige betaling, terwijl het risico eerder overgaat. Weet welk moment welk is, en wat er gebeurt als er in de keten iets misgaat.",
+        },
+        brandtestniveau: {
+          q: "Op welk niveau is de brandtest uitgevoerd?",
+          a: "Cel, module of de complete eenheid zoals hij geïnstalleerd staat? PGS 37-1 verlangt onderbouwing op systeemniveau. Een rapport op celniveau is voor uw verzekeraar van beperkte waarde.",
+        },
+        configuratiedekking: {
+          q: "Dekt het testrapport de configuratie die u koopt?",
+          a: "Bij een systeem met componenten van meerdere leveranciers moet de test de geïnstalleerde combinatie dekken. Losse componenttests bij elkaar optellen mag niet.",
+        },
+        hulpvoeding: {
+          q: "Wat verbruikt de hulpvoeding, en wat gebeurt er bij netuitval?",
+          a: "Het hulpverbruik telt bij laden op bij uw afname en dus bij uw gecontracteerde vermogen op het overdrachtspunt. En valt de voeding weg bij netuitval, dan heeft dat gevolgen voor koeling, besturing en black start. Dit getal ontbreekt vaker wel dan niet op een datasheet.",
+        },
+      },
+      checkFooter:
+        "Neemt u de inkoop zelf ter hand, dan is deze lijst van u. Loopt u er onderweg op vast, dan kijken wij mee.",
+
+      buyEyebrow: "Onze werkwijze",
+      buyTitle: "Wij vergelijken geen offertes, wij halen ze uit elkaar",
+      buyParagraphs: [
+        "Drie offertes naast elkaar leggen en de laagste kiezen, is geen inkoop. De configuraties verschillen, de uitsluitingen verschillen, en de prijs per kWh waarmee ze zichzelf presenteren is bijna nooit op hetzelfde gerekend. Wat wij doen is het bod terugbrengen tot de eenheidsprijzen erachter: wat kost een blok, wat kost een station, wat kost het meerdere.",
+        "Zodra die er liggen, kun je rekenen. Combinaties die de leverancier niet heeft aangeboden blijken dan regelmatig gunstiger dan de varianten die hij wél voorlegde — meer opslag voor minder geld, of hetzelfde voor minder eenheden, wat weer scheelt in funderingen, kabelwerk en terreinoppervlak. Die vraag stellen wij terug aan de leverancier, onderbouwd met zijn eigen cijfers. Dat is een ander gesprek dan om korting vragen.",
+      ],
+      buyPoints: [
+        { title: "Wij vragen om de opbouw, niet om een totaalprijs", body: "Zonder eenheidsprijzen valt er niets door te rekenen." },
+        { title: "Wij toetsen tegen uw gebruiksprofiel, niet tegen een andere offerte", body: "De goedkoopste configuratie is zelden de configuratie die past bij hoe u het systeem gaat inzetten." },
+        { title: "Wij rekenen de niet-aangeboden varianten door", body: "En leggen die terug bij de leverancier met zijn eigen cijfers eronder." },
+        { title: "Wij zijn erbij bij de fabrieksacceptatietest", body: "Of u bent erbij. Wat daarna op transport gaat, is bewezen materieel." },
+        { title: "Wij dragen het dossier over, niet alleen het systeem", body: "Certificaten, testrapporten, garantievoorwaarden en de gegevens die u nodig heeft voor uw eigen ontwerp en uw netconformiteitstest." },
+      ],
+
+      yourSideEyebrow: "Uw kant",
+      yourSideTitle: "Wat bij u blijft",
+      yourSide: [
+        { title: "Het systeemontwerp", body: "U ontwerpt de installatie waar ons systeem in landt, en die verantwoordelijkheid blijft bij u. Wij leveren de gegevens die u daarvoor nodig heeft." },
+        { title: "De fundatie en het civiele werk", body: "Wij plaatsen op wat u heeft voorbereid. Maten, belastingen en doorvoeren krijgt u van ons ruim voor de levering." },
+        { title: "Transformator, middenspanning en aansluiting", body: "Uw scope, uw contract met de netbeheerder." },
+        { title: "Aansluiten en netconformiteit", body: "Het aansluitwerk en de netconformiteitstest doet u. Wij leveren de documentatie die u daarbij nodig heeft." },
+      ],
+
+      fitEyebrow: "Eerlijk over de keuze",
+      fitTitle: "Wanneer Supply Only past",
+      fitYesTitle: "Dit past bij u als:",
+      fitYes: [
+        "U een eigen technische organisatie heeft die kan ontwerpen en installeren.",
+        "U het systeemontwerp en de aansluiting zelf wilt houden.",
+        "U wilt inkopen bij een partij die de techniek kent, maar geen aannemer over de vloer wilt.",
+        "U een vaste prijs wilt zonder losse uren en zonder nacalculatie op de ondersteuning.",
+      ],
+      fitNoTitle: "Kijk liever naar een ander model als:",
+      fitNo: [
+        { text: "U de uitvoering aankan maar het ontwerp en de contractuele laag mist. Kijk naar", linkLabel: "Technical Support" },
+        { text: "U helemaal geen technische organisatie heeft en het hele project wilt uitbesteden. Kijk naar", linkLabel: "Full EPC" },
+      ],
+
+      faqEyebrow: "Veelgestelde vragen",
+      faqTitle: "Wat inkopers ons vooraf vragen",
+      faq: [
+        { q: "Zitten jullie vast aan één fabrikant?", a: "Nee. Wij hebben gedocumenteerde relaties met meerdere fabrikanten en geen exclusiviteit bij één van hen. Wij houden ook geen voorraad aan die weg moet. De selectie volgt uw gebruiksprofiel en de eisen van uw verzekeraar en financier." },
+        { q: "Kan ik zelf de fabrikant kiezen?", a: "Ja. Heeft u al een voorkeur, dan kopen wij daar in en doen wij de rest van het werk. Wij zeggen er wel bij wat wij van die keuze vinden, ook als u dat niet vraagt." },
+        { q: "Wat als de levering vertraagt?", a: "Levertijden op batterijsystemen lopen in maanden en schuiven regelmatig. Wij volgen de order van bevestiging tot aankomst en melden een verschuiving zodra wij hem zien, niet als hij al gevolgen heeft voor uw planning." },
+        { q: "Kunnen jullie ook alleen een offerte beoordelen?", a: "Ja. Dat is een afgebakende opdracht: u stuurt het bod, wij lopen het na op de punten uit de lijst hierboven en komen met de vragen die u terug moet stellen. Daar hoeft geen levering achteraan te komen." },
+        { q: "Wat gebeurt er als er iets stuk gaat?", a: "De fabrieksgaranties dragen wij aan u over, met de voorwaarden erbij. Voor de afhandeling kunt u ons inschakelen; wij kennen de route en de taal, en dat scheelt in de praktijk maanden." },
+        { q: "Leveren jullie ook los onderdelen?", a: "Dat hangt van het onderdeel af. Een complete installatie uit losse componenten samenstellen is zelden verstandig, onder meer omdat het testrapport dan de geïnstalleerde combinatie moet dekken. Leg het voor, dan zeggen wij of het kan." },
+      ],
+
+      ctaTitle: "Ligt er een offerte klaar?",
+      ctaSub:
+        "Stuur hem door. Wij lopen hem na op de veertien punten hierboven en komen binnen een week terug met de vragen die u terug moet stellen. Dat kost u niets en het verplicht u tot niets.",
+      ctaPlan: "Plan een afspraak",
+      ctaCall: "Bel direct",
+      ctaLinks: {
+        partnermodellen: "Alle partnermodellen",
+        technicalSupport: "Technical Support",
+        fullEpc: "Full EPC",
+      },
+    },
     hoeWijBouwen: {
       heroEyebrow: "Werkwijze",
       heroTitle: "Hoe wij bouwen",
@@ -1362,21 +1570,21 @@ export const translations = {
           tag: "Partner model 03",
           title: "Supply Only",
           standfirst:
-            "Supply only. You have the knowledge and the execution in-house and want to procure sharply and reliably.",
-          cardFeatures: ["Supplier-neutral selection and procurement", "Factory testing, transport and intake", "Complete documentation, certificates and warranties"],
-          ideal: "Builders with their own technical organisation",
+            "You design, install and connect. We supply the system placed on your foundation, and support you on the points where knowing the battery system makes the difference.",
+          cardFeatures: ["Placed on your foundation, not dropped off at the gate", "Design review, PGS 37-1 and control integration included", "Integration test and handover of the complete dossier"],
+          ideal: "Builders and installers with their own technical organisation",
           weDo: [
             { lead: "", text: "Selection and procurement of the equipment, factory testing per unit, transport and intake on site, and the complete documentation including certificates and warranty terms." },
           ],
           weDoLink: false,
-          youDo: "Everything around it — design, permitting, civil works, installation and commissioning.",
+          youDo: "The system design, the civil works, the connection and grid compliance.",
           whenFits: [
             "You build regularly and have your own technical organisation.",
             "You don't want to be tied to one manufacturer and are looking for a party that selects supplier-neutrally.",
             "You want certainty about exactly what is delivered, including the propagation evidence and the warranty terms.",
           ],
-          extraTitle: "A caveat we state up front",
-          extra: "In this model, responsibility for the system design lies with you. We deliver what is ordered and do not verify whether the whole adds up. If you have doubts about that, choose Full EPC or add our Technical Support alongside.",
+          extraTitle: "Why this is more than buying",
+          extra: "A supplier puts a container at the gate. Between that moment and a working system sit the interfaces with your installation, the safety dossier, the control integration and an integration test that goes further than what each manufacturer does for their own device. That is what we take on.",
           photoAlt: "",
         },
       ],
@@ -1984,6 +2192,214 @@ export const translations = {
         hoeWijBouwen: "How we build",
         partnermodellen: "All partner models",
         watWijDoen: "What we do",
+      },
+    },
+    supplyOnly: {
+      tag: "Partner model 03",
+      heroTitle: "Supply Only",
+      heroStandfirst:
+        "You design, install and connect. We supply the battery system and the inverters, placed on your foundation, and support you on the points where knowing the battery system makes the difference. One price, no loose hours, no reconciliation afterwards.",
+
+      problemEyebrow: "What this is about",
+      problemTitle: "Between delivered and working sits more than a waybill",
+      problemParagraphs: [
+        "Buying a battery container looks simple. You pick a supplier, you sign, and a few months later a container is standing at the gate. For a party that can design and install on its own, that is exactly enough on paper.",
+        "In practice, between that container and a working system sits a series of things that appear in no contract at all. Does the auxiliary supply connect to what you planned, and what does it do on grid outage? Does the number of penetrations match your cable design? What does the safety region make of this arrangement at this distance? Who links the battery management, the inverters and the energy management, and who makes sure the party trading the system can reach it later? And when three manufacturers turn up to commission, each switching on only their own box, who tests the whole?",
+        "These are not large items. They are the items that hold a project up for two months because nobody owns them. We take them on, within the same price.",
+      ],
+      problemBlocks: [
+        { title: "Placed, not dropped off", body: "Transport, lifting and placement on your foundation are included." },
+        { title: "Tested before shipping", body: "The factory acceptance test is a milestone, not a formality." },
+        { title: "One price", body: "No loose hours, no reconciliation afterwards, no optional items that turn out to be necessary later." },
+      ],
+
+      deliveryEyebrow: "The delivery",
+      deliveryTitle: "What comes with it",
+      deliveryIntro:
+        "Five parts, in one price. The first two are the equipment. The last three are the difference between us and an importer.",
+      delivery: [
+        {
+          title: "The battery system, placed",
+          lead: "Selected on your usage profile and on what your insurer and financier expect from the documentation — not on what we happen to be able to supply.",
+          items: [
+            "Selection and procurement, supplier-neutral",
+            "Factory acceptance test before shipping",
+            "Transport, lifting and placement on your foundation",
+            "Assessment of the fire propagation documentation and the warranty terms",
+          ],
+        },
+        {
+          title: "The inverters",
+          lead: "Sized for the discharge duration you want to reach and for the voltage level at which you connect.",
+          items: [
+            "Selection, procurement and delivery on site",
+            "Alignment between inverter, battery management and control",
+            "Positioning and connection are yours",
+          ],
+        },
+        {
+          title: "Project support",
+          lead: "The layer where we make the difference and where a supplier points you at the manual.",
+          items: [
+            "Design review on the interfaces with your installation",
+            "Verification against PGS 37-1 and coordination with the safety region",
+            "Order tracking, from purchase order to arrival",
+            "Supervision during placement",
+          ],
+        },
+        {
+          title: "Control integration",
+          lead: "The battery system talks to the inverters, the inverters to the energy management, and the whole to the party trading it. We set that chain up.",
+          items: [
+            "Link between battery management, inverters and energy management",
+            "Monitoring and remote access",
+            "Interface to your trading party",
+            "Limiter at the transfer point, so you stay within your contracted capacity",
+          ],
+        },
+        {
+          title: "Commissioning and handover",
+          lead: "The manufacturers each commission their own device. Someone has to test the whole. We do.",
+          items: [
+            "Preparation and supervision of the manufacturers' commissioning",
+            "Integration test of the complete system",
+            "Handover of the dossier, certificates and warranties",
+          ],
+        },
+      ],
+      deliveryNotTitle: "What is not included",
+      deliveryNotBody:
+        "Transformer, medium voltage and grid connection, the civil works, the permitting, the connection work itself and the grid compliance test. That is your work, and the system design therefore stays your responsibility — we supply the data you need for it. If you do want that layer included, that is a different model.",
+      deliveryNotLink: "See Technical Support",
+
+      checkEyebrow: "Before you sign",
+      checkTitle: "Fourteen questions to put to a supplier's offer",
+      checkIntro:
+        "This is the list we run through ourselves before taking a manufacturer's bid seriously. It is here because it is useful without us too: if you handle procurement yourself, work through it. Most surprises in a battery project are not in the technology but in the small print of the offer, and they only surface when it is too late to choose anything else.",
+      checkGroups: {
+        krijgt: "What you get",
+        voorwaarden: "When, and on what terms",
+        ontwerp: "What it does to your design",
+      },
+      checkItems: {
+        commissioning: {
+          q: "Is commissioning in the base price?",
+          a: "Commissioning regularly sits under the optional items rather than in the price you are comparing on. Ask what exactly it covers, how many days are included and what happens if it takes longer.",
+        },
+        garantie: {
+          q: "What exactly does the warranty cover?",
+          a: "A warranty on a battery system has at least three axes: term, number of cycles and remaining capacity. A bid that names one of them says nothing. Ask for all three, plus the measurement method.",
+        },
+        gebruiksvoorwaarden: {
+          q: "Under which operating conditions does that warranty hold?",
+          a: "Discharging deeper, cycling more often or a higher ambient temperature than assumed can limit the warranty or void it. Put your own usage profile next to the terms before you sign, not after.",
+        },
+        eenheidsprijzen: {
+          q: "Are the unit prices visible?",
+          a: "A single total cannot be worked through. With the price per block and per station you can develop combinations the supplier did not offer. Ask for the build-up, not for a discount.",
+        },
+        uitsluitingen: {
+          q: "What is not in it?",
+          a: "Ask explicitly for the exclusions list. What a supplier does not name comes back later as extra work, and by then there is no alternative left.",
+        },
+        levertijd: {
+          q: "Is the lead time internally consistent?",
+          a: "It happens regularly that the summary and the terms in the same document are months apart. Count the weeks yourself and ask which one applies.",
+        },
+        startmoment: {
+          q: "From which moment does the lead time run?",
+          a: "From signature, from order acceptance, from the down payment or from technical release? In practice that is weeks to months of difference, and only the last one is up to you.",
+        },
+        prijsvastheid: {
+          q: "Is the price firm, or conditional?",
+          a: "Cell price and currency are the two usual conditions. Ask until when the price holds, what exactly falls under the condition, and what the bandwidth is.",
+        },
+        leveringsconditie: {
+          q: "Where does the delivery term apply?",
+          a: "A DDP price is tied to an address. If the bid names a delivery address other than where the system ends up, the freight component does not add up. Check the address literally.",
+        },
+        transportrisico: {
+          q: "Who carries the transport risk, and up to where exactly?",
+          a: "To the gate, to beside the foundation, or until the container is standing? In practice those three are far apart, and the lifting is rarely included.",
+        },
+        eigendom: {
+          q: "When does title transfer?",
+          a: "Usually on full payment, while risk transfers earlier. Know which moment is which, and what happens if something goes wrong in the chain.",
+        },
+        brandtestniveau: {
+          q: "At what level was the fire test carried out?",
+          a: "Cell, module or the complete unit as installed? PGS 37-1 requires substantiation at system level. A report at cell level is of limited value to your insurer.",
+        },
+        configuratiedekking: {
+          q: "Does the test report cover the configuration you are buying?",
+          a: "With a system built from components by several suppliers, the test has to cover the installed combination. Adding up separate component tests is not allowed.",
+        },
+        hulpvoeding: {
+          q: "What does the auxiliary supply consume, and what happens on grid outage?",
+          a: "Auxiliary consumption adds to your offtake while charging, and therefore to your contracted capacity at the transfer point. And if the supply drops out on a grid outage, that has consequences for cooling, control and black start. This figure is missing from a datasheet more often than not.",
+        },
+      },
+      checkFooter:
+        "If you handle procurement yourself, this list is yours. If you get stuck on it along the way, we will look with you.",
+
+      buyEyebrow: "How we work",
+      buyTitle: "We do not compare offers, we take them apart",
+      buyParagraphs: [
+        "Laying three offers side by side and picking the lowest is not procurement. The configurations differ, the exclusions differ, and the price per kWh they present themselves with is almost never calculated on the same basis. What we do is reduce the bid to the unit prices behind it: what does a block cost, what does a station cost, what does the next one cost.",
+        "Once those are on the table, you can calculate. Combinations the supplier did not offer regularly turn out better than the variants they did put forward — more storage for less, or the same for fewer units, which in turn saves on foundations, cabling and site area. We put that question back to the supplier, substantiated with their own figures. That is a different conversation from asking for a discount.",
+      ],
+      buyPoints: [
+        { title: "We ask for the build-up, not for a total", body: "Without unit prices there is nothing to work through." },
+        { title: "We test against your usage profile, not against another offer", body: "The cheapest configuration is rarely the configuration that suits how you will actually run the system." },
+        { title: "We calculate the variants that were not offered", body: "And put them back to the supplier with their own figures underneath." },
+        { title: "We attend the factory acceptance test", body: "Or you do. What goes on transport afterwards is proven equipment." },
+        { title: "We hand over the dossier, not just the system", body: "Certificates, test reports, warranty terms and the data you need for your own design and your grid compliance test." },
+      ],
+
+      yourSideEyebrow: "Your side",
+      yourSideTitle: "What stays with you",
+      yourSide: [
+        { title: "The system design", body: "You design the installation our system lands in, and that responsibility stays with you. We supply the data you need for it." },
+        { title: "The foundation and civil works", body: "We place on what you have prepared. Dimensions, loads and penetrations reach you well before delivery." },
+        { title: "Transformer, medium voltage and connection", body: "Your scope, your contract with the grid operator." },
+        { title: "Connection and grid compliance", body: "The connection work and the grid compliance test are yours. We supply the documentation you need for them." },
+      ],
+
+      fitEyebrow: "Honest about the choice",
+      fitTitle: "When Supply Only fits",
+      fitYesTitle: "This fits you if:",
+      fitYes: [
+        "You have a technical organisation of your own that can design and install.",
+        "You want to keep the system design and the connection yourself.",
+        "You want to buy from a party that knows the technology, without a contractor on your site.",
+        "You want a fixed price with no loose hours and no reconciliation on the support.",
+      ],
+      fitNoTitle: "Look at another model if:",
+      fitNo: [
+        { text: "You can handle the execution but lack the design and the contractual layer. Look at", linkLabel: "Technical Support" },
+        { text: "You have no technical organisation at all and want to outsource the whole project. Look at", linkLabel: "Full EPC" },
+      ],
+
+      faqEyebrow: "Frequently asked questions",
+      faqTitle: "What buyers ask us up front",
+      faq: [
+        { q: "Are you tied to one manufacturer?", a: "No. We have documented relations with several manufacturers and exclusivity with none of them. We also hold no stock that has to move. The selection follows your usage profile and the requirements of your insurer and financier." },
+        { q: "Can I choose the manufacturer myself?", a: "Yes. If you already have a preference, we buy there and do the rest of the work. We will tell you what we think of that choice, even if you do not ask." },
+        { q: "What if delivery is delayed?", a: "Lead times on battery systems run to months and shift regularly. We track the order from confirmation to arrival and report a shift as soon as we see it, not once it already affects your schedule." },
+        { q: "Can you also just assess an offer?", a: "Yes. That is a bounded assignment: you send the bid, we run it against the points in the list above and come back with the questions you should put to them. No delivery has to follow." },
+        { q: "What happens if something breaks?", a: "We transfer the factory warranties to you, with the terms alongside. For handling a claim you can bring us in; we know the route and the language, and in practice that saves months." },
+        { q: "Do you also supply individual components?", a: "That depends on the component. Assembling a complete installation from separate components is rarely wise, among other things because the test report then has to cover the installed combination. Put it to us and we will say whether it can be done." },
+      ],
+
+      ctaTitle: "Do you have an offer on the table?",
+      ctaSub:
+        "Send it over. We run it against the fourteen points above and come back within a week with the questions you should put to them. That costs you nothing and commits you to nothing.",
+      ctaPlan: "Book a meeting",
+      ctaCall: "Call us directly",
+      ctaLinks: {
+        partnermodellen: "All partner models",
+        technicalSupport: "Technical Support",
+        fullEpc: "Full EPC",
       },
     },
     hoeWijBouwen: {
