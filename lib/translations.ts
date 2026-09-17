@@ -754,7 +754,7 @@ export const translations = {
         "Wat u aanlevert staat in de volgende sectie. Het is een korte lijst, en dat is het punt van dit model.",
 
       insuranceEyebrow: "Waarom wij hier streng in zijn",
-      insuranceTitle: "Wat u oplevert moet verzekerbaar zijn",
+      insuranceTitle: "Wat u oplevert moet financierbaar en verzekerbaar zijn",
       insuranceParagraphs: [
         "PGS 37-1 vraagt dat aantoonbaar is dat brand zich niet van de ene eenheid naar de andere voortplant, onderbouwd met NEN-EN-IEC 62933-5-2 of UL 9540A. Een rapport op alleen cel- of moduleniveau voldoet daar niet aan: het moet gaan over de complete eenheid zoals die geïnstalleerd staat. Ontbreekt die onderbouwing, dan gelden er aanvullende maatregelen — zwaardere bluswatervoorziening, grotere afstanden — en vervallen vrijstellingen op brandwerendheid. Voor geclusterde of gestapelde opstellingen komen daar nog eisen bij, waaronder IEC 62619 en NFPA 68.",
         "Verzekeraars hanteren PGS 37-1 als minimum en noemen partiële certificaten expliciet van beperkte waarde. Zonder onderbouwing op systeemniveau volgen aanvullende eisen, een hoger eigen risico, of weigering. En omdat verzekerbaarheid een voorwaarde is in vrijwel elke financieringsovereenkomst, loopt het van daaruit door naar uw financiering. De lat schuift bovendien omhoog: de nieuwste editie van UL 9540A en NFPA 855 nemen de grootschalige brandtest over meerdere eenheden op als hoogste testniveau, en de markt beweegt die kant op.",
@@ -799,6 +799,7 @@ export const translations = {
 
       yourSideEyebrow: "Uw kant",
       yourSideTitle: "Wat er van u wordt gevraagd",
+      yourSideStatement: "Vier dingen. Dat is de hele lijst.",
       yourSide: [
         {
           title: "De locatie",
@@ -1852,7 +1853,7 @@ export const translations = {
         "What you provide is in the next section. It is a short list, and that is the point of this model.",
 
       insuranceEyebrow: "Why we are strict about this",
-      insuranceTitle: "What you deliver has to be insurable",
+      insuranceTitle: "What you deliver has to be financeable and insurable",
       insuranceParagraphs: [
         "PGS 37-1 requires demonstrable evidence that fire does not propagate from one unit to the next, substantiated with NEN-EN-IEC 62933-5-2 or UL 9540A. A report at cell or module level alone does not meet that: it has to cover the complete unit as installed. Without that substantiation, additional measures apply — heavier firefighting water supply, larger separation distances — and exemptions on fire resistance lapse. For clustered or stacked arrangements, further requirements come on top, including IEC 62619 and NFPA 68.",
         "Insurers treat PGS 37-1 as the minimum and explicitly call partial certificates of limited value. Without substantiation at system level, what follows is additional requirements, a higher deductible, or refusal. And because insurability is a condition in virtually every financing agreement, it carries straight through to your funding. The bar is rising too: the latest edition of UL 9540A and NFPA 855 include the large-scale fire test across multiple units as the highest test level, and the market is moving that way.",
@@ -1897,6 +1898,7 @@ export const translations = {
 
       yourSideEyebrow: "Your side",
       yourSideTitle: "What is asked of you",
+      yourSideStatement: "Four things. That is the whole list.",
       yourSide: [
         {
           title: "The site",

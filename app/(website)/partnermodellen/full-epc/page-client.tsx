@@ -271,40 +271,57 @@ export default function FullEpcClient() {
       </section>
 
       {/* ─── 6. WAT U DOET — Warm wit ─────────────────────────── */}
+      {/* The point of this section is that the list is short, so it is set as
+          one list next to the argument rather than four separate cards. */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-              {fe.yourSideEyebrow}
-            </p>
-            <h2
-              className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-12"
-              style={{ letterSpacing: "-0.03em" }}
-            >
-              {fe.yourSideTitle}
-            </h2>
-          </ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,28rem)_1fr] gap-12 lg:gap-16 items-start">
+            <ScrollReveal direction="left">
+              <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
+                {fe.yourSideEyebrow}
+              </p>
+              <h2
+                className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6"
+                style={{ letterSpacing: "-0.03em" }}
+              >
+                {fe.yourSideTitle}
+              </h2>
+              <p
+                className="text-xl lg:text-2xl font-black text-[#470020] leading-snug mb-6"
+                style={{ letterSpacing: "-0.02em" }}
+              >
+                {fe.yourSideStatement}
+              </p>
+              <p className="text-[#6b4a56] leading-relaxed">{fe.yourSideFooter}</p>
+            </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-            {fe.yourSide.map((item, i) => (
-              <ScrollReveal key={i} delay={i * 80} direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="h-full p-6 sm:p-10 bg-white border border-[#e0d5d0] rounded-2xl hover:shadow-lg hover:border-[#470020]/20 transition-all duration-300">
-                  <div className="w-12 h-12 rounded-xl bg-[#470020] text-white flex items-center justify-center mb-6">
-                    {YOUR_SIDE_ICONS[i]}
-                  </div>
-                  <h3
-                    className="text-xl font-black text-[#1a0810] mb-3 leading-tight"
-                    style={{ letterSpacing: "-0.02em" }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="text-[#6b4a56] leading-relaxed">{item.body}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+            <ScrollReveal direction="right">
+              <ul
+                className="rounded-2xl border border-[#e0d5d0] bg-white divide-y divide-[#e0d5d0] overflow-hidden"
+                style={{ boxShadow: "0 8px 40px rgba(71,0,32,0.07), 0 2px 8px rgba(71,0,32,0.04)" }}
+              >
+                {fe.yourSide.map((item, i) => (
+                  <li key={i} className="flex items-start gap-5 sm:gap-6 p-6 sm:p-8">
+                    <span
+                      className="w-12 h-12 rounded-xl bg-[#470020] text-white flex items-center justify-center shrink-0"
+                      aria-hidden
+                    >
+                      {YOUR_SIDE_ICONS[i]}
+                    </span>
+                    <div>
+                      <h3
+                        className="text-xl font-black text-[#1a0810] mb-2 leading-tight"
+                        style={{ letterSpacing: "-0.02em" }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p className="text-[#6b4a56] leading-relaxed">{item.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </ScrollReveal>
           </div>
-
-          <p className="text-[#6b4a56] leading-relaxed max-w-3xl mt-10">{fe.yourSideFooter}</p>
         </div>
       </section>
 
