@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -39,13 +39,14 @@ export default function ScrollReveal({
     right: "translateX(20px)",
   };
 
+  // The starting offset travels as a custom property, never as an inline
+  // `transform`: an inline transform outranks `.reveal.visible`, which left
+  // every left/right reveal stranded 20px off its column for good.
   return (
     <div
       ref={ref}
       className={`reveal ${className}`}
-      style={{
-        transform: translateMap[direction],
-      }}
+      style={{ "--reveal-offset": translateMap[direction] } as CSSProperties}
     >
       {children}
     </div>
