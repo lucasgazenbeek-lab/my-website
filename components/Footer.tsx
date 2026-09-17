@@ -12,6 +12,7 @@ export default function Footer() {
   const pages = [
     { href: "/", label: t.nav.home },
     { href: "/wat-wij-doen", label: t.nav.services },
+    { href: "/hoe-wij-bouwen", label: t.nav.howWeBuild },
     { href: "/partnermodellen", label: t.nav.partners },
     { href: "/voor-investeerders", label: t.nav.investors },
     { href: "/projecten", label: t.nav.projects },

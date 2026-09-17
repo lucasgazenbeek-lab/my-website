@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       home: "Home",
       services: "Wat wij doen",
+      howWeBuild: "Hoe wij bouwen",
       partners: "Partnermodellen",
       investors: "Voor investeerders",
       projects: "Projecten",
@@ -870,6 +871,20 @@ export const translations = {
         watWijDoen: "Wat wij doen",
       },
     },
+    hoeWijBouwen: {
+      heroEyebrow: "Werkwijze",
+      heroTitle: "Hoe wij bouwen",
+      heroStandfirst:
+        "Twaalf fasen, van de eerste inmeting tot het moment dat het systeem op het net staat. Scroll door de fasen en de tekening loopt mee. Kies bovenaan een configuratie: aansluiting op middenspanning, op hoogspanning, of naast een bestaand zonnepark.",
+      ctaTitle: "Benieuwd wat dit voor uw locatie betekent?",
+      ctaSub:
+        "De sequentie hierboven is een referentie. Wat er op uw perceel past, hangt af van het netvlak, de ruimte en de vergunning.",
+      ctaButton: "Plan een afspraak",
+      ctaLinks: {
+        fullEpc: "Full EPC",
+        watWijDoen: "Wat wij doen",
+      },
+    },
     projects: {
       heroTitle: "Onze projecten spreken voor zich",
       heroSub: "Een selectie van gerealiseerde en lopende projecten in C&I en utility-scale batterijopslag.",
@@ -1073,6 +1088,7 @@ export const translations = {
     nav: {
       home: "Home",
       services: "What we do",
+      howWeBuild: "How we build",
       partners: "Partner models",
       investors: "For investors",
       projects: "Projects",
@@ -1935,6 +1951,20 @@ export const translations = {
       ctaLinks: {
         hoeWijBouwen: "How we build",
         partnermodellen: "All partner models",
+        watWijDoen: "What we do",
+      },
+    },
+    hoeWijBouwen: {
+      heroEyebrow: "Method",
+      heroTitle: "How we build",
+      heroStandfirst:
+        "Twelve phases, from the first survey to the moment the system is on the grid. Scroll through the phases and the drawing follows along. Choose a configuration at the top: connected at medium voltage, at high voltage, or alongside an existing solar park.",
+      ctaTitle: "Curious what this means for your site?",
+      ctaSub:
+        "The sequence above is a reference. What fits on your plot depends on the grid level, the space available and the permit.",
+      ctaButton: "Book a meeting",
+      ctaLinks: {
+        fullEpc: "Full EPC",
         watWijDoen: "What we do",
       },
     },

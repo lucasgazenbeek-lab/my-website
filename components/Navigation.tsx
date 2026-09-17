@@ -19,12 +19,16 @@ export default function Navigation() {
   const links = [
     { href: "/", label: t.nav.home },
     { href: "/wat-wij-doen", label: t.nav.services },
+    { href: "/hoe-wij-bouwen", label: t.nav.howWeBuild },
     { href: "/partnermodellen", label: t.nav.partners },
     { href: "/voor-investeerders", label: t.nav.investors },
     { href: "/projecten", label: t.nav.projects },
     { href: "/over-ons", label: t.nav.about },
   ];
 
+  // Seven nav items no longer fit beside the logo and the language switch at
+  // lg (1024px), so the desktop nav starts at xl and the mobile menu covers
+  // everything below it.
   // On hero (dark scarlet) sections: text is white. After scroll: white bg, dark text.
   const onDark = !scrolled;
 
@@ -52,7 +56,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-8">
             {links.map((l) => (
               <Link
                 key={l.href}
@@ -69,7 +73,7 @@ export default function Navigation() {
           </nav>
 
           {/* Right controls */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden xl:flex items-center gap-4">
             {/* Language toggle */}
             <div className="flex items-center gap-1 text-xs font-bold tracking-widest">
               <button
@@ -116,7 +120,7 @@ export default function Navigation() {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden flex flex-col gap-1.5 p-2"
+            className="xl:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
