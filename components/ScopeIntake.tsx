@@ -12,10 +12,10 @@ import {
 
 /**
  * Five-question intake that points at one of the three engagement shapes and
- * lists the work packages that would then sit with us.
+ * lists the parts that would then sit with us.
  *
- * The work packages come from `lib/technical-support-scope.ts`, the same
- * dataset the scope matrix renders, so the two can never drift apart.
+ * Those parts come from `lib/technical-support-scope.ts`, the same dataset
+ * the division of roles renders, so the two can never drift apart.
  *
  * Deliberately stateless beyond React: nothing is written to localStorage and
  * nothing is sent anywhere. The visitor only leaves the page when they click
@@ -123,7 +123,7 @@ export default function ScopeIntake() {
   const outcome: OutcomeId = result.outcome;
   const form = ts.forms.find((f) => f.id === outcome) ?? ts.forms[0];
   const caveats = ts.intakeCaveats as Record<OutcomeId, string>;
-  const itemCopy = ts.scopeItems as Record<string, { label: string; note: string }>;
+  const itemCopy = ts.rolItems as Record<string, { label: string; note: string }>;
   const packages = itemsForOutcome(outcome);
 
   return (

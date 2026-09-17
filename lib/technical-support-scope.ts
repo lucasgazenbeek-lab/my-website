@@ -1,18 +1,18 @@
 /**
- * Shared scope dataset for the Technical Support partner model.
+ * Shared dataset for the Technical Support partner model.
  *
- * This file holds STRUCTURE ONLY — work-package ids, their role and the block
- * they belong to. Every visible string lives in `lib/translations.ts` under
- * `technicalSupport.scopeBlocks` / `technicalSupport.scopeItems`, keyed by the
- * ids below, so NL and EN always move together (CLAUDE.md).
+ * This file holds STRUCTURE ONLY — the twelve parts of the division of roles,
+ * their role and the group they sit in. Every visible string lives in
+ * `lib/translations.ts` under `technicalSupport.rolGroups` /
+ * `technicalSupport.rolItems`, keyed by the ids below, so NL and EN always
+ * move together (CLAUDE.md).
  *
- * `ScopeMatrix` and `ScopeIntake` both import from here; that is deliberate.
- * The intake result lists work packages by the same ids, so the two components
- * can never drift apart.
+ * `Rolverdeling` and `ScopeIntake` both import from here; that is deliberate.
+ * The intake result lists parts by the same ids, so the two components can
+ * never drift apart.
  *
- * The division below is the one we propose as a starting point for a
- * balance-of-plant tender — it is our own way of working, not a record of any
- * specific project.
+ * The division below is how we split the work as a starting point — our own
+ * way of working, not a record of any specific project.
  */
 
 /** Fills {placeholders} in a translated template string. */
@@ -25,159 +25,64 @@ export function fillTemplate(
   );
 }
 
-export type ScopeRole = "u" | "gridstate" | "samen" | "onderaannemer";
-
-/** Filter state of the matrix: a single role, or everything at full strength. */
-export type ScopeFilter = ScopeRole | "alles";
+export type ScopeRole = "u" | "gridstate" | "samen";
 
 export interface ScopeItem {
-  /** Key into translations.technicalSupport.scopeItems */
+  /** Key into translations.technicalSupport.rolItems */
   id: string;
   role: ScopeRole;
 }
 
-export interface ScopeBlock {
-  /** Key into translations.technicalSupport.scopeBlocks */
+export interface ScopeGroup {
+  /** Key into translations.technicalSupport.rolGroups */
   id: string;
-  /** Blocks 0, 1 and 7 open on load; the rest start collapsed. */
-  defaultOpen: boolean;
   items: ScopeItem[];
 }
 
-export const SCOPE_BLOCKS: ScopeBlock[] = [
+export const SCOPE_GROUPS: ScopeGroup[] = [
   {
-    id: "bid",
-    defaultOpen: true,
+    id: "ontwerp",
     items: [
-      { id: "b0-vragenlijst", role: "gridstate" },
-      { id: "b0-clarification", role: "samen" },
-      { id: "b0-deviation", role: "samen" },
-      { id: "b0-proposal", role: "gridstate" },
-      { id: "b0-programma", role: "gridstate" },
-      { id: "b0-organogram", role: "samen" },
-      { id: "b0-mdr", role: "gridstate" },
-      { id: "b0-engineering", role: "gridstate" },
-      { id: "b0-cyber", role: "gridstate" },
-      { id: "b0-prijsstaat", role: "samen" },
-      { id: "b0-eenheidsprijzen", role: "u" },
-      { id: "b0-financieel", role: "u" },
+      { id: "systeemontwerp", role: "gridstate" },
+      { id: "berekeningen", role: "gridstate" },
+      { id: "civiel", role: "u" },
+      { id: "onderzoek", role: "samen" },
     ],
   },
   {
-    id: "engineering",
-    defaultOpen: true,
+    id: "contract",
     items: [
-      { id: "b1-layout", role: "gridstate" },
-      { id: "b1-eendraad", role: "gridstate" },
-      { id: "b1-kabel", role: "gridstate" },
-      { id: "b1-hulpvoeding", role: "gridstate" },
-      { id: "b1-aarding", role: "onderaannemer" },
-      { id: "b1-bliksem", role: "onderaannemer" },
-      { id: "b1-grondonderzoek", role: "onderaannemer" },
-      { id: "b1-verlichting", role: "gridstate" },
-      { id: "b1-scada", role: "gridstate" },
-      { id: "b1-fundering", role: "u" },
-      { id: "b1-civiel", role: "u" },
+      { id: "bod", role: "gridstate" },
+      { id: "prijs", role: "samen" },
+      { id: "documentregister", role: "gridstate" },
+      { id: "contractering", role: "u" },
     ],
   },
   {
-    id: "civiel",
-    defaultOpen: false,
+    id: "uitvoering",
     items: [
-      { id: "b2-grondwerk", role: "u" },
-      { id: "b2-sleuven", role: "u" },
-      { id: "b2-bluswater", role: "onderaannemer" },
-      { id: "b2-hekwerk", role: "onderaannemer" },
-    ],
-  },
-  {
-    id: "elektro",
-    defaultOpen: false,
-    items: [
-      { id: "b3-kabelleg", role: "u" },
-      { id: "b3-aansluiten", role: "u" },
-      { id: "b3-beproeving", role: "onderaannemer" },
-      { id: "b3-iv", role: "u" },
-    ],
-  },
-  {
-    id: "lossen",
-    defaultOpen: false,
-    items: [
-      { id: "b4-hijsplan", role: "onderaannemer" },
-      { id: "b4-transport", role: "samen" },
-    ],
-  },
-  {
-    id: "itot",
-    defaultOpen: false,
-    items: [
-      { id: "b5-netwerk", role: "onderaannemer" },
-      { id: "b5-camera", role: "onderaannemer" },
-      { id: "b5-scada-interface", role: "gridstate" },
-    ],
-  },
-  {
-    id: "bouwplaats",
-    defaultOpen: false,
-    items: [
-      { id: "b6-projectleiding", role: "u" },
-      { id: "b6-voorzieningen", role: "u" },
-      { id: "b6-veiligheid", role: "u" },
-      { id: "b6-landmeten", role: "onderaannemer" },
-    ],
-  },
-  {
-    id: "begeleiding",
-    defaultOpen: true,
-    items: [
-      { id: "b7-pmp", role: "gridstate" },
-      { id: "b7-veiligheidsdossier", role: "gridstate" },
-      { id: "b7-documentbeheer", role: "gridstate" },
-      { id: "b7-rapportage", role: "gridstate" },
-      { id: "b7-interface", role: "gridstate" },
-      { id: "b7-uitvragen", role: "gridstate" },
-      { id: "b7-contracteren", role: "u" },
-      { id: "b7-wijzigingen", role: "gridstate" },
-      { id: "b7-tests", role: "gridstate" },
-      { id: "b7-asbuilt", role: "gridstate" },
+      { id: "fysiek", role: "u" },
+      { id: "projectleiding", role: "u" },
+      { id: "interfaces", role: "gridstate" },
+      { id: "tests", role: "samen" },
     ],
   },
 ];
 
-export const ALL_SCOPE_ITEMS: ScopeItem[] = SCOPE_BLOCKS.flatMap((b) => b.items);
-
-export const SCOPE_TOTAL = ALL_SCOPE_ITEMS.length;
-
-export function countByRole(role: ScopeRole): number {
-  return ALL_SCOPE_ITEMS.filter((i) => i.role === role).length;
-}
+const ALL_SCOPE_ITEMS: ScopeItem[] = SCOPE_GROUPS.flatMap((g) => g.items);
 
 /** The three engagement shapes offered in the "Drie vormen" section. */
 export type OutcomeId = "volledig" | "owner" | "los";
 
 /**
- * Work packages that would sit with us per engagement shape.
+ * Parts that would sit with us per engagement shape.
  * "volledig" is derived from the roles so it can never fall out of step with
- * the matrix; the two narrower shapes are a curated subset of the same ids.
+ * the division of roles; the two narrower shapes are a curated subset of the
+ * same ids.
  */
-const OWNER_ITEM_IDS = [
-  "b0-deviation",
-  "b0-prijsstaat",
-  "b1-kabel",
-  "b1-hulpvoeding",
-  "b7-wijzigingen",
-  "b7-tests",
-  "b7-asbuilt",
-];
+const OWNER_ITEM_IDS = ["berekeningen", "onderzoek", "documentregister", "tests"];
 
-const LOS_ITEM_IDS = [
-  "b1-layout",
-  "b1-eendraad",
-  "b1-kabel",
-  "b1-hulpvoeding",
-  "b1-verlichting",
-];
+const LOS_ITEM_IDS = ["systeemontwerp", "berekeningen", "onderzoek"];
 
 export function itemsForOutcome(outcome: OutcomeId): ScopeItem[] {
   if (outcome === "volledig") {
@@ -185,7 +90,7 @@ export function itemsForOutcome(outcome: OutcomeId): ScopeItem[] {
   }
   const ids = outcome === "owner" ? OWNER_ITEM_IDS : LOS_ITEM_IDS;
   // Look the ids up in the dataset rather than duplicating them, so a renamed
-  // work package surfaces here instead of silently disappearing.
+  // part surfaces here instead of silently disappearing.
   return ids
     .map((id) => ALL_SCOPE_ITEMS.find((i) => i.id === id))
     .filter((i): i is ScopeItem => Boolean(i));

@@ -4,7 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
-import ScopeMatrix from "@/components/ScopeMatrix";
+import Rolverdeling from "@/components/Rolverdeling";
 import FaseTijdlijn from "@/components/FaseTijdlijn";
 import ScopeIntake from "@/components/ScopeIntake";
 import { siteConfig } from "@/lib/site-config";
@@ -149,95 +149,47 @@ export default function TechnicalSupportClient() {
         </div>
       </section>
 
-      {/* ─── 3. SCOPE-MATRIX — Warm wit ───────────────────────── */}
+      {/* ─── 3. ROLVERDELING — Warm wit ───────────────────────── */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-              {ts.scopeEyebrow}
+              {ts.rolEyebrow}
             </p>
             <h2
               className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6"
               style={{ letterSpacing: "-0.03em" }}
             >
-              {ts.scopeTitle}
+              {ts.rolTitle}
             </h2>
-            <p className="text-[#6b4a56] text-lg leading-relaxed max-w-3xl mb-12">{ts.scopeIntro}</p>
+            <p className="text-[#6b4a56] text-lg leading-relaxed max-w-3xl mb-12">{ts.rolIntro}</p>
           </ScrollReveal>
-          <ScopeMatrix />
+          <Rolverdeling />
         </div>
       </section>
 
-      {/* ─── 4. VIJF SPELREGELS — Wit ─────────────────────────── */}
+      {/* ─── 4. INTAKE — Wit ──────────────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-              {ts.rulesEyebrow}
+              {ts.intakeEyebrow}
             </p>
             <h2
               className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6"
               style={{ letterSpacing: "-0.03em" }}
             >
-              {ts.rulesTitle}
+              {ts.intakeTitle}
             </h2>
-            <p className="text-[#6b4a56] text-lg leading-relaxed max-w-3xl mb-12">{ts.rulesIntro}</p>
+            <p className="text-[#6b4a56] text-lg leading-relaxed max-w-3xl mb-12">{ts.intakeIntro}</p>
           </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-            {ts.rules.map((rule, i) => (
-              <ScrollReveal
-                key={i}
-                delay={i * 80}
-                direction={i % 2 === 0 ? "left" : "right"}
-                className={i === ts.rules.length - 1 ? "md:col-span-2" : ""}
-              >
-                <div className="h-full p-8 lg:p-10 bg-[#f9f6f4] border-2 border-transparent rounded-2xl hover:border-[#470020]/20 hover:bg-white hover:shadow-xl transition-all duration-300">
-                  <div className="flex items-start gap-5">
-                    <span
-                      className="font-black text-[#470020] leading-none shrink-0"
-                      style={{ fontSize: "clamp(2.2rem, 3vw, 3rem)", letterSpacing: "-0.04em", fontVariantNumeric: "tabular-nums" }}
-                    >
-                      {i + 1}
-                    </span>
-                    <div>
-                      <h3
-                        className="text-xl font-black text-[#1a0810] mb-3 leading-tight"
-                        style={{ letterSpacing: "-0.02em" }}
-                      >
-                        {rule.title}
-                      </h3>
-                      <p className="text-[#6b4a56] leading-relaxed">{rule.body}</p>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
+          <div className="max-w-4xl">
+            <ScopeIntake />
           </div>
         </div>
       </section>
 
-      {/* ─── 5. DRIE FASEN — Scharlaken anker ─────────────────── */}
-      <section className="relative py-28 lg:py-40 bg-[#470020] overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
-        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-          <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-white/55 uppercase mb-4">
-              {ts.phasesEyebrow}
-            </p>
-            <h2
-              className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-12"
-              style={{ letterSpacing: "-0.03em" }}
-            >
-              {ts.phasesTitle}
-            </h2>
-          </ScrollReveal>
-          <FaseTijdlijn />
-        </div>
-      </section>
-
-      {/* ─── 6. DRIE VORMEN — Warm wit ────────────────────────── */}
+      {/* ─── 5. DRIE VORMEN — Warm wit ────────────────────────── */}
       <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
@@ -289,8 +241,77 @@ export default function TechnicalSupportClient() {
         </div>
       </section>
 
-      {/* ─── 7. WAT WIJ NIET DOEN — Wit ───────────────────────── */}
+      {/* ─── 6. DRIE FASEN — Scharlaken anker ─────────────────── */}
+      <section className="relative py-28 lg:py-40 bg-[#470020] overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <ScrollReveal>
+            <p className="text-xs font-black tracking-widest text-white/55 uppercase mb-4">
+              {ts.phasesEyebrow}
+            </p>
+            <h2
+              className="text-4xl lg:text-5xl font-black text-white tracking-tight mb-12"
+              style={{ letterSpacing: "-0.03em" }}
+            >
+              {ts.phasesTitle}
+            </h2>
+          </ScrollReveal>
+          <FaseTijdlijn />
+        </div>
+      </section>
+
+      {/* ─── 7. VIJF SPELREGELS — Wit ─────────────────────────── */}
       <section className="py-24 lg:py-32 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <ScrollReveal>
+            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
+              {ts.rulesEyebrow}
+            </p>
+            <h2
+              className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6"
+              style={{ letterSpacing: "-0.03em" }}
+            >
+              {ts.rulesTitle}
+            </h2>
+            <p className="text-[#6b4a56] text-lg leading-relaxed max-w-3xl mb-12">{ts.rulesIntro}</p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+            {ts.rules.map((rule, i) => (
+              <ScrollReveal
+                key={i}
+                delay={i * 80}
+                direction={i % 2 === 0 ? "left" : "right"}
+                className={i === ts.rules.length - 1 ? "md:col-span-2" : ""}
+              >
+                <div className="h-full p-8 lg:p-10 bg-[#f9f6f4] border-2 border-transparent rounded-2xl hover:border-[#470020]/20 hover:bg-white hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-start gap-5">
+                    <span
+                      className="font-black text-[#470020] leading-none shrink-0"
+                      style={{ fontSize: "clamp(2.2rem, 3vw, 3rem)", letterSpacing: "-0.04em", fontVariantNumeric: "tabular-nums" }}
+                    >
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h3
+                        className="text-xl font-black text-[#1a0810] mb-3 leading-tight"
+                        style={{ letterSpacing: "-0.02em" }}
+                      >
+                        {rule.title}
+                      </h3>
+                      <p className="text-[#6b4a56] leading-relaxed">{rule.body}</p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 8. WAT WIJ NIET DOEN — Warm wit ──────────────────── */}
+      <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
@@ -322,27 +343,6 @@ export default function TechnicalSupportClient() {
               </ScrollReveal>
             ))}
           </dl>
-        </div>
-      </section>
-
-      {/* ─── 8. INTAKE — Warm wit ─────────────────────────────── */}
-      <section className="py-24 lg:py-32 bg-[#f9f6f4] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <ScrollReveal>
-            <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">
-              {ts.intakeEyebrow}
-            </p>
-            <h2
-              className="text-4xl lg:text-5xl font-black text-[#1a0810] tracking-tight mb-6"
-              style={{ letterSpacing: "-0.03em" }}
-            >
-              {ts.intakeTitle}
-            </h2>
-            <p className="text-[#6b4a56] text-lg leading-relaxed max-w-3xl mb-12">{ts.intakeIntro}</p>
-          </ScrollReveal>
-          <div className="max-w-4xl">
-            <ScopeIntake />
-          </div>
         </div>
       </section>
 
