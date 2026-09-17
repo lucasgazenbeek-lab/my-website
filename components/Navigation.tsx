@@ -26,9 +26,15 @@ export default function Navigation() {
     { href: "/over-ons", label: t.nav.about },
   ];
 
+  // The logo already links home, so the desktop bar leaves that item out:
+  // with it there the seven labels broke onto two lines at every width.
+  const desktopLinks = links.filter((l) => l.href !== "/");
+
   // Seven nav items no longer fit beside the logo and the language switch at
   // lg (1024px), so the desktop nav starts at xl and the mobile menu covers
-  // everything below it.
+  // everything below it. The container caps at max-w-7xl, so the nav never
+  // gets more than ~810px however wide the window is: hence the tighter gap
+  // and nowrap, which keep the labels on one line.
   // On hero (dark scarlet) sections: text is white. After scroll: white bg, dark text.
   const onDark = !scrolled;
 
@@ -56,12 +62,12 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden xl:flex items-center gap-8">
-            {links.map((l) => (
+          <nav className="hidden xl:flex items-center gap-5">
+            {desktopLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`text-sm font-semibold transition-colors duration-200 tracking-wide ${
+                className={`text-sm font-semibold whitespace-nowrap transition-colors duration-200 tracking-wide ${
                   onDark
                     ? "text-white/80 hover:text-white"
                     : "text-[#1a0810]/70 hover:text-[#470020]"
