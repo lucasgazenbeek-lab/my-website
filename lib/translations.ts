@@ -683,7 +683,22 @@ export const translations = {
       scopeEyebrow: "De scope",
       scopeTitle: "Wat er allemaal in zit",
       scopeIntro:
-        "“Turnkey” is een woord waar iedereen iets anders onder verstaat. Hieronder staan de twaalf blokken waaruit een batterijopslagproject bestaat, wat er in elk blok zit en bij wie het risico ligt. Bij Full EPC ligt vrijwel alles bij ons; wat bij u blijft, staat er ook bij.",
+        "“Turnkey” is een woord waar iedereen iets anders onder verstaat. Hieronder staat per fase wat er in zit en bij wie het risico ligt. Bij Full EPC ligt vrijwel alles bij ons; wat bij u blijft, staat er ook bij.",
+      scopeTabLabel: "Fase",
+      scopeExampleLabel: "Bijvoorbeeld",
+      scopePhases: {
+        ontwerp: { tab: "Ontwerp", title: "Ontwerp, vergunning en netpositie" },
+        inkoop: { tab: "Inkoop", title: "Inkoop en specificatie" },
+        bouw: { tab: "Bouw", title: "Bouw, besturing en inbedrijfstelling" },
+      },
+      scopeExamples: {
+        ontwerp:
+          "De veiligheidsregio kan grotere afstanden tussen clusters vragen dan de norm als minimum stelt. Dat verandert de layout, en de layout bepaalt of het vermogen dat u voor ogen heeft nog op het perceel past. Daarom vragen wij dat advies op voordat het ontwerp vastligt.",
+        inkoop:
+          "Twee systemen met hetzelfde vermogen op papier kunnen een heel ander brandveiligheidsdossier hebben: het ene met een propagatietest op de complete eenheid, het andere alleen op moduleniveau. Dat verschil staat niet in de aanbieding, maar uw verzekeraar vraagt er wel naar.",
+        bouw:
+          "Het gecontracteerde vermogen geldt op het overdrachtspunt. Telt de hulpvoeding tijdens laden mee en zit dat niet in de begrenzing, dan overschrijdt u uw eigen contract. Dat is een instelling, geen verbouwing — mits het vooraf is meegenomen.",
+      },
       scopeRoles: { wij: "Wij", samen: "Samen", u: "U" },
       scopeItems: {
         batterijsysteem: {
@@ -1766,7 +1781,22 @@ export const translations = {
       scopeEyebrow: "The scope",
       scopeTitle: "Everything that is in it",
       scopeIntro:
-        "“Turnkey” is a word everyone reads differently. Below are the twelve blocks a battery storage project consists of, what sits in each block and where the risk lies. Under Full EPC almost everything sits with us; what stays with you is stated as well.",
+        "“Turnkey” is a word everyone reads differently. Below, per phase, is what is in it and where the risk lies. Under Full EPC almost everything sits with us; what stays with you is stated as well.",
+      scopeTabLabel: "Phase",
+      scopeExampleLabel: "For example",
+      scopePhases: {
+        ontwerp: { tab: "Design", title: "Design, permitting and grid position" },
+        inkoop: { tab: "Procurement", title: "Procurement and specification" },
+        bouw: { tab: "Construction", title: "Construction, control and commissioning" },
+      },
+      scopeExamples: {
+        ontwerp:
+          "The safety region can ask for larger distances between clusters than the standard sets as a minimum. That changes the layout, and the layout determines whether the capacity you have in mind still fits on the plot. So we obtain that advice before the design is fixed.",
+        inkoop:
+          "Two systems with the same capacity on paper can carry very different fire safety dossiers: one with a propagation test on the complete unit, the other only at module level. That difference is not in the quotation, but your insurer will ask about it.",
+        bouw:
+          "The contracted capacity applies at the transfer point. If auxiliary power counts while charging and that is not in the limiter, you exceed your own contract. That is a setting, not a rebuild — provided it was accounted for up front.",
+      },
       scopeRoles: { wij: "We", samen: "Together", u: "You" },
       scopeItems: {
         batterijsysteem: {
