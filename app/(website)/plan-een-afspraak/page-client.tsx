@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -77,6 +77,19 @@ export default function PlanEenAfspraak() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+
+  // Pages can hand us a subject: /plan-een-afspraak?onderwerp=technical-support
+  // prefills the message so the visitor doesn't have to retype why they came.
+  // Read from location rather than useSearchParams so this statically
+  // prerendered page doesn't need a Suspense bail-out.
+  useEffect(() => {
+    const subject = new URLSearchParams(window.location.search).get("onderwerp");
+    if (!subject) return;
+    const prefills = c.subjectPrefill as Record<string, string>;
+    const prefill = prefills[subject];
+    if (!prefill) return;
+    setFormData((prev) => (prev.message ? prev : { ...prev, message: prefill }));
+  }, [c.subjectPrefill]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

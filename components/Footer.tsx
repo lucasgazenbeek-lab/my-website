@@ -74,12 +74,12 @@ export default function Footer() {
           <div className="flex flex-col gap-6 text-sm">
             <div>
               <p className="text-white font-semibold">{contacts.emiel.name}</p>
-              <p className="text-white/40 text-xs">CEO & Oprichter</p>
+              <p className="text-white/40 text-xs">{t.contact.emielRole}</p>
               <a href={`tel:${contacts.emiel.phoneHref}`} className="text-white/60 hover:text-white transition-colors block mt-1">{contacts.emiel.phoneDisplay}</a>
             </div>
             <div>
               <p className="text-white font-semibold">{contacts.lucas.name}</p>
-              <p className="text-white/40 text-xs">Commercieel Directeur & Mede-eigenaar</p>
+              <p className="text-white/40 text-xs">{t.contact.lucasRole}</p>
               <a href={`tel:${contacts.lucas.phoneHref}`} className="text-white/60 hover:text-white transition-colors block mt-1">{contacts.lucas.phoneDisplay}</a>
             </div>
           </div>

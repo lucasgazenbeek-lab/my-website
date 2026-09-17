@@ -309,6 +309,533 @@ export const translations = {
       viewModel: "Bekijk model",
       idealFor: "Ideaal voor",
     },
+    technicalSupport: {
+      tag: "Partnermodel 02",
+      heroTitle: "Technical Support",
+      heroStandfirst:
+        "U voert uit. Wij nemen de laag daarboven over: het ontwerp, de stukken die uw opdrachtgever moet goedkeuren, en de afstemming met de andere partijen op het terrein. Wij leveren geen apparatuur, dus wij hebben geen belang bij welke keuze u maakt.",
+      ruleLabel: "De vuistregel",
+      ruleBody:
+        "Moet uw opdrachtgever het stuk goedkeuren, dan maken wij het. Gaat het over hoe het werk op de bouwplaats georganiseerd en uitgevoerd wordt, dan is het van u.",
+      ruleNote:
+        "Die grens is in de praktijk vrijwel altijd meteen duidelijk. Dat scheelt overleg, en het maakt aan het begin van een project al zichtbaar waar het risico ligt.",
+
+      problemEyebrow: "Waar dit over gaat",
+      problemTitle: "De uitvraag is groter dan het werk",
+      problemParagraphs: [
+        "Een aannemer die batterijopslag kan bouwen, kan dat meestal echt. De funderingen, de kabelwerken, de montage, de inbedrijfstelling: dat is werk waar een goede uitvoerende partij in thuis is.",
+        "Wat daar tegenwoordig omheen zit, is iets anders. Een project-gefinancierde opdrachtgever moet aan zijn financiers kunnen laten zien dat elk onderdeel ontworpen, gecontroleerd, goedgekeurd en gedocumenteerd is. Dat vertaalt zich in een contract in de vorm van een FIDIC Yellow Book Design & Build, een scope demarcation matrix met tientallen regels waarvan een flink deel afstemming met een andere contractor betreft, een deviation schedule met een maximumaantal afwijkingen, een master document register, maandrapportages in voorgeschreven vorm, hold- en witness points, en een goedkeuringsronde per onderaannemer met een reactietermijn van weken.",
+        "Dat is geen uitvoering. Het is een parallel spoor dat naast de uitvoering loopt en er niet ondergeschikt aan is. Wie dat spoor niet kan bemensen, schrijft niet in — of schrijft in en loopt er tijdens de bouw tegenaan. Wij bemensen dat spoor.",
+      ],
+      problemStats: [
+        { value: "6", label: "stukken die een opdrachtgever doorgaans bij het bod vraagt" },
+        { value: "3", label: "contractors die tegelijk op hetzelfde terrein werken" },
+        { value: "80+", label: "documenten in een master document register voor de bouwfase" },
+      ],
+      problemStatsNote:
+        "Indicatief voor een utility-scale BESS-uitvraag onder een project-gefinancierd contract.",
+
+      scopeEyebrow: "Rolverdeling",
+      scopeTitle: "Wie doet wat",
+      scopeIntro:
+        "Hieronder staat de rolverdeling zoals wij die standaard voorstellen bij een uitvraag voor de balance of plant van een batterijopslagsysteem. Filter op wat u zelf al doet, dan ziet u wat er voor ons overblijft — en andersom. De verdeling is een startpunt, geen sjabloon: bij elk project schuiven er regels op, en dat gesprek voeren wij liever aan het begin dan halverwege.",
+      scopeFilterLabel: "Filter op rol",
+      scopeFilterAll: "Alles",
+      scopeReset: "Toon alles",
+      scopeBlockLabel: "Blok",
+      scopeCountLabel: "werkpakketten",
+      scopeRoles: {
+        u: "U",
+        gridstate: "Gridstate",
+        samen: "Samen",
+        onderaannemer: "Onderaannemer",
+      },
+      scopeCounter: {
+        u: "{count} van de {total} werkpakketten liggen bij u",
+        gridstate: "{count} van de {total} werkpakketten liggen bij ons",
+        samen: "{count} van de {total} werkpakketten doen wij samen",
+        onderaannemer: "{count} van de {total} werkpakketten gaan naar een onderaannemer",
+      },
+      scopeBlocks: {
+        bid: "Bied- en contractfase",
+        engineering: "Engineering en design",
+        civiel: "Civiele uitvoering",
+        elektro: "Elektrotechnische uitvoering",
+        lossen: "Lossen, plaatsen en transport",
+        itot: "IT, OT en beveiliging",
+        bouwplaats: "Bouwplaats, veiligheid en projectleiding",
+        begeleiding: "Uitvoeringsbegeleiding en hoofdaannemersondersteuning",
+      },
+      scopeItems: {
+        "b0-vragenlijst": {
+          label: "Vragenlijst aan de opdrachtgever",
+          note: "Wij stellen de technische en contractuele vragen op; u dient ze in als contractspartij.",
+        },
+        "b0-clarification": {
+          label: "Deelname clarification meetings",
+          note: "Wij bereiden voor en verwerken, u zit er als hoofdaannemer bij.",
+        },
+        "b0-deviation": {
+          label: "Deviation schedule",
+          note: "Wij onderbouwen per afwijking de technische reden en het alternatieve voorstel. U kiest welke worden ingediend.",
+        },
+        "b0-proposal": {
+          label: "Technical proposal en interfacebenadering",
+          note: "Het technische voorstel en de manier waarop de raakvlakken met de andere contractors worden beheerst.",
+        },
+        "b0-programma": {
+          label: "Projectconstructieprogramma",
+          note: "Mijlpalen, hoofdfasen, kritiek pad met float, en versnellingsmaatregelen met hun effect. U toetst op uitvoerbaarheid.",
+        },
+        "b0-organogram": {
+          label: "Organogram bouwfase",
+          note: "Rollen en verantwoordelijkheden, inclusief de verdeling van QA/QC, documentbeheer en contractmanagement.",
+        },
+        "b0-mdr": {
+          label: "Master document register",
+          note: "De volledige lijst van documenten die tijdens de bouw geleverd moet worden, met nummering en fasering.",
+        },
+        "b0-engineering": {
+          label: "Engineeringstukken bij het bod",
+          note: "Eendraadschema, terreinlayout en kabelberekeningen, in de mate van detail die bij een bod hoort.",
+        },
+        "b0-cyber": {
+          label: "Cybersecurity response form",
+          note: "Ingevuld conform de cybersecurity-eisen van de opdrachtgever.",
+        },
+        "b0-prijsstaat": {
+          label: "Prijsstaat: structuur en verificatie",
+          note: "Wij bouwen de staat op volgens de kostenblokken van de opdrachtgever en controleren op volledigheid tegen de scope matrix. U prijst de uitvoering.",
+        },
+        "b0-eenheidsprijzen": {
+          label: "Eenheidsprijzen en calculatie uitvoering",
+          note: "Uw kostprijzen, uw marge.",
+        },
+        "b0-financieel": {
+          label: "Financiële stukken en zekerheden",
+          note: "Jaarrekeningen, bankgarantiecapaciteit, concerngaranties.",
+        },
+        "b1-layout": {
+          label: "Systeem- en terreinlayout",
+          note: "Positionering van units en transformatorstations, kabeltraces, kruisingen, onderhoudspaden.",
+        },
+        "b1-eendraad": {
+          label: "Eendraadschema",
+          note: "Tot en met het koppelpunt met de middenspanningsinstallatie.",
+        },
+        "b1-kabel": {
+          label: "MV- en LV-kabelontwerp",
+          note: "Kerndoorsneden en belastbaarheid conform DIN EN 60287, kortsluitberekening en klemkrachtberekening.",
+        },
+        "b1-hulpvoeding": {
+          label: "Hulpvoedingsconcept en -ontwerp",
+          note: "Redundante opzet, middenspanningsaansluiting, laagspanningsverdeling en koppeling, met de technische uitvraag van de transformatoren.",
+        },
+        "b1-aarding": {
+          label: "Aardingsnetontwerp",
+          note: "Wij schrijven de technische uitvraag en reviewen het resultaat.",
+        },
+        "b1-bliksem": {
+          label: "Bliksembeschermingsrisicoanalyse",
+          note: "Uitvraag en review conform DIN EN IEC 62305, voor het complete terrein.",
+        },
+        "b1-grondonderzoek": {
+          label: "Grondonderzoek en thermische weerstandsmetingen",
+          note: "Uitvraag aan het laboratorium, begeleiding van de monstername conform ASTM D5334 en VDI 4640-1, en verwerking in het kabelontwerp.",
+        },
+        "b1-verlichting": {
+          label: "Terreinverlichting",
+          note: "Elektrotechnisch ontwerp conform DIN EN 12464-2.",
+        },
+        "b1-scada": {
+          label: "SCADA- en toegangscontrole-interface",
+          note: "Specificatie van poortsignalering en sleutelplan richting de hekwerkleverancier en de IT-partij.",
+        },
+        "b1-fundering": {
+          label: "Funderingsontwerp",
+          note: "Tenzij u dat liever uitbesteedt; dan schrijven wij de uitvraag.",
+        },
+        "b1-civiel": {
+          label: "Civiel ontwerp",
+          note: "Wegen, drainage, bluswatersysteem, sleufprofielen, terreininrichting.",
+        },
+        "b2-grondwerk": {
+          label: "Grondwerk, funderingen en verhardingen",
+          note: "Uw werk, uw materieel, uw mensen.",
+        },
+        "b2-sleuven": {
+          label: "Kabelsleuven en mantelbuizen",
+          note: "Volgens de sleufprofielen uit het civiele ontwerp.",
+        },
+        "b2-bluswater": {
+          label: "Bluswatervoorziening",
+          note: "Wij specificeren, u contracteert.",
+        },
+        "b2-hekwerk": {
+          label: "Hekwerk, poorten en toegangscontrole",
+          note: "Wij specificeren inclusief de interface met de brandweersluiting, u contracteert.",
+        },
+        "b3-kabelleg": {
+          label: "Kabelleg- en montagewerk",
+          note: "Uitvoering met uw eigen ploegen, volgens het goedgekeurde kabelontwerp.",
+        },
+        "b3-aansluiten": {
+          label: "Aansluiten en aarden",
+          note: "Het aansluitwerk op het terrein, inclusief de aardverbindingen.",
+        },
+        "b3-beproeving": {
+          label: "Kabelbeproeving VLF en partiële ontlading",
+          note: "Tenzij u dat zelf in huis heeft.",
+        },
+        "b3-iv": {
+          label: "Installatieverantwoordelijke",
+          note: "Conform DIN VDE 0105-100 of NEN 3140, afhankelijk van het land.",
+        },
+        "b4-hijsplan": {
+          label: "Hijsplan en hijswerk",
+          note: "Wij specificeren de eisen, de contractering ligt bij u.",
+        },
+        "b4-transport": {
+          label: "Transport en aanvoerplanning",
+          note: "Levertijden van containers lopen in de orde van maanden en bepalen het kritieke pad.",
+        },
+        "b5-netwerk": {
+          label: "Datanetwerk en glasvezel op terrein",
+          note: "Aanleg en aansluiting op het terrein, volgens onze interfacespecificatie.",
+        },
+        "b5-camera": {
+          label: "Camerabewaking en detectie",
+          note: "Scope-afbakening met de opdrachtgever is hier vrijwel altijd nodig.",
+        },
+        "b5-scada-interface": {
+          label: "Interfacespecificatie richting SCADA",
+          note: "Welke signalen worden uitgewisseld, in welk formaat en via welk protocol.",
+        },
+        "b6-projectleiding": {
+          label: "Projectleiding en coördinatie op locatie",
+          note: "De uitvoeringsleiding blijft van u. Wij nemen die niet over.",
+        },
+        "b6-voorzieningen": {
+          label: "Bouwplaatsvoorzieningen",
+          note: "Keten, hekken, opslag, nutsvoorzieningen en terreinbeheer tijdens de bouw.",
+        },
+        "b6-veiligheid": {
+          label: "Veiligheidscoördinatie op de bouwplaats",
+          note: "De wettelijke coördinatorrol tijdens de uitvoering.",
+        },
+        "b6-landmeten": {
+          label: "Landmeten en as-built inmeting",
+          note: "Wij specificeren het formaat, zodat het direct bruikbaar is in het as-built dossier.",
+        },
+        "b7-pmp": {
+          label: "Projectmanagementplan",
+          note: "Systeem- en werkstructuur, processen, hold- en witness points. Ter goedkeuring vóór aanvang van het werk.",
+        },
+        "b7-veiligheidsdossier": {
+          label: "Veiligheidsdossier",
+          note: "V&G-plan, noodplan en elektrisch veiligheidsplan, in de voertaal van het contract, inclusief schakelplanprocedure en werkvergunningensysteem.",
+        },
+        "b7-documentbeheer": {
+          label: "Documentbeheer en master document register",
+          note: "Het lopende beheer van alle documenten richting de opdrachtgever, inclusief revisies en goedkeuringsstatus.",
+        },
+        "b7-rapportage": {
+          label: "Maandelijkse voortgangsrapportage",
+          note: "Mijlpalen, scopewijzigingen, kritiek pad, financiële status, de belangrijkste risico's en veiligheid.",
+        },
+        "b7-interface": {
+          label: "Interfacemanagement tijdens uitvoering",
+          note: "Bewaking en oplossing van raakvlakken tussen de leverancier, de andere contractors, de netbeheerder en de onderaannemers, vastgelegd in een interfaceregister.",
+        },
+        "b7-uitvragen": {
+          label: "Technische uitvragen onderaannemers",
+          note: "Per pakket een werkdocument met scope, normen, hoeveelheden, interfaces en acceptatiecriteria, direct bruikbaar als contractbijlage.",
+        },
+        "b7-contracteren": {
+          label: "Contracteren en aansturen onderaannemers",
+          note: "Alle contracten liggen bij u, ook die wij technisch uitvragen.",
+        },
+        "b7-wijzigingen": {
+          label: "Beoordeling ontwerpwijzigingen",
+          note: "Technische beoordeling tijdens de bouw en de onderbouwing richting de opdrachtgever.",
+        },
+        "b7-tests": {
+          label: "Ondersteuning tests en energisatie",
+          note: "Testplannen, bijwoning van SAT en netcodetests, en verwerking van de rapportage.",
+        },
+        "b7-asbuilt": {
+          label: "As-built dossier en overdracht",
+          note: "Compleet dossier in pdf en dwg, en de overdracht aan de opdrachtgever.",
+        },
+      },
+
+      rulesEyebrow: "Hoe wij dit afspreken",
+      rulesTitle: "Vijf spelregels die de rest bepalen",
+      rulesIntro:
+        "Een rolverdeling op papier houdt geen stand als niet vastligt wie welk risico draagt. Dit zijn de vijf afspraken die wij aan het begin maken. Ze staan in de overeenkomst, niet in een presentatie.",
+      rules: [
+        {
+          title: "Wie specificeert is niet wie contracteert",
+          body: "Wij schrijven de technische uitvraag en doen de technische beoordeling. U voert de commerciële onderhandeling en tekent. Alle onderaannemerscontracten liggen bij u, ook die wij selecteren, zodat er één contractuele keten is die back-to-back doorloopt naar uw opdrachtgever. Houd er rekening mee dat veel contracten voorafgaande schriftelijke goedkeuring van elke onderaannemer eisen, met een reactietermijn van weken. Die ronde hoort in de planning.",
+        },
+        {
+          title: "De grens ligt bij de goedkeuring van uw opdrachtgever",
+          body: "Moet uw opdrachtgever het stuk goedkeuren, dan maken wij het: tekeningen, berekeningen, rapporten, plannen en het documentregister. Gaat het over hoe het werk op de bouwplaats georganiseerd wordt, dan is het van u. Dat is de scheidslijn voor de werkvoorbereiding, en die is bruikbaar zonder er telkens over te hoeven overleggen.",
+        },
+        {
+          title: "Wie specificeert, draagt het specificatierisico",
+          body: "Klopt ons werkdocument niet, dan is dat van ons. Wat de uitvoerende partij er vervolgens van maakt, is van hen. Die knip staat expliciet in de overeenkomst. Zonder die zin wordt het bij het eerste conflict een welles-nietes, en dat is precies het moment waarop u er geen tijd voor heeft.",
+        },
+        {
+          title: "Elke onderaannemer krijgt een werkdocument, geen mondelinge scope",
+          body: "Per pakket één document: scope of work, van toepassing zijnde normen, hoeveelheden en tekeningen, interfaces met de andere partijen, deliverables en acceptatiecriteria, planning en raakvlakmomenten, en de veiligheids- en documentvereisten die uit het hoofdcontract doorlopen. Dat document is meteen de bijlage bij het contract dat u sluit.",
+        },
+        {
+          title: "Alles wat het hoofdcontract oplegt, loopt back-to-back door",
+          body: "De employer's requirements, de veiligheidseisen, het cybersecurityregime en de documentverplichtingen gelden ook voor de onderaannemers. Dat is geen formaliteit: het raakt de veiligheidsplanverplichting, het werkvergunningensysteem, de certificering van personeel en bepalingen rond eigendomsvoorbehoud die opdrachtgevers expliciet naar onderaannemers doorgezet willen zien.",
+        },
+      ],
+
+      phasesEyebrow: "Van uitvraag tot overdracht",
+      phasesTitle: "Drie fasen",
+      phasesFooter:
+        "Alles wat het contract en de employer's requirements van de hoofdaannemer vragen aan plannen, registers, rapportages en goedkeuringsrondes, bereiden wij voor en houden wij bij. U tekent en voert uit.",
+      phases: [
+        {
+          tab: "Fase 1 · Biedfase",
+          title: "Biedfase",
+          intro:
+            "Van de uitvraag tot contractondertekening. Het doel is een inzending die compleet, consistent en beoordeelbaar is, en een contract dat u kunt dragen. Deze fase doen wij desgewenst op basis van no cure no pay: wordt het werk niet aan u gegund, dan factureren wij niets.",
+          items: [
+            { title: "Vragen aan de opdrachtgever", desc: "Het opstellen van de technische en contractuele vragen, en het doorvoeren van de antwoorden in alle biedstukken." },
+            { title: "Onderbouwing van de afwijkingen", desc: "Per afwijking de technische reden en een voorstel voor alternatieve tekst. U kiest welke worden ingediend." },
+            { title: "Hoeveelhedenstaat elektrotechnisch", desc: "Meters kabel per doorsnede, eindsluitingen, klemmen en aardingskabel, als basis voor uw calculatie en de kabelinkoop." },
+            { title: "Structuur en verificatie van de prijsstaat", desc: "Opbouw volgens de kostenblokken van de opdrachtgever, en controle op volledigheid tegen de scope matrix." },
+            { title: "Projectconstructieprogramma", desc: "Mijlpalen, hoofdfasen, kritiek pad met float en buffers, en versnellingsmaatregelen met hun effect." },
+            { title: "Technical proposal en interfacebenadering", desc: "Het technische voorstel en hoe de raakvlakken met de andere contractors beheerst worden." },
+            { title: "Organogram en opzet documentregister", desc: "Rollen en verantwoordelijkheden in de bouwfase, en de lijst van documenten die tijdens de bouw geleverd wordt." },
+            { title: "Cybersecurityformulier", desc: "Ingevuld conform de eisen van de opdrachtgever." },
+            { title: "Terrein- en systeemlayout", desc: "Units, transformatorstations, kabeltraces en kruisingen, doorgewerkt op de situatietekening van de opdrachtgever." },
+            { title: "Hulpvoedingsconcept", desc: "Opzet van de redundante hulpvoeding, met alternatieven." },
+            { title: "Indicatief eendraadschema", desc: "Tot en met het koppelpunt met de middenspanningsinstallatie." },
+            { title: "Kabelontwerp en -berekeningen", desc: "Kerndoorsneden en belastbaarheid, als basis voor de inkoop van de grootste materiaalpost in het contract." },
+            { title: "Samenstellen van de inzending", desc: "De complete set in de structuur die de uitvraag voorschrijft en in uw huisstijl." },
+            { title: "Clarification meetings en eindonderhandeling", desc: "Voorbereiding, deelname en verwerking tot en met ondertekening." },
+          ],
+        },
+        {
+          tab: "Fase 2 · Detailengineering",
+          title: "Detailengineering",
+          intro:
+            "Start bij gunning en loopt tot en met de goedkeuring van de ontwerpstukken en de design freeze. Bij een project-gefinancierde opdrachtgever heeft de financier de goedgekeurde ontwerpstukken nodig, dus dit spoor ligt op het kritieke pad naar financial close. Loopt het uit, dan loopt het geld uit.",
+          items: [
+            { title: "Definitieve systeem- en terreinlayout", desc: "Inclusief kabeltraces, afgestemd op uw civiele ontwerp en de positionering van de leverancier." },
+            { title: "Definitief MV- en LV-kabelontwerp", desc: "Kabelbelasting conform DIN EN 60287, kortsluitberekening en klemkrachtberekening, ter goedkeuring bij de opdrachtgever." },
+            { title: "Thermische weerstandsmetingen", desc: "Uitvraag, begeleiding van de monstername conform ASTM D5334 en VDI 4640-1, en verwerking in het kabelontwerp." },
+            { title: "Hulpvoeding", desc: "Definitief ontwerp van de hulpvoedingsstations met middenspanningsaansluiting, laagspanningsverdeling en koppeling." },
+            { title: "Aardingsnetontwerp", desc: "Technische uitvraag aan de ontwerpende partij en review van het resultaat." },
+            { title: "Bliksembeschermingsrisicoanalyse", desc: "Uitvraag en review conform DIN EN IEC 62305, voor het complete terrein." },
+            { title: "Terreinverlichting", desc: "Elektrotechnisch ontwerp conform DIN EN 12464-2." },
+            { title: "SCADA- en toegangscontrole-interface", desc: "Specificatie van poortsignalering en sleutelplan." },
+            { title: "Technische uitvragen onderaannemers", desc: "Per pakket een werkdocument, plus de technische beoordeling van de aanbiedingen." },
+            { title: "Interface-engineering", desc: "Afstemming met de leverancier, de andere contractors en de netbeheerder op alle raakvlakken uit de scope matrix, vastgelegd in een interfaceregister." },
+            { title: "Ontwerpreviews", desc: "Begeleiding van de goedkeuringsrondes en verwerking van het commentaar van de opdrachtgever en zijn adviseurs." },
+            { title: "Projectmanagement engineeringfase", desc: "Planning, bewaking en voortgang van het ontwerpspoor." },
+          ],
+        },
+        {
+          tab: "Fase 3 · Uitvoeringsbegeleiding",
+          title: "Uitvoeringsbegeleiding",
+          intro:
+            "Start bij de voorbereiding van de uitvoering en loopt tot en met de acceptatie van het as-built dossier. U voert uit en leidt het werk op locatie. Wij houden het documentaire en contractuele spoor richting uw opdrachtgever bij en bewaken de raakvlakken met de andere partijen op het terrein.",
+          items: [
+            { title: "Projectmanagementplan", desc: "Systeem- en werkstructuur, processen, hold- en witness points. Ter goedkeuring vóór aanvang van het werk." },
+            { title: "Veiligheidsdossier", desc: "V&G-plan, noodplan en elektrisch veiligheidsplan in de voertaal van het contract, inclusief schakelplanprocedure en werkvergunningensysteem." },
+            { title: "Documentbeheer", desc: "Het lopende beheer van alle documenten richting de opdrachtgever, inclusief revisies en goedkeuringsstatus." },
+            { title: "Maandelijkse voortgangsrapportage", desc: "Mijlpalen, scopewijzigingen, kritiek pad, financiële status, de belangrijkste risico's en veiligheid." },
+            { title: "Interfacemanagement", desc: "Bewaking en oplossing van raakvlakken tussen de leverancier, de andere contractors, de netbeheerder en de onderaannemers." },
+            { title: "Beoordeling ontwerpwijzigingen", desc: "Technische beoordeling van wijzigingen tijdens de bouw en de onderbouwing richting de opdrachtgever." },
+            { title: "Ondersteuning tests en energisatie", desc: "Testplannen, bijwoning van SAT en netcodetests, en verwerking van de rapportage." },
+            { title: "As-built dossier en overdracht", desc: "Compleet dossier in pdf en dwg, en de overdracht aan de opdrachtgever." },
+          ],
+        },
+      ],
+
+      formsEyebrow: "Omvang",
+      formsTitle: "Drie vormen, afhankelijk van wat u al heeft",
+      formsFitLabel: "Past bij",
+      forms: [
+        {
+          id: "volledig",
+          title: "Volledige scope-uitwerking",
+          body: "Wij nemen het complete spoor boven de uitvoering over, van de biedfase tot en met het as-built dossier. U bouwt en leidt het werk op locatie; wij leveren het ontwerp, de stukken en het interfacebeheer richting uw opdrachtgever.",
+          features: [
+            "Alle drie de fasen, één vaste prijs",
+            "Wij zijn uw onderaannemer, u blijft contractspartij",
+            "Biedfase desgewenst op no cure no pay",
+          ],
+          fit: "een aannemer die op een uitvraag wil inschrijven die groter is dan zijn eigen voorbereidingsorganisatie.",
+        },
+        {
+          id: "owner",
+          title: "Owner's engineering",
+          body: "Wij zitten aan uw kant van de tafel. Bij een aanbesteding, bij de beoordeling van het ontwerp van een derde, of bij de technische acceptatie van werk dat al is uitgevoerd.",
+          features: [
+            "Toetsing van ontwerp, berekeningen en documentatie",
+            "Beoordeling van aanbiedingen op technische gelijkwaardigheid",
+            "Aanwezigheid bij tests, inspecties en oplevering",
+          ],
+          fit: "een opdrachtgever of investeerder die wil weten of hij krijgt waarvoor hij tekent.",
+        },
+        {
+          id: "los",
+          title: "Losse engineering-inzet",
+          body: "Eén onderdeel, afgebakend. Een kabelberekening, een layout, een hulpvoedingsbalans, een normtoets, of een second opinion op een ontwerp dat vastloopt.",
+          features: [
+            "Afgebakende opdracht met een vaste doorlooptijd",
+            "Geen verplichting tot vervolg",
+            "Direct bruikbaar als bijlage bij uw eigen stukken",
+          ],
+          fit: "een partij die één specifiek gat heeft en dat wil dichten zonder een samenwerking op te tuigen.",
+        },
+      ],
+
+      notEyebrow: "Afbakening",
+      notTitle: "Wat wij in dit model niet doen",
+      notIntro:
+        "Een scope die alleen zegt wat er wél in zit, is geen scope. Dit staat er expliciet buiten, en dat is bewust.",
+      notItems: [
+        {
+          title: "Wij leveren geen apparatuur.",
+          body: "In dit model verkopen wij niets. Ons advies over celchemie, fabrikant of configuratie is daardoor niet gekleurd door wat wij op voorraad hebben of waar onze marge zit.",
+        },
+        {
+          title: "Wij voeren niet uit.",
+          body: "Geen civiel werk, geen montage, geen eigen ploegen op de bouwplaats.",
+        },
+        {
+          title: "Wij nemen de uitvoeringsleiding niet over.",
+          body: "De projectleiding en de coördinatie op locatie blijven bij u, inclusief de wettelijke rollen die daarbij horen.",
+        },
+        {
+          title: "Wij regelen uw fiscale en arbeidsrechtelijke verplichtingen niet.",
+          body: "Bij grensoverschrijdend werk is dat een eigenstandig traject; wij wijzen erop, wij doen het niet.",
+        },
+        {
+          title: "Wij stellen uw zekerheden niet.",
+          body: "Bankgaranties, concerngaranties en verzekeringen richting uw opdrachtgever blijven bij u.",
+        },
+      ],
+
+      intakeEyebrow: "In twee minuten",
+      intakeTitle: "Wat zou u van ons nodig hebben?",
+      intakeIntro:
+        "Vijf vragen. Aan het eind ziet u welke vorm het meest voor de hand ligt en welke werkpakketten dan bij ons zouden liggen. Er wordt niets verstuurd totdat u daar zelf op klikt.",
+      intakeProgress: "Vraag {current} van {total}",
+      intakeBack: "Vorige vraag",
+      intakeRestart: "Begin opnieuw",
+      intakeDiscuss: "Bespreek dit met ons",
+      intakeResultLabel: "Wat het meest voor de hand ligt",
+      intakePackagesLabel: "Werkpakketten die dan bij ons liggen",
+      intakePackagesNote:
+        "Afgeleid uit dezelfde rolverdeling als de matrix hierboven. Bij elk project schuiven er regels op.",
+      intakeCaveatLabel: "Eerlijk erbij",
+      intakeDefaultedNote:
+        "Uw antwoorden geven een gemengd beeld. Dan is dit het logische vertrekpunt, en bakenen wij de omvang in het eerste gesprek af.",
+      intakeCaveats: {
+        volledig:
+          "Heeft u een eigen engineeringsafdeling met capaciteit, dan is de volledige scope-uitwerking waarschijnlijk te zwaar. Dan is een afgebakende opdracht logischer.",
+        owner:
+          "Voert u het werk zelf uit, dan koopt u met owner's engineering alleen een oordeel in en blijft het maken van de stukken bij u liggen. Dat is zelden wat er knelt.",
+        los: "Blijkt tijdens het werk dat het ene gat er drie zijn, dan wordt losse inzet duurder dan een vaste prijs vooraf. Zeg dat liever meteen, dan rekenen wij het allebei door.",
+      },
+      intakeQuestions: [
+        {
+          question: "Waar staat het project?",
+          answers: [
+            "Er ligt een uitvraag die ik nog moet beantwoorden",
+            "Het werk is gegund, het ontwerp moet beginnen",
+            "De bouw loopt en het documentaire spoor loopt achter",
+            "Ik wil het ontwerp van een derde laten toetsen",
+          ],
+        },
+        {
+          question: "Wat doet u zelf op de bouwplaats?",
+          answers: [
+            "Alles, civiel en elektrotechnisch",
+            "Alleen civiel, het elektrotechnische deel besteed ik uit",
+            "Ik voer niet uit, ik ben opdrachtgever of investeerder",
+          ],
+        },
+        {
+          question: "Heeft u een eigen engineeringsafdeling?",
+          answers: [
+            "Nee",
+            "Ja, voor civiel maar niet voor elektrotechniek",
+            "Ja, maar niet met capaciteit voor deze uitvraag",
+            "Ja, ik zoek alleen een tweede paar ogen",
+          ],
+        },
+        {
+          question: "Wat vraagt uw opdrachtgever aan documentatie?",
+          answers: [
+            "Een volledig documentregister, maandrapportages en goedkeuringsrondes",
+            "Een standaard opleverdossier",
+            "Dat weet ik nog niet",
+            "Niet van toepassing",
+          ],
+        },
+        {
+          question: "Wat is uw grootste zorg?",
+          answers: [
+            "Dat ik de uitvraag niet op tijd compleet krijg",
+            "Dat ik in de uitvoering vastloop op raakvlakken met andere partijen",
+            "Dat het ontwerp niet klopt en ik daarop word afgerekend",
+            "Dat ik niet kan beoordelen of wat er ligt goed is",
+          ],
+        },
+      ],
+
+      faqEyebrow: "Veelgestelde vragen",
+      faqTitle: "Wat partijen ons vooraf vragen",
+      faq: [
+        {
+          q: "Werken jullie ook als onderaannemer van een aannemer?",
+          a: "Ja, en dat is de meest voorkomende vorm van dit model. U blijft contractspartij richting uw opdrachtgever; wij zijn uw onderaannemer op de scope die u niet zelf doet. Opdrachtgevers geven daar vaak de voorkeur aan boven een samenwerkingsverband, omdat zij één aanspreekpunt houden en de keten back-to-back doorloopt.",
+        },
+        {
+          q: "Wij hebben al een leverancier gekozen. Is dat een probleem?",
+          a: "Nee. Wij leveren in dit model niets, dus wij hebben geen belang bij de keuze. Wat wij wel doen is toetsen of het gekozen systeem past bij de eisen uit het contract, en wat de gevolgen zijn voor layout, kabelontwerp en hulpvoeding.",
+        },
+        {
+          q: "Hoe zit het met aansprakelijkheid?",
+          a: "Wij dragen het risico op onze eigen specificatie. Wat de uitvoerende partij daar vervolgens van maakt, ligt bij hen. Die knip leggen wij expliciet vast in de overeenkomst, voordat het werk begint.",
+        },
+        {
+          q: "Werken jullie ook buiten Nederland?",
+          a: "Ja. Dan gelden wel de lokale normen, de lokale veiligheidsrollen en de lokale fiscale en arbeidsrechtelijke verplichtingen. Die laatste zijn een eigenstandig traject dat wij niet voor u regelen, maar wel vroeg op tafel leggen.",
+        },
+        {
+          q: "Wat kost het?",
+          a: "Voor een volledige scope-uitwerking werken wij met één vaste prijs voor het hele traject, uitgesplitst in mijlpalen die aansluiten op de momenten die in het project van uw opdrachtgever toch al vastliggen. De biedfase kan op no cure no pay. Voor een afgebakende opdracht maken wij een vaste prijs per resultaat. Wat het in uw geval is, hangt te veel van de scope af om hier een getal neer te zetten.",
+        },
+        {
+          q: "Blijven jullie beschikbaar na oplevering?",
+          a: "Op afroep, tegen uurtarief. Dat is bewust geen onderdeel van de vaste prijs: wat er na oplevering nodig is, weet niemand vooraf, en een opslag daarvoor in de contractprijs is een slag in de lucht.",
+        },
+      ],
+
+      ctaTitle: "Ligt er een uitvraag op uw bureau?",
+      ctaSub:
+        "Stuur hem door, of plan een gesprek van een halfuur. Wij zeggen binnen een week of wij er iets in zien en wat wij erin zouden doen. Dat kost u niets en het verplicht u tot niets.",
+      ctaPlan: "Plan een afspraak",
+      ctaCall: "Bel direct",
+      ctaLinks: {
+        partnermodellen: "Alle partnermodellen",
+        watWijDoen: "Wat wij doen",
+        fullEpc: "Full EPC",
+      },
+    },
     projects: {
       heroTitle: "Onze projecten spreken voor zich",
       heroSub: "Een selectie van gerealiseerde en lopende projecten in C&I en utility-scale batterijopslag.",
@@ -480,6 +1007,11 @@ export const translations = {
       calendarTitle: "Maak direct een afspraak",
       calendarSub: "Kies een moment dat u schikt.",
       orDirect: "Of neem direct contact op",
+      // Prefill for the message field, keyed by the ?onderwerp= query value.
+      subjectPrefill: {
+        "technical-support":
+          "Onderwerp: Technical Support — engineering en hoofdaannemersondersteuning.\n\n",
+      },
     },
     footer: {
       tagline: "Samen bouwen aan de energietransitie",
@@ -811,6 +1343,533 @@ export const translations = {
       viewModel: "View model",
       idealFor: "Ideal for",
     },
+    technicalSupport: {
+      tag: "Partner model 02",
+      heroTitle: "Technical Support",
+      heroStandfirst:
+        "You build. We take over the layer above it: the design, the documents your client has to approve, and the coordination with the other parties on site. We supply no equipment, so we have no stake in the choices you make.",
+      ruleLabel: "The rule of thumb",
+      ruleBody:
+        "If your client has to approve the document, we produce it. If it is about how the work on site is organised and carried out, it is yours.",
+      ruleNote:
+        "In practice that line is almost always obvious straight away. It saves discussion, and it makes clear at the start of a project where the risk sits.",
+
+      problemEyebrow: "What this is about",
+      problemTitle: "The tender is bigger than the work",
+      problemParagraphs: [
+        "A contractor who can build battery storage usually really can. Foundations, cabling, installation, commissioning: that is work a good executing party knows inside out.",
+        "What surrounds it these days is something else. A project-financed client has to be able to show its financiers that every component has been designed, checked, approved and documented. In a contract that becomes a FIDIC Yellow Book Design & Build, a scope demarcation matrix with dozens of lines of which a fair share concern coordination with another contractor, a deviation schedule with a cap on the number of deviations, a master document register, monthly reports in a prescribed format, hold and witness points, and an approval round per subcontractor with a response time measured in weeks.",
+        "That is not execution. It is a parallel track that runs alongside the work and is not subordinate to it. A party that cannot staff that track does not bid — or bids and runs into it during construction. We staff that track.",
+      ],
+      problemStats: [
+        { value: "6", label: "documents a client typically asks for with the bid" },
+        { value: "3", label: "contractors working on the same site at once" },
+        { value: "80+", label: "documents in a master document register for the build phase" },
+      ],
+      problemStatsNote:
+        "Indicative of a utility-scale BESS tender under a project-financed contract.",
+
+      scopeEyebrow: "Division of roles",
+      scopeTitle: "Who does what",
+      scopeIntro:
+        "Below is the division of roles we propose as standard for a tender covering the balance of plant of a battery storage system. Filter on what you already do and you will see what is left for us — and the other way around. The split is a starting point, not a template: on every project some lines move, and we would rather have that conversation at the start than halfway through.",
+      scopeFilterLabel: "Filter by role",
+      scopeFilterAll: "All",
+      scopeReset: "Show everything",
+      scopeBlockLabel: "Block",
+      scopeCountLabel: "work packages",
+      scopeRoles: {
+        u: "You",
+        gridstate: "Gridstate",
+        samen: "Together",
+        onderaannemer: "Subcontractor",
+      },
+      scopeCounter: {
+        u: "{count} of the {total} work packages sit with you",
+        gridstate: "{count} of the {total} work packages sit with us",
+        samen: "{count} of the {total} work packages we do together",
+        onderaannemer: "{count} of the {total} work packages go to a subcontractor",
+      },
+      scopeBlocks: {
+        bid: "Bid and contract phase",
+        engineering: "Engineering and design",
+        civiel: "Civil works",
+        elektro: "Electrical works",
+        lossen: "Unloading, placement and transport",
+        itot: "IT, OT and security",
+        bouwplaats: "Site, safety and site management",
+        begeleiding: "Construction support and main-contractor support",
+      },
+      scopeItems: {
+        "b0-vragenlijst": {
+          label: "Question list to the client",
+          note: "We draft the technical and contractual questions; you submit them as the contracting party.",
+        },
+        "b0-clarification": {
+          label: "Attending clarification meetings",
+          note: "We prepare and process the outcome, you attend as main contractor.",
+        },
+        "b0-deviation": {
+          label: "Deviation schedule",
+          note: "For each deviation we substantiate the technical reason and the alternative proposal. You decide which ones are submitted.",
+        },
+        "b0-proposal": {
+          label: "Technical proposal and interface approach",
+          note: "The technical proposal and how the interfaces with the other contractors are controlled.",
+        },
+        "b0-programma": {
+          label: "Project construction programme",
+          note: "Milestones, main phases, critical path with float, and acceleration measures with their effect. You test it for feasibility.",
+        },
+        "b0-organogram": {
+          label: "Build-phase organisation chart",
+          note: "Roles and responsibilities, including how QA/QC, document control and contract management are divided.",
+        },
+        "b0-mdr": {
+          label: "Master document register",
+          note: "The full list of documents to be delivered during construction, with numbering and phasing.",
+        },
+        "b0-engineering": {
+          label: "Engineering documents with the bid",
+          note: "Single-line diagram, site layout and cable calculations, at the level of detail a bid calls for.",
+        },
+        "b0-cyber": {
+          label: "Cybersecurity response form",
+          note: "Completed in line with the client's cybersecurity requirements.",
+        },
+        "b0-prijsstaat": {
+          label: "Price schedule: structure and verification",
+          note: "We build the schedule along the client's cost blocks and check it for completeness against the scope matrix. You price the execution.",
+        },
+        "b0-eenheidsprijzen": {
+          label: "Unit rates and execution costing",
+          note: "Your cost prices, your margin.",
+        },
+        "b0-financieel": {
+          label: "Financial documents and securities",
+          note: "Annual accounts, bank guarantee capacity, parent company guarantees.",
+        },
+        "b1-layout": {
+          label: "System and site layout",
+          note: "Positioning of units and transformer stations, cable routes, crossings, maintenance access.",
+        },
+        "b1-eendraad": {
+          label: "Single-line diagram",
+          note: "Up to and including the interface with the medium-voltage installation.",
+        },
+        "b1-kabel": {
+          label: "MV and LV cable design",
+          note: "Conductor sizes and current rating to DIN EN 60287, short-circuit calculation and electrodynamic force calculation.",
+        },
+        "b1-hulpvoeding": {
+          label: "Auxiliary power concept and design",
+          note: "Redundant set-up, medium-voltage connection, low-voltage distribution and coupling, including the technical specification for the transformers.",
+        },
+        "b1-aarding": {
+          label: "Earthing network design",
+          note: "We write the technical specification and review the result.",
+        },
+        "b1-bliksem": {
+          label: "Lightning protection risk analysis",
+          note: "Specification and review to DIN EN IEC 62305, for the complete site.",
+        },
+        "b1-grondonderzoek": {
+          label: "Ground investigation and thermal resistivity measurements",
+          note: "Specification to the laboratory, supervision of sampling to ASTM D5334 and VDI 4640-1, and processing into the cable design.",
+        },
+        "b1-verlichting": {
+          label: "Site lighting",
+          note: "Electrical design to DIN EN 12464-2.",
+        },
+        "b1-scada": {
+          label: "SCADA and access control interface",
+          note: "Specification of gate signalling and key plan towards the fencing supplier and the IT party.",
+        },
+        "b1-fundering": {
+          label: "Foundation design",
+          note: "Unless you would rather outsource it; then we write the specification.",
+        },
+        "b1-civiel": {
+          label: "Civil design",
+          note: "Roads, drainage, firefighting water system, trench profiles, site layout.",
+        },
+        "b2-grondwerk": {
+          label: "Earthworks, foundations and paving",
+          note: "Your work, your equipment, your people.",
+        },
+        "b2-sleuven": {
+          label: "Cable trenches and ducts",
+          note: "To the trench profiles from the civil design.",
+        },
+        "b2-bluswater": {
+          label: "Firefighting water supply",
+          note: "We specify, you contract.",
+        },
+        "b2-hekwerk": {
+          label: "Fencing, gates and access control",
+          note: "We specify, including the interface with fire brigade locking, and you contract.",
+        },
+        "b3-kabelleg": {
+          label: "Cable laying and installation",
+          note: "Carried out by your own crews, to the approved cable design.",
+        },
+        "b3-aansluiten": {
+          label: "Terminations and earthing",
+          note: "The connection work on site, including the earth bonding.",
+        },
+        "b3-beproeving": {
+          label: "Cable testing, VLF and partial discharge",
+          note: "Unless you have that capability in-house.",
+        },
+        "b3-iv": {
+          label: "Responsible electrical person",
+          note: "To DIN VDE 0105-100 or NEN 3140, depending on the country.",
+        },
+        "b4-hijsplan": {
+          label: "Lifting plan and lifting operations",
+          note: "We specify the requirements, contracting sits with you.",
+        },
+        "b4-transport": {
+          label: "Transport and delivery scheduling",
+          note: "Container lead times run to months and drive the critical path.",
+        },
+        "b5-netwerk": {
+          label: "Site data network and fibre",
+          note: "Installation and connection on site, to our interface specification.",
+        },
+        "b5-camera": {
+          label: "CCTV and detection",
+          note: "Scope demarcation with the client is almost always needed here.",
+        },
+        "b5-scada-interface": {
+          label: "Interface specification towards SCADA",
+          note: "Which signals are exchanged, in what format and over which protocol.",
+        },
+        "b6-projectleiding": {
+          label: "Site management and coordination",
+          note: "Execution management stays yours. We do not take it over.",
+        },
+        "b6-voorzieningen": {
+          label: "Site facilities",
+          note: "Cabins, fencing, storage, utilities and site management during construction.",
+        },
+        "b6-veiligheid": {
+          label: "Site safety coordination",
+          note: "The statutory coordinator role during execution.",
+        },
+        "b6-landmeten": {
+          label: "Surveying and as-built measurement",
+          note: "We specify the format, so it can go straight into the as-built dossier.",
+        },
+        "b7-pmp": {
+          label: "Project management plan",
+          note: "System and work breakdown, processes, hold and witness points. For approval before work starts.",
+        },
+        "b7-veiligheidsdossier": {
+          label: "Safety dossier",
+          note: "Health and safety plan, emergency plan and electrical safety plan, in the contract language, including switching procedure and permit-to-work system.",
+        },
+        "b7-documentbeheer": {
+          label: "Document control and master document register",
+          note: "Ongoing control of every document towards the client, including revisions and approval status.",
+        },
+        "b7-rapportage": {
+          label: "Monthly progress report",
+          note: "Milestones, scope changes, critical path, financial status, the main risks and safety.",
+        },
+        "b7-interface": {
+          label: "Interface management during execution",
+          note: "Tracking and resolving interfaces between the supplier, the other contractors, the grid operator and the subcontractors, recorded in an interface register.",
+        },
+        "b7-uitvragen": {
+          label: "Technical specifications for subcontractors",
+          note: "Per package a working document covering scope, standards, quantities, interfaces and acceptance criteria, usable as a contract annex as it stands.",
+        },
+        "b7-contracteren": {
+          label: "Contracting and directing subcontractors",
+          note: "All contracts sit with you, including the ones we specify technically.",
+        },
+        "b7-wijzigingen": {
+          label: "Assessment of design changes",
+          note: "Technical assessment during construction and the substantiation towards the client.",
+        },
+        "b7-tests": {
+          label: "Support for testing and energisation",
+          note: "Test plans, attendance at SAT and grid-code tests, and processing of the reporting.",
+        },
+        "b7-asbuilt": {
+          label: "As-built dossier and handover",
+          note: "Complete dossier in pdf and dwg, and the handover to the client.",
+        },
+      },
+
+      rulesEyebrow: "How we agree this",
+      rulesTitle: "Five ground rules that decide the rest",
+      rulesIntro:
+        "A division of roles on paper does not hold if it is not settled who carries which risk. These are the five agreements we make at the start. They sit in the contract, not in a presentation.",
+      rules: [
+        {
+          title: "Whoever specifies is not whoever contracts",
+          body: "We write the technical specification and do the technical assessment. You run the commercial negotiation and sign. All subcontractor contracts sit with you, including the ones we select, so there is a single contractual chain running back-to-back to your client. Bear in mind that many contracts require prior written approval of every subcontractor, with a response time of weeks. That round belongs in the schedule.",
+        },
+        {
+          title: "The line runs at your client's approval",
+          body: "If your client has to approve the document, we produce it: drawings, calculations, reports, plans and the document register. If it is about how the work on site is organised, it is yours. That is the dividing line for work preparation, and it holds up without having to be discussed each time.",
+        },
+        {
+          title: "Whoever specifies carries the specification risk",
+          body: "If our working document is wrong, that is ours. What the executing party then makes of it is theirs. That split is stated explicitly in the agreement. Without that sentence the first conflict turns into an argument about who said what, at exactly the moment you have no time for it.",
+        },
+        {
+          title: "Every subcontractor gets a working document, not a verbal scope",
+          body: "One document per package: scope of work, applicable standards, quantities and drawings, interfaces with the other parties, deliverables and acceptance criteria, schedule and interface moments, and the safety and document requirements that flow down from the main contract. That document is immediately the annex to the contract you sign.",
+        },
+        {
+          title: "Everything the main contract imposes flows down back-to-back",
+          body: "The employer's requirements, the safety requirements, the cybersecurity regime and the document obligations apply to the subcontractors too. That is not a formality: it touches the safety plan obligation, the permit-to-work system, personnel certification, and retention-of-title provisions that clients explicitly want passed down to subcontractors.",
+        },
+      ],
+
+      phasesEyebrow: "From tender to handover",
+      phasesTitle: "Three phases",
+      phasesFooter:
+        "Everything the contract and the employer's requirements ask of the main contractor in plans, registers, reports and approval rounds, we prepare and maintain. You sign and you build.",
+      phases: [
+        {
+          tab: "Phase 1 · Bid phase",
+          title: "Bid phase",
+          intro:
+            "From the tender to contract signature. The aim is a submission that is complete, consistent and assessable, and a contract you can carry. If you prefer, we do this phase on a no cure no pay basis: if the work is not awarded to you, we invoice nothing.",
+          items: [
+            { title: "Questions to the client", desc: "Drafting the technical and contractual questions, and working the answers through all bid documents." },
+            { title: "Substantiation of deviations", desc: "For each deviation the technical reason and a proposal for alternative wording. You decide which ones are submitted." },
+            { title: "Electrical bill of quantities", desc: "Metres of cable per size, terminations, lugs and earthing cable, as the basis for your costing and cable procurement." },
+            { title: "Price schedule structure and verification", desc: "Built along the client's cost blocks, and checked for completeness against the scope matrix." },
+            { title: "Project construction programme", desc: "Milestones, main phases, critical path with float and buffers, and acceleration measures with their effect." },
+            { title: "Technical proposal and interface approach", desc: "The technical proposal and how the interfaces with the other contractors are controlled." },
+            { title: "Organisation chart and document register set-up", desc: "Roles and responsibilities in the build phase, and the list of documents to be delivered during construction." },
+            { title: "Cybersecurity form", desc: "Completed in line with the client's requirements." },
+            { title: "Site and system layout", desc: "Units, transformer stations, cable routes and crossings, worked onto the client's site drawing." },
+            { title: "Auxiliary power concept", desc: "Set-up of the redundant auxiliary supply, with alternatives." },
+            { title: "Indicative single-line diagram", desc: "Up to and including the interface with the medium-voltage installation." },
+            { title: "Cable design and calculations", desc: "Conductor sizes and current rating, as the basis for procuring the largest material item in the contract." },
+            { title: "Assembling the submission", desc: "The complete set in the structure the tender prescribes and in your own house style." },
+            { title: "Clarification meetings and final negotiation", desc: "Preparation, attendance and processing through to signature." },
+          ],
+        },
+        {
+          tab: "Phase 2 · Detailed engineering",
+          title: "Detailed engineering",
+          intro:
+            "Starts at award and runs up to and including approval of the design documents and the design freeze. With a project-financed client the financier needs the approved design documents, so this track sits on the critical path to financial close. If it slips, the money slips.",
+          items: [
+            { title: "Final system and site layout", desc: "Including cable routes, aligned with your civil design and the supplier's positioning." },
+            { title: "Final MV and LV cable design", desc: "Cable loading to DIN EN 60287, short-circuit calculation and electrodynamic force calculation, for approval by the client." },
+            { title: "Thermal resistivity measurements", desc: "Specification, supervision of sampling to ASTM D5334 and VDI 4640-1, and processing into the cable design." },
+            { title: "Auxiliary power", desc: "Final design of the auxiliary power stations with medium-voltage connection, low-voltage distribution and coupling." },
+            { title: "Earthing network design", desc: "Technical specification to the designing party and review of the result." },
+            { title: "Lightning protection risk analysis", desc: "Specification and review to DIN EN IEC 62305, for the complete site." },
+            { title: "Site lighting", desc: "Electrical design to DIN EN 12464-2." },
+            { title: "SCADA and access control interface", desc: "Specification of gate signalling and key plan." },
+            { title: "Technical specifications for subcontractors", desc: "A working document per package, plus the technical assessment of the offers." },
+            { title: "Interface engineering", desc: "Alignment with the supplier, the other contractors and the grid operator on every interface in the scope matrix, recorded in an interface register." },
+            { title: "Design reviews", desc: "Steering the approval rounds and processing comments from the client and its advisers." },
+            { title: "Project management, engineering phase", desc: "Planning, monitoring and progress of the design track." },
+          ],
+        },
+        {
+          tab: "Phase 3 · Construction support",
+          title: "Construction support",
+          intro:
+            "Starts with the preparation of the works and runs up to and including acceptance of the as-built dossier. You build and you run the work on site. We keep the documentary and contractual track towards your client up to date and manage the interfaces with the other parties on site.",
+          items: [
+            { title: "Project management plan", desc: "System and work breakdown, processes, hold and witness points. For approval before work starts." },
+            { title: "Safety dossier", desc: "Health and safety plan, emergency plan and electrical safety plan in the contract language, including switching procedure and permit-to-work system." },
+            { title: "Document control", desc: "Ongoing control of every document towards the client, including revisions and approval status." },
+            { title: "Monthly progress report", desc: "Milestones, scope changes, critical path, financial status, the main risks and safety." },
+            { title: "Interface management", desc: "Tracking and resolving interfaces between the supplier, the other contractors, the grid operator and the subcontractors." },
+            { title: "Assessment of design changes", desc: "Technical assessment of changes during construction and the substantiation towards the client." },
+            { title: "Support for testing and energisation", desc: "Test plans, attendance at SAT and grid-code tests, and processing of the reporting." },
+            { title: "As-built dossier and handover", desc: "Complete dossier in pdf and dwg, and the handover to the client." },
+          ],
+        },
+      ],
+
+      formsEyebrow: "Scope",
+      formsTitle: "Three shapes, depending on what you already have",
+      formsFitLabel: "Fits",
+      forms: [
+        {
+          id: "volledig",
+          title: "Full scope development",
+          body: "We take over the complete track above execution, from the bid phase through to the as-built dossier. You build and run the work on site; we deliver the design, the documents and the interface management towards your client.",
+          features: [
+            "All three phases, one fixed price",
+            "We are your subcontractor, you stay the contracting party",
+            "Bid phase on a no cure no pay basis if you prefer",
+          ],
+          fit: "a contractor who wants to bid on a tender larger than their own preparation organisation.",
+        },
+        {
+          id: "owner",
+          title: "Owner's engineering",
+          body: "We sit on your side of the table. During a tender, when assessing a third party's design, or at the technical acceptance of work already carried out.",
+          features: [
+            "Review of design, calculations and documentation",
+            "Assessment of offers for technical equivalence",
+            "Attendance at tests, inspections and handover",
+          ],
+          fit: "a client or investor who wants to know whether they are getting what they are signing for.",
+        },
+        {
+          id: "los",
+          title: "Standalone engineering input",
+          body: "One component, clearly bounded. A cable calculation, a layout, an auxiliary power balance, a check against a standard, or a second opinion on a design that has stalled.",
+          features: [
+            "Bounded assignment with a fixed lead time",
+            "No obligation to continue",
+            "Usable as an annex to your own documents as it stands",
+          ],
+          fit: "a party with one specific gap that wants it closed without setting up a partnership.",
+        },
+      ],
+
+      notEyebrow: "Boundaries",
+      notTitle: "What we do not do in this model",
+      notIntro:
+        "A scope that only says what is included is not a scope. This sits explicitly outside it, and that is deliberate.",
+      notItems: [
+        {
+          title: "We supply no equipment.",
+          body: "In this model we sell nothing. Our advice on cell chemistry, manufacturer or configuration is therefore not coloured by what we hold in stock or where our margin sits.",
+        },
+        {
+          title: "We do not execute.",
+          body: "No civil works, no installation, no crews of our own on site.",
+        },
+        {
+          title: "We do not take over site management.",
+          body: "Site management and coordination stay with you, including the statutory roles that come with them.",
+        },
+        {
+          title: "We do not arrange your tax and employment obligations.",
+          body: "On cross-border work that is a track of its own; we flag it, we do not run it.",
+        },
+        {
+          title: "We do not provide your securities.",
+          body: "Bank guarantees, parent company guarantees and insurance towards your client stay with you.",
+        },
+      ],
+
+      intakeEyebrow: "In two minutes",
+      intakeTitle: "What would you need from us?",
+      intakeIntro:
+        "Five questions. At the end you will see which shape is the obvious one and which work packages would then sit with us. Nothing is sent until you click to send it.",
+      intakeProgress: "Question {current} of {total}",
+      intakeBack: "Previous question",
+      intakeRestart: "Start over",
+      intakeDiscuss: "Discuss this with us",
+      intakeResultLabel: "The obvious starting point",
+      intakePackagesLabel: "Work packages that would then sit with us",
+      intakePackagesNote:
+        "Derived from the same division of roles as the matrix above. On every project some lines move.",
+      intakeCaveatLabel: "Honestly though",
+      intakeDefaultedNote:
+        "Your answers give a mixed picture. In that case this is the logical starting point, and we bound the scope in the first conversation.",
+      intakeCaveats: {
+        volledig:
+          "If you have an engineering department with capacity, full scope development is probably too heavy. A bounded assignment makes more sense then.",
+        owner:
+          "If you carry out the work yourself, owner's engineering only buys you a judgement and producing the documents still sits with you. That is rarely where it hurts.",
+        los: "If the one gap turns out to be three once work starts, standalone input becomes more expensive than a fixed price agreed up front. Say so early and we will price both.",
+      },
+      intakeQuestions: [
+        {
+          question: "Where is the project?",
+          answers: [
+            "There is a tender on my desk I still have to answer",
+            "The work has been awarded, the design has to start",
+            "Construction is running and the documentary track is behind",
+            "I want a third party's design reviewed",
+          ],
+        },
+        {
+          question: "What do you do on site yourself?",
+          answers: [
+            "Everything, civil and electrical",
+            "Civil only, I outsource the electrical part",
+            "I do not execute, I am the client or investor",
+          ],
+        },
+        {
+          question: "Do you have your own engineering department?",
+          answers: [
+            "No",
+            "Yes, for civil but not for electrical",
+            "Yes, but without capacity for this tender",
+            "Yes, I am only looking for a second pair of eyes",
+          ],
+        },
+        {
+          question: "What does your client ask for in documentation?",
+          answers: [
+            "A full document register, monthly reports and approval rounds",
+            "A standard handover dossier",
+            "I do not know yet",
+            "Not applicable",
+          ],
+        },
+        {
+          question: "What worries you most?",
+          answers: [
+            "That I will not get the tender complete in time",
+            "That I will get stuck on interfaces with other parties during execution",
+            "That the design is wrong and I will be held to it",
+            "That I cannot judge whether what is on the table is any good",
+          ],
+        },
+      ],
+
+      faqEyebrow: "Frequently asked questions",
+      faqTitle: "What parties ask us up front",
+      faq: [
+        {
+          q: "Do you also work as a subcontractor to a contractor?",
+          a: "Yes, and that is the most common form of this model. You stay the contracting party towards your client; we are your subcontractor on the scope you do not cover yourself. Clients often prefer that to a consortium, because they keep a single point of contact and the chain runs back-to-back.",
+        },
+        {
+          q: "We have already chosen a supplier. Is that a problem?",
+          a: "No. We supply nothing in this model, so we have no stake in the choice. What we do is check whether the chosen system meets the requirements in the contract, and what the consequences are for layout, cable design and auxiliary power.",
+        },
+        {
+          q: "How does liability work?",
+          a: "We carry the risk on our own specification. What the executing party then makes of it sits with them. We record that split explicitly in the agreement, before the work starts.",
+        },
+        {
+          q: "Do you work outside the Netherlands?",
+          a: "Yes. Local standards, local safety roles and local tax and employment obligations then apply. The latter are a track of their own that we do not run for you, but do put on the table early.",
+        },
+        {
+          q: "What does it cost?",
+          a: "For full scope development we work with one fixed price for the whole track, split into milestones that line up with moments already fixed in your client's project. The bid phase can be no cure no pay. For a bounded assignment we set a fixed price per deliverable. Which it is in your case depends too much on scope to put a number here.",
+        },
+        {
+          q: "Do you stay available after handover?",
+          a: "On call, at an hourly rate. That is deliberately not part of the fixed price: nobody knows up front what will be needed after handover, and a mark-up for it in the contract price is guesswork.",
+        },
+      ],
+
+      ctaTitle: "Is there a tender on your desk?",
+      ctaSub:
+        "Send it over, or book half an hour. Within a week we will tell you whether we see something in it and what we would do in it. That costs you nothing and commits you to nothing.",
+      ctaPlan: "Book a meeting",
+      ctaCall: "Call us directly",
+      ctaLinks: {
+        partnermodellen: "All partner models",
+        watWijDoen: "What we do",
+        fullEpc: "Full EPC",
+      },
+    },
     projects: {
       heroTitle: "Our projects speak for themselves",
       heroSub: "A selection of realised and ongoing projects in C&I and utility-scale battery storage.",
@@ -942,6 +2001,11 @@ export const translations = {
       calendarTitle: "Schedule directly",
       calendarSub: "Choose a time that suits you.",
       orDirect: "Or contact us directly",
+      // Prefill for the message field, keyed by the ?onderwerp= query value.
+      subjectPrefill: {
+        "technical-support":
+          "Subject: Technical Support — engineering and main contractor support.\n\n",
+      },
     },
     footer: {
       tagline: "Building the energy transition together",

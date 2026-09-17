@@ -1,27 +1,33 @@
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/structured-data";
 import JsonLd from "@/components/JsonLd";
+import { translations } from "@/lib/translations";
 import TechnicalSupportClient from "./page-client";
 
 export const metadata = buildMetadata({
-  title: "Technical Support & Consultancy voor batterijopslag | Gridstate",
+  title: "Technical Support — engineering en hoofdaannemersondersteuning | Gridstate",
   description:
-    "Alleen de kennis, zonder levering: engineering, projectmanagement, volledige scope-uitwerking en owner's engineering. Onafhankelijk advies van een partij die niets verkoopt.",
+    "U voert uit, wij nemen de laag daarboven over: ontwerp, de stukken die uw opdrachtgever moet goedkeuren en het interfacebeheer. Wij leveren geen apparatuur.",
   path: "/partnermodellen/technical-support",
 });
+
+// The FAQ is emitted as structured data from the same source the page renders,
+// in the site's primary language, so the two can never drift apart.
+const faqs = [...translations.nl.technicalSupport.faq];
 
 export default function Page() {
   return (
     <>
       <JsonLd
         data={serviceSchema({
-          name: "Technical Support & Consultancy batterijopslag",
-          serviceType: "Battery energy storage engineering consultancy",
+          name: "Technical Support batterijopslag",
+          serviceType: "Battery energy storage engineering and main contractor support",
           description:
-            "Engineering, projectmanagement, volledige scope-uitwerking en owner's engineering voor batterijopslagprojecten — zonder levering van apparatuur.",
+            "Engineering, de documentatie die de opdrachtgever moet goedkeuren en het interfacebeheer met de andere partijen op het terrein, voor aannemers die de uitvoering zelf doen. Zonder levering van apparatuur.",
           path: "/partnermodellen/technical-support",
         })}
       />
+      <JsonLd data={faqSchema(faqs)} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

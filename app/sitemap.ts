@@ -13,7 +13,7 @@ const routes: Array<{
   { path: "/partnermodellen", changeFrequency: "monthly", priority: 0.8 },
   { path: "/partnermodellen/full-epc", changeFrequency: "monthly", priority: 0.8 },
   { path: "/partnermodellen/supply-only", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/partnermodellen/technical-support", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/partnermodellen/technical-support", changeFrequency: "monthly", priority: 0.8 },
   { path: "/voor-investeerders", changeFrequency: "monthly", priority: 0.8 },
   { path: "/projecten", changeFrequency: "monthly", priority: 0.7 },
   { path: "/over-ons", changeFrequency: "monthly", priority: 0.6 },
