@@ -92,15 +92,21 @@ export default function TechnicalSupportClient() {
             <p className="text-xl text-white/70 leading-relaxed">{ts.heroStandfirst}</p>
           </div>
 
-          {/* The rule of thumb — the element the other detail pages don't have */}
+          {/* The rule of thumb — the element the other detail pages don't have.
+              Two branches, so they are set as two statements rather than one
+              block of bold running text. */}
           <div className="mt-12 max-w-3xl p-8 lg:p-10 border-2 border-white/25 rounded-2xl">
-            <p className="text-xs font-black tracking-widest text-white/55 uppercase mb-4">
+            <p className="text-xs font-black tracking-widest text-white/55 uppercase mb-6">
               {ts.ruleLabel}
             </p>
-            <p className="text-white text-xl lg:text-2xl font-bold leading-snug mb-4" style={{ letterSpacing: "-0.02em" }}>
-              {ts.ruleBody}
-            </p>
-            <p className="text-white/70 text-sm leading-relaxed">{ts.ruleNote}</p>
+            <div className="divide-y divide-white/15 border-y border-white/15">
+              {[ts.ruleOurs, ts.ruleYours].map((line, i) => (
+                <p key={i} className="text-white text-lg font-bold leading-snug py-5">
+                  {line}
+                </p>
+              ))}
+            </div>
+            <p className="text-white/70 text-sm leading-relaxed mt-6">{ts.ruleNote}</p>
           </div>
         </div>
       </section>

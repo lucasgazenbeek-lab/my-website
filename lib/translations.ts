@@ -315,8 +315,9 @@ export const translations = {
       heroStandfirst:
         "U voert uit. Wij nemen de laag daarboven over: het ontwerp, de stukken die uw opdrachtgever moet goedkeuren, en de afstemming met de andere partijen op het terrein. Wij leveren geen apparatuur, dus wij hebben geen belang bij welke keuze u maakt.",
       ruleLabel: "De vuistregel",
-      ruleBody:
-        "Moet uw opdrachtgever het stuk goedkeuren, dan maken wij het. Gaat het over hoe het werk op de bouwplaats georganiseerd en uitgevoerd wordt, dan is het van u.",
+      ruleOurs: "Moet uw opdrachtgever het stuk goedkeuren, dan maken wij het.",
+      ruleYours:
+        "Gaat het over hoe het werk op de bouwplaats georganiseerd en uitgevoerd wordt, dan is het van u.",
       ruleNote:
         "Die grens is in de praktijk vrijwel altijd meteen duidelijk. Dat scheelt overleg, en het maakt aan het begin van een project al zichtbaar waar het risico ligt.",
 
@@ -1163,8 +1164,9 @@ export const translations = {
       heroStandfirst:
         "You build. We take over the layer above it: the design, the documents your client has to approve, and the coordination with the other parties on site. We supply no equipment, so we have no stake in the choices you make.",
       ruleLabel: "The rule of thumb",
-      ruleBody:
-        "If your client has to approve the document, we produce it. If it is about how the work on site is organised and carried out, it is yours.",
+      ruleOurs: "If your client has to approve the document, we produce it.",
+      ruleYours:
+        "If it is about how the work on site is organised and carried out, it is yours.",
       ruleNote:
         "In practice that line is almost always obvious straight away. It saves discussion, and it makes clear at the start of a project where the risk sits.",
 
