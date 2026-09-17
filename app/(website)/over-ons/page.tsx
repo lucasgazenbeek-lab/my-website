@@ -2,9 +2,9 @@ import { buildMetadata } from "@/lib/seo";
 import OverOnsClient from "./page-client";
 
 export const metadata = buildMetadata({
-  title: "Over Gridstate — specialisten in batterijopslag",
+  title: "Over Gridstate — het team en onze werkwijze | Gridstate",
   description:
-    "Maak kennis met het team achter Gridstate: specialisten in batterijopslag en hybride PV+BESS met 70+ MWh gerealiseerd en 12+ jaar gecombineerde ervaring in de Benelux.",
+    "Drie mensen die batterijopslag bouwden voordat Gridstate bestond, en de vijf werkafspraken die bepalen hoe wij ontwerpen, rekenen en documenteren.",
   path: "/over-ons",
 });
 

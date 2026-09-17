@@ -72,11 +72,18 @@ export default function Home() {
     accent: ["rgba(139,20,60,0.4)", "rgba(107,0,48,0.5)", "rgba(160,30,80,0.3)"][i],
   }));
 
+  // One icon per entry in `about.whyPoints`, in order. /over-ons renders the
+  // same four points from that same key with its own copy of this set —
+  // change the points and both lists have to follow.
   const whyIcons = [
-    <svg key={0} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
-    <svg key={1} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>,
-    <svg key={2} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>,
-    <svg key={3} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="14" x2="22" y2="14"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="14" x2="4" y2="14"/></svg>,
+    // House — we stay an owner of what we build
+    <svg key={0} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>,
+    // Map pin — procedures differ per country and per grid operator
+    <svg key={1} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>,
+    // Scales — advice that is not tied to one brand
+    <svg key={2} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v18"/><path d="M8 21h8"/><path d="M5 7h14"/><path d="M5 7l-3 6h6z"/><path d="M19 7l-3 6h6z"/></svg>,
+    // Speech bubble — we say so when it does not work
+    <svg key={3} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#470020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8z"/></svg>,
   ];
 
   const heroContentRef = useRef<HTMLDivElement>(null);

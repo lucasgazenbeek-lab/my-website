@@ -64,6 +64,9 @@ export const siteConfig = {
     // TODO(Lucas): "€7M+ gecombineerde omzet" is niet te onderbouwen uit de
     // dossiers — herformuleren naar uitgebrachte offertewaarde of schrappen.
     // Verwijderd uit de site tot dat besluit er is (uitbreiding.md DEEL 6).
+    // Currently unused: /over-ons dropped it when the figures got a source
+    // line each, because a sum of years of service says nothing on its own.
+    // Kept so the provenance of the number is not lost.
     combinedExperienceYears: { value: 12, suffix: "+", unit: "jaar", display: "12+" },
     businessCasesCalculated: { value: 24, suffix: "", unit: "", display: "24" },
     engineeringDossiers: { value: 5, suffix: "", unit: "", display: "5" },

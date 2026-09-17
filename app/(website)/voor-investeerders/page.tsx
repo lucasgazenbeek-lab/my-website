@@ -4,7 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import VoorInvesteerdersClient from "./page-client";
 
 export const metadata = buildMetadata({
-  title: "Voor investeerders en IPP's — meedoen of laten narekenen",
+  title: "Voor investeerders en IPP's — meedoen of laten narekenen | Gridstate",
   description:
     "Participatie in batterijprojecten die Gridstate zelf ontwikkelt, ondersteuning bij uw eigen acquisities, en onafhankelijke validatie van een businesscase. Met de rekennorm en de opbouw van het memorandum die daarbij horen.",
   path: "/voor-investeerders",

@@ -1384,51 +1384,122 @@ export const translations = {
       ],
     },
     about: {
+      aboutLabel: "Over ons",
       heroTitle: "Gebouwd door mensen die dit vak kennen",
-      storyTitle: "Hoe Gridstate is ontstaan",
-      storyText:
-        "Gridstate is niet ontstaan vanuit de wens om snel te groeien — maar vanuit de overtuiging dat het beter kan. Emiel en Lucas bouwden jarenlang aan projecten binnen bestaande organisaties en zagen hoe kwaliteit, eigenaarschap en technische diepgang stelselmatig werden ingeruild voor volume en snelheid. Ze besloten het anders te doen: regie voeren over de hele keten, met een ontwerp dat extern wordt gestempeld door een onafhankelijke engineeringpartij, en liever iets neerzetten waar ze trots op zijn dan iets dat alleen op papier klopt. Dat is Gridstate.",
+      heroStandfirst:
+        "Gridstate is een jong bedrijf met drie mensen die batterijopslag al bouwden voordat het bestond. Hieronder wie dat zijn, hoe wij werken, en waarom wij een aantal dingen anders doen dan gebruikelijk is in deze markt.",
+
+      teamLabel: "Het team",
+      callAboutLabel: "Bel hem over",
       emielName: "Emiel Verlee",
       emielRole: "CEO & Oprichter",
-      emielBio: [
-        "Meer dan 7 jaar actief in engineering en projectrealisatie binnen de energiesector",
-        "Verantwoordelijk voor technische projectstructurering, EPC-regie en systeemintegratie",
-        "Bewezen trackrecord in de realisatie van grootschalige batterijopslag- en zonneprojecten in de Benelux",
-      ],
-      emielSkills: ["Turnkey EPC", "Systeemintegratie", "Supply chain", "Civiele realisatie", "Financieringsstructuren"],
+      emielBio:
+        "Emiel voert de technische regie over de projecten: van systeemontwerp en leverancierskeuze tot wat er op de bouwplaats gebeurt. Hij schrijft de technische voorstellen zelf, en hij is degene die tegen een ontwerp zegt dat het nog niet klaar is.",
+      emielTopics: ["systeemontwerp", "uitvoering", "leverancierskeuze"],
       lucasName: "Lucas Gazenbeek",
       lucasRole: "Commercieel Directeur & Mede-eigenaar",
-      lucasBio: [
-        "Meer dan 5 jaar actief in commercie en business development binnen batterijopslag en hernieuwbare energie",
-        "Verantwoordelijk voor commerciële strategie, klanttrajecten en partnerontwikkeling",
-        "Bewezen trackrecord in de verkoop en structurering van C&I en utility-scale projecten in de Benelux",
-      ],
-      lucasSkills: ["Commerciële strategie", "Business development", "Projectfinanciering", "Partnerontwikkeling", "Offertetrajecten"],
+      lucasBio:
+        "Lucas bouwt de businesscases en voert de gesprekken met opdrachtgevers, investeerders en financiers. Hij rekent elk model zelf na voordat het de deur uit gaat, en hij is het aanspreekpunt als u wilt weten wat een samenwerking in uw geval zou betekenen.",
+      lucasTopics: ["businesscases", "samenwerkingsvormen", "investeringen"],
       shaneName: "Shane Konijnenberg",
       shaneRole: "Operationeel Directeur",
-      shaneBio: [
-        "Elektrochemisch ingenieur met jarenlange ervaring in de energiesector",
-        "Meer dan 200 gerealiseerde projecten in C&I en utility-scale batterijopslag",
-        "Operationeel verantwoordelijk voor ontwerp, projectmanagement, uitvoering en aftersales",
-      ],
-      shaneSkills: ["Engineering & realisatie", "Projectmanagement", "Systeemontwerp", "Consultancy", "Aftersales"],
-      trackStatLabels: ["Door ons team vóór Gridstate", "In eigen ontwikkeling", "Gecombineerde ervaring", "Focusmarkt"],
-      whyTitle: "Waarom Gridstate",
-      whyQuote:
-        "Wij zijn geen nieuw bedrijf in een bekende markt. Wij zijn insiders die het nu op de juiste manier doen.",
-      whyPoints: [
-        { title: "Geen leercurve", desc: "Dit is versnelling — wij hebben het al gedaan." },
-        { title: "Directe fabrikantrelaties", desc: "Opgebouwd door jaren in de sector." },
-        { title: "Benelux-focus", desc: "Diepgaande kennis van lokale regelgeving en netprocedures." },
-        { title: "Engineering-first", desc: "Technische zekerheid staat voorop, altijd." },
-      ],
-      ctaButton: "Plan een afspraak",
-      coreCompetencies: "Kerncompetenties",
-      teamLabel: "Het team",
+      shaneBio:
+        "Shane is elektrochemisch ingenieur en verantwoordelijk voor de lijn van ontwerp naar oplevering: engineering, projectmanagement, uitvoering en aftersales. Waar een systeem zich anders gedraagt dan het datasheet belooft, is hij degene die uitzoekt waarom.",
+      shaneTopics: ["engineering", "projectmanagement", "aftersales"],
+
       storyLabel: "Ons verhaal",
-      trackrecordLabel: "Trackrecord",
+      storyTitle: "Waarom wij dit zijn begonnen",
+      storyParagraphs: [
+        "Wij hebben alle drie binnen bestaande organisaties aan energieprojecten gewerkt, en daar hetzelfde patroon gezien. Naarmate een bedrijf groeit, wordt volume belangrijker dan de vraag of iets klopt. Het ontwerp wordt een formaliteit op weg naar de order. De documentatie komt achteraf. En de partij die het moet bouwen, krijgt een dossier waar hij niets mee kan.",
+        "Dat gaat niet mis bij het eerste project. Het gaat mis bij het project waar de netbeheerder iets anders wil dan aangenomen, of waar de verzekeraar vraagt op welk niveau de brandtest is gedaan. Dan blijkt dat de beslissing die dat had moeten voorkomen, een jaar eerder onderweg is genomen door iemand die haast had.",
+        "Gridstate is opgezet om dat om te draaien: eerst uitzoeken, dan ontwerpen, dan bouwen. Dat kost aan het begin meer tijd en het is aan het begin een minder vlot verhaal. Het levert wel een project op dat de toets van een financier en een verzekeraar doorstaat, en een klant die halverwege niet voor verrassingen komt te staan.",
+      ],
+
+      principlesLabel: "Onze werkafspraken",
+      principlesTitle: "Vijf afspraken met onszelf",
+      principlesIntro:
+        "Dit zijn geen kernwaarden op een poster. Het zijn afspraken die bepalen wat wij wel en niet in een document zetten, en ze zijn er omdat de verleiding om ze te overtreden in elk project terugkomt.",
+      principles: [
+        {
+          title: "Wij noemen geen merken in klantstukken",
+          desc: "In onze technische documenten staan geen leveranciersnamen of typeaanduidingen. Een ontwerp dat om een specifiek merk heen is geschreven, laat u geen keuze meer, en het maakt het onmogelijk om later te vergelijken. Wij schrijven op eigenschappen en normen, en de merkkeuze komt daarna.",
+        },
+        {
+          title: "Ons ontwerp gaat langs een externe stempel",
+          desc: "Het ontwerp wordt getoetst en gestempeld door een onafhankelijke engineeringpartij. Dat is geen wettelijke verplichting en het kost tijd. Het zorgt er wel voor dat er iemand naar kijkt die er geen belang bij heeft, en dat is precies waarom wij het doen.",
+        },
+        {
+          title: "Open punten blijven zichtbaar",
+          desc: "Als er in een berekening iets niet sluit en wij weten nog niet waarom, dan blijft dat als open punt in het stuk staan. Het is verleidelijk om zo'n regel weg te poetsen voordat het naar een klant gaat. Wie dat doet, levert een document af dat er beter uitziet dan het is, en dat komt altijd terug.",
+        },
+        {
+          title: "Wat een ander aanlevert, rekenen wij na",
+          desc: "Een opbrengstverwachting, een simulatierapport of een businesscase van een verkopende partij is voor ons invoer, geen uitgangspunt. Wij bouwen de berekening opnieuw op uit de onderdelen, ook als dat de zaak vertraagt en ook als wij op hetzelfde uitkomen.",
+        },
+        {
+          title: "Elk getal heeft een bron",
+          desc: "Elk cijfer dat in een document van ons staat, is terug te voeren op een berekening, een datasheet of een norm. Aannames en bronnen staan als eigen hoofdstuk in het stuk, niet in een voetnoot. Wat geen bron heeft, staat er niet — ook geen kansinschatting in procenten, want die suggereert een precisie die er niet is.",
+        },
+      ],
+
+      statsLabel: "In cijfers",
+      statsTitle: "Waar deze getallen vandaan komen",
+      statItems: [
+        {
+          label: "Gerealiseerd",
+          source: "Door dit team gebouwd bij eerdere werkgevers, vóór Gridstate bestond.",
+        },
+        {
+          label: "In eigen ontwikkeling",
+          source: "Projecten waarvan wij zelf de ontwikkeling voeren, in verschillende stadia.",
+        },
+        {
+          label: "Actieve projecten",
+          source: "Trajecten waar op dit moment aan gewerkt wordt, voor klanten en voor onszelf.",
+        },
+        {
+          label: "Doorgerekende businesscases",
+          source: "Volledige modellen, opgebouwd uit de componenten en nagerekend in een tweede omgeving.",
+        },
+      ],
+      statsFooter:
+        "Wij zetten er geen getal bij dat wij niet kunnen navertellen. Daarom staat hier geen omzetcijfer en geen aantal gerealiseerde projecten per persoon.",
+
       whyUsLabel: "Waarom wij",
-      aboutLabel: "Over ons",
+      whyTitle: "Waarom Gridstate",
+      whyQuote: "Wij zijn niet de snelste partij aan tafel, en dat is een keuze.",
+      whyPoints: [
+        {
+          title: "Wij bouwen ook voor onszelf",
+          desc: "In onze eigen ontwikkelingen nemen wij een belang en blijven wij eigenaar. Elke ontwerpkeuze die op korte termijn geld bespaart en op lange termijn geld kost, komt bij ons zelf terug.",
+        },
+        {
+          title: "Wij kennen de Benelux-procedures",
+          desc: "Netaansluiting, vergunning, veiligheidsregio en netcode: dat zijn per land en per netbeheerder andere trajecten, en de doorlooptijd ervan bepaalt uw planning meer dan de bouw.",
+        },
+        {
+          title: "Wij verkopen geen merk",
+          desc: "Wij hebben relaties met meerdere fabrikanten en bij geen van hen een exclusiviteit. Ons advies over celchemie, fabrikant of configuratie is daardoor niet gekleurd.",
+        },
+        {
+          title: "Wij zeggen het als het niet werkt",
+          desc: "Als een case niet rondkomt, zeggen wij dat — ook wanneer wij onszelf daarmee uit een opdracht praten. Dat is op de lange termijn goedkoper voor iedereen.",
+        },
+      ],
+
+      careersLabel: "Werken bij ons",
+      careersTitle: "Wij groeien, voorzichtig",
+      careersIntro:
+        "Wij nemen mensen aan als er werk is dat blijft liggen, niet om te kunnen zeggen dat wij gegroeid zijn. Dat betekent dat er zelden een vacature online staat en dat de meeste mensen hier via een gesprek binnenkomen dat over iets anders begon.",
+      careersListIntro: "Waar wij naar zoeken, als het zover is:",
+      careersList: [
+        "Iemand die een berekening liever twee keer maakt dan één keer met een aanname.",
+        "Iemand die een open punt benoemt in plaats van het glad te strijken.",
+        "Iemand die een klant durft te vertellen dat iets niet kan.",
+      ],
+      // {email} is filled from siteConfig.company.email and rendered as a link.
+      careersOutro:
+        "Herkent u zich daarin en wilt u weten of er iets zou passen: stuur een bericht aan {email}. Wij lezen alles en antwoorden ook als er niets is.",
     },
     contact: {
       heroTitle: "Laten we kennismaken",
@@ -2836,50 +2907,122 @@ export const translations = {
       ],
     },
     about: {
+      aboutLabel: "About us",
       heroTitle: "Built by people who know this trade",
-      storyTitle: "How Gridstate was born",
-      storyText:
-        "Gridstate wasn't founded with the ambition to grow fast — but with the conviction that it can be done better. Emiel and Lucas spent years building projects within larger organisations and saw how quality, ownership, and technical depth were systematically traded for volume and speed. They decided to do it differently: direct the entire chain, with every design externally stamped by an independent engineering firm, and build something they're genuinely proud of rather than something that only looks good on paper. That is Gridstate.",
+      heroStandfirst:
+        "Gridstate is a young company with three people who were building battery storage before it existed. Below: who they are, how we work, and why we do a number of things differently from what is usual in this market.",
+
+      teamLabel: "The team",
+      callAboutLabel: "Call him about",
       emielName: "Emiel Verlee",
       emielRole: "CEO & Founder",
-      emielBio: [
-        "More than 7 years active in engineering and project realisation within the energy sector",
-        "Responsible for technical project structuring, EPC direction and system integration",
-        "Proven track record in the realisation of large-scale battery storage and solar projects in the Benelux",
-      ],
-      emielSkills: ["Turnkey EPC", "System integration", "Supply chain", "Civil realisation", "Financing structures"],
+      emielBio:
+        "Emiel holds the technical direction across the projects: from system design and supplier selection to what happens on site. He writes the technical proposals himself, and he is the one who tells a design it is not finished yet.",
+      emielTopics: ["system design", "execution", "supplier selection"],
       lucasName: "Lucas Gazenbeek",
       lucasRole: "Commercial Director & Co-Owner",
-      lucasBio: [
-        "More than 5 years active in commercial strategy and business development within battery storage and renewable energy",
-        "Responsible for commercial strategy, client processes and partner development",
-        "Proven track record in the sale and structuring of C&I and utility-scale projects in the Benelux",
-      ],
-      lucasSkills: ["Commercial strategy", "Business development", "Project financing", "Partner development", "Quotation processes"],
+      lucasBio:
+        "Lucas builds the business cases and holds the conversations with clients, investors and financiers. He recalculates every model himself before it leaves the building, and he is the point of contact if you want to know what a collaboration would mean in your case.",
+      lucasTopics: ["business cases", "forms of collaboration", "investments"],
       shaneName: "Shane Konijnenberg",
       shaneRole: "Operations Director",
-      shaneBio: [
-        "Electrochemical engineer with extensive experience in the energy sector",
-        "More than 200 realised projects in C&I and utility-scale battery storage",
-        "Operationally responsible for design, project management, execution and aftersales",
-      ],
-      shaneSkills: ["Engineering & realisation", "Project management", "System design", "Consultancy", "Aftersales"],
-      trackStatLabels: ["By our team before Gridstate", "In own development", "Combined experience", "Focus market"],
-      whyTitle: "Why Gridstate",
-      whyQuote: "We are not a new company in a familiar market. We are insiders now doing it the right way.",
-      whyPoints: [
-        { title: "No learning curve", desc: "This is acceleration — we've already done it." },
-        { title: "Direct manufacturer relations", desc: "Built through years in the sector." },
-        { title: "Benelux focus", desc: "Deep knowledge of local regulations and grid procedures." },
-        { title: "Engineering-first", desc: "Technical certainty always comes first." },
-      ],
-      ctaButton: "Book a meeting",
-      coreCompetencies: "Core competencies",
-      teamLabel: "The team",
+      shaneBio:
+        "Shane is an electrochemical engineer, responsible for the line from design to handover: engineering, project management, execution and aftersales. Where a system behaves differently from what the datasheet promises, he is the one who finds out why.",
+      shaneTopics: ["engineering", "project management", "aftersales"],
+
       storyLabel: "Our story",
-      trackrecordLabel: "Track record",
+      storyTitle: "Why we started this",
+      storyParagraphs: [
+        "All three of us worked on energy projects inside existing organisations, and saw the same pattern there. As a company grows, volume becomes more important than whether something is right. The design turns into a formality on the way to the order. The documentation follows afterwards. And the party that has to build it receives a dossier it cannot work with.",
+        "That does not go wrong on the first project. It goes wrong on the project where the grid operator wants something other than was assumed, or where the insurer asks at what level the fire test was carried out. That is when it turns out the decision that should have prevented it was taken a year earlier, in passing, by someone in a hurry.",
+        "Gridstate was set up to reverse that: first find out, then design, then build. At the start that costs more time, and at the start it is a less smooth story. What it does deliver is a project that withstands the scrutiny of a financier and an insurer, and a client who is not caught out halfway through.",
+      ],
+
+      principlesLabel: "Our working rules",
+      principlesTitle: "Five agreements with ourselves",
+      principlesIntro:
+        "These are not core values on a poster. They are agreements that determine what we do and do not put in a document, and they exist because the temptation to break them comes back in every project.",
+      principles: [
+        {
+          title: "We name no brands in client documents",
+          desc: "Our technical documents contain no supplier names or type designations. A design written around one specific brand leaves you no choice, and it makes comparing impossible later on. We write on properties and standards, and the choice of brand comes after that.",
+        },
+        {
+          title: "Our design goes past an external stamp",
+          desc: "The design is reviewed and stamped by an independent engineering firm. That is not a legal obligation and it costs time. What it does ensure is that someone looks at it who has no stake in the outcome, and that is exactly why we do it.",
+        },
+        {
+          title: "Open items stay visible",
+          desc: "If something in a calculation does not add up and we do not yet know why, it stays in the document as an open item. It is tempting to polish away a line like that before it goes to a client. Anyone who does delivers a document that looks better than it is, and that always comes back.",
+        },
+        {
+          title: "What someone else supplies, we recalculate",
+          desc: "A revenue forecast, a simulation report or a business case from a selling party is input to us, not a starting point. We rebuild the calculation from its components, even when that slows things down and even when we arrive at the same result.",
+        },
+        {
+          title: "Every number has a source",
+          desc: "Every figure in a document of ours traces back to a calculation, a datasheet or a standard. Assumptions and sources are a chapter of their own in the document, not a footnote. What has no source is not in there — including any probability expressed as a percentage, because that suggests a precision that does not exist.",
+        },
+      ],
+
+      statsLabel: "In figures",
+      statsTitle: "Where these numbers come from",
+      statItems: [
+        {
+          label: "Realised",
+          source: "Built by this team at previous employers, before Gridstate existed.",
+        },
+        {
+          label: "In own development",
+          source: "Projects whose development we run ourselves, at various stages.",
+        },
+        {
+          label: "Active projects",
+          source: "Processes being worked on right now, for clients and for ourselves.",
+        },
+        {
+          label: "Business cases calculated",
+          source: "Full models, built up from the components and recalculated in a second environment.",
+        },
+      ],
+      statsFooter:
+        "We add no number we cannot account for. That is why there is no revenue figure here, and no count of realised projects per person.",
+
       whyUsLabel: "Why us",
-      aboutLabel: "About us",
+      whyTitle: "Why Gridstate",
+      whyQuote: "We are not the fastest party at the table, and that is a choice.",
+      whyPoints: [
+        {
+          title: "We build for ourselves too",
+          desc: "In our own developments we take a stake and remain an owner. Every design choice that saves money in the short term and costs money in the long term comes back to us.",
+        },
+        {
+          title: "We know the Benelux procedures",
+          desc: "Grid connection, permits, the safety region and the grid code: these are different processes per country and per grid operator, and their lead times determine your planning more than the construction does.",
+        },
+        {
+          title: "We do not sell a brand",
+          desc: "We hold relationships with several manufacturers and an exclusivity with none of them. Our advice on cell chemistry, manufacturer or configuration is therefore not coloured.",
+        },
+        {
+          title: "We say so when it does not work",
+          desc: "If a case does not add up, we say so — even when that talks us out of an assignment. In the long run that is cheaper for everyone.",
+        },
+      ],
+
+      careersLabel: "Working with us",
+      careersTitle: "We grow, carefully",
+      careersIntro:
+        "We hire people when there is work being left undone, not so we can say we have grown. That means a vacancy is rarely online and that most people here came in through a conversation that started about something else.",
+      careersListIntro: "What we look for, when the time comes:",
+      careersList: [
+        "Someone who would rather do a calculation twice than once with an assumption.",
+        "Someone who names an open item instead of smoothing it over.",
+        "Someone who dares tell a client that something cannot be done.",
+      ],
+      // {email} is filled from siteConfig.company.email and rendered as a link.
+      careersOutro:
+        "If you recognise yourself in that and want to know whether something might fit, send a message to {email}. We read everything and reply even when there is nothing.",
     },
     contact: {
       heroTitle: "Let's meet",
