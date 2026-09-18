@@ -5,6 +5,7 @@ import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import dynamic from "next/dynamic";
 import BookingCTA from "@/components/BookingCTA";
+import DownloadBlok from "@/components/DownloadBlok";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
 const PRINCIPLE_ICONS = [
@@ -270,6 +271,9 @@ export default function Partnermodellen() {
           </div>
         </div>
       </section>
+
+      {/* Warm, because the section above it is white */}
+      <DownloadBlok background="warm" />
 
       <BookingCTA
         title="Welk model past bij u?"

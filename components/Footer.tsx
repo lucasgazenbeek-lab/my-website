@@ -3,10 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "./LanguageProvider";
+import { DOCS } from "./DownloadBlok";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const { company, contacts } = siteConfig;
 
   const pages = [
@@ -59,6 +60,16 @@ export default function Footer() {
                 className="text-sm text-white/60 hover:text-white transition-colors"
               >
                 {t.footer.terms}
+              </a>
+            </li>
+            <li>
+              <a
+                href={DOCS[lang].href}
+                target="_blank"
+                rel="noopener"
+                className="text-sm text-white/60 rounded hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors"
+              >
+                {t.footer.capabilityStatement}
               </a>
             </li>
             <li>

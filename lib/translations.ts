@@ -1549,6 +1549,19 @@ export const translations = {
       privacy: "Privacyverklaring",
       kvkLabel: "KvK",
       rights: "Alle rechten voorbehouden.",
+      capabilityStatement: "Capability statement (pdf)",
+    },
+    downloads: {
+      eyebrow: "Meenemen",
+      title: "Het hele verhaal op tien pagina's",
+      body:
+        "De drie modellen naast elkaar, onze werkafspraken, de normen waaraan wij ontwerpen en wie het werk doet. Handig als u dit intern moet voorleggen aan iemand die ons nog niet kent.",
+      // {pages} en {size} worden gevuld uit DOCS in components/DownloadBlok.tsx
+      meta: "PDF · {pages} pagina's · {size}",
+      nlLabel: "Nederlands",
+      enLabel: "English",
+      // {language} is nlLabel of enLabel, {pages} het aantal pagina's
+      ariaTemplate: "Capability statement downloaden, {language}, PDF, {pages} pagina's",
     },
     general: {
       idealFor: "Ideaal voor",
@@ -3071,6 +3084,19 @@ export const translations = {
       privacy: "Privacy statement",
       kvkLabel: "CoC",
       rights: "All rights reserved.",
+      capabilityStatement: "Capability statement (pdf)",
+    },
+    downloads: {
+      eyebrow: "Take it with you",
+      title: "The whole story in ten pages",
+      body:
+        "The three models side by side, our working rules, the standards we design to and who does the work. Useful when you have to put this to someone internally who does not know us yet.",
+      // {pages} and {size} are filled from DOCS in components/DownloadBlok.tsx
+      meta: "PDF · {pages} pages · {size}",
+      nlLabel: "Nederlands",
+      enLabel: "English",
+      // {language} is nlLabel or enLabel, {pages} the page count
+      ariaTemplate: "Download capability statement, {language}, PDF, {pages} pages",
     },
     general: {
       idealFor: "Ideal for",

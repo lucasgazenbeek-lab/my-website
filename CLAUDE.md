@@ -90,6 +90,8 @@ vangt fouten die de dev-server verzwijgt.
 - Codecommentaar in het Engels, zichtbare teksten in `translations.ts` in NL en EN.
 - Lees `node_modules/next/dist/docs/` voordat je een Next.js-API gebruikt die je
   niet uit dit project kent. Deze versie wijkt af van oudere conventies.
+- De PDF's in `public/downloads/` worden niet in deze repo gemaakt. De bron
+  staat in de documentfabriek; hier staat alleen een kopie.
 
 ## Bekende aandachtspunten
 
