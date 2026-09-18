@@ -248,7 +248,9 @@ export default function VoorInvesteerders() {
       </section>
 
       {/* ─── 6. WAT U IN HANDEN KRIJGT — Wit ──────────────────── */}
-      <section className="py-24 lg:py-32 bg-white overflow-hidden">
+      {/* No `overflow-hidden` here: the contents aside is `lg:sticky`, and a
+          clipping ancestor becomes its scroll container and stops it pinning. */}
+      <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-xs font-black tracking-widest text-[#470020] uppercase mb-4">

@@ -342,6 +342,10 @@ const COMPONENT_CSS = `
 .bseq .frame-nav button:active{transform:scale(.94)}
 .bseq .frame-nav button:disabled{opacity:.35;pointer-events:none}
 .bseq .stage{display:grid;grid-template-columns:1fr}
+/* Grid items floor at their content's min-content width unless told
+   otherwise, and a long phase heading ("hoogspanningsstation") pushed the
+   whole column past the viewport on a phone. */
+.bseq .stage>*{min-width:0}
 @media (min-width:940px){.bseq .stage{grid-template-columns:1.2fr .8fr;gap:60px;align-items:start}}
 .bseq .viz{position:sticky;top:118px;z-index:20;padding-block:14px 6px}
 @media (min-width:940px){.bseq .viz{padding-block:34px}}

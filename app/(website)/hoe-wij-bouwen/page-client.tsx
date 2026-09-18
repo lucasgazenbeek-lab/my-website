@@ -34,10 +34,18 @@ export default function HoeWijBouwenClient() {
         </div>
       </section>
 
-      {/* ─── 2. DE SEQUENTIE — Wit ────────────────────────────── */}
+      {/* ─── 2. DE SEQUENTIE — Diep donker ────────────────────── */}
       {/* BouwSequentie brings its own container, variant picker, phase rail
-          and the reference-build disclaimer, so it sits here unwrapped. */}
-      <section className="py-24 lg:py-32 bg-white overflow-hidden">
+          and the reference-build disclaimer, so it sits here unwrapped.
+          Two things this section must not do. It may not be light: the
+          drawing is the only light surface by design and every label around
+          it is near-white. And it may not clip its overflow — the drawing
+          and the phase rail are `position: sticky`, and an `overflow-hidden`
+          ancestor turns into their scroll container, which stops them
+          pinning and scrolls the drawing out of view while you read. */}
+      <section className="relative py-24 lg:py-32 bg-[#1a0810]">
+        <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
         <BouwSequentie />
       </section>
 

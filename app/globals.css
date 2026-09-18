@@ -18,14 +18,31 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+
+/* `html` must stay overflow: visible. Any overflow value here — `hidden` as
+   well as `clip` — is propagated to the viewport and makes `body` a scroll
+   container that never scrolls itself, which silently stops every
+   `position: sticky` element on the site from pinning. */
+html { scroll-behavior: smooth; }
 
 body {
   background: #ffffff;
   color: #1a0810;
   font-family: var(--font-montserrat), 'Montserrat', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* The horizontal guard. `clip` rather than `hidden` on purpose: `hidden`
+     would make this a scroll container and break sticky the same way. */
+  overflow-x: clip;
+}
+
+/* Dutch compounds get long ("samenwerkingsprincipes",
+   "hoogspanningsstation") and a heading at display size has no room for them
+   on a phone, where they used to run off the side of the screen and get cut
+   off. This breaks such a word instead. Deliberately not `hyphens: auto`:
+   that hands the line breaker extra break opportunities and it then splits
+   headings that fitted perfectly well, which is worse than the problem. */
+h1, h2, h3, h4 {
+  overflow-wrap: break-word;
 }
 
 /* Ticker animation */
