@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import BouwSequentie from "@/components/BouwSequentie";
+import TekeningFiguur from "@/components/TekeningFiguur";
 
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
 
@@ -47,6 +48,20 @@ export default function HoeWijBouwenClient() {
         <div className="absolute inset-x-0 top-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(20,0,10,0.5), transparent)" }} />
         <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(20,0,10,0.5), transparent)" }} />
         <BouwSequentie />
+      </section>
+
+      {/* ─── DE SITUATIETEKENING — Warm wit ───────────────────── */}
+      {/* Antwoord op de disclaimer onder de sequentie: die zegt dat het een
+          referentieopbouw is, dit laat een echt terreinontwerp zien. */}
+      <section className="py-16 lg:py-20 bg-[#f9f6f4] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <TekeningFiguur
+            srcWide="/fotos/tekeningen/situatietekening-breed.jpg"
+            srcPortrait="/fotos/tekeningen/situatietekening-portret.jpg"
+            alt={t.drawings.situatieAlt}
+            caption={t.drawings.situatieCaptionBouw}
+          />
+        </div>
       </section>
 
       {/* ─── 3. CTA — Scharlaken, compact ─────────────────────── */}

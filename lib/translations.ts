@@ -134,7 +134,7 @@ export const translations = {
       blokCTitle: "Kan het, en is het wat waard",
       blokCIntro:
         "Voordat er geld naar apparatuur gaat moet duidelijk zijn of de locatie aansluitbaar en vergunbaar is, en wat een batterij daar realistisch opbrengt. Dat onderzoek doen wij los, ook als u daarna met een ander verder gaat.",
-      blokCPhotoAlt: "Handen wijzen een locatietekening aan op de vergadertafel bij Gridstate",
+      blokCPhotoAlt: "Terreintekeningen en een planning uit een haalbaarheidsstudie, uitgespreid op tafel",
       blokCItemsTitle: "Wat wij uitzoeken",
       blokCItems: [
         { title: "Netpositie", desc: "Welk station, welk netvlak, welke contractvorm. Wij controleren dat bij de netbeheerder zelf en niet op de landelijke congestiekaart, want die is te grof om een project op te bouwen. Bij congestie kijken wij naar een capaciteitssturingscontract, de congestieverzachter, kabelpooling of non-firm afname — vaak is er een route die op de kaart niet zichtbaar is." },
@@ -1551,6 +1551,19 @@ export const translations = {
       rights: "Alle rechten voorbehouden.",
       capabilityStatement: "Capability statement (pdf)",
     },
+    drawings: {
+      schemaAlt:
+        "Eendraadschema van een batterijopslagsysteem met transformatorvelden, schakelaars en aderaanduidingen",
+      schemaCaption:
+        "Een eendraadschema zoals wij het opleveren: per veld de transformator, de schakelaars en de aderaanduidingen, in de vorm waarin uw opdrachtgever het moet kunnen goedkeuren.",
+      situatieAlt:
+        "Situatietekening van een batterijopslagproject: rijen units met middenspanningsstations, onderhoudspaden en kabeltraces",
+      situatieCaption:
+        "Uit een van onze eigen terreinontwerpen. De rijen units, de middenspanningsstations ertussen en de ruimte die nodig is om erlangs te kunnen, komen uit dezelfde tekening.",
+      // Tweede bijschrift bij dezelfde tekening, op /hoe-wij-bouwen
+      situatieCaptionBouw:
+        "De sequentie hierboven is een referentieopbouw. Zo ziet een terreinontwerp eruit als het af is: rijen units, de stations ertussen, en de ruimte die de veiligheidsregio en het onderhoud nodig hebben.",
+    },
     downloads: {
       eyebrow: "Meenemen",
       title: "Het hele verhaal op tien pagina's",
@@ -1728,7 +1741,7 @@ export const translations = {
       blokCTitle: "Can it be done, and is it worth anything",
       blokCIntro:
         "Before money goes to equipment, it must be clear whether the site can be connected and permitted, and what a battery there would realistically earn. We do that research as a standalone service, even if you then continue with someone else.",
-      blokCPhotoAlt: "Hands pointing at a site drawing on the conference table at Gridstate",
+      blokCPhotoAlt: "Site drawings and a programme from a feasibility study, laid out on a table",
       blokCItemsTitle: "What we investigate",
       blokCItems: [
         { title: "Grid position", desc: "Which substation, which grid level, which contract form. We verify that with the grid operator itself, not on the national congestion map — it is too coarse to build a project on. Under congestion we look at a capacity-steering contract, the congestion mitigator, cable pooling or non-firm offtake; often there is a route the map doesn't show." },
@@ -3105,6 +3118,19 @@ export const translations = {
       kvkLabel: "CoC",
       rights: "All rights reserved.",
       capabilityStatement: "Capability statement (pdf)",
+    },
+    drawings: {
+      schemaAlt:
+        "Single-line diagram of a battery storage system showing transformer bays, switchgear and cable references",
+      schemaCaption:
+        "A single-line diagram as we deliver it: per bay the transformer, the switchgear and the cable references, in the form your client has to be able to approve.",
+      situatieAlt:
+        "Site layout of a battery storage project: rows of units with medium-voltage stations, maintenance access and cable routes",
+      situatieCaption:
+        "From one of our own site designs. The rows of units, the medium-voltage stations between them and the clearance needed to get past all come from the same drawing.",
+      // Second caption for the same drawing, on /hoe-wij-bouwen
+      situatieCaptionBouw:
+        "The sequence above is a reference build. This is what a site design looks like when it is finished: rows of units, the stations between them, and the clearance the fire authority and maintenance need.",
     },
     downloads: {
       eyebrow: "Take it with you",

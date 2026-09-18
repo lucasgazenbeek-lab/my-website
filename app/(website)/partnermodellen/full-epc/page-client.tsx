@@ -6,6 +6,7 @@ import { useLang } from "@/components/LanguageProvider";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScopeBlokken from "@/components/ScopeBlokken";
 import BouwSequentieTeaser from "@/components/BouwSequentieTeaser";
+import TekeningFiguur from "@/components/TekeningFiguur";
 import { siteConfig } from "@/lib/site-config";
 
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
@@ -97,6 +98,18 @@ export default function FullEpcClient() {
             </h1>
             <p className="text-xl text-white/70 leading-relaxed">{fe.heroStandfirst}</p>
           </div>
+        </div>
+      </section>
+
+      {/* ─── DE SITUATIETEKENING — Warm wit ───────────────────── */}
+      <section className="py-16 lg:py-20 bg-[#f9f6f4] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <TekeningFiguur
+            srcWide="/fotos/tekeningen/situatietekening-breed.jpg"
+            srcPortrait="/fotos/tekeningen/situatietekening-portret.jpg"
+            alt={t.drawings.situatieAlt}
+            caption={t.drawings.situatieCaption}
+          />
         </div>
       </section>
 

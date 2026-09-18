@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import Rolverdeling from "@/components/Rolverdeling";
 import FaseTijdlijn from "@/components/FaseTijdlijn";
 import ScopeIntake from "@/components/ScopeIntake";
+import TekeningFiguur from "@/components/TekeningFiguur";
 import { siteConfig } from "@/lib/site-config";
 
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), { ssr: false });
@@ -108,6 +109,20 @@ export default function TechnicalSupportClient() {
             </div>
             <p className="text-white/70 text-sm leading-relaxed mt-6">{ts.ruleNote}</p>
           </div>
+        </div>
+      </section>
+
+      {/* ─── HET EENDRAADSCHEMA — Warm wit ────────────────────── */}
+      {/* Direct onder de vuistregel: die zegt dat wij de stukken maken die
+          uw opdrachtgever moet goedkeuren, en dit is zo'n stuk. */}
+      <section className="py-16 lg:py-20 bg-[#f9f6f4] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <TekeningFiguur
+            srcWide="/fotos/tekeningen/eendraadschema-breed.png"
+            srcPortrait="/fotos/tekeningen/eendraadschema-portret.png"
+            alt={t.drawings.schemaAlt}
+            caption={t.drawings.schemaCaption}
+          />
         </div>
       </section>
 
