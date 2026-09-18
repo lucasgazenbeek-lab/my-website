@@ -231,8 +231,11 @@ export default function Partnermodellen() {
         </div>
       </section>
 
-      {/* ─── PRINCIPLES — Wit ────────────────────────────────── */}
-      <section className="py-24 lg:py-32 bg-white">
+      {/* Wit, want de sectie erboven is warm wit en die eronder ook */}
+      <DownloadBlok background="white" />
+
+      {/* ─── PRINCIPLES — Warm wit ───────────────────────────── */}
+      <section className="py-24 lg:py-32 bg-[#f9f6f4]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <ScrollReveal>
             <div className="mb-14">
@@ -271,9 +274,6 @@ export default function Partnermodellen() {
           </div>
         </div>
       </section>
-
-      {/* Warm, because the section above it is white */}
-      <DownloadBlok background="warm" />
 
       <BookingCTA
         title="Welk model past bij u?"

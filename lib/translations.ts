@@ -1555,9 +1555,29 @@ export const translations = {
       eyebrow: "Meenemen",
       title: "Het hele verhaal op tien pagina's",
       body:
-        "De drie modellen naast elkaar, onze werkafspraken, de normen waaraan wij ontwerpen en wie het werk doet. Handig als u dit intern moet voorleggen aan iemand die ons nog niet kent.",
-      // {pages} en {size} worden gevuld uit DOCS in components/DownloadBlok.tsx
-      meta: "PDF · {pages} pagina's · {size}",
+        "Handig als u dit intern moet voorleggen aan iemand die ons nog niet kent. Klik een onderwerp aan om te zien wat erover in het document staat.",
+      contentsLabel: "Wat erin staat",
+      contents: [
+        {
+          title: "De drie modellen naast elkaar",
+          desc: "Full EPC, technische ondersteuning en supply only, met per model wat wij doen en wat u zelf blijft doen.",
+        },
+        {
+          title: "Onze werkafspraken",
+          desc: "De vijf afspraken die bepalen wat wij wel en niet in een document zetten, en waarom wij ze nodig hebben.",
+        },
+        {
+          title: "De normen waaraan wij ontwerpen",
+          desc: "De publieke normen die wij aanhouden voor veiligheid, brandveiligheid en de aansluiting op het net.",
+        },
+        {
+          title: "Wie het werk doet",
+          desc: "Het team, de rolverdeling per fase en waar de grens ligt tussen ons werk en dat van uw eigen mensen.",
+        },
+      ],
+      // {pages} wordt gevuld uit DOCS in components/DownloadBlok.tsx
+      meta: "PDF · {pages} pagina's · geen formulier",
+      newTab: "Opent in een nieuw tabblad",
       nlLabel: "Nederlands",
       enLabel: "English",
       // {language} is nlLabel of enLabel, {pages} het aantal pagina's
@@ -3090,9 +3110,29 @@ export const translations = {
       eyebrow: "Take it with you",
       title: "The whole story in ten pages",
       body:
-        "The three models side by side, our working rules, the standards we design to and who does the work. Useful when you have to put this to someone internally who does not know us yet.",
-      // {pages} and {size} are filled from DOCS in components/DownloadBlok.tsx
-      meta: "PDF · {pages} pages · {size}",
+        "Useful when you have to put this to someone internally who does not know us yet. Click a topic to see what the document says about it.",
+      contentsLabel: "What is in it",
+      contents: [
+        {
+          title: "The three models side by side",
+          desc: "Full EPC, technical support and supply only, with what we do and what stays with you for each model.",
+        },
+        {
+          title: "Our working rules",
+          desc: "The five agreements that determine what we do and do not put in a document, and why we need them.",
+        },
+        {
+          title: "The standards we design to",
+          desc: "The public standards we hold to for safety, fire safety and the connection to the grid.",
+        },
+        {
+          title: "Who does the work",
+          desc: "The team, the split of roles per phase and where the line runs between our work and your own people's.",
+        },
+      ],
+      // {pages} is filled from DOCS in components/DownloadBlok.tsx
+      meta: "PDF · {pages} pages · no form",
+      newTab: "Opens in a new tab",
       nlLabel: "Nederlands",
       enLabel: "English",
       // {language} is nlLabel or enLabel, {pages} the page count
