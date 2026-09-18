@@ -66,7 +66,7 @@ export default function WatWijDoen() {
               <ArrowLink href="/partnermodellen/full-epc" label={s.blokACta} />
             </ScrollReveal>
             <ScrollReveal direction="right">
-              <BlokPhoto src="/fotos/diensten/dienst-full-epc.jpg" alt={s.blokAPhotoAlt} />
+              <BlokPhoto src="/fotos/diensten/dienst-haalbaarheid.jpg" alt={s.blokCPhotoAlt} />
             </ScrollReveal>
           </div>
 
@@ -177,7 +177,7 @@ export default function WatWijDoen() {
               <p className="text-[#6b4a56] text-lg leading-relaxed">{s.blokCIntro}</p>
             </ScrollReveal>
             <ScrollReveal direction="right">
-              <BlokPhoto src="/fotos/diensten/dienst-haalbaarheid.jpg" alt={s.blokCPhotoAlt} />
+              <BlokPhoto src="/fotos/diensten/dienst-full-epc.jpg" alt={s.blokAPhotoAlt} />
             </ScrollReveal>
           </div>
 
