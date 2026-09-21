@@ -1318,7 +1318,7 @@ export const translations = {
       // Spec values render only when filled; empty strings stay off the page.
       featured: [
         {
-          title: "Lichtkiem fase 2",
+          title: "HS-station Zeijerveen",
           body: "Een terrein dat al op het net zit is de goedkoopste plek om uit te breiden. Fase 1 leverde de aansluiting en het vergunningstraject; fase 2 gebruikt die positie voor een substantieel grotere installatie op hetzelfde perceel.",
           // TODO(Lucas): wat maakt dit project bijzonder, en wat mag daarvan publiek?
           // TODO(Lucas): specs aanvullen — vermogen (MW), opslag (MWh), netvlak, locatie, fase, verwachte oplevering.
@@ -1337,7 +1337,7 @@ export const translations = {
       statsInOwnPlanning: "In eigen projectplanning",
       statsActiveProjects: "Actieve & geplande projecten",
       statsWorkArea: "Werkgebied",
-      projectDisclaimer: "Projecten worden anoniem gepresenteerd ter bescherming van klantvertrouwelijkheid. Sector, type, capaciteit en toepassing zijn geverifieerde indicaties.",
+      projectDisclaimer: "Projecten noemen wij alleen bij naam als de betrokken partijen daarmee hebben ingestemd. De overige projecten staan hier anoniem, ter bescherming van klantvertrouwelijkheid. Sector, type, capaciteit en toepassing zijn geverifieerde indicaties.",
       projects: [
         {
           sector: "Retail & Logistiek",
@@ -2925,7 +2925,7 @@ export const translations = {
       // Spec values render only when filled; empty strings stay off the page.
       featured: [
         {
-          title: "Lichtkiem phase 2",
+          title: "HS-station Zeijerveen",
           body: "A site that is already grid-connected is the cheapest place to expand. Phase 1 delivered the connection and the permitting; phase 2 uses that position for a substantially larger installation on the same plot.",
           // TODO(Lucas): fill in specs — power (MW), storage (MWh), grid level, location, phase, expected delivery.
           specs: { power: "", storage: "", gridLevel: "", location: "", phase: "", delivery: "" },
@@ -2942,7 +2942,7 @@ export const translations = {
       statsInOwnPlanning: "In own project planning",
       statsActiveProjects: "Active & planned projects",
       statsWorkArea: "Work area",
-      projectDisclaimer: "Projects are presented anonymously to protect client confidentiality. Sector, type, capacity, and application are verified indications.",
+      projectDisclaimer: "We name a project only when the parties involved have agreed to it. The other projects appear here anonymously, to protect client confidentiality. Sector, type, capacity and application are verified indications.",
       projects: [
         { sector: "Retail & Logistics", capacity: "4 MWh", type: "C&I BESS", useCase: "Peak shaving & grid relief", status: "realized" },
         { sector: "Industrial cooling infrastructure", capacity: "2+ MWh", type: "C&I BESS", useCase: "Energy storage & cost reduction", status: "realized" },
